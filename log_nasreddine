@@ -1,0 +1,67 @@
+Dropped all tables successfully.
+Migration table created successfully.
+Migrating: 2001_01_06_112058_create_roles_table
+Migrated:  2001_01_06_112058_create_roles_table (18.56ms)
+Migrating: 2014_10_12_000000_create_users_table
+Migrated:  2014_10_12_000000_create_users_table (118.68ms)
+Migrating: 2014_10_12_100000_create_password_resets_table
+Migrated:  2014_10_12_100000_create_password_resets_table (54.52ms)
+Migrating: 2019_08_19_000000_create_failed_jobs_table
+Migrated:  2019_08_19_000000_create_failed_jobs_table (55.09ms)
+Migrating: 2021_01_06_112115_create_settings_table
+Migrated:  2021_01_06_112115_create_settings_table (25.25ms)
+Migrating: 2021_01_06_112647_create_export_managers_table
+Migrated:  2021_01_06_112647_create_export_managers_table (24.76ms)
+Migrating: 2021_01_06_113338_create_request_c_o_s_table
+Migrated:  2021_01_06_113338_create_request_c_o_s_table (20.13ms)
+Migrating: 2021_01_06_113339_create_managers_table
+Migrated:  2021_01_06_113339_create_managers_table (26.23ms)
+Migrating: 2021_01_06_113355_create_enterprises_table
+Migrated:  2021_01_06_113355_create_enterprises_table (340.66ms)
+Migrating: 2021_01_07_122245_create_signatures_table
+Migrated:  2021_01_07_122245_create_signatures_table (110.56ms)
+Migrating: 2021_01_23_005208_create_customs_tariffs_table
+Migrated:  2021_01_23_005208_create_customs_tariffs_table (15.94ms)
+Migrating: 2021_01_23_005622_create_permissions_table
+Migrated:  2021_01_23_005622_create_permissions_table (33.38ms)
+Migrating: 2021_01_23_111542_create_importers_table
+Migrated:  2021_01_23_111542_create_importers_table (177.83ms)
+Migrating: 2021_01_23_111544_create_certificates_table
+Migrated:  2021_01_23_111544_create_certificates_table (293.15ms)
+Migrating: 2021_01_23_111741_create_products_table
+Migrated:  2021_01_23_111741_create_products_table (105.64ms)
+Migrating: 2021_01_23_132833_create_products_certificates_table
+Migrated:  2021_01_23_132833_create_products_certificates_table (432.66ms)
+Migrating: 2021_01_23_134226_create_invoices_table
+Migrated:  2021_01_23_134226_create_invoices_table (107.24ms)
+Migrating: 2021_01_23_135140_create_documents_table
+Migrated:  2021_01_23_135140_create_documents_table (110.73ms)
+Migrating: 2021_02_09_102426_create_countries_table
+Migrated:  2021_02_09_102426_create_countries_table (32.10ms)
+Migrating: 2021_02_09_112910_create_states_table
+Migrated:  2021_02_09_112910_create_states_table (110.20ms)
+Migrating: 2021_02_09_112916_create_cities_table
+Migrated:  2021_02_09_112916_create_cities_table (196.09ms)
+Seeding: Database\Seeders\RoleSeeder
+Seeded:  Database\Seeders\RoleSeeder (3.17ms)
+Seeding: Database\Seeders\UserSeeder
+Seeded:  Database\Seeders\UserSeeder (428.67ms)
+Seeding: Database\Seeders\ManagerSeeder
+Seeded:  Database\Seeders\ManagerSeeder (10.42ms)
+Seeding: Database\Seeders\ExportManagerSeeder
+Seeded:  Database\Seeders\ExportManagerSeeder (7.40ms)
+Seeding: Database\Seeders\EnterpriseSeeder
+Seeded:  Database\Seeders\EnterpriseSeeder (21.42ms)
+Seeding: Database\Seeders\SignatureSeeder
+Seeded:  Database\Seeders\SignatureSeeder (16.30ms)
+Seeding: Database\Seeders\ProductSeeder
+Seeded:  Database\Seeders\ProductSeeder (4.69ms)
+Seeding: Database\Seeders\ImporterSeeder
+Seeded:  Database\Seeders\ImporterSeeder (7.98ms)
+Seeding: Database\Seeders\CountrySeeder
+Seeded:  Database\Seeders\CountrySeeder (65.05ms)
+Seeding: Database\Seeders\StateSeeder
+Seeded:  Database\Seeders\StateSeeder (261.59ms)
+Seeding: Database\Seeders\CitySeeder
+Seeded:  Database\Seeders\CitySeeder (7,483.61ms)
+Database seeding completed successfully.

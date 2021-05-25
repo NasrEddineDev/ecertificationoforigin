@@ -1,0 +1,19 @@
+Array
+(
+    [0] => 919
+    [1] => 1300
+    [2] => 3
+    [3] => width="919" height="1300"
+    [bits] => 8
+    [mime] => image/png
+)
+ ------ Array
+(
+    [0] => 919
+    [1] => 1300
+    [2] => 2
+    [3] => width="919" height="1300"
+    [bits] => 8
+    [channels] => 3
+    [mime] => image/jpeg
+)

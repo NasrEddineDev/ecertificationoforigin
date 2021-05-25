@@ -1,0 +1,12 @@
+----------------------------------------------------------
+    deploy laravel on CPanel
+    Step 1: Compress the Entire Laravel Project Folder
+    Step 2: Open Shared Hosting CPanel
+    Step 3: Extract Project Folder
+    Step 4: Update Index.php File
+    Step 5: Upload Database
+    Step 6: Add Database Details
+----------------------------------------------------------
+php artisan make:model Permission -mcr
+
+php artisan migrate:refresh
