@@ -37,56 +37,50 @@
     <link id="theme-style" rel="stylesheet" href="assetsDoc/css/custom.css">
     @if ($locale == 'ar')
         <style>
-                    @media (min-width: 993px) {
-            #login-form{
-                width: 360px;
-            }
-            .wow{
-                margin-bottom:10px;
-                margin-top: 5px;"
-            }
-            .g-recaptcha div{    
-                transform: scale(1.01);
-                transform-origin:0 0;
-            }
-        }
+            @media (min-width: 993px) {
+                #login-form {
+                    width: 360px;
+                }
 
-        @media (max-width: 992px) {
-            #login-form{
-                width: 260px;
+                .wow {
+                    margin-bottom: 10px;
+                    margin-top: 5px;
+                }
+
+                .g-recaptcha div {
+                    transform: scale(1.01);
+                    transform-origin: 0 0;
+                }
             }
-            .wow{
-                margin-bottom:10px;
-                margin-top: -15px;"
+
+            @media (max-width: 992px) {
+                #login-form {
+                    width: 260px;
+                }
+
+                .wow {
+                    margin-bottom: 10px;
+                    margin-top: -15px;
+                }
+
+                .g-recaptcha div {
+                    transform: scale(0.83);
+                    transform-origin: 0 0;
+                }
             }
-            .g-recaptcha div{    
-                transform: scale(0.83);
-                transform-origin:0 0;
-            }
-        }
-            /* .rc-anchor-normal{
-                width:99%!important;
-            }
-            .g-recaptcha div, .g-recaptcha iframe{
-                width:100%!important;
-            }
-            .g-recaptcha #rc-anchor-container, .rc-anchor-normal{
-                width:99%!important;
-            } */
-            /* .grecaptcha-badge{
-                position: inherit!important;
-            } */
+
             .docs-nav .nav-item {
-                margin-right: 2.5rem!important;
+                margin-right: 2.5rem !important;
                 margin-left: auto !important;
             }
 
             .docs-nav .nav-item.section-title {
                 margin-left: auto !important;
-                margin-right:0!important;
+                margin-right: 0 !important;
             }
-            .docs-nav .nav-item.section-title span{
-            margin-left: .5rem !important;
+
+            .docs-nav .nav-item.section-title span {
+                margin-left: .5rem !important;
             }
 
             .docs-nav .nav-link::before {
@@ -102,23 +96,52 @@
                 height: 100%;
                 border-radius: 1rem;
             }
+
         </style>
     @else
         <style>
-
-            .g-recaptcha {
-    transform:scale(1.38);
-    transform-origin:0 0;
-}
-                .docs-nav .nav-item {
-                    margin-right: auto!important;
-                    margin-left: 2.5rem !important;
+            @media (min-width: 993px) {
+                #login-form {
+                    width: 360px;
                 }
 
-                .docs-nav .nav-item.section-title {
+                .wow {
+                    margin-bottom: 10px;
+                    margin-top: 5px;
+                }
+
+                .g-recaptcha div {
+                    transform: scale(1.01);
+                    transform-origin: 0 0;
+                }
+            }
+
+            @media (max-width: 992px) {
+                #login-form {
+                    width: 260px;
+                }
+
+                .wow {
+                    margin-bottom: 10px;
+                    margin-top: -15px;
+                }
+
+                .g-recaptcha div {
+                    transform: scale(0.83);
+                    transform-origin: 0 0;
+                }
+            }
+
+            .docs-nav .nav-item {
+                margin-right: auto !important;
+                margin-left: 2.5rem !important;
+            }
+
+            .docs-nav .nav-item.section-title {
                 margin-right: auto !important;
                 margin-left: 2.5 !important;
             }
+
             .docs-nav .nav-link::before {
                 background-color: #f4fcf6;
                 content: ' ';
@@ -131,13 +154,16 @@
                 height: 100%;
                 border-radius: 1rem;
             }
+
             .docs-nav .nav-item.section-title {
                 margin-right: auto !important;
                 margin-left: 0 !important;
             }
-            .docs-nav .nav-item.section-title span{
-            margin-right: .5rem !important;
+
+            .docs-nav .nav-item.section-title span {
+                margin-right: .5rem !important;
             }
+
         </style>
     @endif
 </head>
@@ -231,17 +257,21 @@
                                 </a>
                                 <div id="login-form" role="menu"
                                     class="notification-author dropdown-menu animated zoomIn">
-                                    <form id="loginForm" class="px-4 py-3" method="POST" action="{{ route('login') }}">
+                                    <form id="loginForm" class="px-4 py-3" method="POST"
+                                        action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group">
                                             <input type="email" class="form-control" id="email" name="email"
-                                            style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}" placeholder="{{ __('Email') }}">
+                                                style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"
+                                                placeholder="{{ __('Email') }}">
                                         </div>
                                         <div class="form-group">
                                             <input type="password" name="password" class="form-control" id="password"
-                                            style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}" placeholder="{{ __('Password') }}">
+                                                style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"
+                                                placeholder="{{ __('Password') }}">
                                         </div>
-                                        <div class="g-recaptcha" data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
+                                        <div class="g-recaptcha"
+                                            data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
 
                                         <button type="submit" class="wow fadeInUp btn btn-primary col-lg-12"
                                             data-callback='onSubmit' data-action='submit'>{{ __('Log In') }}</button>
@@ -795,40 +825,47 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section_title text-center pb-25">
-                        <h4 class="title">{{__('About ?')}}</h4>
+                        <h4 class="title">{{ __('About ?') }}</h4>
                     </div> <!-- section title -->
                 </div>
             </div> <!-- row -->
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="section_title text-center">
-                        
-                    <div class="stepper-description">
-                        <div class="inlogo">
-                        <a href="https://caci.dz"><img id="lg" style="width: 120px;margin-inline: 50px;" src="assetsHakim/images/caci.png" alt="" ></a>
-                        <a href="https://agce.dz"><img id="lg" style="width: 120px;margin-inline: 50px;" src="assetsHakim/images/agce.png" alt=""></a>
-                    </div>
-                    <div class="infocaci pt-20">
-                    <h4>الغرفة الجزائرية للتجارة والصناعة</h4>
-                        <ul class="pcaci">
 
-                            <li> تمثل المصالح العامة لقطاعات التجارة والصناعة والخدمات مع الحكومات، بينما تضطلع بأنشطة تعليمية وتكوينية وتطويرية وإعادة تدريب للأعمال التجارية.</li>
-                            <li>تأسست بموجب المرسوم التنفيذي 94-96 الصادر في 03/03/1996 المعدل والمكمل بالمرسوم التنفيذي 2000-312 ، وهي مؤسسة صناعية وتجارية عامة (EPIC).</li>
+                        <div class="stepper-description">
+                            <div class="inlogo">
+                                <a href="https://caci.dz"><img id="lg" style="width: 120px;margin-inline: 50px;"
+                                        src="assetsHakim/images/caci.png" alt=""></a>
+                                <a href="https://agce.dz"><img id="lg" style="width: 120px;margin-inline: 50px;"
+                                        src="assetsHakim/images/agce.png" alt=""></a>
+                            </div>
+                            <div class="infocaci pt-20">
+                                <h4>الغرفة الجزائرية للتجارة والصناعة</h4>
+                                <ul class="pcaci">
 
-                        </ul>
-                        
-                        <h4>السلطة الحكومية للتصديق الالكتروني</h4>
-                        <ul class="pcaci">
-                            <li> تم إنشاؤه بموجب القانون رقم 15-04 المؤرخ في 11 ربيع الإيثاني 1436 الموافق 1 فبراير 2015 الذي يحدد القواعد العامة المتعلقة بالتوقيع الإلكتروني والتصديق.</li> 
-                            <li> وضع سياسة التصديق الإلكتروني الخاصة بها وتقديمها للهيئة الوطنية للمصادقة الإلكترونية للموافقة عليها والتأكد من تطبيقها.</li>
-                            <li>الموافقة على سياسات الشهادات الصادرة عن جهات خارجية موثوق بها والتأكد من تطبيقاتها.</li>
+                                    <li> تمثل المصالح العامة لقطاعات التجارة والصناعة والخدمات مع الحكومات، بينما تضطلع
+                                        بأنشطة تعليمية وتكوينية وتطويرية وإعادة تدريب للأعمال التجارية.</li>
+                                    <li>تأسست بموجب المرسوم التنفيذي 94-96 الصادر في 03/03/1996 المعدل والمكمل بالمرسوم
+                                        التنفيذي 2000-312 ، وهي مؤسسة صناعية وتجارية عامة (EPIC).</li>
 
-                        </ul>
-                    </div>
-                    </div>
-                       
+                                </ul>
+
+                                <h4>السلطة الحكومية للتصديق الالكتروني</h4>
+                                <ul class="pcaci">
+                                    <li> تم إنشاؤه بموجب القانون رقم 15-04 المؤرخ في 11 ربيع الإيثاني 1436 الموافق 1
+                                        فبراير 2015 الذي يحدد القواعد العامة المتعلقة بالتوقيع الإلكتروني والتصديق.</li>
+                                    <li> وضع سياسة التصديق الإلكتروني الخاصة بها وتقديمها للهيئة الوطنية للمصادقة
+                                        الإلكترونية للموافقة عليها والتأكد من تطبيقها.</li>
+                                    <li>الموافقة على سياسات الشهادات الصادرة عن جهات خارجية موثوق بها والتأكد من
+                                        تطبيقاتها.</li>
+
+                                </ul>
+                            </div>
+                        </div>
+
                     </div> <!-- section title -->
-                    
+
 
                 </div>
             </div> <!-- row -->
@@ -840,8 +877,9 @@
             <div class="row justify-content-center">
                 <div class="col-lg-6">
                     <div class="section_title text-center pb-25">
-                        <h4 class="title">{{__('Contact')}}</h4>
-                        <p>{{__('Get in touch with our team. Tell us about your needs and a specialist will guide you throughout the process.')}}</p>
+                        <h4 class="title">{{ __('Contact') }}</h4>
+                        <p>{{ __('Get in touch with our team. Tell us about your needs and a specialist will guide you throughout the process.') }}
+                        </p>
                     </div> <!-- section title -->
                 </div>
             </div> <!-- row -->
@@ -867,7 +905,9 @@
                                 <i class="lni lni-map-marker"></i>
                             </div>
                             <div class="contact-info-content media-body" style="text-align: center">
-                                <p class="text"> {{__('Consular palace 6, BD AMILCAR CABRAL. CP 16003 Algiers. BP 100 Algiers November 1st. Place des Martyrs. Algiers')}}</p>
+                                <p class="text">
+                                    {{ __('Consular palace 6, BD AMILCAR CABRAL. CP 16003 Algiers. BP 100 Algiers November 1st. Place des Martyrs. Algiers') }}
+                                </p>
                             </div>
                         </div> <!-- single contact info -->
                     </div>
@@ -899,22 +939,32 @@
                 <div class="col-lg-8">
 
                     <div class="panel-body download_app" style="padding-top:20px;margin-top:20px;padding-bottom:20px;">
-                        <h4 class="contact-title  pt-15 pb-10" style="color:#fff;{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}" ><i class="lni lni-envelope"></i>{{__('Leave A Message')}}</h4>
+                        <h4 class="contact-title  pt-15 pb-10"
+                            style="color:#fff;{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"><i
+                                class="lni lni-envelope"></i>{{ __('Leave A Message') }}</h4>
                         <form method="POST" action="{{ route('register') }}" id="leavMessageForm">
                             @csrf
                             <div class="row">
                                 <div class="subscribe_form col-lg-12">
-                                    <input type="text" style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}" placeholder="{{__('Your Name...')}}" required>
-                                    <button style="{{ App()->currentLocale() == 'ar' ? 'text-align:right;left: 20px;' : 'margin-right:15px;' }}" class="main-btn pull-left">{{__('Send')}}</button>
+                                    <input type="text"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"
+                                        placeholder="{{ __('Your Name...') }}" required>
+                                    <button
+                                        style="{{ App()->currentLocale() == 'ar' ? 'text-align:right;left: 20px;' : 'margin-right:15px;' }}"
+                                        class="main-btn pull-left">{{ __('Send') }}</button>
                                 </div>
                                 <div class="subscribe_form form-group col-lg-12">
                                     <!-- <label style="color:white">Password</label> -->
-                                    <textarea rows="7" class="col-lg-12" name="massage" placeholder="{{__('Type Your Message...')}}"
-                                            style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}" required></textarea>
+                                    <textarea rows="7" class="col-lg-12" name="massage"
+                                        placeholder="{{ __('Type Your Message...') }}"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"
+                                        required></textarea>
                                 </div>
                                 <div class="subscribe_form form-group col-lg-12">
                                     <!-- <label style="color:white">Email Address</label> -->
-                                    <input class="form-control" placeholder="{{__('Your Email Address...')}}" required style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}">
+                                    <input class="form-control" placeholder="{{ __('Your Email Address...') }}"
+                                        required
+                                        style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}">
                                 </div>
                             </div>
                         </form>
@@ -932,26 +982,36 @@
             <div class="row justify-content-center">
                 <div class="col-lg-7">
                     <div class="footer_subscribe text-center">
-                        <h3 class="subscribe_title">{{__('Subscribe our newsletter')}}</h3>
-                        <p>{{__('Join thousands of users who believe this is the one app.')}}</p>
+                        <h3 class="subscribe_title">{{ __('Subscribe our newsletter') }}</h3>
+                        <p>{{ __('Join thousands of users who believe this is the one app.') }}</p>
 
                         <div class="subscribe_form">
                             <form action="#">
-                                <input type="text" placeholder="{{__('Enter Your Email...')}}" style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}">
-                                <button style="{{ App()->currentLocale() == 'ar' ? 'text-align:right;left: 5px;' : '' }}" class="main-btn">{{__('Subscribe')}}</button>
+                                <input type="text" placeholder="{{ __('Enter Your Email...') }}"
+                                    style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}">
+                                <button
+                                    style="{{ App()->currentLocale() == 'ar' ? 'text-align:right;left: 5px;' : '' }}"
+                                    class="main-btn">{{ __('Subscribe') }}</button>
                             </form>
                         </div> <!-- subscribe form -->
                     </div> <!-- footer subscribe -->
                     <div class="footer_social text-center mt-60">
                         <ul>
-                            <li><a href="https://www.facebook.com/caci.dz/" title="{{ __('CACI - Algerian Chamber of Commerce and Industry In Facebook') }}"><span class="lni lni-facebook-filled"></span></a></li>
-                            <li><a href="https://twitter.com/cacidz?lang=en" title="{{ __('CACI - Algerian Chamber of Commerce and Industry In Twitter') }}"><span class="lni lni-twitter-original"></span></a></li>
+                            <li><a href="https://www.facebook.com/caci.dz/"
+                                    title="{{ __('CACI - Algerian Chamber of Commerce and Industry In Facebook') }}"><span
+                                        class="lni lni-facebook-filled"></span></a></li>
+                            <li><a href="https://twitter.com/cacidz?lang=en"
+                                    title="{{ __('CACI - Algerian Chamber of Commerce and Industry In Twitter') }}"><span
+                                        class="lni lni-twitter-original"></span></a></li>
                             <li><a href="#"><span class="lni lni-instagram-filled"></span></a></li>
-                            <li><a href="https://www.linkedin.com/company/algerian-chamber-of-commerce-and-industry/" title="{{ __('CACI - Algerian Chamber of Commerce and Industry In LinkedIn') }}"><span class="lni lni-linkedin-original"></span></a></li>
+                            <li><a href="https://www.linkedin.com/company/algerian-chamber-of-commerce-and-industry/"
+                                    title="{{ __('CACI - Algerian Chamber of Commerce and Industry In LinkedIn') }}"><span
+                                        class="lni lni-linkedin-original"></span></a></li>
                         </ul>
                     </div> <!-- footer social -->
                     <div class="footer_copyright text-center mt-55">
-                        <p>{{__('Copyright © 2021. All rights reserved. Algerian Chamber of Commerce and Industry')}}</p> <a href="https://caci.dz">CACI</a>
+                        <p>{{ __('Copyright © 2021. All rights reserved. Algerian Chamber of Commerce and Industry') }}
+                        </p> <a href="https://caci.dz">CACI</a>
                         {{-- <p>Copyright &copy; 2023. Designed and Developed by <a href="https://uideck.com"
                                 rel="nofollow">UIdeck</a></p> --}}
                     </div> <!-- footer copyright -->
@@ -1015,15 +1075,15 @@
     {{-- <script src="assetsDoc/js/all.js"></script> --}}
     <script src="assets/js/main.js"></script>
     {{-- <script src="https://www.google.com/recaptcha/api.js?render=v3_site_key"></script> --}}
-     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
 
 
     <script>
-         var RecaptchaOptions = {
-            theme : 'theme_name',
-            lang : 'ar'
+        var RecaptchaOptions = {
+            theme: 'theme_name',
+            lang: 'ar'
         };
 
         function onSubmit(token) {
@@ -1032,9 +1092,9 @@
 
 
         $(document).ready(function() {
-        $(".rc-anchor-light.rc-anchor-normal").attr("style", "width:99%");
+            $(".rc-anchor-light.rc-anchor-normal").attr("style", "width:99%");
         });
-        
+
         $(".nav .nav-link").on("click", function() {
             $(".nav").find(".active").removeClass("active");
             $(this).addClass("active");
