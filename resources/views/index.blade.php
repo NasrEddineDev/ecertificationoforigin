@@ -196,7 +196,7 @@
 
     <!--====== HEADER PART START ======-->
 
-    <section class="header_area">
+    <section class="header_area class-test">
         <div class="header_navbar">
             <div class="container">
                 <div class="row">
