@@ -35,43 +35,44 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->validate([
-            'email' => 'required|string|email|max:255|',//unique:users',
+            'email' => 'required|string|email|max:255|', //unique:users',
             'password' => 'required|string|min:8',
         ]);
-        
-        $user = User::where('email', '=', $request->email)->first();    
-        
-        if (Hash::check($request->password, $user->password)) {
+
+        $user = User::where('email', '=', $request->email)->first();
+
+        if ($user && Hash::check($request->password, $user->password)) {
             if (Auth::login($user)) {
                 event(new login($user));
             }
         }
 
+        if (!Auth::check()) return response()->json(['result' => 'failled', 'message' => __("Bad username or password")], 200);
+        return response()->json(['result' => 'success', 'message' => ''], 200);
+        // if (Auth::user()->role->name != 'user') return redirect(RouteServiceProvider::HOME);
 
-        if (Auth::user()->role->name != 'user') return redirect(RouteServiceProvider::HOME);
+        // if (!Auth::user()->hasVerifiedEmail()) {
+        //     return view('registration_wizard', ['step' => Steps::ACTIVATION]);
+        // }
+        // else if (! Auth::user()->enterprise){
+        //     $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
+        //     $cities = City::all()->where('country_code', '==', 'DZ');
+        //     $activities = Activity::all();
+        //     $step = Steps::ENTERPRISE;
+        //     return view('registration_wizard', compact('step', 'states', 'cities', 'activities'));
+        // }
+        // else if (! Auth::user()->enterprise->manager_id ){
+        //     $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
+        //     $cities = City::all()->where('country_code', '==', 'DZ');
+        //     // $cities = City::all()->where('state_code', '==', $state_code);
+        //     $step = Steps::MANAGER;
+        //     return view('registration_wizard', compact('step', 'states', 'cities'));
+        // }
+        // else if (Auth::user()->enterprise->status == 'DRAFT'){
+        //     return view('registration_wizard', ['step' => Steps::CONFIRMATION]);
+        // }
 
-        if (!Auth::user()->hasVerifiedEmail()) {
-            return view('registration_wizard', ['step' => Steps::ACTIVATION]);
-        }
-        else if (! Auth::user()->enterprise){
-            $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
-            $cities = City::all()->where('country_code', '==', 'DZ');
-            $activities = Activity::all();
-            $step = Steps::ENTERPRISE;
-            return view('registration_wizard', compact('step', 'states', 'cities', 'activities'));
-        }
-        else if (! Auth::user()->enterprise->manager_id ){
-            $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
-            $cities = City::all()->where('country_code', '==', 'DZ');
-            // $cities = City::all()->where('state_code', '==', $state_code);
-            $step = Steps::MANAGER;
-            return view('registration_wizard', compact('step', 'states', 'cities'));
-        }
-        else if (Auth::user()->enterprise->status == 'DRAFT'){
-            return view('registration_wizard', ['step' => Steps::CONFIRMATION]);
-        }
-
-        return redirect(RouteServiceProvider::HOME);
+        // return redirect(RouteServiceProvider::HOME);
     }
     // public function store(LoginRequest $request)
     // {
@@ -79,9 +80,9 @@ class AuthenticatedSessionController extends Controller
     //         'email' => 'required|string|email|max:255|',//unique:users',
     //         'password' => 'required|string|min:8',
     //     ]);
-        
+
     //     $user = User::where('email', '=', $request->email)->first();    
-        
+
     //     if (Hash::check($request->password, $user->password)) {
     //         if (Auth::login($user)) {
     //             event(new login($user));

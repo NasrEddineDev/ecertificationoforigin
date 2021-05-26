@@ -1052,7 +1052,12 @@
 
 
     <!--====== Jquery js ======-->
-    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
+    {{-- <script src="assets/js/vendor/jquery-1.12.4.min.js"></script> --}}
+
+    <script src="{{ URL::asset('wizard/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+
     <script src="assetsDoc/plugins/jquery.scrollTo.min.js"></script>
     <script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
 
@@ -1099,8 +1104,40 @@
             $(".nav").find(".active").removeClass("active");
             $(this).addClass("active");
         });
+
         $('#loginForm').submit(function(e) {
             e.preventDefault();
+            // if (!$("#loginForm").valid()) {
+            //             }
+
+
+            var account_validator = $("#loginForm").validate({
+
+rules: {
+    email: {
+        required: true,
+        email: true,
+        emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
+    },
+    password: {
+        required: true,
+    },
+},
+messages: {
+
+    email: {
+        required: "{{ __('Email Address is required') }}",
+        emailcheck: "{{ __('Email Address is invalid') }}",
+        remote: "{{ __('Email Address is exxiste') }}",
+    },
+    password: {
+        required: "{{ __('Password is required') }}",
+    },
+},
+});
+
+
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1109,10 +1146,14 @@
                 url: $(this).attr('action'),
                 data: $(this).serialize(),
                 success: function(data) {
-                    $("#section_activation").css("display", "block");
-                    // alert(data.message);
+                    if (data.result == 'success') {
+
+                    } else if (data.result == 'failed') {
+
+                    }
                 },
                 error: function(data) {
+                    alert("failed");
                     $(".login-link").addClass("show");
                     $(".login-link .nav-link").attr("aria-expanded", "true");
                     $(".login-link #login-form").addClass("show");
@@ -1137,6 +1178,17 @@
                     // alert(data.message);
                 }
             });
+        });
+        $.validator.addMethod("emailcheck", function(value, element, regexp) {
+            /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
+            if (regexp && regexp.constructor != RegExp) {
+                /* Create a new regular expression using the regex argument. */
+                regexp = new RegExp(regexp);
+            }
+            /* Check whether the argument is global and, if so set its last index to 0. */
+            else if (regexp.global) regexp.lastIndex = 0;
+            /* Return whether the element is optional or the result of the validation. */
+            return this.optional(element) || regexp.test(value);
         });
 
     </script>

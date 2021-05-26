@@ -1540,8 +1540,7 @@
                         formdata.append("city_id_manager", $('#city_id_manager').val());
                         $('#firstname_manager-val').text($('#firstname_manager').val());
                         $('#lastname_manager-val').text($('#lastname_manager').val());
-                        $('#gender_manager-val').text($('#gender_manager').find(":selected")
-                    .text());
+                        $('#gender_manager-val').text($('#gender_manager').find(":selected").text());
                         $('#birthday_manager-val').text($('#birthday_manager').val());
                         $('#address_manager-val').text($('#address_manager').val());
                         $('#email_manager-val').text($('#email_manager').val());
