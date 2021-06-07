@@ -1238,7 +1238,7 @@
                 },
                 messages: {
 
-                    username: {
+                    name: {
                         required: "Enterprise name is required",
                     },
                     legal_form: {

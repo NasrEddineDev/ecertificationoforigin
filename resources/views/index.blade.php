@@ -37,6 +37,7 @@
     <link id="theme-style" rel="stylesheet" href="assetsDoc/css/custom.css">
     @if ($locale == 'ar')
         <style>
+
             @media (min-width: 993px) {
                 #login-form {
                     width: 360px;
@@ -58,14 +59,16 @@
                     width: 260px;
                 }
 
-                .wow {
-                    margin-bottom: 10px;
-                    margin-top: -15px;
-                }
-
                 .g-recaptcha div {
                     transform: scale(0.83);
                     transform-origin: 0 0;
+                }
+
+                #loginForm div.col-md-3{
+                    width:40%!important;
+                }
+                #loginForm div.col-md-4{
+                    width:60%!important;
                 }
             }
 
@@ -96,7 +99,25 @@
                 height: 100%;
                 border-radius: 1rem;
             }
+            label.error {
+                color:#FF0000;
+            }
+            input.error {
+                border: 1px solid red;
+            }
+            .form-group,.form-group input {
+            text-align: right!important;
+            }
 
+            #g-recaptcha-error, .rc-anchor-alert{ display:none; }
+            .grecaptcha-badge { visibility: hidden; }
+            #g-recaptcha-error{
+                text-align: right;
+            }
+
+            .navbar-expand-lg .navbar-collapse {
+                display: flow-root !important;
+            }
         </style>
     @else
         <style>
@@ -121,14 +142,16 @@
                     width: 260px;
                 }
 
-                .wow {
-                    margin-bottom: 10px;
-                    margin-top: -15px;
-                }
-
                 .g-recaptcha div {
                     transform: scale(0.83);
                     transform-origin: 0 0;
+                }
+
+                #loginForm div.col-md-3{
+                    width:40%!important;
+                }
+                #loginForm div.col-md-4{
+                    width:60%!important;
                 }
             }
 
@@ -163,7 +186,16 @@
             .docs-nav .nav-item.section-title span {
                 margin-right: .5rem !important;
             }
+            label.error {
+                color:#FF0000;
+            }
+            input.error {
+                border: 1px solid red;
+            }
 
+            .navbar-expand-lg .navbar-collapse {
+                display: flow-root !important;
+            }
         </style>
     @endif
 </head>
@@ -272,10 +304,10 @@
                                         </div>
                                         <div class="g-recaptcha"
                                             data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
-
+                                            <label id="g-recaptcha-error" class="error" for="g-recaptcha"></label>
                                         <button type="submit" class="wow fadeInUp btn btn-primary col-lg-12"
                                             data-callback='onSubmit' data-action='submit'>{{ __('Log In') }}</button>
-                                        <div class="form-check col-lg-5 col-md-5 col-sm-5" style="float:left">
+                                        <div class="form-check col-lg-5 col-md-3 col-sm-2" style="float:left">
                                             <input type="checkbox" class="form-check-input" name="remember"
                                                 id="remember" {{ old('remember') ? 'checked' : '' }}>
                                             <label style="font-size:12px!important;color:#581CCB;margin-left:5px;"
@@ -283,9 +315,10 @@
                                                 {{ __('Remember Me') }}
                                             </label>
                                         </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6" style="float:right;text-align:right">
+                                        <div class="col-lg-6 col-md-4 col-sm-2" style="float:right;text-align:right">
                                             <a class="dropdown" style="font-size:12px!important;color:#581CCB"
-                                                href="{{ route('password.request') }}">{{ __('Forgot Password ?') }}
+                                                href="{{ route('password.request') }}">
+                                                {{ __("Forgot Password ?") }}
                                             </a>
                                         </div>
                                         <a href="{{ route('registration_wizard') }}"
@@ -328,9 +361,9 @@
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#contact">{{ __('Contact') }}</a>
                                     </li>
-                                    {{-- <li class="nav-item">
+                                    <li class="nav-item">
                                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                            class="nav-link ">{{ __('Log In') }}
+                                        class="nav-link dropdown-toggle">{{ __('Log In') }}
                                         </a>
                                         <div role="menu" class="notification-author dropdown-menu animated zoomIn"
                                             style="left:-300px;">
@@ -370,31 +403,37 @@
                                         </div>
                                     </li>
                                     <li class="nav-item lang">
-                                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                            class="nav-link dropdown-toggle">
-                                            <img class="flag-icon"
-                                                src="{{ URL::asset('') }}img/flag/{{ $locale == 'en' ? 'united-states' : ($locale == 'ar' ? 'algeria' : 'france') }}.png"
-                                                alt="" />
-                                            <span class="profile-text font-weight-medium d-none d-md-block"></span>
-                                            <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
+                                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <img class="flag-icon"
+                                            src="{{ URL::asset('') }}img/flag/{{ $locale == 'en' ? 'united-states' : ($locale == 'ar' ? 'algeria' : 'france') }}.png"
+                                            alt="" />
+                                        <span
+                                            class="view-text">{{ $locale == 'en' ? __('English') : ($locale == 'ar' ? __('Arabic') : __('French')) }}</span>
+                                        {{-- <span class="profile-text font-weight-medium d-none d-md-block"></span> --}}
+                                        {{-- <i class="fa fa-angle-down edu-icon edu-down-arrow"></i> --}}
                                         </a>
-                                        <ul role="menu"
-                                            class="dropdown-header-top author-log dropdown-menu animated zoomIn"
+                                        <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn"
                                             style="min-width: auto!important;">
                                             <li><a href="{{ route('lang', 'ar') }}" class="nav-link">
-                                                    <img class="flag-icon" src="{{ URL::asset('') }}img/flag/algeria.png" alt="" />
+                                                    <img class="flag-icon" src="{{ URL::asset('') }}img/flag/algeria.png"
+                                                        alt="" />
+                                                    <span class="view-text">العربية</span>
                                                 </a>
                                             </li>
                                             <li><a href="{{ route('lang', 'en') }}" class="nav-link">
-                                                    <img class="flag-icon" src="{{ URL::asset('') }}img/flag/united-states.png" alt="" />
+                                                    <img class="flag-icon"
+                                                        src="{{ URL::asset('') }}img/flag/united-states.png" alt="" />
+                                                    <span class="view-text">English</span>
                                                 </a>
                                             </li>
                                             <li><a href="{{ route('lang', 'fr') }}" class="nav-link">
-                                                    <img class="flag-icon" src="{{ URL::asset('') }}img/flag/france.png" alt="" />
+                                                    <img class="flag-icon" src="{{ URL::asset('') }}img/flag/france.png"
+                                                        alt="" />
+                                                    <span class="view-text">Français</span>
                                                 </a>
                                             </li>
                                         </ul>
-                                    </li> --}}
+                                    </li>
                                 </ul>
                             </div> <!-- navbar collapse -->
                         </nav> <!-- navbar -->
@@ -1080,12 +1119,13 @@
     {{-- <script src="assetsDoc/js/all.js"></script> --}}
     <script src="assets/js/main.js"></script>
     {{-- <script src="https://www.google.com/recaptcha/api.js?render=v3_site_key"></script> --}}
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&hl={{ App()->currentLocale() }}" async defer></script>
 
 
 
 
     <script>
+
         var RecaptchaOptions = {
             theme: 'theme_name',
             lang: 'ar'
@@ -1097,7 +1137,7 @@
 
 
         $(document).ready(function() {
-            $(".rc-anchor-light.rc-anchor-normal").attr("style", "width:99%");
+            $(".rc-anchor-light.rc-anchor-normal").attr("style", "width:99%");            
         });
 
         $(".nav .nav-link").on("click", function() {
@@ -1105,80 +1145,6 @@
             $(this).addClass("active");
         });
 
-        $('#loginForm').submit(function(e) {
-            e.preventDefault();
-            // if (!$("#loginForm").valid()) {
-            //             }
-
-
-            var account_validator = $("#loginForm").validate({
-
-rules: {
-    email: {
-        required: true,
-        email: true,
-        emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
-    },
-    password: {
-        required: true,
-    },
-},
-messages: {
-
-    email: {
-        required: "{{ __('Email Address is required') }}",
-        emailcheck: "{{ __('Email Address is invalid') }}",
-        remote: "{{ __('Email Address is exxiste') }}",
-    },
-    password: {
-        required: "{{ __('Password is required') }}",
-    },
-},
-});
-
-
-
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: $(this).attr('method'),
-                url: $(this).attr('action'),
-                data: $(this).serialize(),
-                success: function(data) {
-                    if (data.result == 'success') {
-
-                    } else if (data.result == 'failed') {
-
-                    }
-                },
-                error: function(data) {
-                    alert("failed");
-                    $(".login-link").addClass("show");
-                    $(".login-link .nav-link").attr("aria-expanded", "true");
-                    $(".login-link #login-form").addClass("show");
-                    // if (data.indexOf("Verify your email")){
-                    //    $("#section_activation").css("display", "block");
-                    // }
-                    // else if(data.indexOf("Your email address is not verified") > -1){
-                    //    $("#section_activation").css("display", "block");
-                    // }
-                    if (data.errors) {
-                        // $.each(response, function (index, value) {
-                        //     console.log(response.firstname);
-                        //     console.log(JSON.stringify(response));
-                        //     console.log(response.GetDataResult.lastname);
-                        // })
-                    }
-                    // indexOf("The email has already been taken") > -1){
-                    //    $("#section_activation").css("display", "block");
-                    // }
-                    // if ((data.message) && 
-                    // (data.message == "Your email address is not verified"))
-                    // alert(data.message);
-                }
-            });
-        });
         $.validator.addMethod("emailcheck", function(value, element, regexp) {
             /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
             if (regexp && regexp.constructor != RegExp) {
@@ -1189,6 +1155,95 @@ messages: {
             else if (regexp.global) regexp.lastIndex = 0;
             /* Return whether the element is optional or the result of the validation. */
             return this.optional(element) || regexp.test(value);
+        });
+
+        $('#loginForm').submit(function(e) {
+            e.preventDefault();
+            // if (!$("#loginForm").valid()) {
+            //             }
+ 
+            var account_validator = $("#loginForm").validate({
+
+                rules: {
+                    email: {
+                        required: true,
+                        email: true,
+                        emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
+                    },
+                    password: {
+                        required: true,
+                    },
+                },
+                messages: {
+
+                    email: {
+                        required: "{{ __('Email Address is required') }}",
+                        emailcheck: "{{ __('Email Address is invalid') }}",
+                    },
+                    password: {
+                        required: "{{ __('Password is required') }}",
+                    },
+                },
+            }); 
+            
+            
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                type: $(this).attr('method'),
+                url: $(this).attr('action'),
+                data: $(this).serialize() + '&recaptchaIsChecked=' + (!$("#g-recaptcha-response").val() ? false:true),
+                success: function(data) {
+                    if (data.result == 'success') {
+                        // if(!$("#g-recaptcha-response").val()){
+                        //     $(".login-link").addClass("show");
+                        //     $(".login-link .nav-link").attr("aria-expanded", "true");
+                        //     $(".login-link #login-form").addClass("show");
+                        //     $("#g-recaptcha-error").text("{{__('Captcha must be checked')}}");
+                        //     $("#g-recaptcha-error").attr("style", "display:block");
+                        // }
+                        // else 
+                        window.location.href = data.url;
+                        // alert(!$("#g-recaptcha-response").val()? false:true);
+                    } else if (data.result == 'failed') {
+
+                    }
+                },
+                error: function(data) {
+                    // alert("failed");
+                    var errors;
+                    $(".login-link").addClass("show");
+                    $(".login-link .nav-link").attr("aria-expanded", "true");
+                    $(".login-link #login-form").addClass("show");
+                    // if (data.indexOf("Verify your email")){
+                    //    $("#section_activation").css("display", "block");
+                    // }
+                    // else if(data.indexOf("Your email address is not verified") > -1){
+                    //    $("#section_activation").css("display", "block");
+                    // }
+
+                    // account_validator.showErrors({
+                    //     "email": "test error"
+                    // });
+                    if (data.result == 'failed') {
+                        errors =  data.errors;
+                        // account_validator.showErrors(data.errors);
+                    } else {
+                        errors =  data.responseJSON.errors;
+                        // account_validator.showErrors(errors);
+                    }
+
+
+                    if(!$("#g-recaptcha-response").val()){
+                        $("#g-recaptcha-error").text("{{__('Captcha must be checked')}}");
+                        $("#g-recaptcha-error").attr("style", "display:block");
+                        // errors["g-recaptcha"] = "captcha must be checked";
+                    }
+
+                    account_validator.showErrors(errors);
+                }
+            });
         });
 
     </script>

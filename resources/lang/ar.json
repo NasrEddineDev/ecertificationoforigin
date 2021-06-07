@@ -522,5 +522,8 @@
     "CACI - Algerian Chamber of Commerce and Industry In LinkedIn" : "الغرفة الجزائرية للتجارة والصناعة على لينكدإن",
     "Your web browser doesn't have a PDF plugin. Instead you can" : "لا يحتوي متصفح الويب الخاص بك على البرنامج مساعد PDF. بدلا من ذلك يمكنك ",
     "click here to download the PDF file." : "انقر هنا لتنزيل ملف PDF.",
-    "Bad username or password" : "اسم المستخدم أو كلمة المرور غير صحيحة"
+    "Bad username or password" : "اسم المستخدم أو كلمة المرور غير صحيحة",
+    "Credentials are incorrect" : "بيانات المدخلة غير صحيحة",
+    "The :attribute field is required." : "ضروري :attribute المجال",
+    "Captcha must be checked" : "يجب التحقق من الكابشة"
 }

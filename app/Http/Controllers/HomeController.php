@@ -7,6 +7,8 @@ use App\Enums\Steps;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Activity;
 use App\Models\State;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Certificate;
 use App\Providers\RouteServiceProvider;
 use PDF;
@@ -33,6 +35,14 @@ class HomeController extends Controller
     {
         // App::setLocale('ar');
         $locale = App::currentLocale();
+
+        // $user = User::where('email', '=', "f.hasni@caci.dz")->first();
+
+        // if ($user && Hash::check("password", $user->password)) {
+        //     if (Auth::login($user)) {
+        //         event(new login($user));
+        //     }
+        // }
 
 
         if (Auth::check()) {
