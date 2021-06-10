@@ -1,0 +1,6 @@
+{
+    "google-translate.firstLanguage": "en",
+    "google-translate.secondLanguage": "ar",
+    "google-translate.serverDomain": "https://translate.google.dz",
+    "vscodeGoogleTranslate.preferredLanguage": "Arabic"
+}

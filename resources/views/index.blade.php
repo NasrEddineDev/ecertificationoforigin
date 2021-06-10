@@ -37,7 +37,6 @@
     <link id="theme-style" rel="stylesheet" href="assetsDoc/css/custom.css">
     @if ($locale == 'ar')
         <style>
-
             @media (min-width: 993px) {
                 #login-form {
                     width: 360px;
@@ -64,11 +63,12 @@
                     transform-origin: 0 0;
                 }
 
-                #loginForm div.col-md-3{
-                    width:40%!important;
+                #loginForm div.col-md-3 {
+                    width: 45% !important;
                 }
-                #loginForm div.col-md-4{
-                    width:60%!important;
+
+                #loginForm div.col-md-4 {
+                    width: 55% !important;
                 }
             }
 
@@ -99,25 +99,59 @@
                 height: 100%;
                 border-radius: 1rem;
             }
+
             label.error {
-                color:#FF0000;
+                color: #FF0000;
             }
+
             input.error {
                 border: 1px solid red;
             }
-            .form-group,.form-group input {
-            text-align: right!important;
+
+            .form-group,
+            .form-group input {
+                text-align: right !important;
             }
 
-            #g-recaptcha-error, .rc-anchor-alert{ display:none; }
-            .grecaptcha-badge { visibility: hidden; }
-            #g-recaptcha-error{
+            #g-recaptcha-error,
+            .rc-anchor-alert {
+                display: none;
+            }
+
+            .grecaptcha-badge {
+                visibility: hidden;
+            }
+
+            #g-recaptcha-error {
                 text-align: right;
             }
 
             .navbar-expand-lg .navbar-collapse {
                 display: flow-root !important;
             }
+
+            .forgot-password {
+                float: left;
+                text-align: left;
+            }
+
+            .forgot-password a {
+                font-size: 12px !important;
+                color: #581CCB !important
+            }
+
+            .remember {
+                float: right;
+                text-align: right;
+            }
+
+            .remember label {
+                margin-right: 25px;
+                font-size: 12px !important;
+                color: #581CCB !important;
+                margin-left: 5px;
+            }
+
         </style>
     @else
         <style>
@@ -147,11 +181,12 @@
                     transform-origin: 0 0;
                 }
 
-                #loginForm div.col-md-3{
-                    width:40%!important;
+                #loginForm div.col-md-3 {
+                    width: 45% !important;
                 }
-                #loginForm div.col-md-4{
-                    width:60%!important;
+
+                #loginForm div.col-md-4 {
+                    width: 55% !important;
                 }
             }
 
@@ -186,9 +221,11 @@
             .docs-nav .nav-item.section-title span {
                 margin-right: .5rem !important;
             }
+
             label.error {
-                color:#FF0000;
+                color: #FF0000;
             }
+
             input.error {
                 border: 1px solid red;
             }
@@ -196,6 +233,29 @@
             .navbar-expand-lg .navbar-collapse {
                 display: flow-root !important;
             }
+
+            .forgot-password {
+                float: right;
+                text-align: right;
+            }
+
+            .forgot-password a {
+                font-size: 12px !important;
+                color: #581CCB !important
+            }
+
+            .remember {
+                float: left;
+                text-align: left;
+            }
+
+            .remember label {
+                margin-right: 25px;
+                font-size: 12px !important;
+                color: #581CCB !important;
+                margin-left: 5px;
+            }
+
         </style>
     @endif
 </head>
@@ -304,23 +364,28 @@
                                         </div>
                                         <div class="g-recaptcha"
                                             data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
-                                            <label id="g-recaptcha-error" class="error" for="g-recaptcha"></label>
+                                        <label id="g-recaptcha-error" class="error" for="g-recaptcha"></label>
                                         <button type="submit" class="wow fadeInUp btn btn-primary col-lg-12"
                                             data-callback='onSubmit' data-action='submit'>{{ __('Log In') }}</button>
-                                        <div class="form-check col-lg-5 col-md-3 col-sm-2" style="float:left">
-                                            <input type="checkbox" class="form-check-input" name="remember"
-                                                id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                            <label style="font-size:12px!important;color:#581CCB;margin-left:5px;"
-                                                class="form-check-label" for="dropdownCheck">
+                                        <div class="form-check col-lg-5 col-md-3 col-sm-2 remember">
+                                            @if ($locale != 'ar')
+                                                <input type="checkbox" class="form-check-input" name="remember"
+                                                    id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                            @endif
+                                            <label class="form-check-label" for="dropdownCheck">
                                                 {{ __('Remember Me') }}
                                             </label>
+                                            @if ($locale == 'ar')
+                                                <input type="checkbox" class="form-check-input" name="remember"
+                                                    id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                            @endif
                                         </div>
-                                        <div class="col-lg-6 col-md-4 col-sm-2" style="float:right;text-align:right">
-                                            <a class="dropdown" style="font-size:12px!important;color:#581CCB"
-                                                href="{{ route('password.request') }}">
-                                                {{ __("Forgot Password ?") }}
+                                        <div class="col-lg-6 col-md-4 col-sm-2 forgot-password">
+                                            <a class="dropdown" href="{{ route('password.request') }}">
+                                                {{ __('Forgot Password ?') }}
                                             </a>
                                         </div>
+
                                         <a href="{{ route('registration_wizard') }}"
                                             class="wow fadeInUp btn btn-success col-lg-12"
                                             style="margin-bottom:10px;">{{ __('Create New Account') }}</a>
@@ -363,7 +428,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                        class="nav-link dropdown-toggle">{{ __('Log In') }}
+                                            class="nav-link dropdown-toggle">{{ __('Log In') }}
                                         </a>
                                         <div role="menu" class="notification-author dropdown-menu animated zoomIn"
                                             style="left:-300px;">
@@ -379,19 +444,23 @@
                                                 </div>
                                                 <button type="submit" class="wow fadeInUp btn btn-primary col-lg-12"
                                                     style="margin-bottom:10px;">{{ __('Log In') }}</button>
-                                                <div class="form-check col-lg-5" style="float:left">
-                                                    <input type="checkbox" class="form-check-input" name="remember"
-                                                        id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                    <label
-                                                        style="font-size:12px!important;color:#581CCB;margin-left:5px;"
-                                                        class="form-check-label" for="dropdownCheck">
+                                                <div class="form-check col-lg-5 col-md-3 col-sm-2 remember">
+                                                    @if ($locale != 'ar')
+                                                        <input type="checkbox" class="form-check-input" name="remember"
+                                                            id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                    @endif
+                                                    <label class="form-check-label" for="dropdownCheck">
                                                         {{ __('Remember Me') }}
                                                     </label>
+                                                    @if ($locale == 'ar')
+                                                        <input type="checkbox" class="form-check-input" name="remember"
+                                                            id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                                    @endif
                                                 </div>
-                                                <div class="col-lg-6" style="float:right">
-                                                    <a class="dropdown" style="font-size:12px!important;color:#581CCB"
-                                                        href="{{ route('password.request') }}">{{ __('Forgot Password') }}
-                                                        ?</a>
+                                                <div class="col-lg-6 col-md-4 col-sm-2 forgot-password">
+                                                    <a class="dropdown" href="{{ route('password.request') }}">
+                                                        {{ __('Forgot Password ?') }}
+                                                    </a>
                                                 </div>
                                                 <a href="{{ route('registration_wizard') }}"
                                                     class="wow fadeInUp btn btn-success col-lg-12"
@@ -403,32 +472,35 @@
                                         </div>
                                     </li>
                                     <li class="nav-item lang">
-                                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                        <img class="flag-icon"
-                                            src="{{ URL::asset('') }}img/flag/{{ $locale == 'en' ? 'united-states' : ($locale == 'ar' ? 'algeria' : 'france') }}.png"
-                                            alt="" />
-                                        <span
-                                            class="view-text">{{ $locale == 'en' ? __('English') : ($locale == 'ar' ? __('Arabic') : __('French')) }}</span>
-                                        {{-- <span class="profile-text font-weight-medium d-none d-md-block"></span> --}}
-                                        {{-- <i class="fa fa-angle-down edu-icon edu-down-arrow"></i> --}}
+                                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                            class="nav-link dropdown-toggle">
+                                            <img class="flag-icon"
+                                                src="{{ URL::asset('') }}img/flag/{{ $locale == 'en' ? 'united-states' : ($locale == 'ar' ? 'algeria' : 'france') }}.png"
+                                                alt="" />
+                                            <span
+                                                class="view-text">{{ $locale == 'en' ? __('English') : ($locale == 'ar' ? __('Arabic') : __('French')) }}</span>
+                                            {{-- <span class="profile-text font-weight-medium d-none d-md-block"></span> --}}
+                                            {{-- <i class="fa fa-angle-down edu-icon edu-down-arrow"></i> --}}
                                         </a>
-                                        <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn"
+                                        <ul role="menu"
+                                            class="dropdown-header-top author-log dropdown-menu animated zoomIn"
                                             style="min-width: auto!important;">
                                             <li><a href="{{ route('lang', 'ar') }}" class="nav-link">
-                                                    <img class="flag-icon" src="{{ URL::asset('') }}img/flag/algeria.png"
-                                                        alt="" />
+                                                    <img class="flag-icon"
+                                                        src="{{ URL::asset('') }}img/flag/algeria.png" alt="" />
                                                     <span class="view-text">العربية</span>
                                                 </a>
                                             </li>
                                             <li><a href="{{ route('lang', 'en') }}" class="nav-link">
                                                     <img class="flag-icon"
-                                                        src="{{ URL::asset('') }}img/flag/united-states.png" alt="" />
+                                                        src="{{ URL::asset('') }}img/flag/united-states.png"
+                                                        alt="" />
                                                     <span class="view-text">English</span>
                                                 </a>
                                             </li>
                                             <li><a href="{{ route('lang', 'fr') }}" class="nav-link">
-                                                    <img class="flag-icon" src="{{ URL::asset('') }}img/flag/france.png"
-                                                        alt="" />
+                                                    <img class="flag-icon"
+                                                        src="{{ URL::asset('') }}img/flag/france.png" alt="" />
                                                     <span class="view-text">Français</span>
                                                 </a>
                                             </li>
@@ -1119,13 +1191,13 @@
     {{-- <script src="assetsDoc/js/all.js"></script> --}}
     <script src="assets/js/main.js"></script>
     {{-- <script src="https://www.google.com/recaptcha/api.js?render=v3_site_key"></script> --}}
-    <script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&hl={{ App()->currentLocale() }}" async defer></script>
+    <script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&hl={{ App()->currentLocale() }}"
+        async defer></script>
 
 
 
 
     <script>
-
         var RecaptchaOptions = {
             theme: 'theme_name',
             lang: 'ar'
@@ -1137,7 +1209,7 @@
 
 
         $(document).ready(function() {
-            $(".rc-anchor-light.rc-anchor-normal").attr("style", "width:99%");            
+            $(".rc-anchor-light.rc-anchor-normal").attr("style", "width:99%");
         });
 
         $(".nav .nav-link").on("click", function() {
@@ -1161,7 +1233,7 @@
             e.preventDefault();
             // if (!$("#loginForm").valid()) {
             //             }
- 
+
             var account_validator = $("#loginForm").validate({
 
                 rules: {
@@ -1184,23 +1256,24 @@
                         required: "{{ __('Password is required') }}",
                     },
                 },
-            }); 
-            
-            
+            });
+
+
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 type: $(this).attr('method'),
                 url: $(this).attr('action'),
-                data: $(this).serialize() + '&recaptchaIsChecked=' + (!$("#g-recaptcha-response").val() ? false:true),
+                data: $(this).serialize() + '&recaptchaIsChecked=' + (!$("#g-recaptcha-response")
+                .val() ? false : true),
                 success: function(data) {
                     if (data.result == 'success') {
                         // if(!$("#g-recaptcha-response").val()){
                         //     $(".login-link").addClass("show");
                         //     $(".login-link .nav-link").attr("aria-expanded", "true");
                         //     $(".login-link #login-form").addClass("show");
-                        //     $("#g-recaptcha-error").text("{{__('Captcha must be checked')}}");
+                        //     $("#g-recaptcha-error").text("{{ __('Captcha must be checked') }}");
                         //     $("#g-recaptcha-error").attr("style", "display:block");
                         // }
                         // else 
@@ -1227,16 +1300,16 @@
                     //     "email": "test error"
                     // });
                     if (data.result == 'failed') {
-                        errors =  data.errors;
+                        errors = data.errors;
                         // account_validator.showErrors(data.errors);
                     } else {
-                        errors =  data.responseJSON.errors;
+                        errors = data.responseJSON.errors;
                         // account_validator.showErrors(errors);
                     }
 
 
-                    if(!$("#g-recaptcha-response").val()){
-                        $("#g-recaptcha-error").text("{{__('Captcha must be checked')}}");
+                    if (!$("#g-recaptcha-response").val()) {
+                        $("#g-recaptcha-error").text("{{ __('Captcha must be checked') }}");
                         $("#g-recaptcha-error").attr("style", "display:block");
                         // errors["g-recaptcha"] = "captcha must be checked";
                     }

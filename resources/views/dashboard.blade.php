@@ -213,7 +213,7 @@
                                 <div id="sparklinedash2"></div>
                             </li>
                             <li class="text-right graph-two-ctn"><i class="fa fa-level-up" aria-hidden="true"></i> <span
-                                    class="counter text-purple">3000</span></li>
+                                    class="counter text-purple">{{ $total_requests }}</span></li>
                         </ul>
                     </div>
                     <div class="white-box analytics-info-cs mg-b-10 res-mg-b-15 tb-sm-res-d-n dk-res-t-d-n">
@@ -223,7 +223,7 @@
                                 <div id="sparklinedash3"></div>
                             </li>
                             <li class="text-right graph-three-ctn"><i class="fa fa-level-up" aria-hidden="true"></i> <span
-                                    class="counter text-info">5000</span></li>
+                                    class="counter text-info">{{ $total_products }}</span></li>
                         </ul>
                     </div>
                     <div
@@ -234,7 +234,7 @@
                                 <div id="sparklinedash"></div>
                             </li>
                             <li class="text-right sp-cn-r"><i class="fa fa-level-up" aria-hidden="true"></i> <span
-                                    class="counter text-success">1500 KG</span></li>
+                                    class="counter text-success">{{ $total_products_weight }}</span> {{__('Kg')}}</li>
                         </ul>
                     </div>
                     <div class="white-box analytics-info-cs table-dis-n-pro tb-sm-res-d-n dk-res-t-d-n">
@@ -244,7 +244,7 @@
                                 <div id="sparklinedash4"></div>
                             </li>
                             <li class="text-right graph-four-ctn"><i class="fa fa-level-down" aria-hidden="true"></i> <span
-                                    class="text-danger"><span class="counter">18</span>%</span>
+                                    class="text-danger"><span class="counter">{{ $total_importers }}</span></span>
                             </li>
                         </ul>
                     </div>
@@ -290,7 +290,7 @@
                                 <div id="sparklinedash5"></div>
                             </li>
                             <li class="text-right graph-three-ctn"><i class="fa fa-level-down" aria-hidden="true"></i> <span
-                                    class="text-info"><span class="counter text-info">18</span>%</span>
+                                    class="text-info"><span class="counter text-info">{{ $total_countries }}</span></span>
                             </li>
                         </ul>
                     </div>
@@ -644,6 +644,111 @@
 @endsection
 
 @Push('js')
+
+    <script>
+        $(document).ready(function() {
+           /*----------------------------------------*/
+           /*  1.  pie Chart
+           /*----------------------------------------*/
+
+           var gzale_rate = "{{ $gzale_rate }}", acp_tunisie_rate = "{{ $acp_tunisie_rate }}", 
+               formule_a_fr_rate = "{{ $formule_a_fr_rate }}", form_a_en_rate = "{{ $form_a_en_rate }}",
+               total_certificates = "{{ $total_certificates }}", other_rate = 0;
+               if (total_certificates != 0){
+                    other_rate = 1 - ((gzale_rate+acp_tunisie_rate+form_a_en_rate+formule_a_fr_rate)/total_certificates);
+               }
+
+        	var ctx = document.getElementById("piechart");
+	var piechart = new Chart(ctx, {
+		type: 'pie',
+		data: {
+			labels: ["GZALE", "FORM A EN", "FORMULE A FR", "ACP ALGERIA TUNISIA", "OTHER"],
+			datasets: [{
+				label: 'pie Chart',
+                backgroundColor: [
+					'#006DF0',
+					'#933EC5',
+					'#65b12d',
+					'#EEF116',
+					'#303030',
+				    '#D80027'
+				],
+				data: [(gzale_rate*100).toFixed(2), (form_a_en_rate*100).toFixed(2), (formule_a_fr_rate*100).toFixed(2), 
+                        (acp_tunisie_rate*100).toFixed(2), (other_rate*100).toFixed(2) ]
+            }]
+		},
+		options: {
+			responsive: true
+		}
+	});
+
+    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    var morris_area = "{{ $morris_area }}";
+    console.log(morris_area);
+    Morris.Area({
+        element: 'extra-area-chart',
+        data: [
+            {
+            month: '1',
+            GZALE: 50,
+            ACP_TUNISIE: 80,
+            FORM_A_EN: 20,
+            FORMULE_A_FR: 20
+        }, {
+            month: '2',
+            GZALE: 130,
+            ACP_TUNISIE: 100,
+            FORM_A_EN: 80,
+            FORMULE_A_FR: 20
+        }, {
+            month: '3',
+            GZALE: 80,
+            ACP_TUNISIE: 60,
+            FORM_A_EN: 70,
+            FORMULE_A_FR: 20
+        }, {
+            month: '4',
+            GZALE: 70,
+            ACP_TUNISIE: 200,
+            FORM_A_EN: 70,
+            FORMULE_A_FR: 140
+        }, {
+            month: '5',
+            GZALE: 180,
+            ACP_TUNISIE: 150,
+            FORM_A_EN: 70,
+            FORMULE_A_FR: 140
+        }, {
+            month: '6',
+            GZALE: 105,
+            ACP_TUNISIE: 100,
+            FORM_A_EN: 70,
+            FORMULE_A_FR: 80
+        }
+        ],
+        xkey: 'month',
+        parseTime: false,
+        ykeys: ['GZALE', 'ACP_TUNISIE', 'FORM_A_EN', 'FORMULE_A_FR'],
+        labels: ['GZALE', 'ACP TUNISIE', 'FORM A EN', 'FORMULE A FR'],
+        xLabelFormat: function (x) {
+            var index = parseInt(x.src.month);
+            return monthNames[index-1];
+        },
+        xLabels: "month",
+        pointSize: 3,
+        fillOpacity: 0,
+        pointStrokeColors:['#006DF0', '#933EC5', '#65b12d'],
+        behaveLikeLine: true,
+        gridLineColor: '#e0e0e0',
+        lineWidth: 1,
+        hideHover: 'auto',
+        lineColors: ['#006DF0', '#933EC5', '#65b12d'],
+        resize: true
+        
+    });
+	});
+           </script>
+
     <!-- Charts JS
         ============================================ -->
     <script src="js/charts/Chart.js"></script>

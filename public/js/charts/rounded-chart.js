@@ -4,29 +4,29 @@
 	 /*----------------------------------------*/
 	/*  1.  pie Chart
 	/*----------------------------------------*/
-	var ctx = document.getElementById("piechart");
-	var piechart = new Chart(ctx, {
-		type: 'pie',
-		data: {
-			labels: ["GZALE", "FORM A SGP EN", "FORM A SGP FR", "CERTIFICAT DE DROITS COMMUNS", "ACP ALGERIA TUNISIA", "PAN-EUROMED", "ZLECAF"],
-			datasets: [{
-				label: 'pie Chart',
-                backgroundColor: [
-					'#006DF0',
-					'#933EC5',
-					'#65b12d',
-					'#EEF116',
-					'#D80027',
-					'#303030'
-				],
-				data: [((2461/5531)*100).toFixed(2), ((2198/5531)*100).toFixed(2), ((381/5531)*100).toFixed(2), 
-					((257/5531)*100).toFixed(2), ((159/5531)*100).toFixed(2), ((50/5531)*100).toFixed(2), ((25/5531)*100).toFixed(2)]
-            }]
-		},
-		options: {
-			responsive: true
-		}
-	});
+	// var ctx = document.getElementById("piechart");
+	// var piechart = new Chart(ctx, {
+	// 	type: 'pie',
+	// 	data: {
+	// 		labels: ["GZALE", "FORM A SGP EN", "FORM A SGP FR", "CERTIFICAT DE DROITS COMMUNS", "ACP ALGERIA TUNISIA", "PAN-EUROMED", "ZLECAF"],
+	// 		datasets: [{
+	// 			label: 'pie Chart',
+    //             backgroundColor: [
+	// 				'#006DF0',
+	// 				'#933EC5',
+	// 				'#65b12d',
+	// 				'#EEF116',
+	// 				'#D80027',
+	// 				'#303030'
+	// 			],
+	// 			data: [((2461/5531)*100).toFixed(2), ((2198/5531)*100).toFixed(2), ((381/5531)*100).toFixed(2), 
+	// 				((257/5531)*100).toFixed(2), ((159/5531)*100).toFixed(2), ((50/5531)*100).toFixed(2), ((25/5531)*100).toFixed(2)]
+    //         }]
+	// 	},
+	// 	options: {
+	// 		responsive: true
+	// 	}
+	// });
 	 /*----------------------------------------*/
 	/*  2.  polar Chart
 	/*----------------------------------------*/

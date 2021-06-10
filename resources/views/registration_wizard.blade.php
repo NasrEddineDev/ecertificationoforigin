@@ -560,13 +560,13 @@
                                     @if (App()->currentLocale() == 'ar')
                                         <div class="form-holder">
                                             <select name="city_id" id="city_id" class="form-control"
-                                                style="margin-top: 0;">
+                                                style="margin-top: 0;" dir="rtl">
                                             </select>
                                         </div>
                                     @endif
                                     <div class="form-holder">
                                         <select name="state_code" id="state_code" class="form-control"
-                                            style="margin-top: 0;">
+                                            style="margin-top: 0;" {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}>
                                             <option value="0" disabled selected>{{ __('Select The State') }}</option>
                                             @if (isset($states))
                                                 @foreach ($states as $state)
@@ -655,8 +655,8 @@
 
                                     <div class="form-holder"
                                         style="{{ App::currentLocale() == 'ar' ? 'width: 50%;' : '' }}">
-                                        <select {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }} name="gender"
-                                            id="gender">
+                                        <select {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }} name="gender_manager"
+                                            id="gender_manager">
                                             <option value="MALE" selected>{{ __('MALE') }}</option>
                                             <option value="FEMALE">{{ __('FEMALE') }}</option>
                                         </select>
@@ -1431,7 +1431,7 @@
                             },
                             error: function(data) {
                                 console.log('error');
-                                return false;
+                                move = false;
                                 if (data.errors) {}
                             }
                         });
@@ -1440,7 +1440,7 @@
                         // enterprise_validator = $(".enterprise_form").valid();
                         // if (enterprise_validator.errorList.length > 0) {
                         if (!$(".enterprise_form").valid()) {
-                            return false;
+                            move = false;
                         }
                         var rc = document.getElementById("rc").files[0],
                             nis = document.getElementById("nis").files[0],
@@ -1509,14 +1509,14 @@
                             },
                             error: function(data) {
                                 console.log('error');
-                                return false;
+                                move = false;
                                 if (data.errors) {}
                             }
                         });
                     } else if (currentIndex == 3) {
                         console.log('Manager step');
                         if (!$(".manager_form").valid()) {
-                            return false;
+                            move = false;
                         }
 
                         var round_stamp = document.getElementById("round_stamp").files[0],
@@ -1531,8 +1531,7 @@
                         formdata.append("firstname_manager", $('#firstname_manager').val());
                         formdata.append("lastname_manager", $('#lastname_manager').val());
                         formdata.append("birthday_manager", $('#birthday_manager').val());
-                        formdata.append("gender_manager", $('#gender_manager').find(":selected")
-                            .val());
+                        formdata.append("gender_manager",  $('#gender_manager').find(":selected").val());
                         formdata.append("address_manager", $('#address_manager').val());
                         formdata.append("email_manager", $('#email_manager').val());
                         formdata.append("mobile_manager", $('#mobile_manager').val());
@@ -1563,6 +1562,7 @@
                             success: function(data) {
                                 console.log(data.message);
                                 if (data.step == 3) {
+                                    move = false;
                                     $("#form-total").steps("previous");
                                     return false;
                                 } else {
@@ -1571,6 +1571,7 @@
                             },
                             error: function(data) {
                                 console.log('error');
+                                move = false;
                                 return false;
                                 if (data.errors) {}
                             }
@@ -1578,22 +1579,24 @@
                     } else if (currentIndex == 4) {
                         console.log('Confirmation step');
                     }
-                    if (!move) {
-                        $.each(errors, function(key, value) {
-                                    // console.log('key: ' + key);
-                                    // console.log('value: ' + value);
-                                    // $('#' + key + '-error').text(value);
-                                   
-                               
-                        $("#"+key).after(
-                            '<label id="'+key+'-error" class="error" for="'+key+'">' + value + '</label>'
-                            )
-                        // var errors = {
-                        //     "email": "Please enter an ID to check"
-                        // };
-                    });
+                    if (!move && Object.keys(errors).length === 0) {
+                        alert('i"m here 01');
+                        //     $.each(errors, function(key, value) {
+                        //                 // console.log('key: ' + key);
+                        //                 // console.log('value: ' + value);
+                        //                 // $('#' + key + '-error').text(value);
+                                    
+                                
+                        //     $("#"+key).after(
+                        //         '<label id="'+key+'-error" class="error" for="'+key+'">' + value + '</label>'
+                        //         )
+                        //     // var errors = {
+                        //     //     "email": "Please enter an ID to check"
+                        //     // };
+                        // });
                         account_validator.showErrors(errors);
                     }
+                        alert('i"m here 02');
                     return move;
                 },
                 onFinished: function(event, currentIndex) {
@@ -1752,20 +1755,11 @@
                 );
             $('#tel_enterprise-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->tel : '' }}');
-            $('#fax_enterprise-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->fax : '' }}');
-            $('#city_enterprise-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->city->name : '' }}'
-                );
-            $('#state_enterprise-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->city->state->name : '' }}'
-                );
-            $('#firstname_manager-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->firstname : '' }}'
-                );
-            $('#lastname_manager-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->lastname : '' }}'
-                );
+            $('#fax_enterprise-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->fax : '' }}');
+            $('#city_enterprise-val').text('{{ Auth::user() && Auth::user()->Enterprise ? (App()->currentLocale() == "ar" ? Auth::user()->Enterprise->city->daira_name : Auth::user()->Enterprise->city->daira_name_ascii) : '' }}');
+            $('#state_enterprise-val').text('{{ Auth::user() && Auth::user()->enterprise ? (App()->currentLocale() == "ar" ? Auth::user()->Enterprise->city->wilaya_name : Auth::user()->Enterprise->city->wilaya_name_ascii) : '' }}');
+            $('#firstname_manager-val').text('{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->firstname : '' }}');
+            $('#lastname_manager-val').text('{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->lastname : '' }}');
             $('#gender_manager-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? __(Auth::user()->Enterprise->Manager->gender) : '' }}'
                 );
@@ -1785,10 +1779,10 @@
                 '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->tel : '' }}'
                 );
             $('#city_manager-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->city->name : '' }}'
+                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? (App()->currentLocale() == "ar" ? Auth::user()->Enterprise->manager->city->daira_name : Auth::user()->Enterprise->manager->city->daira_name_ascii) : '' }}'
                 );
             $('#state_manager-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->city->state->name : '' }}'
+                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? (App()->currentLocale() == "ar" ? Auth::user()->Enterprise->manager->city->wilaya_name : Auth::user()->Enterprise->manager->city->wilaya_name_ascii) : '' }}'
                 );
         });
 

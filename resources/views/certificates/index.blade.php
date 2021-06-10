@@ -183,8 +183,8 @@
                                         <select id="certificatesSelecor" name="certificatesSelecor" class="form-control">
                                             <option value="ALL" selected>ALL</option>
                                             <option value="GZALE">GZALE</option>
-                                            <option value="Formule-A-Fr">FORM A SGP FR</option>
-                                            <option value="Form-A-En">FORM A SGP EN</option>
+                                            <option value="FORMULE-A-FR">FORM A SGP FR</option>
+                                            <option value="FORM-A-EN">FORM A SGP EN</option>
                                             <option value="ACP-TUNISIE">ACP ALGERIA TUNISIA</option>
                                             <option value="ZLECAF">ZLECAF</option>
                                             <option value="PAN-EUROMED">PAN-EUROMED</option>

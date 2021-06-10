@@ -23,7 +23,7 @@ class CreateCertificatesTable extends Migration
             $table->string('notes');
             $table->string('integrity_rate');
             $table->enum('status', ['DRAFT', 'PENDING', 'SIGNED', 'REJECTED']);
-            $table->enum('type', ['GZALE', 'ACP-TUNISIE', 'Form-A-En', 'Formule-A-Fr', 'ZLECAF', 'PAN-EUROMED', 'DROITS-COMMUNS']);
+            $table->enum('type', ['GZALE', 'ACP-TUNISIE', 'FORM-A-EN', 'FORMULE-A-FR', 'ZLECAF', 'PAN-EUROMED', 'DROITS-COMMUNS']);
             $table->enum('copy_type', ['NONE', 'DUPLICATE', 'RETROACTIVE']);
             $table->enum('shipment_type', ['LAND', 'RAIL', 'AIR', 'SEA']);
             $table->enum('incoterm', ['EXW', 'CFR', 'C&F', 'CPT', 'CIF', 'FOB', 'DAP', 'FCA']);

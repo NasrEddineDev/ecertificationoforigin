@@ -249,7 +249,7 @@ class RegistrationWizardController extends Controller
                     'tel' => $request->tel_manager,
                     'city_id' => $request->city_id_manager
                 ]);
-
+                
                 $signature = $request->signature;
                 $round_stamp = $request->round_stamp;
                 $square_stamp = $request->square_stamp;
@@ -264,11 +264,13 @@ class RegistrationWizardController extends Controller
                     $image_resize = Image::make($signature->getRealPath());              
                     $image_resize->resize(300, 300);
                     $image_resize->save($destinationPath . $signatureFileName);
+
                     $roundStampFileName = $manager->firstname.'_'.$manager->lastname.'_round_stamp.'.$round_stamp->clientExtension();
                     // Storage::disk('public')->put($destinationPath . $roundStampFileName, file_get_contents($round_stamp));
                     $image_resize = Image::make($round_stamp->getRealPath());              
                     $image_resize->resize(300, 300);
                     $image_resize->save($destinationPath . $roundStampFileName);
+
                     $squareStampFileName = $manager->firstname.'_'.$manager->lastname.'_square_stamp.'.$square_stamp->clientExtension();
                     // Storage::disk('public')->put($destinationPath . $squareStampFileName, file_get_contents($square_stamp));
                     $image_resize = Image::make($square_stamp->getRealPath());              
@@ -287,12 +289,12 @@ class RegistrationWizardController extends Controller
                         'round_stamp'  => $roundStampFileName,
                         'square_stamp' => $squareStampFileName,
                         'picture' => '',
-                        'city_id' => '31249',
+                        'city_id' => Auth::user()->enterprise->city_id,
                         'language' => 'ar'
                     ]);
 
                     $profile->save();
-
+                    
                     Auth::user()->update(['profile_id' => $profile->id]);
                 }
 
@@ -386,8 +388,13 @@ class RegistrationWizardController extends Controller
             } else {
                 $step = $this->wizard->getBySlug($step);
             }
-        } catch (StepNotFoundException $e) {
-            abort(404);
+        // } catch (StepNotFoundException $e) {
+        //     abort(404);
+        // }
+        } catch (Throwable $e) {
+            report($e);
+
+            return false;
         }
 
         return view('registration_wizard', ['step' => $step]);
