@@ -184,11 +184,14 @@
                                 <h5><i class="fa fa-circle" style="color: #006DF0;"></i>{{ __('GZALE') }}</h5>
                             </li>
                             <li>
-                                <h5><i class="fa fa-circle" style="color: #933EC5;"></i>{{ __('ACP ALGERIA TUNISIA') }}
+                                <h5><i class="fa fa-circle" style="color: #933EC5;"></i>{{ __('ACP-TUNISIA') }}
                                 </h5>
                             </li>
                             <li>
-                                <h5><i class="fa fa-circle" style="color: #65b12d;"></i>{{ __('PAN-EUROMED') }}</h5>
+                                <h5><i class="fa fa-circle" style="color: #65b12d;"></i>{{ __('FORM-A-EN') }}</h5>
+                            </li>
+                            <li>
+                                <h5><i class="fa fa-circle" style="color: #EEF116;"></i>{{ __('FORMULE-A-FR') }}</h5>
                             </li>
                         </ul>
                         <div id="extra-area-chart" style="height: 356px;"></div>
@@ -557,6 +560,7 @@
             </div>
         </div>
     </div>
+    <div style="display:none;" id="morris_area" data-morris-area="{{ json_encode($certificates_morris_area) }}"></div>
     {{-- <div class="courses-area mg-b-15">
             <div class="container-fluid">
                 <div class="row">
@@ -655,80 +659,81 @@
                formule_a_fr_rate = "{{ $formule_a_fr_rate }}", form_a_en_rate = "{{ $form_a_en_rate }}",
                total_certificates = "{{ $total_certificates }}", other_rate = 0;
                if (total_certificates != 0){
-                    other_rate = 1 - ((gzale_rate+acp_tunisie_rate+form_a_en_rate+formule_a_fr_rate)/total_certificates);
+                    other_rate = 100 - parseFloat(gzale_rate) - parseFloat(acp_tunisie_rate)
+                                - parseFloat(form_a_en_rate) - parseFloat(formule_a_fr_rate);
                }
-
         	var ctx = document.getElementById("piechart");
-	var piechart = new Chart(ctx, {
-		type: 'pie',
-		data: {
-			labels: ["GZALE", "FORM A EN", "FORMULE A FR", "ACP ALGERIA TUNISIA", "OTHER"],
-			datasets: [{
-				label: 'pie Chart',
-                backgroundColor: [
-					'#006DF0',
-					'#933EC5',
-					'#65b12d',
-					'#EEF116',
-					'#303030',
-				    '#D80027'
-				],
-				data: [(gzale_rate*100).toFixed(2), (form_a_en_rate*100).toFixed(2), (formule_a_fr_rate*100).toFixed(2), 
-                        (acp_tunisie_rate*100).toFixed(2), (other_rate*100).toFixed(2) ]
-            }]
-		},
-		options: {
-			responsive: true
-		}
-	});
+            var piechart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ["GZALE", "FORM A EN", "FORMULE A FR", "ACP ALGERIA TUNISIA", "OTHER"],
+                    datasets: [{
+                        label: 'pie Chart',
+                        backgroundColor: [
+                            '#006DF0',
+                            '#933EC5',
+                            '#65b12d',
+                            '#EEF116',
+                            '#303030',
+                            '#D80027'
+                        ],
+                        data: [parseFloat(gzale_rate), parseFloat(form_a_en_rate), parseFloat(formule_a_fr_rate), 
+                                parseFloat(acp_tunisie_rate), parseFloat(other_rate) ]
+                    }]
+                },
+                options: {
+                    responsive: true
+                }
+            });
 
     var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var morris_area = "{{ $morris_area }}";
+    var morris_area = $('#morris_area').data('morris-area');
+    //json_decode(json_encode((array) $certificates_morris_area !!}), TRUE);
     console.log(morris_area);
     Morris.Area({
         element: 'extra-area-chart',
-        data: [
-            {
-            month: '1',
-            GZALE: 50,
-            ACP_TUNISIE: 80,
-            FORM_A_EN: 20,
-            FORMULE_A_FR: 20
-        }, {
-            month: '2',
-            GZALE: 130,
-            ACP_TUNISIE: 100,
-            FORM_A_EN: 80,
-            FORMULE_A_FR: 20
-        }, {
-            month: '3',
-            GZALE: 80,
-            ACP_TUNISIE: 60,
-            FORM_A_EN: 70,
-            FORMULE_A_FR: 20
-        }, {
-            month: '4',
-            GZALE: 70,
-            ACP_TUNISIE: 200,
-            FORM_A_EN: 70,
-            FORMULE_A_FR: 140
-        }, {
-            month: '5',
-            GZALE: 180,
-            ACP_TUNISIE: 150,
-            FORM_A_EN: 70,
-            FORMULE_A_FR: 140
-        }, {
-            month: '6',
-            GZALE: 105,
-            ACP_TUNISIE: 100,
-            FORM_A_EN: 70,
-            FORMULE_A_FR: 80
-        }
-        ],
+        data: morris_area,//[
+        //     {
+        //     month: '1',
+        //     GZALE: 50,
+        //     ACP_TUNISIE: 80,
+        //     FORM_A_EN: 20,
+        //     FORMULE_A_FR: 20
+        // }, {
+        //     month: '2',
+        //     GZALE: 130,
+        //     ACP_TUNISIE: 100,
+        //     FORM_A_EN: 80,
+        //     FORMULE_A_FR: 20
+        // }, {
+        //     month: '3',
+        //     GZALE: 80,
+        //     ACP_TUNISIE: 60,
+        //     FORM_A_EN: 70,
+        //     FORMULE_A_FR: 20
+        // }, {
+        //     month: '4',
+        //     GZALE: 70,
+        //     ACP_TUNISIE: 200,
+        //     FORM_A_EN: 70,
+        //     FORMULE_A_FR: 140
+        // }, {
+        //     month: '5',
+        //     GZALE: 180,
+        //     ACP_TUNISIE: 150,
+        //     FORM_A_EN: 70,
+        //     FORMULE_A_FR: 140
+        // }, {
+        //     month: '6',
+        //     GZALE: 105,
+        //     ACP_TUNISIE: 100,
+        //     FORM_A_EN: 70,
+        //     FORMULE_A_FR: 80
+        // }
+        // ],
         xkey: 'month',
         parseTime: false,
-        ykeys: ['GZALE', 'ACP_TUNISIE', 'FORM_A_EN', 'FORMULE_A_FR'],
+        ykeys: ['GZALE', 'ACP-TUNISIE', 'FORM-A-EN', 'FORMULE-A-FR'],
         labels: ['GZALE', 'ACP TUNISIE', 'FORM A EN', 'FORMULE A FR'],
         xLabelFormat: function (x) {
             var index = parseInt(x.src.month);
@@ -737,12 +742,12 @@
         xLabels: "month",
         pointSize: 3,
         fillOpacity: 0,
-        pointStrokeColors:['#006DF0', '#933EC5', '#65b12d'],
+        pointStrokeColors:['#006DF0', '#933EC5', '#65b12d', '#EEF116'],
         behaveLikeLine: true,
         gridLineColor: '#e0e0e0',
         lineWidth: 1,
         hideHover: 'auto',
-        lineColors: ['#006DF0', '#933EC5', '#65b12d'],
+        lineColors: ['#006DF0', '#933EC5', '#65b12d', '#EEF116'],
         resize: true
         
     });

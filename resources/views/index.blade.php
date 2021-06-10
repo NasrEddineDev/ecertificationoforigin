@@ -362,7 +362,7 @@
                                                 style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"
                                                 placeholder="{{ __('Password') }}">
                                         </div>
-                                        <div class="g-recaptcha"
+                                        <div class="g-recaptcha"  id="recaptcha"
                                             data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
                                         <label id="g-recaptcha-error" class="error" for="g-recaptcha"></label>
                                         <button type="submit" class="wow fadeInUp btn btn-primary col-lg-12"
@@ -1190,27 +1190,38 @@
     <!--====== Main js ======-->
     {{-- <script src="assetsDoc/js/all.js"></script> --}}
     <script src="assets/js/main.js"></script>
-    {{-- <script src="https://www.google.com/recaptcha/api.js?render=v3_site_key"></script> --}}
-    <script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&hl={{ App()->currentLocale() }}"
-        async defer></script>
 
-
-
+    <script src="https://www.google.com/recaptcha/api.js?hl={{ App()->currentLocale() }}" async defer></script>
 
     <script>
-        var RecaptchaOptions = {
-            theme: 'theme_name',
-            lang: 'ar'
-        };
+        // var RecaptchaOptions = {
+        //     theme: 'theme_name',
+        //     lang: 'ar'
+        // };
 
-        function onSubmit(token) {
-            document.getElementById("demo-form").submit();
-        }
-
+        // function onSubmit(token) {
+        //     document.getElementById("demo-form").submit();
+        // }
 
         $(document).ready(function() {
             $(".rc-anchor-light.rc-anchor-normal").attr("style", "width:99%");
-        });
+
+            // var _captchaTries = 0;
+            // function recaptchaOnload() {
+            //     _captchaTries++;
+            //     if (_captchaTries > 9)
+            //         return;
+            //     if ($('.g-recaptcha').length > 0) {
+            //         grecaptcha.render("recaptcha", {
+            //             sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
+            //             callback: function() {
+            //                 console.log('recaptcha callback');
+            //             }
+            //         });
+            //         return;
+            //     }
+            //     window.setTimeout(recaptchaOnload, 1000);
+            // }
 
         $(".nav .nav-link").on("click", function() {
             $(".nav").find(".active").removeClass("active");
@@ -1257,7 +1268,7 @@
                     },
                 },
             });
-
+            alert('hi 1');
 
             $.ajax({
                 headers: {
@@ -1266,9 +1277,10 @@
                 type: $(this).attr('method'),
                 url: $(this).attr('action'),
                 data: $(this).serialize() + '&recaptchaIsChecked=' + (!$("#g-recaptcha-response")
-                .val() ? false : true),
+                    .val() ? false : true),
                 success: function(data) {
                     if (data.result == 'success') {
+                        alert('hi 2');
                         // if(!$("#g-recaptcha-response").val()){
                         //     $(".login-link").addClass("show");
                         //     $(".login-link .nav-link").attr("aria-expanded", "true");
@@ -1319,7 +1331,10 @@
             });
         });
 
+});
+
     </script>
+
 </body>
 
 </html>

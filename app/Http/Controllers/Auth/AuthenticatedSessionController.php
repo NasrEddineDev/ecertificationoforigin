@@ -36,11 +36,11 @@ class AuthenticatedSessionController extends Controller
     {
 
         if ($request->recaptchaIsChecked == 'false')
-        return response()->json([
-            'recaptchaIsChecked' => $request->recaptchaIsChecked, 
-            'result' => 'failed', 
-            'errors' => ['recaptcha' => __('Captcha must be checked')]
-        ], 422);
+            return response()->json([
+                'recaptchaIsChecked' => $request->recaptchaIsChecked,
+                'result' => 'failed',
+                'errors' => ['recaptcha' => __('Captcha must be checked')]
+            ], 422);
 
         $request->validate([
             'email' => 'required|string|email|max:255|', //unique:users',
@@ -55,15 +55,15 @@ class AuthenticatedSessionController extends Controller
             }
         }
 
-        if (!Auth::check()) 
+        if (!Auth::check())
             return response()->json([
-                'result' => 'failed', 
-                'errors' => ['email' => __('Credentials are incorrect'),'password' => __('Credentials are incorrect')]
+                'result' => 'failed',
+                'errors' => ['email' => __('Credentials are incorrect'), 'password' => __('Credentials are incorrect')]
             ], 422);
         return response()->json([
-            'result' => 'success', 
-            'message' => '',  
-            'url' => RouteServiceProvider::HOME
+            'result' => 'success',
+            'message' => '',
+            'url' => url(RouteServiceProvider::HOME)
         ], 200);
         // if (Auth::user()->role->name != 'user') return redirect(RouteServiceProvider::HOME);
 

@@ -717,6 +717,7 @@ class CertificateController extends Controller
                 $certificate->dri_signature_date = date('Y-m-d H:m:s');
                 $certificate->signed_document = $certificate->id . '-gzal-dri-signed.pdf';
                 $certificate->Enterprise->balance = $certificate->Enterprise->balance - 1;
+                $certificate->Enterprise->update();
                 $certificate->update();
                 $data['status'] = $certificate->status;
                 $data['notes'] = $notes == 'null' ? '' : $notes;

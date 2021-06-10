@@ -34,11 +34,12 @@ class DashboardController extends Controller
 
             $data = [
                 'current_balance' => Auth::User()->Enterprise->balance,
-                'current_balance_rate' => (100 * Auth::User()->Enterprise->balance / (Auth::User()->Enterprise->balance +
-                    Auth::User()->Enterprise->certificates->where('status', '==', 'SIGNED')->count())) . '%',
+                'current_balance_rate' => number_format((float)(100 * Auth::User()->Enterprise->balance / (Auth::User()->Enterprise->balance +
+                    Auth::User()->Enterprise->certificates->where('status', '==', 'SIGNED')->count())), 2, '.', '') . '%',
                 'consumed_balance' => Auth::User()->Enterprise->certificates->where('status', '==', 'SIGNED')->count(),
-                'consumed_balance_rate' => (100 * Auth::User()->Enterprise->certificates->where('status', '==', 'SIGNED')->count() / (Auth::User()->Enterprise->balance +
-                    Auth::User()->Enterprise->certificates->where('status', '==', 'SIGNED')->count())) . '%',
+                'consumed_balance_rate' => number_format((float)(100 * Auth::User()->Enterprise->certificates->where('status', '==', 'SIGNED')
+                    ->count() / (Auth::User()->Enterprise->balance +
+                        Auth::User()->Enterprise->certificates->where('status', '==', 'SIGNED')->count())), 2, '.', '') . '%',
                 'total_balance' => Auth::User()->Enterprise->balance +
                     Auth::User()->Enterprise->certificates->where('status', '==', 'SIGNED')->count(),
                 'total_certificates' => Auth::User()->Enterprise->certificates()->count(),
@@ -50,21 +51,13 @@ class DashboardController extends Controller
                     ->whereIn('certificate_id', Auth::User()->Enterprise->certificates()
                         ->where('status', '==', 'SIGNED')->pluck('id')->toArray())
                     ->sum('package_count'),
-                // 'total_prices' =>
-                // 'total_prices/product' =>
-                // 'package_types' =>
-
-                //Auth::User()->Enterprise->products()->pivot->package_count->sum(),
-                //$this->products()->sum(DB::raw('products.weight * quantity'));
                 'total_importers' => Auth::User()->Enterprise->importers()->count(),
                 'total_countries' => DB::table('countries')
                     ->whereIn('id', DB::table('states')
                         ->whereIn('id', Auth::User()->Enterprise->importers->pluck('state_id')->toArray())
                         ->pluck('country_id')->toArray())->distinct()->count(),
-                //             Auth::User()->Enterprise->certificates()
-                // ->where('status', '==', 'SIGNED')->pluck('id')->toArray())
-                //  Auth::User()->Enterprise->importers->state->select('country_id')->distinct()->count(),
-                'total_products_weight' => Auth::User()->Enterprise->certificates->where('status', '==', 'SIGNED')->sum('net_weight'),
+                'total_products_weight' => Auth::User()->Enterprise->certificates->where('status', '!=', 'DRAFT')
+                    ->where('status', '!=', 'REJECTED')->sum('net_weight'),
                 // Piechart
                 'total_gzale' => Auth::User()->Enterprise->certificates->where('type', '==', 'GZALE')
                     ->where('copy_type', '==', 'NONE')->count(),
@@ -75,37 +68,17 @@ class DashboardController extends Controller
                 'total_formule_a_fr' => Auth::User()->Enterprise->certificates->where('type', '==', 'FORMULE-A-FR')
                     ->where('copy_type', '==', 'NONE')->count(),
             ];
-            $data['gzale_rate'] = ($data['total_certificates'] != 0) ? $data['total_gzale'] / $data['total_certificates'] : 0;
-            $data['acp_tunisie_rate'] = ($data['total_certificates'] != 0) ? $data['total_acp_tunisie'] / $data['total_certificates'] : 0;
-            $data['form_a_en_rate'] = ($data['total_certificates'] != 0) ? $data['total_form_a_en'] / $data['total_certificates'] : 0;
-            $data['formule_a_fr_rate'] = ($data['total_certificates'] != 0) ? $data['total_formule_a_fr'] / $data['total_certificates'] : 0;
-            $selected_attribute = Auth::User()->Enterprise->certificates()->selectRaw('month(created_at) as month, type')->where('copy_type', '==', 'NONE')->get();
-            // dd($selected_attribute);
-            $certificates_morris_area = ($selected_attribute) ? '' : 
-                                            $selected_attribute->select(DB::raw('month, type, count(*) as certificate_count'))
-                                            // Auth::User()->Enterprise->certificates->select(DB::raw('month(created_at) as 
-                                            // month, type, count(*) as certificate_count'))
-                                            // ->where('copy_type', '==', 'NONE')
-                                            ->groupBy('month, type')
-                                            ->get();
-            
-            // ->select('created_at', 'type', DB::raw('count(*)'))
-            // ->groupBy('data', 'agenda_id')
-            // ->get();
-            
-            // Auth::User()->Enterprise->certificates->where('copy_type', '==', 'NONE')->groupBy('type')->map->count();
-            $data['morris_area'] = ($selected_attribute) ? '' : $certificates_morris_area->map(function ($item, $key) {
-                // $result['month']              = $certificates_morris_area->;
-                // $address['a_new_attribute'] = $input['a_new_attribute'];
-                // return $result;
-                return [
-                    'month' => $item->month,
-                    'GZALE' => $item->where('type', '==', 'GZALE')->where('month', '==', $item->month)->first()->certificate_count,
-                    'ACP_TUNISIE' => $item->where('type', '==', 'ACP-TUNISIE')->where('month', '==', $item->month)->first()->certificate_count,
-                    'FORM_A_EN' => $item->where('type', '==', 'FORM-A-EN')->where('month', '==', $item->month)->first()->certificate_count,
-                    'FORMULE_A_FR' => $item->where('type', '==', 'FORMULE-A-FR')->where('month', '==', $item->month)->first()->certificate_count,
-                ];
-            });
+            $data['gzale_rate'] = ($data['total_certificates'] != 0) ? ($data['total_gzale'] * 100) / $data['total_certificates'] : 0;
+            $data['acp_tunisie_rate'] = ($data['total_certificates'] != 0) ? ($data['total_acp_tunisie'] * 100) / $data['total_certificates'] : 0;
+            $data['form_a_en_rate'] = ($data['total_certificates'] != 0) ? ($data['total_form_a_en'] * 100) / $data['total_certificates'] : 0;
+            $data['formule_a_fr_rate'] = ($data['total_certificates'] != 0) ? ($data['total_formule_a_fr'] * 100) / $data['total_certificates'] : 0;
+
+            $data['certificates_morris_area'] = DB::select("select MONTH(created_at) as month,"
+                . "(select count(*) from certificates c1 where c1.`type` = 'GZALE' and MONTH(c1.created_at) = month) as GZALE,"
+                . "(select count(*) from certificates c2 where c2.`type` = 'FORM-A-EN' and MONTH(c2.created_at) = month) as 'FORM-A-EN',"
+                . "(select count(*) from certificates c2 where c2.`type` = 'FORMULE-A-FR' and MONTH(c2.created_at) = month) as 'FORMULE-A-FR',"
+                . "(select count(*) from certificates c3 where c3.`type` = 'ACP-TUNISIE' and MONTH(c3.created_at) = month) as 'ACP-TUNISIE'"
+                . " from certificates where enterprise_id = 1 and copy_type = 'NONE' group BY month");
         } else {
             $data = [
                 'current_balance' => '0',
@@ -116,6 +89,16 @@ class DashboardController extends Controller
                 'total_certificates' => '0',
                 'signed_certificates' => '0',
                 'rejected_certificates' => '0',
+                'total_requests' => '0',
+                'total_products' => '0',
+                'total_products_weight' => '0',
+                'total_importers' => '0',
+                'total_countries' => '0',
+                'gzale_rate' => '0',
+                'acp_tunisie_rate' => '0',
+                'formule_a_fr_rate' => '0',
+                'form_a_en_rate' => '0',
+                'morris_area' => '0',
 
 
             ];
