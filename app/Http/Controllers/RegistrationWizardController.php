@@ -44,7 +44,10 @@ class RegistrationWizardController extends Controller
      */
     public function index()
     {
-        
+
+        $activities = Activity::all();
+        $step = Steps::ENTERPRISE;
+        return view('registration_wizard', compact('step', 'activities'));
         // App::setLocale('ar');
         // session()->put('locale', 'ar');
         $locale = App::currentLocale();
@@ -65,18 +68,18 @@ class RegistrationWizardController extends Controller
                 return view('registration_wizard', ['step' => Steps::ACTIVATION]);
             }
             else if (! Auth::user()->enterprise){
-                $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
+                // $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
                 // $cities = City::all()->where('country_code', '==', 'DZ');
                 $activities = Activity::all();
                 $step = Steps::ENTERPRISE;
-                return view('registration_wizard', compact('step', 'states', 'activities'));
+                return view('registration_wizard', compact('step', 'activities'));
             }
             else if (! Auth::user()->enterprise->manager_id ){
-                $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
+                // $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
                 // $cities = City::all()->where('country_code', '==', 'DZ');
                 // $cities = City::all()->where('state_code', '==', $state_code);
                 $step = Steps::MANAGER;
-                return view('registration_wizard', compact('step', 'states'));
+                return view('registration_wizard', compact('step'));
             }
             else if (Auth::user()->enterprise->status == 'DRAFT'){
                 return view('registration_wizard', ['step' => Steps::CONFIRMATION]);
@@ -95,9 +98,7 @@ class RegistrationWizardController extends Controller
      */
     public function store(Request $request)
     {
-
         $step = (int)$request->step;
-
         try {
             if ($step == Steps::REGISTRATION) {
                 //validate
@@ -107,15 +108,6 @@ class RegistrationWizardController extends Controller
                     'email' => 'required|string|email|confirmed|max:255|unique:users',
                     'password' => 'required|string|confirmed|min:8',
                 ]);
-
-                // if ($validator)
-                // {
-                //     return Response::json(array(
-                //         'status' => 'failed',
-                //         'errors' => $validator->getMessageBag()->toArray()
-                
-                //     ), 402); // 400 being the HTTP code for an invalid request.
-                // }
 
                 // process: add user and login
                 Auth::login($user = User::create([
@@ -130,8 +122,6 @@ class RegistrationWizardController extends Controller
                     'message' => 'Verify your email',
                     'step' => Steps::ACTIVATION
                 ], 200);
-                //process
-                
             } else if ($step == Steps::ACTIVATION) {
                 //validate
                 if ($request->user()->hasVerifiedEmail()) {

@@ -255,7 +255,7 @@
             </div>
         </div>
     </div>
-    <div class="traffic-analysis-area  reso-mg-b-30">
+    <div class="traffic-analysis-area  reso-mg-b-30 mg-b-10-c">
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">

@@ -30,18 +30,45 @@
                     </div>
                     <div class="sparkline13-graph">
                         <div class="datatable-dashv1-list custom-datatable-overright">
-                            <div class="toolbar add-product dt-tb">
+                            
+                            {{-- <div class="toolbar add-product dt-tb">
                                 <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
                                 "PENDING") ? 'not-active' : '' }}" href="{{ route('importers.create') }}" 
                                 style="{{App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : ''}}">
                                 {{ __('Add New Importer')}}</a>
+                            </div> --}}
+                            <div id="toolbar">
+                                <div class="{{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                    <button id="new" style="background-color: #2C7744;" class="dropbtn btn btn-danger dropdown-toggle" 
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" title="{{ __('Add New Importer') }}">
+                                            <i class="fa fa-user-plus"></i>
+                                    </button>
+                                    <button id="details" class="btn btn-info" title="{{ __('Details') }}" disabled>
+                                        <i class="fa fa-eye"></i>
+                                    </button>
+                                    <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
+                                        disabled>
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </button>
+                                    <button id="remove" class="btn btn-danger" title="{{ __('Delete') }}"
+                                        data-toggle="modal" data-target="#DangerModalhdbgcl"
+                                        style="background-color: #d80027!important;" disabled>
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-4 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                    <select id="certificatesSelecor" name="certificatesSelecor" class="form-control">
+                                        <option value="ALL" selected>ALL</option>
+                                        <option value="GZALE">UEA</option>
+                                        <option value="FORMULE-A-FR">EGYPT</option>
+                                    </select>
+                                </div>
                             </div>
-                            {{-- <div id="toolbar">
-                                <select class="form-control dt-tb">
-                                    <option value="">Export Basic</option>
-                                    <option value="all">Export All</option>
-                                    <option value="selected">Export Selected</option>
-                                </select>
+                            {{-- <div class="toolbar add-product dt-tb">
+                                <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
+                                "PENDING") ? 'not-active' : '' }}" href="{{ route('importers.create') }}" 
+                                style="{{App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : ''}}">
+                                {{ __('Add New Importer')}}</a>
                             </div> --}}
                             <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" 
                             data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" 
@@ -66,7 +93,7 @@
                                         @if (Auth::user()->can('view-enterprise-user'))
                                         <th data-field="enterprise" data-editable="true">{{ __('Enterprise')}}</th>
                                         @endif
-                                        <th data-field="action">{{ __('Action')}}</th>
+                                        {{-- <th data-field="action">{{ __('Action')}}</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -87,7 +114,7 @@
                                         @if (Auth::user()->can('view-enterprise-user'))
                                         <td>{{ $importer->enterprise_id }}</td>
                                         @endif
-                                        <td class="datatable-ct">
+                                        {{-- <td class="datatable-ct">
                                             <a rel="tooltip" class="btn btn-success" href="{{ route('importers.show',$importer->id) }}" 
                                                 data-original-title="" title="{{ __('Detail') }}">
                                                 <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
@@ -104,7 +131,7 @@
                                                 <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
                                                 <div class="ripple-container"></div>
                                             </a>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -129,11 +156,11 @@
             <div class="modal-body">
                 <span class="educate-icon educate-danger modal-check-pro information-icon-pro"></span>
                 <h2>{{ __('Remove Permanently!')}}</h2>
-                <p>{{ __('Do you want to deletet the importer')}} <strong id="ImporterName" style="color: #d80027!important;"></strong> {{ __('forever')}} ?</p>
+                <p>{{ __('Do you want to delete the importers')}} <strong id="ImporterName" style="color: #d80027!important;"></strong> {{ __('forever')}} ?</p>
             </div>
             <div class="modal-footer danger-md">
                 <a data-dismiss="modal" href="#" style="background-color: #d80027!important;">{{ __('No')}}</a>
-                <a id="Delete" href="#" style="background-color: #d80027!important;">{{ __('Yes')}}</a>
+                <a id="delete" href="#" style="background-color: #d80027!important;">{{ __('Yes')}}</a>
             </div>
         </div>
     </div>
@@ -155,35 +182,88 @@
 <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-en-US.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-fr-FR.js') }}"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#DangerModalhdbgcl').on('shown.bs.modal', function(e) {
-            var link = $(e.relatedTarget),
-                url = link.data("url"),
-                importer_name = link.data("importer_name");
-                // e.closest('tr').hide();
-                // alert(e.closest.closest('tr'));
-            $("#Delete").attr("href", url);
-            $("#ImporterName").text(importer_name);
-        });
 
-        $("#Delete").click(function(e){
-            e.preventDefault();
-            var url = $("#Delete").attr("href");
-            var id = url.substring(url.lastIndexOf('/') + 1);
-            $.ajax({
-                headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: url,
-            type: 'DELETE',
-            success: function(result) {
-                $('#DangerModalhdbgcl').modal('toggle');
-                // document.getElementById("table").deleteRow(4); 
-                $('table#table tr#'+id).remove();
-            }
-        });
-    }); 
+var $table = $('#table')
+        var $new = $('#new')
+        var $preview = $('#preview')
+        var $details = $('#details')
+        var $edit = $('#edit')
+        var $remove = $('#remove')
+        var selections = []
 
+        $new.prop('disabled', false)
+        $preview.prop('disabled', true)
+        $details.prop('disabled', true)
+        $edit.prop('disabled', true)
+        $remove.prop('disabled', true)
+
+        function getIdSelections() {
+            return $.map($table.bootstrapTable('getSelections'), function(row) {
+                return row.id
+            })
+        }
+        $table.on('check.bs.table uncheck.bs.table ' +
+            'check-all.bs.table uncheck-all.bs.table',
+            function() {
+                $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
+                $preview.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
+                $details.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
+                $edit.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
+                // console.log($table.bootstrapTable('getSelections'));
+                // save your data, here just save the current page
+                selections = getIdSelections()
+                // console.log(selections);
+                // push or splice the selections if you want to save all data selections
+            })
+
+            $(document).ready(function() {
+
+                $(document).on("click", "#edit", function(e) {
+                e.preventDefault();
+                selections = getIdSelections()
+                var url = "{{ route('importers.edit', 'id') }}".replace('id', selections[0]);
+                window.location.href = url;
+            });
+
+                $('#DangerModalhdbgcl').on('shown.bs.modal', function(e) {
+                e.preventDefault();
+                selections = getIdSelections()
+                if (selections.length == 1) {
+                    selections = selections[0];
+                } else {
+                    selections = selections.join(",");
+                }
+                console.log(selections);
+                var url = "{{ route('importers.destroy', 'id') }}".replace('id', selections);
+                $("#delete").attr("href", url);
+                $("#ImporterName").text(selections);
+            });
+    
+            $("#delete").click(function(e) {
+                e.preventDefault();
+                var url = $("#Delete").attr("href");
+                // var id = url.substring(url.lastIndexOf('/') + 1);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    type: 'DELETE',
+                    success: function(result) {
+                        e.preventDefault();
+                        selections = getIdSelections();
+                        $table.bootstrapTable('remove', {
+                            field: 'id',
+                            values: selections
+                        });
+                        $('#DangerModalhdbgcl').modal('toggle');
+                    }
+                });
+            });
+
+    $(document).on("click", "#new", function() {
+        window.location.href = "{{ route('importers.create') }}";
+        });
     });
 </script>
 @endpush

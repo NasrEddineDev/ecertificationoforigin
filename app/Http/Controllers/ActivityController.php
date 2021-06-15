@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Activity;
+use App\Models\Enterprise;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -93,6 +94,11 @@ class ActivityController extends Controller
 
         }
         return response()->json($data);
+    }
+    public function getSelectedActivities($enterprise_id)
+    {
+        $enterprise = Enterprise::find($enterprise_id);
+        return response()->json([ 'activities' => $enterprise->activities]);
     }
 
 }

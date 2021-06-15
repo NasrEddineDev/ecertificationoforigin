@@ -50,10 +50,10 @@ class EnterpriseController extends Controller
         //
         $enterprise = new Enterprise([
             'name' => $request->name,
-            'activity_type' => $request->activity_type,
+            // 'activity_type' => $request->activity_type,
             'legal_form' => $request->legal_form,
             'exporter_type' => $request->exporter_type,
-            'export_activity_code' => $request->export_activity_code,
+            // 'export_activity_code' => $request->export_activity_code,
             'address' => $request->address,
             'email' => $request->email,
             'mobile' => $request->mobile,
@@ -136,6 +136,7 @@ class EnterpriseController extends Controller
         //
         $categories = Category::all();
         $enterprise = Enterprise::find($id);
+        // $activities_codes = $enterprise->activities()->pluck('code')->join(',');
         return view('enterprises.edit',compact('enterprise', 'categories'));
     }
 
@@ -151,19 +152,28 @@ class EnterpriseController extends Controller
         //
         $enterprise = Enterprise::find($id);
         $enterprise->name = $request->name;
-        $enterprise->activity_type = $request->activity_type;
+        // $enterprise->activity_type = $request->activity_type;
         $enterprise->legal_form = $request->legal_form;
         $enterprise->exporter_type = $request->exporter_type;
-        $enterprise->export_activity_code = $request->export_activity_code;
+        // $enterprise->export_activity_code = $request->export_activity_code;
         $enterprise->address = $request->address;
         $enterprise->email = $request->email;
         $enterprise->mobile = $request->mobile;
         $enterprise->tel = $request->tel;
         $enterprise->website = $request->website;
         $enterprise->fax = $request->fax;
+        $enterprise->city_id = ($request->city_id) ? $request->city_id : $enterprise->city_id;
         if (Auth::User()->role->name != 'user'){
             // $enterprise->balance = $request->balance;
             $enterprise->status = $request->status;    
+        }
+
+        $enterprise->activities()->detach();
+        // dd($request->activities);
+        foreach ($request->activities as $activity_id) {
+            $enterprise->activities()->attach($activity_id, [
+                'enterprise_id' => $enterprise->id,
+            ]);
         }
 
         $file = $request->file('rc');
@@ -173,7 +183,7 @@ class EnterpriseController extends Controller
             if (!file_exists('data/'.$destinationPath)) {
                 File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
             }
-            Storage::disk('public/data')->put($destinationPath . $fileName, file_get_contents($file));
+            Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
             $enterprise->rc = $fileName;
         }
         $file = $request->file('nis');
@@ -183,7 +193,7 @@ class EnterpriseController extends Controller
             if (!file_exists('data/'.$destinationPath)) {
                 File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
             }
-            Storage::disk('public/data')->put($destinationPath . $fileName, file_get_contents($file));
+            Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
             $enterprise->nis = $fileName;
         }
         $file = $request->file('nif');
@@ -193,7 +203,7 @@ class EnterpriseController extends Controller
             if (!file_exists('data/'.$destinationPath)) {
                 File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
             }
-            Storage::disk('public/data')->put($destinationPath . $fileName, file_get_contents($file));
+            Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
             $enterprise->nif = $fileName;
         }
         $enterprise->update();

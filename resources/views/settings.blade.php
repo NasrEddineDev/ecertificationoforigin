@@ -379,6 +379,7 @@
             var dir = '';
             if (lang == 'ar') dir = 'rtl';
             else dir = 'ltr';
+            
             $('#offers_list').select2({
                 // width: 'resolve',
                 dir: dir,

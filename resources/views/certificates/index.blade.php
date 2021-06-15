@@ -344,7 +344,7 @@
                 <div class="modal-body">
                     <span class="educate-icon educate-danger modal-check-pro information-icon-pro"></span>
                     <h2>{{ __('Remove Permanently !') }}</h2>
-                    <p>{{ __('Do you want to deletet the certificate') }} <strong id="CertificateName"
+                    <p>{{ __('Do you want to delete the certificate') }} <strong id="CertificateName"
                             style="color: #d80027!important;"></strong> {{ __('forever ?') }}</p>
                 </div>
                 <div class="modal-footer danger-md">

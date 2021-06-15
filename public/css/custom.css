@@ -93,6 +93,10 @@
     border-radius: 50%;
   }
 
+  .inputfile + label {
+    /* max-width: 85%!important; */
+    padding: 0.4rem 1.25rem;
+}
 
 @media (min-width: 992px)  {
     .login-horizental a:hover {

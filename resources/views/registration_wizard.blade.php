@@ -200,20 +200,20 @@
                     <p>{{ __('Fill all fields to go next step') }}</p>
 
                     @if (Auth::check())
-                    <div class="form-holder" style="width: 100%;">
-                        <form method="POST" action="{{ route('logout') }}" id="loginForm">
-                            @csrf
-                            <div style="right:5px;top:5px; margin:10px;position:absolute">
-                                <button id="logout" type="submit" title="{{ __('Logout') }}"
-                                    class="btn btn-default">
-                                    {{-- <span class="view-text">{{ __('Log In') }}</span> --}}
-                                    <span class="view-icon"><img width="30px;"
-                                            src="{{ URL::asset('') }}assets/images/login-50-white.png"
-                                            alt="" /></span>
-                                        </button>
-                            </div>
-                        </form>
-                    </div>
+                        <div class="form-holder" style="width: 100%;">
+                            <form method="POST" action="{{ route('logout') }}" id="loginForm">
+                                @csrf
+                                <div style="right:5px;top:5px; margin:10px;position:absolute">
+                                    <button id="logout" type="submit" title="{{ __('Logout') }}"
+                                        class="btn btn-default">
+                                        {{-- <span class="view-text">{{ __('Log In') }}</span> --}}
+                                        <span class="view-icon"><img width="30px;"
+                                                src="{{ URL::asset('') }}assets/images/login-50-white.png"
+                                                alt="" /></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                     @endif
                 </div>
                 <div id="form-total">
@@ -566,15 +566,16 @@
                                     @endif
                                     <div class="form-holder">
                                         <select name="state_code" id="state_code" class="form-control"
-                                            style="margin-top: 0;" {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}>
+                                            style="margin-top: 0;"
+                                            {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}>
                                             <option value="0" disabled selected>{{ __('Select The State') }}</option>
-                                            @if (isset($states))
+                                            {{-- @if (isset($states))
                                                 @foreach ($states as $state)
                                                     <option value="{{ $state->iso2 }}">
                                                         {{ $state->iso2 . ' ' . __($state->name) }}
                                                     </option>
                                                 @endforeach
-                                            @endif
+                                            @endif --}}
                                         </select>
                                     </div>
                                     @if (App()->currentLocale() != 'ar')
@@ -655,8 +656,8 @@
 
                                     <div class="form-holder"
                                         style="{{ App::currentLocale() == 'ar' ? 'width: 50%;' : '' }}">
-                                        <select {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }} name="gender_manager"
-                                            id="gender_manager">
+                                        <select {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
+                                            name="gender_manager" id="gender_manager">
                                             <option value="MALE" selected>{{ __('MALE') }}</option>
                                             <option value="FEMALE">{{ __('FEMALE') }}</option>
                                         </select>
@@ -719,7 +720,8 @@
                                         <select {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
                                             name="state_code_manager" id="state_code_manager" class="form-control"
                                             style="margin-top: 0;">
-                                            <option value="0" disabled selected>{{ __('Select The State') }}</option>
+                                            <option value="0" disabled selected>{{ __('Select The State') }}
+                                            </option>
                                             @if (isset($states))
                                                 @foreach ($states as $state)
                                                     <option value="{{ $state->iso2 }}">
@@ -986,10 +988,12 @@
             <span class="sr-only">{{ __('Loading...') }}</span>
         </div>
     </div>
-
+    /home/nasreddine/Desktop/caci E-Certif project/www/E-Certificate/resources/lang/fr/messages_fr.js
     <script src="{{ URL::asset('wizard/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}">
+    </script>
     <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('select2/js/select2.min.js') }}"></script>
 
@@ -1017,7 +1021,6 @@
                 $loading.hide();
             });
 
-
         $(document).ready(function() {
             var lang = "{{ App()->currentLocale() }}";
             var dir = '';
@@ -1032,11 +1035,6 @@
                 r.className = r.className.replace(/(^|s)no-js(s|$)/, "$1js$2")
             })(document, window, 0);
 
-            // $(document).on('change', '#activities', function() {
-            //     alert($('#activities').val());
-            // });
-
-
             $('.export_activity_code').hide();
             $(document).on('change', '#exporter_type', function() {
                 if (this.value == 'TRADER') {
@@ -1045,6 +1043,34 @@
                     $('.export_activity_code').hide();
                 }
             });
+
+            $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "/getalgerianstates",
+                    type: "GET",
+                    success: function(data) {
+                        $('#state_code').empty();
+                        $('#state_code').append(
+                            '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
+                        );
+                        $.each(data.states, function(index, city) {
+                            $('#state_code').append('<option value="' + city.value +
+                                '">' + city.text + '</option>');
+                        })
+
+
+                        $('#state_code_manager').empty();
+                        $('#state_code_manager').append(
+                            '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
+                        );
+                        $.each(data.states, function(index, city) {
+                            $('#state_code_manager').append('<option value="' + city.value +
+                                '">' + city.text + '</option>');
+                        })
+                    }
+                });
 
             $(document).on('change', '#state_code', function() {
                 var selectedState = $('#state_code').find(":selected").val().split(" ")[0];
@@ -1100,7 +1126,7 @@
                 /* Return whether the element is optional or the result of the validation. */
                 return this.optional(element) || regexp.test(value);
             });
-            
+
             $.validator.addMethod("passwordcheck", function(value) {
                 return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
                     &&
@@ -1118,7 +1144,6 @@
             });
 
             var account_validator = $(".account_form").validate({
-
                 rules: {
                     username: {
                         required: true,
@@ -1181,7 +1206,7 @@
             });
 
             var enterprise_validator = $(".enterprise_form").validate({
-
+                lang: 'ar',
                 rules: {
                     name: {
                         required: true,
@@ -1349,7 +1374,8 @@
                     current: ''
                 },
                 onStepChanging: function(event, currentIndex, newIndex) {
-                    var move = true, errors;
+                    var move = true,
+                        errors;
                     // Registration step
                     if (currentIndex == 0) {
                         console.log('Registration step');
@@ -1374,10 +1400,11 @@
                                 password_confirmation: $('#password_confirmation').val()
                             },
                             success: function(data) {
-                                console.log(data.message);
-                                account_validator.showErrors({
-                                    "email": "test error"
-                                });
+                                // console.log(data.message);
+                                // account_validator.showErrors({
+                                //     "email": "test error"
+                                // });
+                                move = true;
                                 return true;
                             },
                             error: function(data) {
@@ -1401,7 +1428,8 @@
                                 // console.log('error');
                                 // console.log(data.responseJSON.errors);
                                 errors = data.responseJSON.errors;
-                                return false;
+                                account_validator.showErrors(errors);
+                                return true;
                             }
                         });
                     } else if (currentIndex == 1) {
@@ -1459,7 +1487,7 @@
                         // formdata.append("activity_type", $('#activity_type').find(":selected").val());
                         // formdata.append("activity_type_name", $('#activity_type_name').val());
                         formdata.append("exporter_type", $('#exporter_type').find(":selected")
-                        .val());
+                            .val());
                         // formdata.append("export_activity_code", $('#export_activity_code').val());
                         formdata.append("activities", $('#activities').val());
                         formdata.append("address_enterprise", $('#address_enterprise').val());
@@ -1531,7 +1559,8 @@
                         formdata.append("firstname_manager", $('#firstname_manager').val());
                         formdata.append("lastname_manager", $('#lastname_manager').val());
                         formdata.append("birthday_manager", $('#birthday_manager').val());
-                        formdata.append("gender_manager",  $('#gender_manager').find(":selected").val());
+                        formdata.append("gender_manager", $('#gender_manager').find(":selected")
+                            .val());
                         formdata.append("address_manager", $('#address_manager').val());
                         formdata.append("email_manager", $('#email_manager').val());
                         formdata.append("mobile_manager", $('#mobile_manager').val());
@@ -1579,14 +1608,14 @@
                     } else if (currentIndex == 4) {
                         console.log('Confirmation step');
                     }
-                    if (!move && Object.keys(errors).length === 0) {
-                        alert('i"m here 01');
+                    if (!move && Object.keys(errors).length !== 0) {
+                        // alert('i"m here 01');
                         //     $.each(errors, function(key, value) {
                         //                 // console.log('key: ' + key);
                         //                 // console.log('value: ' + value);
                         //                 // $('#' + key + '-error').text(value);
-                                    
-                                
+
+
                         //     $("#"+key).after(
                         //         '<label id="'+key+'-error" class="error" for="'+key+'">' + value + '</label>'
                         //         )
@@ -1594,9 +1623,11 @@
                         //     //     "email": "Please enter an ID to check"
                         //     // };
                         // });
-                        account_validator.showErrors(errors);
+                        // account_validator.showErrors(errors);
+
+                        console.log(errors);
                     }
-                        alert('i"m here 02');
+                    // alert('i"m here 02');
                     return move;
                 },
                 onFinished: function(event, currentIndex) {
@@ -1660,7 +1691,7 @@
                 placeholder: '{{ __('Type Activities Codes') }}',
                 allowClear: true,
                 ajax: {
-                    url: 'getactivities',
+                    url: '/getactivities',
                     dataType: 'json',
                     delay: 250,
                     processResults: function(data) {
@@ -1720,70 +1751,79 @@
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->name : '' }}');
             $('#activity_type-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->activity_type : '' }}'
-                );
+            );
             $('#legal_form-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->legal_form : '' }}'
-                );
+            );
             $('#exporter_type-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->exporter_type : '' }}'
-                );
+            );
             $('#rc_number-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->rc_number : '' }}'
-                );
+            );
             $('#activities_codes-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->activities()->pluck('code')->join(',') : '' }}'
-                );
+            );
             $('#nif_number-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->nif_number : '' }}'
-                );
+            );
             $('#nis_number-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->nis_number : '' }}'
-                );
+            );
             $('#address_enterprise-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->enterprise : '' }}'
-                );
+            );
             $('#email_enterprise-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->email : '' }}');
             $('#mobile_enterprise-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->mobile : '' }}'
-                );
+            );
             $('#address_enterprise-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->address : '' }}'
-                );
+            );
             $('#website-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->website : '' }}'
-                );
+            );
             $('#tel_enterprise-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->tel : '' }}');
-            $('#fax_enterprise-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->fax : '' }}');
-            $('#city_enterprise-val').text('{{ Auth::user() && Auth::user()->Enterprise ? (App()->currentLocale() == "ar" ? Auth::user()->Enterprise->city->daira_name : Auth::user()->Enterprise->city->daira_name_ascii) : '' }}');
-            $('#state_enterprise-val').text('{{ Auth::user() && Auth::user()->enterprise ? (App()->currentLocale() == "ar" ? Auth::user()->Enterprise->city->wilaya_name : Auth::user()->Enterprise->city->wilaya_name_ascii) : '' }}');
-            $('#firstname_manager-val').text('{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->firstname : '' }}');
-            $('#lastname_manager-val').text('{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->lastname : '' }}');
+            $('#fax_enterprise-val').text(
+                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->fax : '' }}');
+            $('#city_enterprise-val').text(
+                '{{ Auth::user() && Auth::user()->Enterprise ? (App()->currentLocale() == 'ar' ? Auth::user()->Enterprise->city->daira_name : Auth::user()->Enterprise->city->daira_name_ascii) : '' }}'
+                );
+            $('#state_enterprise-val').text(
+                '{{ Auth::user() && Auth::user()->enterprise ? (App()->currentLocale() == 'ar' ? Auth::user()->Enterprise->city->wilaya_name : Auth::user()->Enterprise->city->wilaya_name_ascii) : '' }}'
+                );
+            $('#firstname_manager-val').text(
+                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->firstname : '' }}'
+                );
+            $('#lastname_manager-val').text(
+                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->lastname : '' }}'
+                );
             $('#gender_manager-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? __(Auth::user()->Enterprise->Manager->gender) : '' }}'
-                );
+            );
             $('#birthday_manager-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->birthday : '' }}'
-                );
+            );
             $('#address_manager-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->address : '' }}'
-                );
+            );
             $('#email_manager-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->email : '' }}'
-                );
+            );
             $('#mobile_manager-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->mobile : '' }}'
-                );
+            );
             $('#tel_manager-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->tel : '' }}'
-                );
+            );
             $('#city_manager-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? (App()->currentLocale() == "ar" ? Auth::user()->Enterprise->manager->city->daira_name : Auth::user()->Enterprise->manager->city->daira_name_ascii) : '' }}'
-                );
+                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? (App()->currentLocale() == 'ar' ? Auth::user()->Enterprise->manager->city->daira_name : Auth::user()->Enterprise->manager->city->daira_name_ascii) : '' }}'
+            );
             $('#state_manager-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? (App()->currentLocale() == "ar" ? Auth::user()->Enterprise->manager->city->wilaya_name : Auth::user()->Enterprise->manager->city->wilaya_name_ascii) : '' }}'
-                );
+                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? (App()->currentLocale() == 'ar' ? Auth::user()->Enterprise->manager->city->wilaya_name : Auth::user()->Enterprise->manager->city->wilaya_name_ascii) : '' }}'
+            );
         });
 
     </script>

@@ -40,8 +40,10 @@ Route::get('create-type/{type}', [\App\Http\Controllers\CertificateController::c
 Route::get('getproducts', [\App\Http\Controllers\ProductController::class, 'getProducts'])->name('products.getproducts');
 Route::get('getcities/{id}', [\App\Http\Controllers\CityController::class, 'getCities'])->name('cities.getcities');
 Route::get('getstates/{id}', [\App\Http\Controllers\StateController::class, 'getStates'])->name('states.getstates');
+Route::get('getalgerianstates', [\App\Http\Controllers\StateController::class, 'getAlgerianStates'])->name('states.getalgerianstates');
 Route::get('getsubcategories/{id}', [\App\Http\Controllers\SubCategoryController::class, 'getSubCategories'])->name('subc_ategories.getsubcategories');
 Route::get('getactivities', 'ActivityController@getActivities')->name('activities.getactivities');
+Route::get('getselectedactivities/{id}', 'ActivityController@getSelectedActivities')->name('activities.getselectedactivities');
 Route::get('create-balance-poste', [\App\Http\Controllers\PaymentController::class, 'createBalancePoste'])->name('payments.create-balance-poste');
 Route::post('store-balance-poste', [\App\Http\Controllers\PaymentController::class, 'storeBalancePoste'])->name('payments.store-balance-poste');
 Route::get('return/{id}', [\App\Http\Controllers\PaymentController::class, 'returnBalancePoste'])->name('payments.return');

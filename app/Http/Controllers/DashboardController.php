@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use ArrayObject;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Ramsey\Uuid\Type\Integer;
 
 class DashboardController extends Controller
 {
@@ -72,13 +74,19 @@ class DashboardController extends Controller
             $data['acp_tunisie_rate'] = ($data['total_certificates'] != 0) ? ($data['total_acp_tunisie'] * 100) / $data['total_certificates'] : 0;
             $data['form_a_en_rate'] = ($data['total_certificates'] != 0) ? ($data['total_form_a_en'] * 100) / $data['total_certificates'] : 0;
             $data['formule_a_fr_rate'] = ($data['total_certificates'] != 0) ? ($data['total_formule_a_fr'] * 100) / $data['total_certificates'] : 0;
+            $certificate = Auth::User()->Enterprise->certificates->sortBy('created_at')->first();
 
-            $data['certificates_morris_area'] = DB::select("select MONTH(created_at) as month,"
-                . "(select count(*) from certificates c1 where c1.`type` = 'GZALE' and MONTH(c1.created_at) = month) as GZALE,"
-                . "(select count(*) from certificates c2 where c2.`type` = 'FORM-A-EN' and MONTH(c2.created_at) = month) as 'FORM-A-EN',"
-                . "(select count(*) from certificates c2 where c2.`type` = 'FORMULE-A-FR' and MONTH(c2.created_at) = month) as 'FORMULE-A-FR',"
-                . "(select count(*) from certificates c3 where c3.`type` = 'ACP-TUNISIE' and MONTH(c3.created_at) = month) as 'ACP-TUNISIE'"
-                . " from certificates where enterprise_id = 1 and copy_type = 'NONE' group BY month");
+            $array = DB::select("select MONTH(created_at) as month,"
+            . "(select count(*) from certificates c1 where c1.`type` = 'GZALE' and MONTH(c1.created_at) = month) as GZALE,"
+            . "(select count(*) from certificates c2 where c2.`type` = 'FORM-A-EN' and MONTH(c2.created_at) = month) as 'FORM-A-EN',"
+            . "(select count(*) from certificates c2 where c2.`type` = 'FORMULE-A-FR' and MONTH(c2.created_at) = month) as 'FORMULE-A-FR',"
+            . "(select count(*) from certificates c3 where c3.`type` = 'ACP-TUNISIE' and MONTH(c3.created_at) = month) as 'ACP-TUNISIE'"
+            . " from certificates where enterprise_id = ". Auth::User()->enterprise->id ." and copy_type = 'NONE' group BY month");
+            
+            array_unshift($array, (object)(array('month' => isset($certificate) ? (Integer)date('m', strtotime($certificate->created_at)) - 1 : '0', 
+                                                 'GZALE' => '0', 'FORM-A-EN' => '0', 'FORMULE-A-FR' => '0', 'ACP-TUNISIE' => '0')));
+                                                 
+            $data['certificates_morris_area'] = $array;
         } else {
             $data = [
                 'current_balance' => '0',
@@ -98,7 +106,7 @@ class DashboardController extends Controller
                 'acp_tunisie_rate' => '0',
                 'formule_a_fr_rate' => '0',
                 'form_a_en_rate' => '0',
-                'morris_area' => '0',
+                'certificates_morris_area' => '0',
 
 
             ];

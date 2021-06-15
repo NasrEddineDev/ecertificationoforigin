@@ -98,4 +98,19 @@ class CityController extends Controller
 
         return response()->json([ 'cities' => $cities]);
     }
+
+    public function getAlgerianCities($state_code)
+    {
+        //        
+
+        $data = [];
+        $cities = AlgeriaCity::all()->where('wilaya_code', '=', $state_code);
+        $cities = $cities->map(function($items){
+            $data['value'] = $items->id;
+            $data['text'] = $items->commune_name;
+            return $data;
+            });
+
+        return response()->json([ 'cities' => $cities]);
+    }
 }

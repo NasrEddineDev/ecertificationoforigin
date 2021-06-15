@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\State;
+use App\Models\AlgeriaCity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StateController extends Controller
 {
@@ -88,12 +90,24 @@ class StateController extends Controller
 
         $data = [];
         $states = State::where('country_id', '=', $country_id)->orderBy('iso2')->get();
-        $states = $states->map(function($items){
+        $states = $states->map(function ($items) {
             $data['value'] = $items->iso2;
-            $data['text'] = __($items->iso2).' '.__($items->name);
+            $data['text'] = __($items->iso2) . ' ' . __($items->name);
             return $data;
-            });
+        });
 
-        return response()->json([ 'states' => $states]);
+        return response()->json(['states' => $states]);
+    }
+    public function getAlgerianStates()
+    {
+        //        
+        $data = [];
+        $states = collect(DB::select("select DISTINCT ac.wilaya_code , ac.wilaya_name, ac.wilaya_name_ascii from algeria_cities ac order by ac.wilaya_code"))
+                    ->map(function ($items) {
+                    $data['value'] = $items->wilaya_code;
+                    $data['text'] = $items->wilaya_code . ' ' . (App()->currentLocale() == 'ar' ? $items->wilaya_name : $items->wilaya_name_ascii);
+                    return $data;
+        });
+        return response()->json(['states' => $states]);
     }
 }

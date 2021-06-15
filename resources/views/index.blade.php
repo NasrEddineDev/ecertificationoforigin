@@ -38,7 +38,9 @@
     @if ($locale == 'ar')
         <style>
             @media (min-width: 993px) {
-                #login-form {
+
+                #login-form1,
+                #login-form2 {
                     width: 360px;
                 }
 
@@ -47,27 +49,31 @@
                     margin-top: 5px;
                 }
 
-                .g-recaptcha div {
+                #recaptcha2 div {
                     transform: scale(1.01);
                     transform-origin: 0 0;
                 }
             }
 
             @media (max-width: 992px) {
-                #login-form {
+
+                #login-form1,
+                #login-form2 {
                     width: 260px;
                 }
 
-                .g-recaptcha div {
+                #recaptcha1 div {
                     transform: scale(0.83);
                     transform-origin: 0 0;
                 }
 
-                #loginForm div.col-md-3 {
+                #loginForm1 div.col-md-3,
+                #loginForm2 div.col-md-3 {
                     width: 45% !important;
                 }
 
-                #loginForm div.col-md-4 {
+                #loginForm1 div.col-md-4,
+                #loginForm2 div.col-md-4 {
                     width: 55% !important;
                 }
             }
@@ -113,17 +119,13 @@
                 text-align: right !important;
             }
 
-            #g-recaptcha-error,
-            .rc-anchor-alert {
+            #recaptcha1-error, #recaptcha2-error, .rc-anchor-alert {
                 display: none;
+                text-align: right;
             }
 
             .grecaptcha-badge {
                 visibility: hidden;
-            }
-
-            #g-recaptcha-error {
-                text-align: right;
             }
 
             .navbar-expand-lg .navbar-collapse {
@@ -152,11 +154,18 @@
                 margin-left: 5px;
             }
 
+            .disabled-element {
+                opacity: 0.65;
+                pointer-events: none;
+            }
+
         </style>
     @else
         <style>
             @media (min-width: 993px) {
-                #login-form {
+
+                #login-form1,
+                #login-form2 {
                     width: 360px;
                 }
 
@@ -172,7 +181,9 @@
             }
 
             @media (max-width: 992px) {
-                #login-form {
+
+                #login-form1,
+                #login-form2 {
                     width: 260px;
                 }
 
@@ -181,11 +192,13 @@
                     transform-origin: 0 0;
                 }
 
-                #loginForm div.col-md-3 {
+                #loginForm1 div.col-md-3,
+                #loginForm2 div.col-md-3 {
                     width: 45% !important;
                 }
 
-                #loginForm div.col-md-4 {
+                #loginForm1 div.col-md-4,
+                #loginForm2 div.col-md-4 {
                     width: 55% !important;
                 }
             }
@@ -256,6 +269,11 @@
                 margin-left: 5px;
             }
 
+            .disabled-element {
+                opacity: 0.65;
+                pointer-events: none;
+            }
+
         </style>
     @endif
 </head>
@@ -301,10 +319,11 @@
                                 <img class="second-logo" style="width:50px"
                                     src="{{ URL::asset('') }}img/logo/caci.png" alt="CACI E-Certification" />
                                 <!-- <img src="assets/images/logo.svg" alt="Logo"> -->
-                                {{-- <h4 style="color:#fff" alt="Logo">CACI E-Certification 
+                                {{-- <h4 style="color:#fff" alt="Logo">CACI E-Certification
                                 </h4> --}}
                             </a>
 
+                            {{-- Mobile language selector --}}
                             <div class="lang">
                                 <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                     class="nav-link dropdown-toggle">
@@ -339,6 +358,7 @@
                                 </ul>
                             </div>
 
+                            {{-- Mobile login form --}}
                             <div class="login-link">
                                 <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                     class="nav-link ">
@@ -347,9 +367,9 @@
                                             src="{{ URL::asset('') }}assets/images/login-50-white.png"
                                             alt="" /></span>
                                 </a>
-                                <div id="login-form" role="menu"
+                                <div id="login-form1" role="menu"
                                     class="notification-author dropdown-menu animated zoomIn">
-                                    <form id="loginForm" class="px-4 py-3" method="POST"
+                                    <form id="loginForm1" class="px-4 py-3" method="POST"
                                         action="{{ route('login') }}">
                                         @csrf
                                         <div class="form-group">
@@ -362,9 +382,8 @@
                                                 style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"
                                                 placeholder="{{ __('Password') }}">
                                         </div>
-                                        <div class="g-recaptcha"  id="recaptcha"
-                                            data-sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI"></div>
-                                        <label id="g-recaptcha-error" class="error" for="g-recaptcha"></label>
+                                        <div id="recaptcha1"></div>
+                                        <label id="recaptcha1-error" class="error" for="recaptcha1"></label>
                                         <button type="submit" class="wow fadeInUp btn btn-primary col-lg-12"
                                             data-callback='onSubmit' data-action='submit'>{{ __('Log In') }}</button>
                                         <div class="form-check col-lg-5 col-md-3 col-sm-2 remember">
@@ -430,9 +449,11 @@
                                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                             class="nav-link dropdown-toggle">{{ __('Log In') }}
                                         </a>
-                                        <div role="menu" class="notification-author dropdown-menu animated zoomIn"
+                                        <div id="login-form2" role="menu"
+                                            class="notification-author dropdown-menu animated zoomIn"
                                             style="left:-300px;">
-                                            <form class="px-4 py-3" method="POST" action="{{ route('login') }}">
+                                            <form id="loginForm2" class="px-4 py-3" method="POST"
+                                                action="{{ route('login') }}">
                                                 @csrf
                                                 <div class="form-group">
                                                     <input type="email" class="form-control" id="email" name="email"
@@ -442,6 +463,8 @@
                                                     <input type="password" name="password" class="form-control"
                                                         id="password" placeholder="{{ __('Password') }}">
                                                 </div>
+                                                <div id="recaptcha2"></div>
+                                                <label id="recaptcha2-error" class="error" for="recaptcha2"></label>
                                                 <button type="submit" class="wow fadeInUp btn btn-primary col-lg-12"
                                                     style="margin-bottom:10px;">{{ __('Log In') }}</button>
                                                 <div class="form-check col-lg-5 col-md-3 col-sm-2 remember">
@@ -547,7 +570,7 @@
                     <div class="col-lg-5">
                         <div class="header_image align-items-end">
                             <div class="image wow fadeInRightBig" data-wow-duration="1.3s" data-wow-delay="1.8s">
-                                <img src="assets/images/header_app1.png" alt="header App">
+                                {{-- <img src="assets/images/header_app1.png" alt="header App"> --}}
                                 <img src="assets/images/dots.svg" alt="dots" class="dots">
                             </div> <!-- image -->
                         </div> <!-- header image -->
@@ -1149,7 +1172,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-">
-                    
+
                 </div>
             </div>
         </div>
@@ -1191,147 +1214,201 @@
     {{-- <script src="assetsDoc/js/all.js"></script> --}}
     <script src="assets/js/main.js"></script>
 
-    <script src="https://www.google.com/recaptcha/api.js?hl={{ App()->currentLocale() }}" async defer></script>
-
+    {{-- <script src="https://www.google.com/recaptcha/api.js?hl={{ App()->currentLocale() }}" async defer></script> --}}
+    {{-- <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&&render=explicit&hl={{ App()->currentLocale() }}"
+        async defer></script> --}}
+    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit&hl=ar" async defer>
+    </script>
     <script>
-        // var RecaptchaOptions = {
-        //     theme: 'theme_name',
-        //     lang: 'ar'
-        // };
-
-        // function onSubmit(token) {
-        //     document.getElementById("demo-form").submit();
-        // }
+        var is_mobile = false;
+        if ($('.navbar > .login-link').css('display') == 'block!important' ||
+            $('.navbar > .login-link').css('display') == 'block') {
+            is_mobile = true;
+        }
+        var recaptchaCallback = function() {
+            if (is_mobile == true) {
+                console.log('recaptcha mobile is ready'); // showing
+                console.log($('.navbar > .login-link').css('display'));
+                grecaptcha.render('recaptcha1', {
+                    sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+                });
+            } else {
+                console.log('recaptcha desktop is ready'); // showing
+                console.log($('.navbar > .login-link').css('display'));
+                grecaptcha.render('recaptcha2', {
+                    sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+                });
+            }
+        };
 
         $(document).ready(function() {
             $(".rc-anchor-light.rc-anchor-normal").attr("style", "width:99%");
 
-            // var _captchaTries = 0;
-            // function recaptchaOnload() {
-            //     _captchaTries++;
-            //     if (_captchaTries > 9)
-            //         return;
-            //     if ($('.g-recaptcha').length > 0) {
-            //         grecaptcha.render("recaptcha", {
-            //             sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI',
-            //             callback: function() {
-            //                 console.log('recaptcha callback');
-            //             }
-            //         });
-            //         return;
-            //     }
-            //     window.setTimeout(recaptchaOnload, 1000);
-            // }
-
-        $(".nav .nav-link").on("click", function() {
-            $(".nav").find(".active").removeClass("active");
-            $(this).addClass("active");
-        });
-
-        $.validator.addMethod("emailcheck", function(value, element, regexp) {
-            /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
-            if (regexp && regexp.constructor != RegExp) {
-                /* Create a new regular expression using the regex argument. */
-                regexp = new RegExp(regexp);
-            }
-            /* Check whether the argument is global and, if so set its last index to 0. */
-            else if (regexp.global) regexp.lastIndex = 0;
-            /* Return whether the element is optional or the result of the validation. */
-            return this.optional(element) || regexp.test(value);
-        });
-
-        $('#loginForm').submit(function(e) {
-            e.preventDefault();
-            // if (!$("#loginForm").valid()) {
-            //             }
-
-            var account_validator = $("#loginForm").validate({
-
-                rules: {
-                    email: {
-                        required: true,
-                        email: true,
-                        emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
-                    },
-                    password: {
-                        required: true,
-                    },
-                },
-                messages: {
-
-                    email: {
-                        required: "{{ __('Email Address is required') }}",
-                        emailcheck: "{{ __('Email Address is invalid') }}",
-                    },
-                    password: {
-                        required: "{{ __('Password is required') }}",
-                    },
-                },
+            $(".nav .nav-link").on("click", function() {
+                $(".nav").find(".active").removeClass("active");
+                $(this).addClass("active");
             });
-            alert('hi 1');
 
-            $.ajax({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                type: $(this).attr('method'),
-                url: $(this).attr('action'),
-                data: $(this).serialize() + '&recaptchaIsChecked=' + (!$("#g-recaptcha-response")
-                    .val() ? false : true),
-                success: function(data) {
-                    if (data.result == 'success') {
-                        alert('hi 2');
-                        // if(!$("#g-recaptcha-response").val()){
-                        //     $(".login-link").addClass("show");
-                        //     $(".login-link .nav-link").attr("aria-expanded", "true");
-                        //     $(".login-link #login-form").addClass("show");
-                        //     $("#g-recaptcha-error").text("{{ __('Captcha must be checked') }}");
-                        //     $("#g-recaptcha-error").attr("style", "display:block");
-                        // }
-                        // else 
-                        window.location.href = data.url;
-                        // alert(!$("#g-recaptcha-response").val()? false:true);
-                    } else if (data.result == 'failed') {
-
-                    }
-                },
-                error: function(data) {
-                    // alert("failed");
-                    var errors;
-                    $(".login-link").addClass("show");
-                    $(".login-link .nav-link").attr("aria-expanded", "true");
-                    $(".login-link #login-form").addClass("show");
-                    // if (data.indexOf("Verify your email")){
-                    //    $("#section_activation").css("display", "block");
-                    // }
-                    // else if(data.indexOf("Your email address is not verified") > -1){
-                    //    $("#section_activation").css("display", "block");
-                    // }
-
-                    // account_validator.showErrors({
-                    //     "email": "test error"
-                    // });
-                    if (data.result == 'failed') {
-                        errors = data.errors;
-                        // account_validator.showErrors(data.errors);
-                    } else {
-                        errors = data.responseJSON.errors;
-                        // account_validator.showErrors(errors);
-                    }
-
-
-                    if (!$("#g-recaptcha-response").val()) {
-                        $("#g-recaptcha-error").text("{{ __('Captcha must be checked') }}");
-                        $("#g-recaptcha-error").attr("style", "display:block");
-                        // errors["g-recaptcha"] = "captcha must be checked";
-                    }
-
-                    account_validator.showErrors(errors);
+            $.validator.addMethod("emailcheck", function(value, element, regexp) {
+                /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
+                if (regexp && regexp.constructor != RegExp) {
+                    /* Create a new regular expression using the regex argument. */
+                    regexp = new RegExp(regexp);
                 }
+                /* Check whether the argument is global and, if so set its last index to 0. */
+                else if (regexp.global) regexp.lastIndex = 0;
+                /* Return whether the element is optional or the result of the validation. */
+                return this.optional(element) || regexp.test(value);
             });
-        });
 
-});
+            $('#loginForm1').submit(function(e) {
+                e.preventDefault();
+                // $("#loginForm2 #g-recaptcha").addClass("disabled-element");
+
+                var rcres = grecaptcha.getResponse();
+                if (rcres.length) {
+                    grecaptcha.reset();
+                    // alert("Form Submitted!", "success");
+                } else {
+                    // alert("Please verify reCAPTCHA", "error");
+                }
+
+                var account_validator1 = $("#loginForm1").validate({
+
+                    rules: {
+                        email: {
+                            required: true,
+                            email: true,
+                            emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
+                        },
+                        password: {
+                            required: true,
+                        },
+                    },
+                    messages: {
+
+                        email: {
+                            required: "{{ __('Email Address is required') }}",
+                            emailcheck: "{{ __('Email Address is invalid') }}",
+                        },
+                        password: {
+                            required: "{{ __('Password is required') }}",
+                        },
+                    },
+                });
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize() + '&recaptchaIsChecked=' + (rcres.length ? true :
+                        false),
+                    success: function(data) {
+                        if (data.result == 'success') {
+                            window.location.href = data.url;
+                        } else if (data.result == 'failed') {
+
+                        }
+                    },
+                    error: function(data) {
+                        var errors;
+                        $(".login-link").addClass("show");
+                        $(".login-link .nav-link").attr("aria-expanded", "true");
+                        $("#login-form1").addClass("show");
+                        if (data.result == 'failed') {
+                            errors = data.errors;
+                        } else {
+                            errors = data.responseJSON.errors;
+                        }
+
+                        if (!$("#g-recaptcha-response").val()) {
+                            $("#recaptcha1-error").text(
+                                "{{ __('Captcha must be checked') }}");
+                            $("#recaptcha1-error").attr("style", "display:block");
+                        }
+
+                        account_validator1.showErrors(errors);
+                    }
+                });
+            });
+
+            $('#loginForm2').submit(function(e) {
+                e.preventDefault();
+                // $("#loginForm1 #g-recaptcha").addClass("disabled-element");
+
+
+                var rcres = grecaptcha.getResponse();
+                if (rcres.length) {
+                    grecaptcha.reset();
+                    // alert("Form Submitted!", "success");
+                } else {
+                    // alert("Please verify reCAPTCHA", "error");
+                }
+
+                var account_validator2 = $("#loginForm2").validate({
+
+                    rules: {
+                        email: {
+                            required: true,
+                            email: true,
+                            emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
+                        },
+                        password: {
+                            required: true,
+                        },
+                    },
+                    messages: {
+
+                        email: {
+                            required: "{{ __('Email Address is required') }}",
+                            emailcheck: "{{ __('Email Address is invalid') }}",
+                        },
+                        password: {
+                            required: "{{ __('Password is required') }}",
+                        },
+                    },
+                });
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize() + '&recaptchaIsChecked=' + (rcres.length ? true :
+                        false),
+                    success: function(data) {
+                        if (data.result == 'success') {
+                            window.location.href = data.url;
+                        } else if (data.result == 'failed') {
+
+                        }
+                    },
+                    error: function(data) {
+                        var errors;
+                        $(".login-link").addClass("show");
+                        $(".login-link .nav-link").attr("aria-expanded", "true");
+                        $("#login-form2").addClass("show");
+                        if (data.result == 'failed') {
+                            errors = data.errors;
+                        } else {
+                            errors = data.responseJSON.errors;
+                        }
+
+                        if (!$("#g-recaptcha-response").val()) {
+                            $("#recaptcha2-error").text(
+                                "{{ __('Captcha must be checked') }}");
+                            $("#recaptcha2-error").attr("style", "display:block");
+                        }
+
+                        account_validator2.showErrors(errors);
+                    }
+                });
+            });
+
+        });
 
     </script>
 

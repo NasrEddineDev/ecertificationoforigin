@@ -43,13 +43,13 @@ class SettingSeeder extends Seeder
             'name' => 'AGCE ORIGINATOR ID',
             'value' => 'CACI-6523985471',
         ],[
-            'name' => 'َFile Path Of The AGCE SSL Certificate',
+            'name' => 'File Path Of The AGCE SSL Certificate',
             'value' => 'documents/caci.crt',
         ],[
-            'name' => 'َFile Path Of The AGCE SSL Key',
+            'name' => 'File Path Of The AGCE SSL Key',
             'value' => 'documents/caci.key',
         ],[
-            'name' => 'َActivate Digital Signature',
+            'name' => 'Activate Digital Signature',
             'value' => 'No',
         ]]);
     }
