@@ -124,6 +124,12 @@ class CategorySeeder extends Seeder
             'name_ar' => 'منتجات الحرف اليدوية',
             'name_fr' => 'Produits de l’artisanat',
             'description' => '',
+        ],[
+            'number' => 99,
+            'name'  => 'Other',
+            'name_ar' => 'أخرى',
+            'name_fr' => 'Autre',
+            'description' => '',
         ]]);
     }
 }

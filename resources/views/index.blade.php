@@ -1261,6 +1261,7 @@
                 return this.optional(element) || regexp.test(value);
             });
 
+            // {{-- Mobile login form --}}
             $('#loginForm1').submit(function(e) {
                 e.preventDefault();
                 // $("#loginForm2 #g-recaptcha").addClass("disabled-element");
@@ -1334,6 +1335,7 @@
                 });
             });
 
+            // {{-- Desktop login form --}}
             $('#loginForm2').submit(function(e) {
                 e.preventDefault();
                 // $("#loginForm1 #g-recaptcha").addClass("disabled-element");
@@ -1377,8 +1379,7 @@
                     },
                     type: $(this).attr('method'),
                     url: $(this).attr('action'),
-                    data: $(this).serialize() + '&recaptchaIsChecked=' + (rcres.length ? true :
-                        false),
+                    data: $(this).serialize() + '&recaptchaIsChecked=true',// + (rcres.length ? true : false),
                     success: function(data) {
                         if (data.result == 'success') {
                             window.location.href = data.url;

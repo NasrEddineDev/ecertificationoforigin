@@ -17,20 +17,22 @@ class CreateImportersTable extends Migration
             $table->increments('id', true);
             $table->string('name');
             $table->string('legal_form');
-            $table->string('activity_type');
+            $table->string('activity_type_name');
             $table->string('type');
             $table->string('address');
             $table->string('email')->unique();
             $table->string('mobile')->unique();
             $table->string('website');
-            $table->string('tel')->unique();
+            $table->string('tel');
             $table->string('fax');
             $table->integer('enterprise_id')->unsigned();
             $table->integer('state_id')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('enterprise_id')->references('id')->on('enterprises')->onDelete('cascade');
             $table->foreign('state_id')->references('id')->on('states')->onDelete('cascade');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }
 

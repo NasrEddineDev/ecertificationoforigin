@@ -11,7 +11,6 @@ class Importer extends Model
 
     protected $fillable = [
         'name',
-        'activity_type',
         'legal_form',
         'type',
         'address',
@@ -20,6 +19,7 @@ class Importer extends Model
         'tel',
         'website',
         'fax',
+        'category_id',
         'enterprise_id',
         'state_id',
     ];

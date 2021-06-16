@@ -37,6 +37,11 @@ Route::post('store-retroactive-copy/{id}', [\App\Http\Controllers\CertificateCon
 Route::get('duplicate-gzale/{id}/{type}/{reason}', [\App\Http\Controllers\CertificateController::class, 'duplicateGZALE'])->name('certificates.duplicate-gzale');
 Route::get('qr-code', [\App\Http\Controllers\CertificateController::class, 'qrcode'])->name('certificates.qrcode');
 Route::get('create-type/{type}', [\App\Http\Controllers\CertificateController::class, 'createType'])->name('certificates.create-type');
+Route::get('create-balance-poste', [\App\Http\Controllers\PaymentController::class, 'createBalancePoste'])->name('payments.create-balance-poste');
+Route::post('store-balance-poste', [\App\Http\Controllers\PaymentController::class, 'storeBalancePoste'])->name('payments.store-balance-poste');
+Route::get('return/{id}', [\App\Http\Controllers\PaymentController::class, 'returnBalancePoste'])->name('payments.return');
+Route::get('images', [\App\Http\Controllers\SettingController::class, 'images'])->name('settings.images');
+
 Route::get('getproducts', [\App\Http\Controllers\ProductController::class, 'getProducts'])->name('products.getproducts');
 Route::get('getcities/{id}', [\App\Http\Controllers\CityController::class, 'getCities'])->name('cities.getcities');
 Route::get('getstates/{id}', [\App\Http\Controllers\StateController::class, 'getStates'])->name('states.getstates');
@@ -44,10 +49,7 @@ Route::get('getalgerianstates', [\App\Http\Controllers\StateController::class, '
 Route::get('getsubcategories/{id}', [\App\Http\Controllers\SubCategoryController::class, 'getSubCategories'])->name('subc_ategories.getsubcategories');
 Route::get('getactivities', 'ActivityController@getActivities')->name('activities.getactivities');
 Route::get('getselectedactivities/{id}', 'ActivityController@getSelectedActivities')->name('activities.getselectedactivities');
-Route::get('create-balance-poste', [\App\Http\Controllers\PaymentController::class, 'createBalancePoste'])->name('payments.create-balance-poste');
-Route::post('store-balance-poste', [\App\Http\Controllers\PaymentController::class, 'storeBalancePoste'])->name('payments.store-balance-poste');
-Route::get('return/{id}', [\App\Http\Controllers\PaymentController::class, 'returnBalancePoste'])->name('payments.return');
-Route::get('images', [\App\Http\Controllers\SettingController::class, 'images'])->name('settings.images');
+Route::get('getimporter/{id}', [\App\Http\Controllers\ImporterController::class, 'getImporter'])->name('importers.getimporter');
 
 Route::resource('certificates', CertificateController::class);
 Route::resource('enterprises', EnterpriseController::class);

@@ -130,7 +130,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        @if ($type == 'GZALE')
+                                        @if ($type == 'gzale')
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
@@ -389,7 +389,7 @@
                                                         <a rel="tooltip" id="previous" class="btn btn-success pd-setting-ed"
                                                             href="#"
                                                             data-url="{{ route('certificates.generate-gzal', 1) }}"
-                                                            data-certificate_name="" data-original-title="" title="Delete"
+                                                            data-certificate_name="" data-original-title=""
                                                             data-toggle="modal" data-target="">
                                                             {{-- <i class="fa fa-tras-oh fa-lg" aria-hidden="true"></i>
                                                                 <div class="ripple-container"></div> --}}
@@ -593,7 +593,7 @@
                 formdata.append("producer_name", $('#producer_name').val());
                 formdata.append("producer_address", $('#producer_address').val());
                 formdata.append("importer_id", $('#importer_id').val());
-                formdata.append("accumulation", $('#accumulation').val());
+                formdata.append("accumulation", $('#accumulation').find(":selected").val());
                 formdata.append("accumulation_country", $('#accumulation_country').find(":selected").text());
                 formdata.append("shipment_type", $('#shipment_type').val());
                 formdata.append("notes", $('#notes').val());
@@ -646,7 +646,7 @@
                 formdata.append("producer_name", $('#producer_name').val());
                 formdata.append("producer_address", $('#producer_address').val());
                 formdata.append("importer_id", $('#importer_id').val());
-                formdata.append("accumulation", $('#accumulation').val());
+                formdata.append("accumulation", $('#accumulation').find(":selected").val());
                 formdata.append("accumulation_country", $('#accumulation_country').find(":selected").text());
                 formdata.append("shipment_type", $('#shipment_type').val());
                 formdata.append("notes", $('#notes').val());

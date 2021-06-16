@@ -34,8 +34,8 @@ class CertificateController extends Controller
     {
         //
         //   $this->authorize('viewList', Product::class);
-        $certificates = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->certificates : ((Auth::User()->role->name
-            == 'dri_user') ? Certificate::all()->where('status', '!=', 'DRAFT') : Certificate::all());
+        $certificates = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->certificates->sortByDesc('id') : ((Auth::User()->role->name
+            == 'dri_user') ? Certificate::all()->where('status', '!=', 'DRAFT')->sortByDesc('id') : Certificate::all()->sortByDesc('id'));
         return view('certificates.index', compact('certificates'));
     }
 
@@ -95,7 +95,8 @@ class CertificateController extends Controller
             'created_pdf' => "",
             'signed_document' => "",
             'description' => $request->notes ? $request->notes : '',
-            'integrity_rate' => $request->integrity_rate ? $request->integrity_rate : '',
+            'integrity_rate' => $request->integrity_rate ? (str_contains($request->integrity_rate, '%')  ? 
+                                    $request->integrity_rate : $request->integrity_rate . '%') : '',
             "importer_id" => $request->importer_id,
             "producer_id" => $request->producer_id,
             "enterprise_id" => Auth::User()->Enterprise->id,
@@ -551,13 +552,15 @@ class CertificateController extends Controller
             'invoice_path' => !empty($invoice) ? $invoice : "data/documents/invoice-template-blue.png",
             'invoice_date' => $request->invoice_date,
             'invoice_number' => $request->invoice_number,
-            'integrity_rate' => $request->integrity_rate,
+            // 'integrity_rate' => $request->integrity_rate,
+            'integrity_rate' => $request->integrity_rate ? (str_contains($request->integrity_rate, '%')  ? 
+                                    $request->integrity_rate : $request->integrity_rate . '%') : '',
             'products' => (array)json_decode($request->products),
             'signature_date' => '',
             'dri_signature_date' => '',
             'copy_type' => "NONE",
             'original_code' => '',
-            'status' => 'PENDING',
+            'status' => 'DRAFT',
             'page1' => 'data/documents/' . $request->type . '/' . $request->type . '1.jpg',
             'page2' => 'data/documents/' . $request->type . '/' . $request->type . '2.jpg',
             'page3' => 'data/documents/' . $request->type . '/' . $request->type . '3.jpg',
@@ -1191,8 +1194,8 @@ class CertificateController extends Controller
 
     public function certificateToPDF($certificate)
     {
-        // $count = 1;
         $products = $certificate->products->map(function ($items, $count = 1) {
+            $count++;
             $data['number'] = $count;
             $data['product_name'] = $items->name;
             $data['package_type'] = $items->pivot->package_type;
@@ -1215,6 +1218,9 @@ class CertificateController extends Controller
         $page2 = 'data/documents/' . $certificateName . '/' . $certificateName . '2.jpg';
         $page3 = ($certificate->status == "DRAFT") ? 'data/documents/' . $certificateName . '/' . $certificateName . '3.jpg'
             : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $certificateName . '/' . $certificateName . '3.jpg';
+
+
+            $settings = Setting::all();
 
         $data = [
             'rtl' => ($certificateName == 'gzale' || $certificateName == 'acp-tunisie') ? true : false,
@@ -1246,6 +1252,7 @@ class CertificateController extends Controller
             'original_code' => ($certificate->copy_type != "NONE") ? $certificate->certificate->code : '',
             'signature_date' => date('d-m-Y', strtotime($certificate->signature_date)),
             'dri_signature_date' => date('d-m-Y', strtotime($certificate->dri_signature_date)),
+            'is_digitally_signed' => ($settings->where('name', 'Activate Digital Signature')->first()->value == 'Yes'),
             'page1' => $page1,
             'page2' => $page2,
             'page3' => $page3,

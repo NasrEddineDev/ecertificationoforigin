@@ -12,7 +12,9 @@
 input.error {
 	border:1px solid red!important;
  }
-
+ .activity_type_name{
+   display: none;
+ }
 </style>
 @endpush
 
@@ -55,14 +57,15 @@ input.error {
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Activity') }}</label>
                       <div class="col-sm-9">                                
-                        <select name="activity_type" id="activity_type" class="form-control">
-                          <option value="02" disabled selected>{{ __('Select The Type Of Activity') }}</option>
+                        <select name="category_id" id="category_id" class="form-control">
+                          <option value="02" disabled>{{ __('Select The Type Of Activity') }}</option>
                           @if (isset($categories))
                               @foreach ($categories as $category){
                                   <option value="{{ $category->id }}" {{ $importer->category_id ==  $category->id  ? 'selected' : ''}}>
                                       {{ App()->currentLocale() == 'ar' ? $category->name_ar :
                                       (App()->currentLocale() == 'en' ? $category->name : $category->name_fr) }}</option>
                               @endforeach
+                              <option value="99">{{ __('Other') }}</option>
                           @endif
                     </select>
                       </div>
@@ -70,7 +73,7 @@ input.error {
                   </div>
                   <div class="col-md-6">
                     <div class="form-group row activity_type_name">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Activity') }}</label>
+                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Name Of Activity Type') }}</label>
                       <div class="col-sm-9">
                         <input type="text" name="activity_type_name" id="activity_type_name" class="form-control"  value="{{ $importer->activity_type_name }}"/>
                       </div>
@@ -112,10 +115,10 @@ input.error {
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Country') }}</label>
                       <div class="col-sm-9">                                     
                         <select name="country_id" id="country_id" class="form-control">
-                        <option value="" selected disabled>{{ __('Select The Country') }}</option>
+                        <option value="" disabled>{{ __('Select The Country') }}</option>
                         @if (isset($countries))
                             @foreach ($countries as $country){
-                                <option value="{{ $country->id }}">
+                                <option value="{{ $country->id }}" {{ $importer->state->country_id ==  $country->id  ? 'selected' : ''}}>
                                     {{ $country->name }}</option>
                             @endforeach
                         @endif
@@ -128,10 +131,10 @@ input.error {
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('State') }}</label>
                       <div class="col-sm-9">
                         <select name="state_id" id="state_id" class="form-control">
-                          <option value="" selected disabled>{{ __('Select The State') }}</option>
+                          <option value="" disabled>{{ __('Select The State') }}</option>
                           @if (isset($states))
                               @foreach ($states as $state){
-                                  <option value="{{ $state->id }}">
+                                  <option value="{{ $state->id }}" {{ $importer->state_id ==  $state->id  ? 'selected' : ''}}>
                                       {{ $state->name }}</option>
                               @endforeach
                           @endif
@@ -209,12 +212,14 @@ input.error {
 
 @Push('js') 
 <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
-
-      $('.activity_type_name').hide();
-      $('#activity_type').on('change', function() {
-          if (this.value == 'OTHER') {
+      if ($('#category_id').find(":selected").val() == "99"){
+        $('.activity_type_name').show();
+      }
+      $('#category_id').on('change', function() {
+          if (this.value == '99') {
               $('.activity_type_name').show();
           } else {
               $('.activity_type_name').hide();
@@ -264,61 +269,16 @@ $.validator.addMethod("emailcheck", function(value, element, regexp) {
 
             var account_validator = $(".form-sample").validate({
 
-rules: {
-  name: {
-        required: true
-    },
-  mobile: {
-        required: true
-    },
-  country_id: {
-        required: true
-    },
-    legal_form: {
-        required: false
-    },
-
+rules: { 
     email: {
-        required: true,
         email: true,
         emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
     },
-    country_id: {
-        required: true
-    },
-    state_id: {
-        required: true
-    },
-  address: {
-        required: true
-    },
-    activity_type: {
-        required: true
-    },
 },
 messages: {
-
-  name: {
-        required: "Name is required",
-    },
-  mobile: {
-        required: "Mobile number is required",
-    },
     email: {
         required: "Email is required",
         emailcheck: "Please enter valid email",
-    },
-    country_id: {
-        required: "Country is required",
-    },
-    state_id: {
-        required: "State is required",
-    },
-  address: {
-        required: "Address is required",
-    },
-    activity_type: {
-        required: "Activity Type is required",
     },
 },
 });

@@ -184,7 +184,7 @@
                                 <h5><i class="fa fa-circle" style="color: #006DF0;"></i>{{ __('GZALE') }}</h5>
                             </li>
                             <li>
-                                <h5><i class="fa fa-circle" style="color: #933EC5;"></i>{{ __('ACP-TUNISIA') }}
+                                <h5><i class="fa fa-circle" style="color: #933EC5;"></i>{{ __('ACP-TUNISIE') }}
                                 </h5>
                             </li>
                             <li>
@@ -666,7 +666,7 @@
             var piechart = new Chart(ctx, {
                 type: 'pie',
                 data: {
-                    labels: ["GZALE", "FORM A EN", "FORMULE A FR", "ACP ALGERIA TUNISIA", "OTHER"],
+                    labels: ["GZALE", "FORM A EN", "FORMULE A FR", "ACP ALGERIA TUNISIE", "OTHER"],
                     datasets: [{
                         label: 'pie Chart',
                         backgroundColor: [

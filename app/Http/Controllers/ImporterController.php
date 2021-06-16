@@ -23,7 +23,7 @@ class ImporterController extends Controller
     public function index()
     {
         //
-        $importers = (Auth::User()->role->name == 'user' ) ? Auth::User()->Enterprise->importers : Importer::all();
+        $importers = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->importers : Importer::all();
         return view('importers.index', compact('importers'));
     }
 
@@ -52,23 +52,22 @@ class ImporterController extends Controller
         $importer = new Importer([
             'name' => $request->name,
             'legal_form' => $request->legal_form ? $request->legal_form : '',
-            'activity_type' => $request->activity_type ? $request->activity_type : '',
             'type' => '',
-            // 'activity_type_name' => !$request->activity_type ? $request->activity_type_name : '',
-            'country_id' => $request->country_id,
-            'state_id' => $request->state_id,
-            'address' => $request->address,
+            // 'activity_type_name' => $request->category_id == "99" ? $request->activity_type_name : '',
+            'address' => $request->address ? $request->address : '',
             'email' => $request->email,
             'mobile' => $request->mobile,
             'website' => $request->website ? $request->website : '',
             'tel' => $request->tel ? $request->tel : '',
             'fax' => $request->fax ? $request->fax : '',
+            'category_id' => $request->category_id,
+            'state_id' => $request->state_id,
             'enterprise_id' => Auth::User()->Enterprise->id
         ]);
         $importer->save();
 
         return redirect()->route('importers.index')
-                        ->with('success','Importer created successfully.');
+            ->with('success', 'Importer created successfully.');
     }
 
     /**
@@ -81,7 +80,7 @@ class ImporterController extends Controller
     {
         //
         $importer = Importer::find($id);
-        return view('importers.show',compact('importer'));
+        return view('importers.show', compact('importer'));
     }
 
     /**
@@ -96,7 +95,8 @@ class ImporterController extends Controller
         $countries = Country::all();
         $categories = Category::all();
         $importer = Importer::find($id);
-        return view('importers.edit',compact('importer', 'countries', 'categories'));
+        $states = State::where('country_id', '=', $importer->state->country_id)->orderBy('iso2')->get();
+        return view('importers.edit', compact('importer', 'countries', 'states', 'categories'));
     }
 
     /**
@@ -112,7 +112,7 @@ class ImporterController extends Controller
         $importer = Importer::find($id);
         $importer->name = $request->name;
         $importer->legal_form = $request->legal_form;
-        $importer->activity_type = $request->activity_type;
+        // $importer->activity_type_name = $request->category_id == "99" ? $request->activity_type_name : '';
         $importer->type = $request->type;
         $importer->address = $request->address;
         $importer->email = $request->email;
@@ -120,10 +120,12 @@ class ImporterController extends Controller
         $importer->website = $request->website;
         $importer->tel = $request->tel;
         $importer->fax = $request->fax;
+        $importer->category_id = $request->category_id;
+        $importer->state_id = $request->state_id;
         $importer->save();
 
         return redirect()->route('importers.index')
-                        ->with('success','Importer updated successfully');
+            ->with('success', 'Importer updated successfully');
     }
 
     /**
@@ -135,17 +137,37 @@ class ImporterController extends Controller
     public function destroy($id)
     {
         //        
-        $importer = Importer::find($id);
-        if ($importer){
-            $importer->delete();
-            return response()->json([
-                'message' => 'Importer deleted successfully'
-            ], 200);
-        }
 
+        // return redirect()->route('importers.index')->with('success','Importer deleted successfully');
+        if (str_contains($id, ',')) {
+            foreach (explode(',', $id) as $code) {
+                $importer = Importer::find($id);
+                if ($importer) {
+                    $importer->delete();
+                }
+            }
+            return response()->json([
+                'message' => 'Importers deleted successfully'
+            ], 200);
+        } else {
+            $importer = Importer::find($id);
+            if ($importer) {
+                $importer->delete();
+                return response()->json([
+                    'message' => 'Importer deleted successfully'
+                ], 200);
+            }
+        }
         return response()->json([
             'message' => 'Importer not found'
         ], 404);
-        // return redirect()->route('importers.index')->with('success','Importer deleted successfully');
+    }
+
+
+    public function getImporter($id)
+    {
+        //
+        $importer = Importer::find($id);
+        return response()->json([ 'importer' => $importer]);
     }
 }

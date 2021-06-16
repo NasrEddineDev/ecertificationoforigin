@@ -91,8 +91,8 @@ class StateController extends Controller
         $data = [];
         $states = State::where('country_id', '=', $country_id)->orderBy('iso2')->get();
         $states = $states->map(function ($items) {
-            $data['value'] = $items->iso2;
-            $data['text'] = __($items->iso2) . ' ' . __($items->name);
+            $data['value'] = $items->id;
+            $data['text'] = $items->iso2 . ' ' . __($items->name);
             return $data;
         });
 

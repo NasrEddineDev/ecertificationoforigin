@@ -113,7 +113,7 @@
         #tables {
             padding-left: 62px;
             padding-right: 62px;
-            padding-top: 144px !important;
+            padding-top: 124px !important;
         }
 
         #tables1 {
@@ -148,6 +148,7 @@
             position: absolute;
             padding-top: 42px;
             padding-left: 90px;
+            height: 35px;
         }
 
     </style>
@@ -159,11 +160,14 @@
         <div id="page1">
             <div id="code">
                 <label>{{$code}}</label>
+                @if ($status == 'SIGNED' && !$is_digitally_signed)
+                    <br /> <label>{{$dri_signature_date}}</label>
+                @endif
             </div>
             <div id="tables">
                 <table style="width:100%;padding-top:200px!important;">
                     <tr>
-                        <td width="50%" style="margin-left:5px!important;margin-right:5px!important;height: 55px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
+                        <td width="50%" style="margin-left:5px!important;margin-right:5px!important;height: 60px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
                             {{ $producer_name }}<br />
                             {{ $producer_address }}
                         </td>
@@ -173,9 +177,9 @@
                         </td>
                     </tr>
                 </table>
-                <table style="width:100%;padding-top:22px;">
+                <table style="width:100%;padding-top:20px;">
                     <tr>
-                        <td width="28%" style="height: 75px;">
+                        <td width="28%" style="height: 70px;">
                             <table style="width:100%">
                                 <tr>
                                     <td width="90%" style="height:25px;">
@@ -200,7 +204,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td width="90%" style="height:25px;">
+                                    <td width="90%" style="height:23px;">
                                     </td>
                                     <td width="10%" style="padding-left:3px;">
                                         @if ($accumulation == 'No')
@@ -223,7 +227,7 @@
                         </td>
                     </tr>
                 </table>
-                <table style="width:100%;margin-top:14px;">
+                <table style="width:100%;margin-top:13px;">
                     <tr>
                         <td width="55.5%" style="height: 77px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
                             {{ $copy_type == "NONE" ? $notes : ($rtl ? $original_code . $notes : $notes . $original_code) }}
@@ -231,9 +235,9 @@
                         <td width="44.5%" style="{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">{{ __($shipment_type) }}</td>
                     </tr>
                 </table>
-                <table style="width:100%;margin-top:17px;">
+                <table style="width:100%;margin-top:16px;">
                     <tr>
-                        <td width="10.4%" style="font-size:11px;height: 384px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
+                        <td width="10.4%" style="font-size:11px;height: 389px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
                             {{ $rtl ? 'رقم الفاتورة' : 'Invoice Number' }}<br />
                             {{ $invoice_number }}<br />
                             {{ $rtl ? 'تاريخ الفاتورة' : 'Invoice Date' }}<br />
@@ -245,7 +249,7 @@
                             {{ $rtl ? 'الوزن القائم' : 'Real Weight' }}<br />
                             {{ $rtl ? $real_weight . 'كغ' : $real_weight . 'KG' }}<br />
                         </td>
-                        <td width="76%" style=":padding:5px;{{ $rtl ? 'text-align:right;' : '' }}">
+                        <td width="76%" style="{{ $rtl ? 'text-align:right;' : '' }}">
                             <table width="100%" id="products" style="" {{ $rtl ? 'dir=rtl' : '' }}
                                 style="font-size: 12px;">
                                 <tr>
@@ -280,31 +284,22 @@
                             @if ($status == 'SIGNED')
                                 <table style="width:100%;margin-top:4px;">
                                     <tr>
-                                        <td width="70%" style="height: 55px;margin-top:-10px;text-align:center">
-                                            {{-- <strong
-                                                style="background-image: url('{{ asset('data/enterprises/' . (Auth::User()->role->name == 'user' ? Auth::User()->Enterprise->id : Auth::User()->username) . 'stamp-signatures/stamp.jpg') }}');background-position: center top;background-repeat: no-repeat;background-size: 100%;">إمضاء
-                                                المعني</strong> --}}
-                                            {{-- <div id="stamp" style="height:42px;width:42px;position: absolute;background-image: {{ URL::asset('') }}img/logo/caci-logosn.png;"> --}}
-                                            {{-- <img style="height: 100%;width: 100%;"src="{{ asset('data/enterprises/'. ((Auth::User()->role->name == 'user') 
-                                            ? Auth::User()->Enterprise->id : Auth::User()->username).'stamp-signatures/stamp.jpg') }}"> --}}
-                                            {{-- </div>caci-logo.ico --}}
-                                            {{-- <img src="{{ URL::asset('') }}img/logo/caci-logosn.png" alt="" /> --}}
-                                            {{-- <img src="{{ asset('data/enterprises/'. ((Auth::User()->role->name == 'user') 
-                                            ? Auth::User()->Enterprise->id : Auth::User()->username).'stamp-signatures/stamp.jpg')}}" 
-                                            alt="Stamp"  width="100" height="100"> --}}
+                                        <td width="70%" style="height: 60px;text-align:center">
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
                                     <tr>
-                                        <td width="70%" style="height: 60px;">
+                                        <td width="70%" style="height: 65px;">
                                             {{-- <strong>خاتم المعني</strong> --}}
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
                                     <tr>
-                                        <td width="70%" style="text-align:left;height: 20px;">
+                                        <td width="70%" style="text-align:right;vertical-align:top;height: 10px;padding-top:10px;">
 
-                                            <strong></strong>
+                                            @if (!$is_digitally_signed)
+                                            <br /> <strong>{{$dri_signature_date}}</strong>
+                                        @endif
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
@@ -315,32 +310,19 @@
                             @if ($status == 'PENDING' || $status == 'SIGNED')
                                 <table style="width:100%;margin-top:14px;">
                                     <tr>
-                                        <td width="70%" style="height: 55px;padding-top:30px;text-align:center">
-                                            {{-- <strong
-                                                style="background-image: url('{{ asset('data/enterprises/' . (Auth::User()->role->name == 'user' ? Auth::User()->Enterprise->id : Auth::User()->username) . 'stamp-signatures/stamp.jpg') }}');background-position: center top;background-repeat: no-repeat;background-size: 100%;">خاتم
-                                                المعني</strong> --}}
-                                            {{-- <div id="stamp" style="height:42px;width:42px;position: absolute;background-image: {{ URL::asset('') }}img/logo/caci-logosn.png;"> --}}
-                                            {{-- <img style="height: 100%;width: 100%;"src="{{ asset('data/enterprises/'. ((Auth::User()->role->name == 'user') 
-                                            ? Auth::User()->Enterprise->id : Auth::User()->username).'stamp-signatures/stamp.jpg') }}"> --}}
-                                            {{-- </div>caci-logo.ico --}}
-                                            {{-- <img src="{{ URL::asset('') }}img/logo/caci-logosn.png" alt="" /> --}}
-                                            {{-- <img src="{{ asset('data/enterprises/'. ((Auth::User()->role->name == 'user') 
-                                            ? Auth::User()->Enterprise->id : Auth::User()->username).'stamp-signatures/stamp.jpg')}}" 
-                                            alt="Stamp"  width="100" height="100"> --}}
+                                        <td width="70%" style="height: 58px;padding-top:30px;text-align:center">
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
                                     <tr>
-                                        <td width="70%" style="height: 60px;font-weight: bold;">
-                                            <strong>{{ $signature_date }}</strong>
+                                        <td width="70%" style="height: 19px;font-weight: bold;">
+                                            <strong>{{ __('Algeria') }} </strong>
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
                                     <tr>
-                                        <td width="70%" style="text-align:left;height: 20px;">
-
-                                            
-                                            {{-- <strong>إمضاء المعني</strong> --}}
+                                        <td width="70%" style="text-align:right;vertical-align:top;height: 58px;">
+                                            <strong> {{ $signature_date }}</strong>
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
@@ -388,10 +370,11 @@
                             style="margin-left:5px!important;margin-right:5px!important;height: 30px;{{ $rtl ? 'text-align:right;' : '' }}">
 
                         </td>
-                        <td width="25%" style="margin-left:5px!important;margin-right:5px!important;text-align:center;">
+                        <td width="25%" style="margin-left:5px!important;margin-right:0px!important;text-align:right;">
 
                             @if ($status == 'PENDING' || $status == 'SIGNED')
-                                <strong>{{ $signature_date }}</strong>
+                                <strong>{{ $signature_date }}</strong>&nbsp;&nbsp;&nbsp;
+                                <strong>{{ __('Algeria') }}</strong>&nbsp;
                             @endif
                         </td>
                         <td width="27%"
