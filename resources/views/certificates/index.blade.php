@@ -130,13 +130,13 @@
                                                         src="{{ URL::asset('') }}img/icons/icons8-add-file-64.png" />
                                                 </button>
                                                 <div id="myDropdown" class="dropdown-content">
-                                                    <a
+                                                    <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == "PENDING") ? 'not-active' : '' }}"
                                                         href="{{ route('certificates.create-type', 'gzale') }}">{{ __('Arab Certificate of Origin') }}</a>
-                                                    <a
+                                                    <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == "PENDING") ? 'not-active' : '' }}"
                                                         href="{{ route('certificates.create-type', 'acp-tunisie') }}">{{ __('Tunisia Certificate of Origin') }}</a>
-                                                    <a
+                                                    <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == "PENDING") ? 'not-active' : '' }}"
                                                         href="{{ route('certificates.create-type', 'form-a-en') }}">{{ __('English Certificate of Origin') }}</a>
-                                                    <a
+                                                    <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == "PENDING") ? 'not-active' : '' }}"
                                                         href="{{ route('certificates.create-type', 'formule-a-fr') }}">{{ __('French Certificate of Origin') }}</a>
                                                     {{-- <a href="#">{{ __('ZLECAF') }}</a>
                                                     <a href="#">{{ __('PAN-EUROMED') }}</a>

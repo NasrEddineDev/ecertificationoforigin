@@ -98,6 +98,24 @@
     padding: 0.4rem 1.25rem;
 }
 
+/* Datatable check problem */
+.fixed-table-container tbody td:first-child {
+  border-left: 1px solid #dddddd !important;
+}
+
+.fixed-table-container thead th:first-child {
+  border-left: 1px solid #dddddd !important;
+}
+.fixed-table-container .bs-checkbox .th-inner {
+  padding: 8px 6px!important;
+}
+
+.lobibox-notify-wrapper{
+  margin: 10px;
+}
+.lobibox-notify-title{
+  margin-right: 10px;
+}
 @media (min-width: 992px)  {
     .login-horizental a:hover {
         color: inherit!important;

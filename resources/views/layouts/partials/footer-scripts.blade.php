@@ -43,7 +43,8 @@
     <script type="text/javascript" src="{{ URL::asset('js/main.js') }}"></script>
     <!-- tawk chat JS ============================================ -->
     <script type="text/javascript" src="{{ URL::asset('js/main.js') }}"></script>
-
+    <!-- notification JS ============================================ -->
+    <script src="js/notifications/Lobibox.js"></script>
 
     <script type="text/javascript" href="{{ URL::asset('js/vendor/modernizr-2.8.3.min.js') }}"></script>
     <script type="text/javascript">
@@ -58,4 +59,20 @@
                 $loading.hide();
             });
 
+
+            
+            $(document).on('click', '.not-active', function(e) {
+                e.preventDefault();
+                $(this).off("click").attr('href', "javascript: void(0);");
+                Lobibox.notify('info', {
+                    showClass: 'fadeInDown',
+                    hideClass: 'fadeUpDown',
+                    title: '{{__("Your request is in process")}}',
+                    position: 'bottom left',
+                    sound: 'eventually-590', // info, swiftly-610
+                    // img: 'img/notification/1.jpg',
+                    msg: '{{__("Please wait until we check your submitted information that are correct and activate your account")}}'
+                });
+            });
+            
     </script>

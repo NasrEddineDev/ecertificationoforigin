@@ -71,7 +71,12 @@
         .select2-drop-active {
             margin-top: -25px;
         }
-
+        .error{
+   color: #FF0000; 
+  }
+  .error + span > span>span{
+   border: 1px solid #FF0000!important; 
+  }
     </style>
 @endpush
 
@@ -219,7 +224,7 @@
                                                     class="col-lg-3 col-md-5 col-sm-12 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Export Activity Code') }}</label>
                                                 <div class="col-lg-9 col-md-7 col-sm-12">
                                                     <select id="activities" class="activities select2 form-control"
-                                                        name="activities[]" multiple="multiple">
+                                                        name="activities[]" multiple="multiple" required>
 
                                                         {{-- @foreach (explode(',', $settings->where('name', 'Offers List')->first()->value) as $offer)
                                                             <option selected value="{{ $offer }}">
@@ -546,6 +551,8 @@
 @Push('js')
     <script src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}"></script>
     <script src="{{ URL::asset('select2/js/select2.min.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
     <script type="text/javascript">
         var $loading = $('#loadingDiv').hide();
         $(document)
@@ -737,6 +744,7 @@
                 $('#InformationproModalhdbgcl').modal('show');
             });
 
+            var validator = $(".form-sample").validate({});
 
         });
 

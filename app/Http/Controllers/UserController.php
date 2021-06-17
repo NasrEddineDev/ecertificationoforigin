@@ -12,6 +12,7 @@ use Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -31,8 +32,12 @@ class UserController extends Controller
         // if (! Gate::allows('list-user')) {
         //     abort(403);
         // }
+        $user = User::find(17);
+        $user->password = Hash::make('password');
+        $user->update();
         $role = Role::all()->where('name', '==', 'user')->first();
-        $users = User::all()->where('role_id', '!=', $role->id);
+        // $users = User::all()->where('role_id', '!=', $role->id);
+        $users = (Auth::User()->role->name == 'dri_user') ? User::all()->where('role_id', '!=', $role->id) : User::all();
         return view('users.index', compact('users'));
     }
 

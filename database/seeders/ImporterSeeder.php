@@ -18,7 +18,7 @@ class ImporterSeeder extends Seeder
         //
         DB::table('importers')->insert([[
             'name'  => 'mohamed',
-            'activity_type' => '06',
+            'category_id' => '06',
             'legal_form' => '1',
             'type' => '2',
             'address' => 'Said hamdin Alger',
@@ -31,7 +31,7 @@ class ImporterSeeder extends Seeder
             'state_id' => '45',
         ],[
             'name'  => 'abdullah',
-            'activity_type' => '06',
+            'category_id' => '06',
             'legal_form' => '1',
             'type' => '2',
             'address' => 'Said hamdin Alger',
@@ -44,7 +44,7 @@ class ImporterSeeder extends Seeder
             'state_id' => '45',
         ],[
             'name'  => 'abdurrahman',
-            'activity_type' => '06',
+            'category_id' => '06',
             'legal_form' => '1',
             'type' => '2',
             'address' => 'Said hamdin Alger',

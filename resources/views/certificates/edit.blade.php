@@ -445,10 +445,10 @@
                 <div class="modal-body">
 
                     <object style="width:100%;" id="object"
-                        data="{{ asset('data/enterprises/' . Auth::User()->Enterprise->id . '/certificates/gzal-draft.pdf') }}"
+                        data="{{ asset('data/enterprises/' . $certificate->id . '/certificates/gzal-draft.pdf') }}"
                         type="application/pdf">
                         <embed id="embed"
-                            src="{{ asset('data/enterprises/' . Auth::User()->Enterprise->id . '/certificates/gzal-draft.pdf') }}"
+                            src="{{ asset('data/enterprises/' . $certificate->id . '/certificates/gzal-draft.pdf') }}"
                             type="application/pdf" />
                     </object>
                     {{-- <iframe id="iframe" src="" type="application/pdf" width="100%" height="900px;"></iframe> --}}
@@ -471,6 +471,7 @@
     <script src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/datapicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
     {{-- <script type="text/javascript" src="{{ URL::asset('js/pdfobject.min.js') }}"></script> --}}
     {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-export.js') }}"></script> --}}
     <script type="text/javascript">
@@ -772,7 +773,7 @@
 
                 var new_product = '<tr><td></td><td>' + counter + '</td><td>' + $('#product_id').find(
                         'option:selected').text() + '</td><td>' + $('#unit_price').val() + '</td>' + '<td>' + 
-                        $('#currency').val() + '</td><td>' + $('#package_type').find('option:selected').text() + 
+                            $('#currency').find('option:selected').val() + '</td><td>' + $('#package_type').find('option:selected').text() + 
                         '</td><td>' + $('#package_quantity').val() +'</td><td>' + $('#package_count').val() +
                     '</td><td>' + $('#description').val() + '</td>' +
                     '<td class="datatable-ct"><a rel="tooltip" class="btn btn-danger pd-setting-ed" href="javascript:void(0)" ' +
@@ -780,21 +781,23 @@
                     '<div class="ripple-container"></div></a></td></tr>';
 
                 // '<td><a class="btn btn-success" href="javascript:void(0)" id="checkRow" float-right><i class="fa fa-check"></i></a></td></tr>';
-
+                console.log(products);
                 $(this).parents('tr').remove();
                 $("table tbody").append(new_product);
 
             });
 
             $('table tbody').on('click', '#removeRow', function() {
-                console.log($(this).parents('tr').find("td:eq(1)").text());
+                // console.log($(this).parents('tr').find("td:eq(1)").text());
                 // var products = $.grep(products, function(e){ 
                 //     return e.product_name != $(this).parents('tr').find("td:eq(1)").text(); 
                 // });
-                products = products.filter(function(obj) {
-                    return obj.product_name != $(this).parents('tr').find("td:eq(1)").text();
-                });
-                console.log(products);
+                products.splice($(this).parents('tr').find("td:eq(1)").text() - 1, 1);
+                // products = products.filter(function(obj) {
+                // console.log(obj.number != $(this).parents('tr').find("td:eq(1)").text());
+                //     return obj.number != $(this).parents('tr').find("td:eq(1)").text();
+                // });
+                // console.log(products);
                 $(this).parents('tr').remove();
                 if (products.length == 0) {
                     $("table tbody").append('<td colspan="7">No matching records found</td>');

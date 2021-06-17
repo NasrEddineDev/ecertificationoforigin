@@ -577,5 +577,7 @@
     "Bad username or password" : "Bad username or password",
     "Credentials are incorrect" : "Credentials are incorrect",
     "The :attribute field is required." : "The :attribute field is required.",
-    "Captcha must be checked" : "Captcha must be checked"
+    "Captcha must be checked" : "Captcha must be checked",
+    "Please wait until we check your submitted information that are correct and activate your account" : "Please wait until we check your submitted information that are correct and activate your account",
+    "Your request is in process" : "Your request is in process"
 }

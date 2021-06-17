@@ -530,5 +530,9 @@
     "Bad username or password" : "اسم المستخدم أو كلمة المرور غير صحيحة",
     "Credentials are incorrect" : "بيانات المدخلة غير صحيحة",
     "The :attribute field is required." : "ضروري :attribute المجال",
-    "Captcha must be checked" : "يجب التحقق من الكابشة"
+    "Captcha must be checked" : "يجب التحقق من الكابشة",
+    "Your request is in process" : "طلبك قيد المعالجة",
+    "Please wait until we check your submitted information that are correct and activate your account" : "يرجى الانتظار حتى نقوم بالتحقق من معلوماتك المقدمة بأنها صحيحة وتفعيل حسابك "
+
+
 }

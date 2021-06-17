@@ -1379,7 +1379,7 @@
                     },
                     type: $(this).attr('method'),
                     url: $(this).attr('action'),
-                    data: $(this).serialize() + '&recaptchaIsChecked=true',// + (rcres.length ? true : false),
+                    data: $(this).serialize() + '&recaptchaIsChecked=' + (rcres.length ? true : false),
                     success: function(data) {
                         if (data.result == 'success') {
                             window.location.href = data.url;

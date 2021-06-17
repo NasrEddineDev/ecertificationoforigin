@@ -124,7 +124,6 @@ class CertificateController extends Controller
         }
 
         // $certificate->save();
-
         $products = (array)json_decode($request->products);
         foreach ($products as $product) {
             $certificate->products()->attach($product->product_id, [
@@ -358,6 +357,7 @@ class CertificateController extends Controller
                     'certificate_id' => $certificate->id,
                     'package_type' => $product->package_type,
                     'unit_price' => $product->unit_price,
+                    'currency' => $product->currency,
                     'package_count' => $product->package_count,
                     'package_quantity' => $product->package_quantity,
                     'description' => $product->description
@@ -1201,6 +1201,7 @@ class CertificateController extends Controller
             $data['package_type'] = $items->pivot->package_type;
             $data['unit_price'] = $items->pivot->unit_price;
             $data['package_type_name'] = __($items->pivot->package_type);
+            $data['currency'] = __($items->pivot->currency);
             $data['package_quantity'] = $items->pivot->package_quantity;
             $data['package_count'] = $items->pivot->package_count;
             $data['description'] = $items->pivot->description;

@@ -41,7 +41,8 @@
     <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}" />
     <!-- responsive CSS ============================================ -->
     <link rel="stylesheet" href="{{ URL::asset('css/responsive.css') }}" />
-    <!-- modernizr JS ============================================ -->
+    <!-- notifications CSS ============================================ -->
+    <link rel="stylesheet" href="css/notifications/Lobibox.min.css">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
