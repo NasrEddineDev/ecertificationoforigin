@@ -44,10 +44,6 @@ class RegistrationWizardController extends Controller
      */
     public function index()
     {
-
-        $activities = Activity::all();
-        $step = Steps::ENTERPRISE;
-        return view('registration_wizard', compact('step', 'activities'));
         // App::setLocale('ar');
         // session()->put('locale', 'ar');
         $locale = App::currentLocale();

@@ -64,7 +64,7 @@
         }
 
         .not-active {
-            pointer-events: none;
+            /* pointer-events: none; */
             cursor: default;
             text-decoration: none;
             background-color: gray !important;

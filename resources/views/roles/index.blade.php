@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="{{ URL::asset('css/modals.css') }}" />
 <style>
     .not-active {
-        pointer-events: none;
+        /* pointer-events: none; */
         cursor: default;
         text-decoration: none;
         background-color: gray!important;

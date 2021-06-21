@@ -32,7 +32,8 @@
     <link rel="stylesheet" href="{{ URL::asset('css/data-table/bootstrap-table.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('CustomFileInputs/css/normalize.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('CustomFileInputs/css/component.css') }}" />
-    <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/datapicker/datepicker3.css') }}" />
+    {{-- <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" /> --}}
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
@@ -988,7 +989,6 @@
             <span class="sr-only">{{ __('Loading...') }}</span>
         </div>
     </div>
-    /home/nasreddine/Desktop/caci E-Certif project/www/E-Certificate/resources/lang/fr/messages_fr.js
     <script src="{{ URL::asset('wizard/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
@@ -1643,7 +1643,7 @@
                             confirmed: 'true'
                         },
                         success: function(data) {
-                            console.log(data.message);
+                            // console.log(data.message);
                             if (data.step == 4) {
                                 // $("#form-total").steps("previous");
                                 return false;
@@ -1695,7 +1695,7 @@
                     dataType: 'json',
                     delay: 250,
                     processResults: function(data) {
-                        console.log(data);
+                        // console.log(data);
                         return {
                             results: $.map(data, function(item) {
                                 return {

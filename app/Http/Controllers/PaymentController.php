@@ -223,7 +223,7 @@ class PaymentController extends Controller
                 "amount" => $amount * 100,
                 "currency" => "012",
                 "language" => "en",
-                'orderNumber' => $payment->id,
+                'orderNumber' => $payment->id . $payment->date ,
                 "userName" => $username_poste->value,
                 "password" => $password_poste->value,
                 "returnUrl" => route('payments.return', $payment->id),

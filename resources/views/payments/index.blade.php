@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ URL::asset('css/modals.css') }}" />
     <style>
         .not-active {
-            pointer-events: none;
+            /* pointer-events: none; */
             cursor: default;
             text-decoration: none;
             background-color: gray !important;
@@ -31,12 +31,13 @@
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <div class="toolbar add-product dt-tb">
                                     @if (Auth::User()->role->name != 'user')
-                                        <a href="{{ route('payments.create') }}" class="not-active"
+                                        <a href="{{ route('payments.create') }}" class="{{ (Auth::User()->role->name == 'admin') ? '' : 'not-active' }}"
                                             style="{{ App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : '' }}">
                                             {{ __('Add New Payment') }}
                                         </a>
                                     @else
-                                        <a href="{{ route('payments.create-balance-poste') }}" class="not-active"
+                                        <a href="{{ route('payments.create-balance-poste') }}" class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
+                                            "PENDING") ? 'not-active' : '' }}"
                                             style="{{ App()->currentLocale() == 'ar' ? 'right:auto;left: 215px;' : '' }}">{{ __('Buy New Balance') }}</a>
                                         <span style="{{ App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : '' }}">
                                             {{ __('Current Balance') . ' : ' . $current_balance . ' ' . __('Points') }} </span>

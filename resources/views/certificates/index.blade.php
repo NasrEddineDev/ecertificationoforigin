@@ -28,7 +28,7 @@
         }
 
         .not-active {
-            pointer-events: none !important;
+            /* pointer-events: none !important; */
             cursor: default !important;
             text-decoration: none !important;
             background-color: gray !important;
