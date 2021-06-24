@@ -19,8 +19,15 @@ class ManagerController extends Controller
     public function index()
     {
         //        
+try {
         $managers = Manager::all();
         return view('managers.index', compact('managers'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**

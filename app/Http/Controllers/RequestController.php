@@ -21,8 +21,15 @@ class RequestController extends Controller
     public function index()
     {
         //
+try {
         $requests = (Auth::User()->role->name == 'user' ) ? Auth::User()->Requests : ModelsRequest::all();
         return view('requests.index', compact('requests'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**

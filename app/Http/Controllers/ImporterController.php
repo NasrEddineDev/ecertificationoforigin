@@ -22,9 +22,16 @@ class ImporterController extends Controller
      */
     public function index()
     {
+        try {
         //
         $importers = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->importers : Importer::all();
         return view('importers.index', compact('importers'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -34,10 +41,17 @@ class ImporterController extends Controller
      */
     public function create()
     {
+        try {
         //
         $countries = Country::all();
         $categories = Category::all();
         return view('importers.create', compact('countries', 'categories'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -48,12 +62,12 @@ class ImporterController extends Controller
      */
     public function store(Request $request)
     {
+        try {
         //
         $importer = new Importer([
             'name' => $request->name,
             'legal_form' => $request->legal_form ? $request->legal_form : '',
-            'type' => '',
-            // 'activity_type_name' => $request->category_id == "99" ? $request->activity_type_name : '',
+            'activity_type_name' => $request->category_id == "99" ? $request->activity_type_name : '',
             'address' => $request->address ? $request->address : '',
             'email' => $request->email,
             'mobile' => $request->mobile,
@@ -68,6 +82,12 @@ class ImporterController extends Controller
 
         return redirect()->route('importers.index')
             ->with('success', 'Importer created successfully.');
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+    
+            return false;
+        }
     }
 
     /**
@@ -78,9 +98,16 @@ class ImporterController extends Controller
      */
     public function show($id)
     {
+        try {
         //
         $importer = Importer::find($id);
         return view('importers.show', compact('importer'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -91,12 +118,19 @@ class ImporterController extends Controller
      */
     public function edit($id)
     {
+        try {
         //        
         $countries = Country::all();
         $categories = Category::all();
         $importer = Importer::find($id);
         $states = State::where('country_id', '=', $importer->state->country_id)->orderBy('iso2')->get();
         return view('importers.edit', compact('importer', 'countries', 'states', 'categories'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -108,6 +142,7 @@ class ImporterController extends Controller
      */
     public function update(Request $request, $id)
     {
+        try {
         //
         $importer = Importer::find($id);
         $importer->name = $request->name;
@@ -126,6 +161,12 @@ class ImporterController extends Controller
 
         return redirect()->route('importers.index')
             ->with('success', 'Importer updated successfully');
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+    
+            return false;
+        }
     }
 
     /**
@@ -136,7 +177,8 @@ class ImporterController extends Controller
      */
     public function destroy($id)
     {
-        //        
+        //   
+try {     
 
         // return redirect()->route('importers.index')->with('success','Importer deleted successfully');
         if (str_contains($id, ',')) {
@@ -161,13 +203,31 @@ class ImporterController extends Controller
         return response()->json([
             'message' => 'Importer not found'
         ], 404);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
 
     public function getImporter($id)
     {
+        try {
         //
         $importer = Importer::find($id);
-        return response()->json([ 'importer' => $importer]);
+        return response()->json([ 
+            'importer' => $importer, 
+            'category' => $importer->category, 
+            'state' => $importer->state, 
+            'country' => $importer->state->country
+        ]);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 }

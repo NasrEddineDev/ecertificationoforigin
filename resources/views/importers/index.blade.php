@@ -111,7 +111,7 @@
                                                 <td>{{ $importer->id }}</td>
                                                 <td>{{ $importer->name }}</td>
                                                 <!-- <td>{{ $importer->legal_form }}</td> -->
-                                                <td>{{ $importer->activity_type }}</td>
+                                                <td>{{ $importer->category->name_ar }}</td>
                                                 <!-- <td>{{ $importer->type }}</td> -->
                                                 <td>{{ $importer->address }}</td>
                                                 <td>{{ $importer->mobile }}</td>
@@ -224,7 +224,6 @@
                 $detail.html('Loading from ajax request...');
                 var txt = []
                 $.get('/getimporter/'+row['id'], function (res) {
-                    console.log(res);
                     txt.push('<table>')
                     // $.each(res.importer, function(key, value) {                    
                             // var str = '<p><b>' + key + ': </b> ' + value + '</p>';
@@ -232,7 +231,7 @@
                             txt.push(str);
                             var str = '<td><b>{{__("Email")}} : </b> ' + res.importer.email + '</td>';
                             txt.push(str);
-                            var str = '<td><b>{{__("Country")}} : </b> ' + res.importer.state_id + '</td>';
+                            var str = '<td><b>{{__("Country")}} : </b> ' + res.country.name + '</td>';
                             txt.push(str);
                             var str = '<td><b>{{__("Tel")}} : </b> ' + res.importer.tel + '</td></tr>';
                             txt.push(str);
@@ -240,11 +239,11 @@
                             txt.push(str);
                             var str = '<td><b>{{__("Mobile")}} : </b> ' + res.importer.mobile + '</td>';
                             txt.push(str);
-                            var str = '<td><b>{{__("State")}} : </b> ' + res.importer.state_id + '</td>';
+                            var str = '<td><b>{{__("State")}} : </b> ' + res.state.name + '</td>';
                             txt.push(str);
                             var str = '<td><b>{{__("Fax")}} : </b> ' + res.importer.fax + '</td></tr>';
                             txt.push(str);
-                            var str = '<tr><td><b>{{__("Activity Type")}} : </b> ' + res.importer.category_id + '</td>';
+                            var str = '<tr><td><b>{{__("Activity Type")}} : </b> ' + res.category.name_ar + '</td>';
                             txt.push(str);
                             var str = '<td></td>';
                             txt.push(str);

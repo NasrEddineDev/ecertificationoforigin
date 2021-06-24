@@ -22,8 +22,15 @@ class ProductController extends Controller
     public function index()
     {
         //
+try {
         $products = (Auth::User()->role->name == 'user' ) ? Auth::User()->Enterprise->products : Product::all();
         return view('products.index', compact('products'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -34,8 +41,15 @@ class ProductController extends Controller
     public function create()
     {
         //
+try {
         $categories =  Category::all();
         return view('products.create', compact('categories'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -47,6 +61,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         //
+try {
         $product = new Product([
             'name' => $request->input('name'),
             // 'order_number' => '',
@@ -61,12 +76,18 @@ class ProductController extends Controller
             'package_count' => '',
             'measure_unit' => $request->input('measure_unit'),
             'customs_tariff_id' => null,
-            'enterprise_id' => Auth::User()->Enterprise->id
+            'enterprise_id' => Auth::User()->Enterprise ? Auth::User()->Enterprise->id : null
         ]);
         $product->save();
 
         return redirect()->route('products.index')
                         ->with('success','Product created successfully.');
+                    } catch (Throwable $e) {
+                        report($e);
+                        Log::error($e->getMessage());
+                
+                        return false;
+                    }
     }
 
     /**
@@ -78,8 +99,15 @@ class ProductController extends Controller
     public function show($id)
     {
         //
+try {
         $product = Product::find($id);
         return view('products.show',compact('product'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -91,11 +119,22 @@ class ProductController extends Controller
     public function edit($id)
     {
         //        
+try {
         $product = Product::find($id);
-        // dd($product);
+        if($product){
         $categories =  Category::all();
-        $sub_categories = SubCategory::all()->where('category_id', '==', $product->subCategory->category_id);
+        $sub_categories = SubCategory::all()->where('category_id', '=', $product->subCategory->category_id);
         return view('products.edit',compact('product', 'categories', 'sub_categories'));
+        }
+
+        return redirect()->route('products.index')
+                        ->with('error','Product can\'t eddited.');
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -108,23 +147,25 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         //
+try {
         $product = Product::find($id);
         $product->name = $request->input('name');
-        $product->order_number = $request->input('order_number');
-        $product->brand = $request->input('brand');
-        $product->type = $request->input('type');
-        $product->category = $request->input('category');
-        $product->hs_code = $request->input('hs_code');
-        $product->net_weight = $request->input('net_weight');
-        $product->real_weight = $request->input('real_weight');
         $product->description = $request->input('description');
-        $product->package_type = $request->input('package_type');
-        $product->package_count = $request->input('package_count');
-        $product->measure_unit = 'Kg';
+        // $product->type = $request->input('type');
+        $product->brand = $request->input('brand');
+        $product->hs_code = $request->input('hs_code');
+        $product->measure_unit = $request->input('measure_unit');
+        $product->sub_category_id = $request->input('sub_category_id');
         $product->save();
 
         return redirect()->route('products.index')
                         ->with('success','Product updated successfully');
+                    } catch (Throwable $e) {
+                        report($e);
+                        Log::error($e->getMessage());
+                
+                        return false;
+                    }
     }
 
     /**
@@ -136,6 +177,7 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //        
+try {
         $product = Product::find($id);
         if ($product){
             $product->delete();
@@ -147,6 +189,12 @@ class ProductController extends Controller
         return response()->json([
             'message' => 'Product not found'
         ], 404);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
         // return redirect()->route('products.index')->with('success','Product deleted successfully');
     }
 
@@ -154,6 +202,7 @@ class ProductController extends Controller
     public function getProducts()
     {
         //        
+try {
 
         $data = [];
         $products = (Auth::User()->role->name == 'user' ) ? Auth::User()->Enterprise->products : Product::all();
@@ -166,5 +215,11 @@ class ProductController extends Controller
 
         return response()->json([ 'products' => $products]);//->select('id AS value', 'name AS text')]);//->pluck('id' as 'value', 'name' . ' '. 'brand' as 'text')], 404);
         // return redirect()->route('products.index')->with('success','Product deleted successfully');
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 }

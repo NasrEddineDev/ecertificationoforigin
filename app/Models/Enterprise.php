@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Enterprise extends Model
 {
-    use HasFactory;
-
+    use HasFactory, LogsActivity;
+    protected static $logName = 'enterprise';
+    static $logFillable = true;
     protected $fillable = [
         // 'name_ar',
         // 'name_en',

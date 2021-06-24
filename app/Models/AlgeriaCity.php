@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class AlgeriaCity extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+    protected static $logName = 'algeriacity';
+    static $logFillable = true;
     public function profiles()
     {
         return $this->hasMany(Profile::class);

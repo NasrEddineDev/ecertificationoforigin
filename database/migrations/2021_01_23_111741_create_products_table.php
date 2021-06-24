@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->increments('id', true);
             $table->string('name');
             $table->string('description');
-            $table->string('type');
+            // $table->string('type');
             $table->string('brand');
             $table->string('hs_code'); 
             $table->enum('measure_unit', ['KG', 'T', 'U', 'L', 'M²', 'M']);

@@ -119,11 +119,22 @@
                                   <div class="form-group-inner">
                                     <div class="login-btn-inner">
                                         <div class="row">
-                                            <div class="col-lg-2" style="float: none;margin: 0 auto;">
+                                            <div class="col-lg-3" style="float: none;margin: 0 auto;">
                                                 <div class="login-horizental cancel-wp form-bc-ele">
                                                     <button type="button" class="btn btn-white">
                                                         <a href="{{ route('payments.index') }}"
-                                                            style="color: inherit;">{{ __('Go To Payments List') }}</a>
+                                                            style="color: inherit;">
+                                                            <i class="fa fa-fw fa-list"></i> {{ __('Go To Payments List') }}</a>
+                                                    </button>
+                                                    <button type="button" class="btn btn-success">
+                                                        <a href="{{ route('payments.download', $payment->id) }}"
+                                                            style="color: inherit;">
+                                                            <i class="fa fa-fw fa-download"></i> {{ __('Download') }}</a>
+                                                    </button>
+                                                    <button type="button" class="btn btn-white">
+                                                        <a href="#"
+                                                            style="color: inherit;">
+                                                            <i class="fa fa-fw fa-print"></i> {{ __('Print') }}</a>
                                                     </button>
                                                 </div>
                                             </div>

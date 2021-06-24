@@ -18,9 +18,16 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        try {
         //
         $categories = Category::all();
         return view('categories.index', compact('categories'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -30,8 +37,15 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        try {
         //
-        return view('categories.create');
+        return view('categories.create');    
+    } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+    
+            return false;
+        }
     }
 
     /**
@@ -42,6 +56,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        try {
         //
         $category = new Category([
             'number' => Category::all()->sortByDesc('created_at')->first()->number + 1,
@@ -53,6 +68,12 @@ class CategoryController extends Controller
         $category->save();
         return redirect()->route('categories.index')
             ->with('success', 'Category created successfully.');
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+    
+            return false;
+        }
     }
 
     /**
@@ -74,9 +95,16 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
+        try {
         //
         $category = Category::find($id);
         return view('categories.edit', compact('category'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -88,6 +116,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
+        try {
         //
         $category = Category::find($id);
             $category->name = $request->name;
@@ -97,6 +126,12 @@ class CategoryController extends Controller
         $category->update();
         return redirect()->route('categories.index')
             ->with('success', 'Category created successfully.');
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+    
+            return false;
+        }
     }
 
     /**
@@ -107,6 +142,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
+        try {
         //
         $category = Category::find($id);
         if ($category) {
@@ -119,5 +155,11 @@ class CategoryController extends Controller
         return response()->json([
             'message' => 'Category not found'
         ], 200);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 }

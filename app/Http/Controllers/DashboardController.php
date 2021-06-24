@@ -28,7 +28,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-
+        try {
         // $locale = App::currentLocale();
         $locale = Auth::user()->profile->language;
 
@@ -112,13 +112,26 @@ class DashboardController extends Controller
             ];
         }
         return view('dashboard', $data);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     public function setlocale($locale)
     {
+        try {
         App::setlocale($locale);
         session()->put('locale', $locale);
         Auth::user()->profile->update(['language' => $locale]);
         return redirect()->back();
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 }

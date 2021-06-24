@@ -147,7 +147,7 @@ input.error {
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
                       <div class="col-sm-9">
-                        <input name="address" id="address" type="text" class="form-control" />
+                        <input name="address" id="address" type="text" class="form-control" required/>
                       </div>
                     </div>
                   </div>

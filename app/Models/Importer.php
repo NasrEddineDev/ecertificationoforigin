@@ -4,15 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Importer extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+    protected static $logName = 'importer';
 
+    static $logFillable = true;
     protected $fillable = [
         'name',
         'legal_form',
-        'type',
+        'activity_type_name',
         'address',
         'email',
         'mobile',
@@ -35,5 +38,9 @@ class Importer extends Model
     public function state()
     {
         return $this->belongsTo(State::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

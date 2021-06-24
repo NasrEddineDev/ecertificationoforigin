@@ -27,6 +27,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        try {
         // if (Gate::forUser($user)->allows('update-post', $post)) {
         // }
         // if (! Gate::allows('list-user')) {
@@ -39,6 +40,11 @@ class UserController extends Controller
         // $users = User::all()->where('role_id', '!=', $role->id);
         $users = (Auth::User()->role->name == 'dri_user') ? User::all()->where('role_id', '!=', $role->id) : User::all();
         return view('users.index', compact('users'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+        return false;
+    }
     }
 
     /**
@@ -49,9 +55,16 @@ class UserController extends Controller
     public function create()
     {
         //
+try {
         $roles = Role::all();
         $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
         return view('users.create', compact('roles', 'states'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -64,6 +77,7 @@ class UserController extends Controller
     {
         //
 
+        try {
         $profile = new Profile([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
@@ -109,6 +123,12 @@ class UserController extends Controller
         }
         return redirect()->route('users.index')
             ->with('success', 'User created successfully.');
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+    
+            return false;
+        }
     }
 
     /**
@@ -131,8 +151,15 @@ class UserController extends Controller
     public function edit($id)
     {
         //
+try {
         $role = Role::find($id);
         return view('users.edit', compact('role'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -145,6 +172,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
+try {
         $user = User::find($id);
         $user->username = $request->input('username');
         $user->email = $request->input('email');
@@ -185,6 +213,12 @@ class UserController extends Controller
             $user->profile->square_stamp = $squareStampFileName;
         }
         $user->profile->update();
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -196,6 +230,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+try {
         $user = User::find($id);
         if ($user) {
             $user->delete();
@@ -207,5 +242,11 @@ class UserController extends Controller
         return response()->json([
             'message' => 'User not found'
         ], 200);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 }

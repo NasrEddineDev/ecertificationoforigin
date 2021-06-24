@@ -97,25 +97,11 @@
                                                     <td>{{ $payment->Enterprise->name }}</td>
                                                 @endif
                                                 <td class="datatable-ct">
-                                                    {{-- <a rel="tooltip" class="btn btn-success" href="{{ route('payments.show',$payment->id) }}" 
-                                                data-original-title="" title="{{ __('Detail') }}">
-                                                <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
+                                            <a rel="tooltip" class="btn btn-info" href="{{ route('payments.return',$payment->id) }}" 
+                                                data-original-title="" title="{{ __('Edit') }}">
+                                                <i class="fa fa-expand fa-lg" aria-hidden="true"></i>
                                                 <div class="ripple-container"></div>
                                             </a>
-                                            <a rel="tooltip" class="btn btn-primary" href="{{ route('payments.edit',$payment->id) }}" 
-                                                data-original-title="" title="{{ __('Edit') }}">
-                                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
-                                                <div class="ripple-container"></div>
-                                            </a> --}}
-                                                    <a rel="tooltip" class="btn btn-danger pd-setting-ed" href="#"
-                                                        data-url="{{ route('payments.destroy', $payment->id) }}"
-                                                        data-payment_name="{{ $payment->name }}" data-original-title=""
-                                                        title="{{ __('Delete') }}" data-toggle="modal"
-                                                        data-target="#DangerModalhdbgcl"
-                                                        style="background-color: #d80027!important;">
-                                                        <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -141,7 +127,7 @@
                 <div class="modal-body">
                     <span class="educate-icon educate-danger modal-check-pro information-icon-pro"></span>
                     <h2>{{ __('Remove Permanently!') }}</h2>
-                    <p>{{ __('Do you want to deletet the payment') }} <strong id="PaymentName"
+                    <p>{{ __('Do you want to delete the payment') }} <strong id="PaymentName"
                             style="color: #d80027!important;"></strong> {{ __('forever') }} ?</p>
                 </div>
                 <div class="modal-footer danger-md">

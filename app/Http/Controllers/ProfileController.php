@@ -18,7 +18,14 @@ class ProfileController extends Controller
      */
     public function index()
     {
+        try {
         return view('profiles');
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**

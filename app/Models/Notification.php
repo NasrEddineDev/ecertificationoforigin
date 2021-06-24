@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Notification extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+    protected static $logName = 'notification';
+    static $logFillable = true;
     protected $fillable = [
         'type',
         'notifiable',

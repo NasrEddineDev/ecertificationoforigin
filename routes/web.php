@@ -40,6 +40,9 @@ Route::get('create-type/{type}', [\App\Http\Controllers\CertificateController::c
 Route::get('create-balance-poste', [\App\Http\Controllers\PaymentController::class, 'createBalancePoste'])->name('payments.create-balance-poste');
 Route::post('store-balance-poste', [\App\Http\Controllers\PaymentController::class, 'storeBalancePoste'])->name('payments.store-balance-poste');
 Route::get('return/{id}', [\App\Http\Controllers\PaymentController::class, 'returnBalancePoste'])->name('payments.return');
+Route::get('payment-print/{id}', [\App\Http\Controllers\PaymentController::class, 'print'])->name('payments.print');
+Route::get('payment-download/{id}', [\App\Http\Controllers\PaymentController::class, 'download'])->name('payments.download');
+Route::get('return/{id}', [\App\Http\Controllers\PaymentController::class, 'returnBalancePoste'])->name('payments.return');
 Route::get('images', [\App\Http\Controllers\SettingController::class, 'images'])->name('settings.images');
 
 Route::get('getproducts', [\App\Http\Controllers\ProductController::class, 'getProducts'])->name('products.getproducts');
@@ -70,6 +73,13 @@ Route::resource('subcategories', SubCategoryController::class);
 Route::get('/registration', [RegistrationWizardController::class, 'index'])->name('registration_wizard');
 Route::post('/registration', [RegistrationWizardController::class, 'store'])->name('registration_wizard.post');
 Route::get('/is-exist/{model}/{property}/{value}', [RegistrationWizardController::class, 'isExist'])->name('registration_wizard.is-exist');
+
+
+//logger
+Route::get('/system-log', [\App\Http\Controllers\LoggerController::class, 'systemLog'])->name('logger.system-log');
+Route::get('/activity-log', [\App\Http\Controllers\LoggerController::class, 'usersActivities'])->name('logger.users-activities');
+Route::get('/settings-log', [\App\Http\Controllers\LoggerController::class, 'settings'])->name('logger.settings');
+Route::post('/update-log-settings', [\App\Http\Controllers\LoggerController::class, 'update'])->name('logger.update.settings');
 
 //-----------------------------------//
 //------ email verification ---------//

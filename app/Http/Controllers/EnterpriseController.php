@@ -22,9 +22,16 @@ class EnterpriseController extends Controller
      */
     public function index()
     {
-        //
-        $enterprises = (Auth::User()->role->name == 'user' ) ? Auth::User()->Enterprise : Enterprise::all();
-        return view('enterprises.index', compact('enterprises'));
+        try {
+            //
+            $enterprises = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise : Enterprise::all();
+            return view('enterprises.index', compact('enterprises'));
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 
     /**
@@ -34,9 +41,16 @@ class EnterpriseController extends Controller
      */
     public function create()
     {
-        //
-        $categories = Category::all();
-        return view('enterprises.create',compact('categories'));
+        try {
+            //
+            $categories = Category::all();
+            return view('enterprises.create', compact('categories'));
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 
     /**
@@ -47,71 +61,78 @@ class EnterpriseController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $enterprise = new Enterprise([
-            'name' => $request->name,
-            // 'activity_type' => $request->activity_type,
-            'legal_form' => $request->legal_form,
-            'exporter_type' => $request->exporter_type,
-            // 'export_activity_code' => $request->export_activity_code,
-            'address' => $request->address,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
-            'tel' => $request->tel,
-            'website' => $request->website,
-            'fax' => $request->fax,
-            'balance' => 0,
-            'status' => $request->status,
-            'user_id' => Auth::Id(),
-            'rc' => '',
-            'nif' => '',
-            'nis' => '',
-            'manager_id' => null,
-            'export_manager_id' => null,
-        ]);
+        try {
+            //
+            $enterprise = new Enterprise([
+                'name' => $request->name,
+                // 'activity_type' => $request->activity_type,
+                'legal_form' => $request->legal_form,
+                'exporter_type' => $request->exporter_type,
+                // 'export_activity_code' => $request->export_activity_code,
+                'address' => $request->address,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'tel' => $request->tel,
+                'website' => $request->website,
+                'fax' => $request->fax,
+                'balance' => 0,
+                'status' => $request->status,
+                'user_id' => Auth::Id(),
+                'rc' => '',
+                'nif' => '',
+                'nis' => '',
+                'manager_id' => null,
+                'export_manager_id' => null,
+            ]);
 
-        Auth::user()->enterprise()->save($enterprise);
+            Auth::user()->enterprise()->save($enterprise);
 
-        // if ($file = $request->rc){
-        //     $destinationPath ='data/enterprises/'. $enterprise->id .'/documents\/';
-        //     $fileName = $enterprise->id.'_rc.'.$file->clientExtension();
-        //     $request->file('rc')->storeAs($destinationPath, $fileName);
-        //     $enterprise->rc = $fileName;
-        // }
-        $file = $request->file('rc');
-        if ($file) {
-            $destinationPath = 'enterprises/' . $enterprise->id .'/' . 'documents/';
-            $fileName = $enterprise->id.'_rc.'.$file->clientExtension();
-            if (!file_exists('data/'.$destinationPath)) {
-                File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
+            // if ($file = $request->rc){
+            //     $destinationPath ='data/enterprises/'. $enterprise->id .'/documents\/';
+            //     $fileName = $enterprise->id.'_rc.'.$file->clientExtension();
+            //     $request->file('rc')->storeAs($destinationPath, $fileName);
+            //     $enterprise->rc = $fileName;
+            // }
+            $file = $request->file('rc');
+            if ($file) {
+                $destinationPath = 'enterprises/' . $enterprise->id . '/' . 'documents/';
+                $fileName = $enterprise->id . '_rc.' . $file->clientExtension();
+                if (!file_exists('data/' . $destinationPath)) {
+                    File::makeDirectory('data/' . $destinationPath, $mode = 0777, true, true);
+                }
+                Storage::disk('public/data')->put($destinationPath . $fileName, file_get_contents($file));
+                $enterprise->rc = $fileName;
             }
-            Storage::disk('public/data')->put($destinationPath . $fileName, file_get_contents($file));
-            $enterprise->rc = $fileName;
-        }
-        $file = $request->file('nis');
-        if ($file) {
-            $destinationPath = 'enterprises/' . $enterprise->id .'/' . 'documents/';
-            $fileName = $enterprise->id.'_nis.'.$file->clientExtension();
-            if (!file_exists('data/'.$destinationPath)) {
-                File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
+            $file = $request->file('nis');
+            if ($file) {
+                $destinationPath = 'enterprises/' . $enterprise->id . '/' . 'documents/';
+                $fileName = $enterprise->id . '_nis.' . $file->clientExtension();
+                if (!file_exists('data/' . $destinationPath)) {
+                    File::makeDirectory('data/' . $destinationPath, $mode = 0777, true, true);
+                }
+                Storage::disk('public/data')->put($destinationPath . $fileName, file_get_contents($file));
+                $enterprise->nis = $fileName;
             }
-            Storage::disk('public/data')->put($destinationPath . $fileName, file_get_contents($file));
-            $enterprise->nis = $fileName;
-        }
-        $file = $request->file('nif');
-        if ($file) {
-            $destinationPath = 'enterprises/' . $enterprise->id .'/' . 'documents/';
-            $fileName = $enterprise->id.'_nif.'.$file->clientExtension();
-            if (!file_exists('data/'.$destinationPath)) {
-                File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
+            $file = $request->file('nif');
+            if ($file) {
+                $destinationPath = 'enterprises/' . $enterprise->id . '/' . 'documents/';
+                $fileName = $enterprise->id . '_nif.' . $file->clientExtension();
+                if (!file_exists('data/' . $destinationPath)) {
+                    File::makeDirectory('data/' . $destinationPath, $mode = 0777, true, true);
+                }
+                Storage::disk('public/data')->put($destinationPath . $fileName, file_get_contents($file));
+                $enterprise->nif = $fileName;
             }
-            Storage::disk('public/data')->put($destinationPath . $fileName, file_get_contents($file));
-            $enterprise->nif = $fileName;
-        }
-        $enterprise->update();
+            $enterprise->update();
 
-        return redirect()->route('enterprises.index')
-                        ->with('success','Enterprise created successfully.');
+            return redirect()->route('enterprises.index')
+                ->with('success', 'Enterprise created successfully.');
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 
     /**
@@ -133,11 +154,18 @@ class EnterpriseController extends Controller
      */
     public function edit($id)
     {
-        //
-        $categories = Category::all();
-        $enterprise = Enterprise::find($id);
-        // $activities_codes = $enterprise->activities()->pluck('code')->join(',');
-        return view('enterprises.edit',compact('enterprise', 'categories'));
+        try {
+            //
+            $categories = Category::all();
+            $enterprise = Enterprise::find($id);
+            // $activities_codes = $enterprise->activities()->pluck('code')->join(',');
+            return view('enterprises.edit', compact('enterprise', 'categories'));
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 
     /**
@@ -149,67 +177,74 @@ class EnterpriseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        $enterprise = Enterprise::find($id);
-        $enterprise->name = $request->name;
-        // $enterprise->activity_type = $request->activity_type;
-        $enterprise->legal_form = $request->legal_form;
-        $enterprise->exporter_type = $request->exporter_type;
-        // $enterprise->export_activity_code = $request->export_activity_code;
-        $enterprise->address = $request->address;
-        $enterprise->email = $request->email;
-        $enterprise->mobile = $request->mobile;
-        $enterprise->tel = $request->tel;
-        $enterprise->website = $request->website;
-        $enterprise->fax = $request->fax;
-        $enterprise->city_id = ($request->city_id) ? $request->city_id : $enterprise->city_id;
-        if (Auth::User()->role->name != 'user'){
-            // $enterprise->balance = $request->balance;
-            $enterprise->status = $request->status;    
-        }
-
-        $enterprise->activities()->detach();
-        // dd($request->activities);
-        foreach ($request->activities as $activity_id) {
-            $enterprise->activities()->attach($activity_id, [
-                'enterprise_id' => $enterprise->id,
-            ]);
-        }
-
-        $file = $request->file('rc');
-        if ($file) {
-            $destinationPath = 'enterprises/' . $enterprise->id .'/' . 'documents/';
-            $fileName = $enterprise->id.'_rc.'.$file->clientExtension();
-            if (!file_exists('data/'.$destinationPath)) {
-                File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
+        try {
+            //
+            $enterprise = Enterprise::find($id);
+            $enterprise->name = $request->name;
+            // $enterprise->activity_type = $request->activity_type;
+            $enterprise->legal_form = $request->legal_form;
+            $enterprise->exporter_type = $request->exporter_type;
+            // $enterprise->export_activity_code = $request->export_activity_code;
+            $enterprise->address = $request->address;
+            $enterprise->email = $request->email;
+            $enterprise->mobile = $request->mobile;
+            $enterprise->tel = $request->tel;
+            $enterprise->website = $request->website;
+            $enterprise->fax = $request->fax;
+            $enterprise->city_id = ($request->city_id) ? $request->city_id : $enterprise->city_id;
+            if (Auth::User()->role->name != 'user') {
+                // $enterprise->balance = $request->balance;
+                $enterprise->status = $request->status;
             }
-            Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-            $enterprise->rc = $fileName;
-        }
-        $file = $request->file('nis');
-        if ($file) {
-            $destinationPath = 'enterprises/' . $enterprise->id .'/' . 'documents/';
-            $fileName = $enterprise->id.'_nis.'.$file->clientExtension();
-            if (!file_exists('data/'.$destinationPath)) {
-                File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
-            }
-            Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-            $enterprise->nis = $fileName;
-        }
-        $file = $request->file('nif');
-        if ($file) {
-            $destinationPath = 'enterprises/' . $enterprise->id .'/' . 'documents/';
-            $fileName = $enterprise->id.'_nif.'.$file->clientExtension();
-            if (!file_exists('data/'.$destinationPath)) {
-                File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
-            }
-            Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-            $enterprise->nif = $fileName;
-        }
-        $enterprise->update();
 
-        return redirect()->route('enterprises.index')
-                        ->with('success','Enterprise created successfully.');
+            $enterprise->activities()->detach();
+            // dd($request->activities);
+            foreach ($request->activities as $activity_id) {
+                $enterprise->activities()->attach($activity_id, [
+                    'enterprise_id' => $enterprise->id,
+                ]);
+            }
+
+            $file = $request->file('rc');
+            if ($file) {
+                $destinationPath = 'enterprises/' . $enterprise->id . '/' . 'documents/';
+                $fileName = $enterprise->id . '_rc.' . $file->clientExtension();
+                if (!file_exists('data/' . $destinationPath)) {
+                    File::makeDirectory('data/' . $destinationPath, $mode = 0777, true, true);
+                }
+                Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
+                $enterprise->rc = $fileName;
+            }
+            $file = $request->file('nis');
+            if ($file) {
+                $destinationPath = 'enterprises/' . $enterprise->id . '/' . 'documents/';
+                $fileName = $enterprise->id . '_nis.' . $file->clientExtension();
+                if (!file_exists('data/' . $destinationPath)) {
+                    File::makeDirectory('data/' . $destinationPath, $mode = 0777, true, true);
+                }
+                Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
+                $enterprise->nis = $fileName;
+            }
+            $file = $request->file('nif');
+            if ($file) {
+                $destinationPath = 'enterprises/' . $enterprise->id . '/' . 'documents/';
+                $fileName = $enterprise->id . '_nif.' . $file->clientExtension();
+                if (!file_exists('data/' . $destinationPath)) {
+                    File::makeDirectory('data/' . $destinationPath, $mode = 0777, true, true);
+                }
+                Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
+                $enterprise->nif = $fileName;
+            }
+            $enterprise->update();
+
+            return redirect()->route('enterprises.index')
+                ->with('success', 'Enterprise created successfully.');
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 
     /**

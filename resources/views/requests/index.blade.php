@@ -117,7 +117,7 @@
             <div class="modal-body">
                 <span class="educate-icon educate-danger modal-check-pro information-icon-pro"></span>
                 <h2>{{ __('Remove Permanently!') }}</h2>
-                <p>{{ __('Do you want to deletet the product') }} <strong id="RequestName" style="color: #d80027!important;"></strong> {{ __('forever') }} ?</p>
+                <p>{{ __('Do you want to delete the product') }} <strong id="RequestName" style="color: #d80027!important;"></strong> {{ __('forever') }} ?</p>
             </div>
             <div class="modal-footer danger-md">
                 <a data-dismiss="modal" href="#" style="background-color: #d80027!important;">{{ __('No') }}</a>

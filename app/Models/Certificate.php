@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Certificate extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+    protected static $logName = 'certificate';
+    static $logFillable = true;
     protected $fillable = [
         'code', 
         'name', 

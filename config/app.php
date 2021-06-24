@@ -40,7 +40,19 @@ return [
     */
 
     'debug' => (bool) env('APP_DEBUG', false),
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Application Log Mode
+    |--------------------------------------------------------------------------
+    |
+    | When your application is in debug mode, detailed error messages with
+    | stack traces will be shown on every error that occurs within your
+    | application. If disabled, a simple generic error page is shown.
+    |
+    */
 
+    'log' => 'daily',
     /*
     |--------------------------------------------------------------------------
     | Application URL
@@ -178,6 +190,7 @@ return [
         LaravelQRCode\Providers\QRCodeServiceProvider::class,     
         Intervention\Image\ImageServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Arcanedev\LogViewer\LogViewerServiceProvider::class,
     ],
 
     /*

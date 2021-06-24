@@ -44,6 +44,7 @@ class RegistrationWizardController extends Controller
      */
     public function index()
     {
+        try {
         // App::setLocale('ar');
         // session()->put('locale', 'ar');
         $locale = App::currentLocale();
@@ -85,6 +86,12 @@ class RegistrationWizardController extends Controller
         }
         return view('registration_wizard', ['step' => Steps::REGISTRATION]);
         // return redirect(RouteServiceProvider::HOME);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**
@@ -94,8 +101,8 @@ class RegistrationWizardController extends Controller
      */
     public function store(Request $request)
     {
-        $step = (int)$request->step;
         try {
+        $step = (int)$request->step;
             if ($step == Steps::REGISTRATION) {
                 //validate
                 if (!Auth::check()){
@@ -377,23 +384,31 @@ class RegistrationWizardController extends Controller
         // } catch (StepNotFoundException $e) {
         //     abort(404);
         // }
-        } catch (Throwable $e) {
-            report($e);
-
-            return false;
-        }
 
         return view('registration_wizard', ['step' => $step]);
         return redirect()->route('wizard.user', [$this->wizard->nextSlug()]);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     public function isExist($model, $property, $value)
     {
+        try {
         return false;
         if ($model == 'user'){
             $user = User::where($property, '=', $value)->first();
             if ($user) return true;
         }
         return false;
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 }

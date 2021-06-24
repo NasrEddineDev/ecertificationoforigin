@@ -34,37 +34,43 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        try {
+            if ($request->recaptchaIsChecked == 'false')
+                return response()->json([
+                    'recaptchaIsChecked' => $request->recaptchaIsChecked,
+                    'result' => 'failed',
+                    'errors' => ['recaptcha' => __('Captcha must be checked')]
+                ], 422);
 
-        if ($request->recaptchaIsChecked == 'false')
-            return response()->json([
-                'recaptchaIsChecked' => $request->recaptchaIsChecked,
-                'result' => 'failed',
-                'errors' => ['recaptcha' => __('Captcha must be checked')]
-            ], 422);
+            $request->validate([
+                'email' => 'required|string|email|max:255|', //unique:users',
+                'password' => 'required|string|min:8',
+            ]);
 
-        $request->validate([
-            'email' => 'required|string|email|max:255|', //unique:users',
-            'password' => 'required|string|min:8',
-        ]);
+            $user = User::where('email', '=', $request->email)->first();
 
-        $user = User::where('email', '=', $request->email)->first();
-
-        if ($user && Hash::check($request->password, $user->password)) {
-            if (Auth::login($user, $request->has('remember'))) {
-                event(new login($user));
+            if ($user && Hash::check($request->password, $user->password)) {
+                if (Auth::login($user, $request->has('remember'))) {
+                    event(new login($user));
+                }
             }
-        }
 
-        if (!Auth::check())
+            if (!Auth::check())
+                return response()->json([
+                    'result' => 'failed',
+                    'errors' => ['email' => __('Credentials are incorrect'), 'password' => __('Credentials are incorrect')]
+                ], 422);
             return response()->json([
-                'result' => 'failed',
-                'errors' => ['email' => __('Credentials are incorrect'), 'password' => __('Credentials are incorrect')]
-            ], 422);
-        return response()->json([
-            'result' => 'success',
-            'message' => '',
-            'url' => url(RouteServiceProvider::HOME)
-        ], 200);
+                'result' => 'success',
+                'message' => '',
+                'url' => url(RouteServiceProvider::HOME)
+            ], 200);
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
         // if (Auth::user()->role->name != 'user') return redirect(RouteServiceProvider::HOME);
 
         // if (!Auth::user()->hasVerifiedEmail()) {

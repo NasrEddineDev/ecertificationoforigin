@@ -36,9 +36,17 @@
                 <div class="row">
                   <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Type') }}</label>
+                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Measure Unit') }}</label>
                       <div class="col-sm-9">
-                        <input type="text" name="type" value="{{ $product->type }}" id="type" class="form-control" />
+                        <select name="measure_unit" id="measure_unit" class="form-control">
+                          <option value="" selected disabled>{{ __('Select The Measure Unit') }}</option>
+                          <option value="KG">{{ __('Kilogram (kg), for mass (weight)') }}</option>
+                          <option value="T">{{ __('Tonne (T), for mass (weight)') }}</option>
+                          <option value="U">{{ __('Unit (u), for number of units') }}</option>
+                          <option value="L">{{ __('Litre (L), for capacity (volume)') }}</option>
+                          <option value="M">{{ __('Metre (M), for length (distance)') }}</option>
+                          <option value="M²">{{ __('Square Metre (M²), for area') }}</option>
+                        </select>
                       </div>
                     </div>
                   </div>
@@ -89,22 +97,6 @@
                 </div>
                 <div class="row">
                   <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Measure Unit') }}</label>
-                      <div class="col-sm-9">
-                        <select name="measure_unit" id="measure_unit" class="form-control">
-                          <option value="" selected disabled>{{ __('Select The Measure Unit') }}</option>
-                          <option value="KG">{{ __('Kilogram (kg), for mass (weight)') }}</option>
-                          <option value="T">{{ __('Tonne (T), for mass (weight)') }}</option>
-                          <option value="U">{{ __('Unit (u), for number of units') }}</option>
-                          <option value="L">{{ __('Litre (L), for capacity (volume)') }}</option>
-                          <option value="M">{{ __('Metre (M), for length (distance)') }}</option>
-                          <option value="M²">{{ __('Square Metre (M²), for area') }}</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Description') }}</label>
                       <div class="col-sm-9">

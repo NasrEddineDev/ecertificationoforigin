@@ -18,6 +18,7 @@ use Storage;
 use Image;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Log;
 
 class CertificateController extends Controller
 {
@@ -104,9 +105,8 @@ class CertificateController extends Controller
             "certificate_id" => null
         ]);
 
-        $certificate->save();
-
-        $certificate->update(['code' => "E-" . date("Y") . str_repeat("0", 4 - strlen($certificate->id)) . $certificate->id]);
+        $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;//all()->orderBy('created_at', 'desc')->first() ? Certificate::all()->orderBy('created_at', 'desc')->first()->id : 0;
+        $certificate->code = "E-" . date("Y") . str_repeat("0", 4 - strlen($lastId+1)) . ($lastId+1);
 
         // $file = $request->file('invoice');
         // if ($file && $file->getClientOriginalExtension()) {
@@ -122,6 +122,12 @@ class CertificateController extends Controller
             // $certificate->invoice = $fileName;
             $certificate->update(['invoice' => $fileName]);
         }
+        $certificate->save();
+
+        Log::channel('users_activities')->info('New Certificate',[
+            'user_id' => Auth::user()->id,
+            'certificate_id' => $certificate->id,
+        ]);
 
         // $certificate->save();
         $products = (array)json_decode($request->products);

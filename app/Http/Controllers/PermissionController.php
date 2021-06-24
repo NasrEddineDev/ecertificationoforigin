@@ -19,8 +19,15 @@ class PermissionController extends Controller
     public function index()
     {
         //
+try {
         $permissions = Permission::all();
         return view('permissions.index', compact('permissions'));
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     /**

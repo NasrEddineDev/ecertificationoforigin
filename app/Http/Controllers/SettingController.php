@@ -22,9 +22,16 @@ class SettingController extends Controller
     public function index()
     {
         //
+try {
         $settings = Setting::all();
         // $offers_list = explode(",", $settings->where('name', 'Offers List')->first()->value);
-        return view('settings', compact('settings'));
+        return view('settings', compact('settings'));    
+    } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+    
+            return false;
+        }
     }
 
     /**
@@ -79,6 +86,7 @@ class SettingController extends Controller
     public function update(Request $request, $section)
     {
 
+        try {
         $settings = Setting::all();
         if ($section == 'payments') {
 
@@ -188,6 +196,12 @@ class SettingController extends Controller
 
         return redirect()->route('settings.index')
             ->with('success', 'Account edited successfully.');
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+    
+            return false;
+        }
     }
 
     /**

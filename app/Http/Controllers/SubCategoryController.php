@@ -86,6 +86,7 @@ class SubCategoryController extends Controller
     {
         //        
 
+        try {
         $data = [];
         $subCategories = SubCategory::all()->where('category_id', '=', $category_id);
         $subCategories = $subCategories->map(function($items){
@@ -96,5 +97,11 @@ class SubCategoryController extends Controller
             });
 
         return response()->json([ 'subCategories' => $subCategories]);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 }

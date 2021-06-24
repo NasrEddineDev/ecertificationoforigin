@@ -56,7 +56,6 @@
                                         <th data-field="name" data-editable="true">{{ __('Name')}}</th>
                                         <!-- <th data-field="legal_form" data-editable="true">{{ __('Legal Form')}}</th> -->
                                         <th data-field="activity_type" data-editable="true">{{ __('Activity Type')}}</th>
-                                        <!-- <th data-field="type" data-editable="true">{{ __('Type')}}</th> -->
                                         <th data-field="address" data-editable="true">{{ __('Address')}}</th>
                                         <th data-field="mobile" data-editable="true">{{ __('Mobile')}}</th>
                                         <th data-field="email" data-editable="true">{{ __('Email')}}</th>
@@ -77,8 +76,8 @@
                                                 <td>{{ $producer->id }}</td>
                                                 <td>{{ $producer->name }}</td>
                                                 <!-- <td>{{ $producer->legal_form }}</td> -->
-                                                <td>{{ $producer->activity_type }}</td>
-                                                <!-- <td>{{ $producer->type }}</td> -->
+                                                {{-- <td>{{ $producer->category->name_ar }}</td> --}}
+                                                <td>category a</td>
                                                 <td>{{ $producer->address }}</td>
                                                 <td>{{ $producer->mobile }}</td>
                                                 <td>{{ $producer->email }}</td>
@@ -131,7 +130,7 @@
             <div class="modal-body">
                 <span class="educate-icon educate-danger modal-check-pro information-icon-pro"></span>
                 <h2>{{ __('Remove Permanently!')}}</h2>
-                <p>{{ __('Do you want to deletet the producer')}} <strong id="ProducerName" style="color: #d80027!important;"></strong> {{ __('forever')}} ?</p>
+                <p>{{ __('Do you want to delete the producer')}} <strong id="ProducerName" style="color: #d80027!important;"></strong> {{ __('forever')}} ?</p>
             </div>
             <div class="modal-footer danger-md">
                 <a data-dismiss="modal" href="#" style="background-color: #d80027!important;">{{ __('No')}}</a>

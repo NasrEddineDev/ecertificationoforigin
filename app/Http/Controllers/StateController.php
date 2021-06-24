@@ -88,6 +88,7 @@ class StateController extends Controller
     {
         //        
 
+        try {
         $data = [];
         $states = State::where('country_id', '=', $country_id)->orderBy('iso2')->get();
         $states = $states->map(function ($items) {
@@ -97,10 +98,17 @@ class StateController extends Controller
         });
 
         return response()->json(['states' => $states]);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
     public function getAlgerianStates()
     {
-        //        
+        //    
+        try {    
         $data = [];
         $states = collect(DB::select("select DISTINCT ac.wilaya_code , ac.wilaya_name, ac.wilaya_name_ascii from algeria_cities ac order by ac.wilaya_code"))
                     ->map(function ($items) {
@@ -109,5 +117,11 @@ class StateController extends Controller
                     return $data;
         });
         return response()->json(['states' => $states]);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 }

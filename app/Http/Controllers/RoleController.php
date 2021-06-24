@@ -19,8 +19,14 @@ class RoleController extends Controller
     public function index()
     {
         //        
+try {
         $roles = Role::all();
         return view('roles.index', compact('roles'));
+    } catch (Throwable $e) {
+        report($e);
+
+        return false;
+    }
     }
 
     /**
@@ -31,7 +37,13 @@ class RoleController extends Controller
     public function create()
     {
         //
+try {
         return view('roles.create');
+    } catch (Throwable $e) {
+        report($e);
+
+        return false;
+    }
     }
 
     /**
@@ -43,6 +55,7 @@ class RoleController extends Controller
     public function store(Request $request)
     {
         //      
+try {
         $role = new Role([
             'name' => $request->name,
         ]);
@@ -50,6 +63,11 @@ class RoleController extends Controller
         $role->save();
 
         return redirect()->route('roles.index')->with('success','Role created successfully.');
+    } catch (Throwable $e) {
+        report($e);
+
+        return false;
+    }
     }
 
     /**
@@ -72,8 +90,14 @@ class RoleController extends Controller
     public function edit($id)
     {
         //
+try {
         $role = Role::find($id);
         return view('roles.edit',compact('role'));
+    } catch (Throwable $e) {
+        report($e);
+
+        return false;
+    }
     }
 
     /**
@@ -86,12 +110,18 @@ class RoleController extends Controller
     public function update(Request $request, $id)
     {
         //
+try {
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
 
         return redirect()->route('roles.index')
                         ->with('success','Role updated successfully');
+                    } catch (Throwable $e) {
+                        report($e);
+                
+                        return false;
+                    }
     }
 
     /**
@@ -103,6 +133,7 @@ class RoleController extends Controller
     public function destroy($id)
     {
         //
+try {
         $role = Role::find($id);
         if ($role){
             $role->delete();
@@ -114,5 +145,10 @@ class RoleController extends Controller
         return response()->json([
             'message' => 'Role not found'
         ], 200);
+    } catch (Throwable $e) {
+        report($e);
+
+        return false;
+    }
     }
 }

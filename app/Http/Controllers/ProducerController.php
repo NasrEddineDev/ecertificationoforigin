@@ -23,8 +23,15 @@ class ProducerController extends Controller
     public function index()
     {
         //
-        $producers = (Auth::User()->role->name == 'user' ) ? Auth::User()->Enterprise->producers : Producer::all();
-        return view('producer.index', compact('producers'));
+        try {
+            $producers = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->producers : Producer::all();
+            return view('producers.index', compact('producers'));
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 
     /**
@@ -35,9 +42,16 @@ class ProducerController extends Controller
     public function create()
     {
         //
-        $countries = Country::all();
-        $categories = Category::all();
-        return view('producer.create', compact('countries', 'categories'));
+        try {
+            $countries = Country::all();
+            $categories = Category::all();
+            return view('producers.create', compact('countries', 'categories'));
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 
     /**
@@ -49,26 +63,31 @@ class ProducerController extends Controller
     public function store(Request $request)
     {
         //
-        $producer = new Producer([
-            'name' => $request->name,
-            'legal_form' => $request->legal_form ? $request->legal_form : '',
-            'activity_type' => $request->activity_type ? $request->activity_type : '',
-            'type' => '',
-            // 'activity_type_name' => !$request->activity_type ? $request->activity_type_name : '',
-            'country_id' => $request->country_id,
-            'state_id' => $request->state_id,
-            'address' => $request->address,
-            'email' => $request->email,
-            'mobile' => $request->mobile,
-            'website' => $request->website ? $request->website : '',
-            'tel' => $request->tel ? $request->tel : '',
-            'fax' => $request->fax ? $request->fax : '',
-            'enterprise_id' => Auth::User()->Enterprise->id
-        ]);
-        $producer->save();
+        try {
+            $producer = new Producer([
+                'name' => $request->name,
+                'legal_form' => $request->legal_form ? $request->legal_form : '',
+                'activity_type_name' => $request->category_id == "99" ? $request->activity_type_name : '',
+                'address' => $request->address,
+                'email' => $request->email,
+                'mobile' => $request->mobile,
+                'website' => $request->website ? $request->website : '',
+                'tel' => $request->tel ? $request->tel : '',
+                'fax' => $request->fax ? $request->fax : '',
+                'category_id' => $request->category_id,
+                'state_id' => $request->state_id,
+                'enterprise_id' => Auth::User()->Enterprise ? Auth::User()->Enterprise->id : ''
+            ]);
+            $producer->save();
 
-        return redirect()->route('producers.index')
-                        ->with('success','Producer created successfully.');
+            return redirect()->route('producers.index')
+                ->with('success', 'Producer created successfully.');
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 
     /**
@@ -80,8 +99,15 @@ class ProducerController extends Controller
     public function show($id)
     {
         //
-        $producer = Producer::find($id);
-        return view('producers.show',compact('producer'));
+        try {
+            $producer = Producer::find($id);
+            return view('producers.show', compact('producer'));
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 
     /**
@@ -92,11 +118,19 @@ class ProducerController extends Controller
      */
     public function edit($id)
     {
-        //        
-        $countries = Country::all();
-        $categories = Category::all();
-        $producer = Producer::find($id);
-        return view('producers.edit',compact('producer', 'countries', 'categories'));
+        //    
+        try {
+            $countries = Country::all();
+            $categories = Category::all();
+            $producer = Producer::find($id);
+            $states = State::where('country_id', '=', $producer->state->country_id)->orderBy('iso2')->get();
+            return view('producers.edit', compact('producer', 'countries', 'states', 'categories'));
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 
     /**
@@ -109,21 +143,31 @@ class ProducerController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $producer = Producer::find($id);
-        $producer->name = $request->name;
-        $producer->legal_form = $request->legal_form;
-        $producer->activity_type = $request->activity_type;
-        $producer->type = $request->type;
-        $producer->address = $request->address;
-        $producer->email = $request->email;
-        $producer->mobile = $request->mobile;
-        $producer->website = $request->website;
-        $producer->tel = $request->tel;
-        $producer->fax = $request->fax;
-        $producer->save();
+        try {
+    
+            $producer = Producer::find($id);
+            $producer->name = $request->name;
+            $producer->legal_form = $request->legal_form;
+            $producer->activity_type_name = $request->category_id == "99" ? $request->activity_type_name : '';
+            $producer->type = $request->type;
+            $producer->address = $request->address;
+            $producer->email = $request->email;
+            $producer->mobile = $request->mobile;
+            $producer->website = $request->website;
+            $producer->tel = $request->tel;
+            $producer->fax = $request->fax;
+            $producer->category_id = $request->category_id;
+            $producer->state_id = $request->state_id;
+            $producer->save();
 
-        return redirect()->route('producers.index')
-                        ->with('success','Producer updated successfully');
+            return redirect()->route('producers.index')
+                ->with('success', 'Producer updated successfully');
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 
     /**
@@ -134,18 +178,25 @@ class ProducerController extends Controller
      */
     public function destroy($id)
     {
-        //        
-        $producer = Producer::find($id);
-        if ($producer){
-            $producer->delete();
-            return response()->json([
-                'message' => 'Producer deleted successfully'
-            ], 200);
-        }
+        //       
+        try {
+            $producer = Producer::find($id);
+            if ($producer) {
+                $producer->delete();
+                return response()->json([
+                    'message' => 'Producer deleted successfully'
+                ], 200);
+            }
 
-        return response()->json([
-            'message' => 'Producer not found'
-        ], 404);
+            return response()->json([
+                'message' => 'Producer not found'
+            ], 404);
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
         // return redirect()->route('producers.index')->with('success','Producer deleted successfully');
     }
 }

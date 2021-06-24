@@ -86,6 +86,7 @@ class ActivityController extends Controller
 
     public function getActivities(Request $request)
     {
+        try {
     	$data = [];
         if($request->has('q')){
             $search = $request->q;
@@ -94,11 +95,24 @@ class ActivityController extends Controller
 
         }
         return response()->json($data);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
     public function getSelectedActivities($enterprise_id)
     {
+        try {
         $enterprise = Enterprise::find($enterprise_id);
         return response()->json([ 'activities' => $enterprise->activities]);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
 }

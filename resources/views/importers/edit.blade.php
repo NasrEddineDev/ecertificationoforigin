@@ -38,7 +38,7 @@ input.error {
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Importer Name') }}</label>
                       <div class="col-sm-9">
-                        <input type="text" name="name" id="name" class="form-control" value="{{ $importer->name }}"/>
+                        <input type="text" name="name" id="name" class="form-control" value="{{ $importer->name }}" required/>
                       </div>
                     </div>
                   </div>
@@ -46,7 +46,7 @@ input.error {
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Legal Form') }}</label>
                       <div class="col-sm-9">
-                        <input type="text" name="legal_form" id="legal_form" class="form-control" value="{{ $importer->legal_form }}"/>
+                        <input type="text" name="legal_form" id="legal_form" class="form-control" value="{{ $importer->legal_form }}" required/>
                         </select>
                       </div>
                     </div>
@@ -57,7 +57,7 @@ input.error {
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Activity') }}</label>
                       <div class="col-sm-9">                                
-                        <select name="category_id" id="category_id" class="form-control">
+                        <select name="category_id" id="category_id" class="form-control" required>
                           <option value="02" disabled>{{ __('Select The Type Of Activity') }}</option>
                           @if (isset($categories))
                               @foreach ($categories as $category){
@@ -75,7 +75,8 @@ input.error {
                     <div class="form-group row activity_type_name">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Name Of Activity Type') }}</label>
                       <div class="col-sm-9">
-                        <input type="text" name="activity_type_name" id="activity_type_name" class="form-control"  value="{{ $importer->activity_type_name }}"/>
+                        <input type="text" name="activity_type_name" id="activity_type_name" class="form-control"  
+                                value="{{ $importer->activity_type_name }}" required/>
                       </div>
                       {{-- <label class="col-sm-3 col-form-label">{{ __('Importer Type') }}</label>
                       <div class="col-sm-9">
@@ -96,7 +97,7 @@ input.error {
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
                       <div class="col-sm-9">
-                        <input name="email" id="email" type="text" class="form-control" value="{{ $importer->email }}"/> 
+                        <input name="email" id="email" type="text" class="form-control" value="{{ $importer->email }}" required/> 
                       </div>
                     </div>
                   </div>
@@ -104,7 +105,7 @@ input.error {
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile') }}</label>
                       <div class="col-sm-9">
-                        <input name="mobile" id="mobile" type="text" class="form-control" value="{{ $importer->mobile }}"/>
+                        <input name="mobile" id="mobile" type="text" class="form-control" value="{{ $importer->mobile }}" required/>
                       </div>
                     </div>
                   </div>
@@ -114,7 +115,7 @@ input.error {
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Country') }}</label>
                       <div class="col-sm-9">                                     
-                        <select name="country_id" id="country_id" class="form-control">
+                        <select name="country_id" id="country_id" class="form-control" required>
                         <option value="" disabled>{{ __('Select The Country') }}</option>
                         @if (isset($countries))
                             @foreach ($countries as $country){
@@ -130,7 +131,7 @@ input.error {
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('State') }}</label>
                       <div class="col-sm-9">
-                        <select name="state_id" id="state_id" class="form-control">
+                        <select name="state_id" id="state_id" class="form-control" required>
                           <option value="" disabled>{{ __('Select The State') }}</option>
                           @if (isset($states))
                               @foreach ($states as $state){
@@ -148,7 +149,7 @@ input.error {
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
                       <div class="col-sm-9">
-                        <input name="address" id="address" type="text" class="form-control" value="{{ $importer->address }}"/>
+                        <input name="address" id="address" type="text" class="form-control" value="{{ $importer->address }}" required/>
                       </div>
                     </div>
                   </div>

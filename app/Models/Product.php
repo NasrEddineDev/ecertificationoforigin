@@ -4,19 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Product extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
+    protected static $logName = 'product';
+    static $logFillable = true;
     protected $fillable = [
         'name', 
         'description',
-        // 'order_number', 
         'brand',
-        'type', 
-        'hs_code', 
-        // 'net_weight',
-        // 'real_weight', 
+        // 'type', 
         'hs_code', 
         'measure_unit',
         'sub_category_id',
@@ -31,10 +30,12 @@ class Product extends Model
     }
     public function enterprise()
     {
-        return $this->hasOne(Enterprise::class);
+        // return $this->hasOne(Enterprise::class);
+        return $this->belongsTo(Enterprise::class);
     }
     public function subCategory()
     {
-        return $this->hasOne(SubCategory::class);
+        // return $this->hasOne(SubCategory::class);
+        return $this->belongsTo(SubCategory::class);
     }
 }

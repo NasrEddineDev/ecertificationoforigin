@@ -87,7 +87,7 @@ class CityController extends Controller
     public function getCities($state_code)
     {
         //        
-
+        try {
         $data = [];
         $cities = AlgeriaCity::all()->where('wilaya_code', '=', $state_code);
         $cities = $cities->map(function($items){
@@ -97,12 +97,18 @@ class CityController extends Controller
             });
 
         return response()->json([ 'cities' => $cities]);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 
     public function getAlgerianCities($state_code)
     {
         //        
-
+        try {
         $data = [];
         $cities = AlgeriaCity::all()->where('wilaya_code', '=', $state_code);
         $cities = $cities->map(function($items){
@@ -112,5 +118,11 @@ class CityController extends Controller
             });
 
         return response()->json([ 'cities' => $cities]);
+    } catch (Throwable $e) {
+        report($e);
+        Log::error($e->getMessage());
+
+        return false;
+    }
     }
 }
