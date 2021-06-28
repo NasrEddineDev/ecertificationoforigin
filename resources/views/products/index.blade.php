@@ -30,10 +30,41 @@
                     </div>
                     <div class="sparkline13-graph">
                         <div class="datatable-dashv1-list custom-datatable-overright">
-                            <div class="toolbar add-product dt-tb">
+                            {{-- <div class="toolbar add-product dt-tb">
                                 <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
                                 "PENDING") ? 'not-active' : '' }}" href="{{ route('products.create') }}"
                                 style="{{App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : ''}}">{{ __('Add New Product') }}</a>
+                            </div> --}}
+                            
+                            <div id="toolbar">
+                                <div class="{{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                    <button id="new" style="background-color: #2C7744;"
+                                        class="dropbtn btn btn-success dropdown-toggle {{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
+                                        "PENDING") ? 'not-active' : '' }}" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="false"
+                                        title="{{ __('Add New Product') }}">
+                                        <i class="fa fa-plus-square"></i>
+                                    </button>
+                                    {{-- <button id="details" class="btn btn-info" title="{{ __('Details') }}" disabled>
+                                        <i class="fa fa-eye"></i>
+                                    </button> --}}
+                                    <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
+                                        disabled>
+                                        <i class="fa fa-pencil-square-o"></i>
+                                    </button>
+                                    <button id="remove" class="btn btn-danger" title="{{ __('Delete') }}"
+                                        data-toggle="modal" data-target="#DangerModalhdbgcl"
+                                        style="background-color: #d80027!important;" disabled>
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </div>
+                                <div class="col-lg-4 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                    <select id="certificatesSelecor" name="certificatesSelecor" class="form-control">
+                                        <option value="ALL" selected>ALL</option>
+                                        <option value="GZALE">UEA</option>
+                                        <option value="FORMULE-A-FR">EGYPT</option>
+                                    </select>
+                                </div>
                             </div>
                             <!-- <div id="toolbar">
                                 <select class="form-control dt-tb">
@@ -63,7 +94,7 @@
                                         <th data-field="description" data-editable="true">{{ __('Description') }}</th>
                                         <!-- <th data-field="package_type" data-editable="true">Package Type</th>
                                         <th data-field="package_count" data-editable="true">Package Count</th> -->
-                                        <th data-field="action">{{ __('Action') }}</th>
+                                        {{-- <th data-field="action">{{ __('Action') }}</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -82,7 +113,7 @@
                                         <td>{{ $product->description }}</td>
                                         <!-- <td>{{ $product->package_type }}</td>
                                         <td>{{ $product->package_count }}</td> -->
-                                        <td class="datatable-ct">
+                                        {{-- <td class="datatable-ct">
                                             <a rel="tooltip" class="btn btn-success" href="{{ route('products.show',$product->id) }}" 
                                                 data-original-title="" title="{{ __('Detail') }}">
                                                 <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
@@ -99,7 +130,7 @@
                                                 <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
                                                 <div class="ripple-container"></div>
                                             </a>
-                                        </td>
+                                        </td> --}}
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -151,34 +182,156 @@
 <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-en-US.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-fr-FR.js') }}"></script>
 <script type="text/javascript">
-    $(document).ready(function() {
-        $('#DangerModalhdbgcl').on('shown.bs.modal', function(e) {
-            var link = $(e.relatedTarget),
-                url = link.data("url"),
-                product_name = link.data("product_name");
-                // e.closest('tr').hide();
-                // alert(e.closest.closest('tr'));
-            $("#Delete").attr("href", url);
-            $("#ProductName").text(product_name);
-        });
 
-        $("#Delete").click(function(e){
-            e.preventDefault();
-            var url = $("#Delete").attr("href");
-            var id = url.substring(url.lastIndexOf('/') + 1);
-            $.ajax({
-                headers: {
-              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            url: url,
-            type: 'DELETE',
-            success: function(result) {
-                $('#DangerModalhdbgcl').modal('toggle');
-                // document.getElementById("table").deleteRow(4); 
-                $('table#table tr#'+id).remove();
-            }
-        });
-    }); 
+var $table = $('#table')
+        var $new = $('#new')
+        var $preview = $('#preview')
+        var $details = $('#details')
+        var $edit = $('#edit')
+        var $remove = $('#remove')
+        var selections = []
+
+        $new.prop('disabled', false)
+        $preview.prop('disabled', true)
+        $details.prop('disabled', true)
+        $edit.prop('disabled', true)
+        $remove.prop('disabled', true)
+
+        function getIdSelections() {
+            return $.map($table.bootstrapTable('getSelections'), function(row) {
+                return row.id
+            })
+        }
+        $table.on('check.bs.table uncheck.bs.table ' + 'check-all.bs.table uncheck-all.bs.table',
+            function() {
+                $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
+                $preview.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
+                $details.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
+                $edit.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
+                selections = getIdSelections()
+            })
+
+
+            $(document).on("click", "#details", function() {
+                // $(this).find(".detail-icon").trigger("click");
+                $tr = $('#1');
+                console.log($tr);
+                $table.bootstrapTable('expandRow', $tr);
+            
+            });
+
+            $table.on('expand-row.bs.table', function (e, index, row, $detail) {
+                $detail.html('Loading from ajax request...');
+                var txt = []
+                $.get('/getimporter/'+row['id'], function (res) {
+                    txt.push('<table>')
+                    // $.each(res.importer, function(key, value) {                    
+                            // var str = '<p><b>' + key + ': </b> ' + value + '</p>';
+                            var str = '<tr><td><b>{{__("Name")}} : </b> ' + res.importer.name + '</td>';
+                            txt.push(str);
+                            var str = '<td><b>{{__("Email")}} : </b> ' + res.importer.email + '</td>';
+                            txt.push(str);
+                            var str = '<td><b>{{__("Country")}} : </b> ' + res.country.name + '</td>';
+                            txt.push(str);
+                            var str = '<td><b>{{__("Tel")}} : </b> ' + res.importer.tel + '</td></tr>';
+                            txt.push(str);
+                            var str = '<tr><td><b>{{__("Legal Form")}} : </b> ' + res.importer.legal_form + '</td>';
+                            txt.push(str);
+                            var str = '<td><b>{{__("Mobile")}} : </b> ' + res.importer.mobile + '</td>';
+                            txt.push(str);
+                            var str = '<td><b>{{__("State")}} : </b> ' + res.state.name + '</td>';
+                            txt.push(str);
+                            var str = '<td><b>{{__("Fax")}} : </b> ' + res.importer.fax + '</td></tr>';
+                            txt.push(str);
+                            var str = '<tr><td><b>{{__("Activity Type")}} : </b> ' + res.category.name_ar + '</td>';
+                            txt.push(str);
+                            var str = '<td></td>';
+                            txt.push(str);
+                            var str = '<td><b>{{__("Address")}} : </b> ' + res.importer.address + '</td>';
+                            txt.push(str);
+                            var str = '<td><b>{{__("Website")}} : </b> ' + res.importer.website + '</td></tr>';
+                            txt.push(str);
+                            // });
+                    $detail.html(txt.join(""));//res.toString().replace(/\n/g, '<br>'));
+                });
+            });
+
+    $(document).ready(function() {
+    //     $('#DangerModalhdbgcl').on('shown.bs.modal', function(e) {
+    //         var link = $(e.relatedTarget),
+    //             url = link.data("url"),
+    //             product_name = link.data("product_name");
+    //             // e.closest('tr').hide();
+    //             // alert(e.closest.closest('tr'));
+    //         $("#Delete").attr("href", url);
+    //         $("#ProductName").text(product_name);
+    //     });
+
+    //     $("#Delete").click(function(e){
+    //         e.preventDefault();
+    //         var url = $("#Delete").attr("href");
+    //         var id = url.substring(url.lastIndexOf('/') + 1);
+    //         $.ajax({
+    //             headers: {
+    //           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    //         },
+    //         url: url,
+    //         type: 'DELETE',
+    //         success: function(result) {
+    //             $('#DangerModalhdbgcl').modal('toggle');
+    //             // document.getElementById("table").deleteRow(4); 
+    //             $('table#table tr#'+id).remove();
+    //         }
+    //     });
+    // }); 
+
+    $(document).on("click", "#edit", function(e) {
+                e.preventDefault();
+                selections = getIdSelections()
+                var url = "{{ route('products.edit', 'id') }}".replace('id', selections[0]);
+                window.location.href = url;
+            });
+
+            $('#DangerModalhdbgcl').on('shown.bs.modal', function(e) {
+                e.preventDefault();
+                selections = getIdSelections()
+                if (selections.length == 1) {
+                    selections = selections[0];
+                } else {
+                    selections = selections.join(",");
+                }
+                var url = "{{ route('products.destroy', 'id') }}".replace('id', selections);
+                $("#delete").attr("href", url);
+                $("#ImporterName").text(selections);
+            });
+
+            $("#delete").click(function(e) {
+                e.preventDefault();
+                var url = $("#delete").attr("href");
+                // var id = url.substring(url.lastIndexOf('/') + 1);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    type: 'DELETE',
+                    success: function(result) {
+                        e.preventDefault();
+                        selections = getIdSelections();
+                        $table.bootstrapTable('remove', {
+                            field: 'id',
+                            values: selections
+                        });
+                        $('#DangerModalhdbgcl').modal('toggle');
+                    }
+                });
+            });
+
+            $(document).on("click", "#new", function() {
+                if (this.className.indexOf("not-active") == -1) {
+                    window.location.href = "{{ route('products.create') }}";
+                }
+            });
 
     });
 </script>

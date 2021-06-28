@@ -2,139 +2,165 @@
 
 
 @Push('css')
-<style>
-  .error{
-   color: #FF0000; 
-  }
-  .warning {
-	color: red;
-}
-input.error {
-	border:1px solid red!important;
- }
+    <style>
+        .error {
+            color: #FF0000;
+        }
 
-</style>
+        .warning {
+            color: red;
+        }
+
+        input.error {
+            border: 1px solid red !important;
+        }
+
+    </style>
 @endpush
 
 @section('content')
 
-<div class="basic-form-area mg-b-15">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="sparkline12-list">
-          <div class="card">
-            <div class="card-body">
-              <h4 class="card-title">{{ __('Add New Product') }}</h4>
-              <br />
-              <form class="form-sample" method="post" action="{{ route('products.store') }}">
-                @csrf
-                <div class="row">
-                  <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Name') }}</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="name" id="name" class="form-control" required/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('HS Code') }}</label>
-                      <div class="col-sm-9">
-                        <input name="hs_code" id="hs_code" type="text" class="form-control" required/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Measure Unit') }}</label>
-                      <div class="col-sm-9">
-                        <select name="measure_unit" id="measure_unit" class="form-control" required>
-                          <option value="" selected disabled>{{ __('Select The Measure Unit') }}</option>
-                          <option value="KG">{{ __('Kilogram (kg), for mass (weight)') }}</option>
-                          <option value="T">{{ __('Tonne (T), for mass (weight)') }}</option>
-                          <option value="U">{{ __('Unit (u), for number of units') }}</option>
-                          <option value="L">{{ __('Litre (L), for capacity (volume)') }}</option>
-                          <option value="M">{{ __('Metre (M), for length (distance)') }}</option>
-                          <option value="M²">{{ __('Square Metre (M²), for area') }}</option>
-                        </select>
-                      </div>
-                    </div>
-                    {{-- <div class="form-group row">
+    <div class="basic-form-area mg-b-15">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="sparkline12-list">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ __('Add New Product') }}</h4>
+                                <br />
+                                <form class="form-sample" method="post" action="{{ route('products.store') }}">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="form-group row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Name') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="name" id="name" class="form-control"
+                                                        required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('HS Code') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input name="hs_code" id="hs_code" type="text" class="form-control"
+                                                        required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="form-group row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Measure Unit') }}</label>
+                                                <div class="col-sm-9">
+                                                    <select name="measure_unit" id="measure_unit" class="form-control"
+                                                        required>
+                                                        <option value="" selected disabled>
+                                                            {{ __('Select The Measure Unit') }}</option>
+                                                        <option value="KG">{{ __('Kilogram (kg), for mass (weight)') }}
+                                                        </option>
+                                                        <option value="T">{{ __('Tonne (T), for mass (weight)') }}
+                                                        </option>
+                                                        <option value="U">{{ __('Unit (u), for number of units') }}
+                                                        </option>
+                                                        <option value="L">{{ __('Litre (L), for capacity (volume)') }}
+                                                        </option>
+                                                        <option value="M">{{ __('Metre (M), for length (distance)') }}
+                                                        </option>
+                                                        <option value="M²">{{ __('Square Metre (M²), for area') }}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            {{-- <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Type') }}</label>
                       <div class="col-sm-9">
                         <input type="text" name="type" id="type" class="form-control" />
                       </div>
                     </div> --}}
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Brand') }}</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="brand" id="brand" class="form-control" required/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Category') }}</label>
-                      <div class="col-sm-9">
-                        <select name="category_id" id="category_id" class="form-control" required>     
-                          <option value="0" disabled selected>
-                          {{ __('Select The Category') }}</option>
-                          @foreach ($categories as $category){
-                              <option value="{{ $category->id }}">
-                                  {{ $category->number . ' ' . (App()->currentLocale() == 'ar' ? $category->name_ar : (App()->currentLocale() == 'en' 
-                                  ? $category->name : $category->name_fr)) }}
-                              </option>
-                          @endforeach
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product SubCategory') }}</label>
-                      <div class="col-sm-9">
-                        <select name="sub_category_id" id="sub_category_id" class="form-control" required> 
-                          <option value="0" disabled>
-                          {{ __('Select The SubCategory') }}</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Description') }}</label>
-                      <div class="col-sm-9">
-                        <input name="description" id="description" type="text" class="form-control" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                  </div>
-                </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Brand') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="brand" id="brand" class="form-control"
+                                                        required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="form-group row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Category') }}</label>
+                                                <div class="col-sm-9">
+                                                    <select name="category_id" id="category_id" class="form-control"
+                                                        required>
+                                                        <option value="0" disabled selected>
+                                                            {{ __('Select The Category') }}</option>
+                                                        @foreach ($categories as $category)
+                                                            {
+                                                            <option value="{{ $category->id }}">
+                                                                {{ $category->number . ' ' . (App()->currentLocale() == 'ar' ? $category->name_ar : (App()->currentLocale() == 'en' ? $category->name : $category->name_fr)) }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product SubCategory') }}</label>
+                                                <div class="col-sm-9">
+                                                    <select name="sub_category_id" id="sub_category_id" class="form-control"
+                                                        required>
+                                                        <option value="0" disabled>
+                                                            {{ __('Select The SubCategory') }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="form-group row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Description') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input name="description" id="description" type="text"
+                                                        class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                        </div>
+                                    </div>
 
 
-                <div class="form-group-inner">
-                  <div class="login-btn-inner">
-                    <div class="row">
-                      <div class="col-lg-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}" style="text-align: center">
-                        <div class="login-horizental cancel-wp form-bc-ele">
-                          <button type="submit" class="btn btn-white">
-                            <a href="{{ route('products.index') }}" style="color: inherit;">{{ __('Cancel') }}</a>
-                          </button>
-                          <button type="submit" class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
-                        </div>
-                      </div>
-                      {{-- <div class="col-lg-3"></div>
+                                    <div class="form-group-inner">
+                                        <div class="login-btn-inner">
+                                            <div class="row">
+                                                <div class="col-lg-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}"
+                                                    style="text-align: center">
+                                                    <div class="login-horizental cancel-wp form-bc-ele">
+                                                        <button type="button" class="btn btn-white">
+                                                            <a href="{{ route('products.index') }}"
+                                                                style="color: inherit;">{{ __('Cancel') }}</a>
+                                                        </button>
+                                                        <button type="submit"
+                                                            class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
+                                                    </div>
+                                                </div>
+                                                {{-- <div class="col-lg-3"></div>
                       <div class="col-lg-9">
                         <div class="login-horizental cancel-wp pull-left form-bc-ele">
                           <button type="submit" class="btn btn-white">
@@ -143,37 +169,38 @@ input.error {
                           <button type="submit" class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
                         </div>
                       </div> --}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                  </div>
                 </div>
-              </form>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-</div>
 
 @endsection
 
-@Push('js') 
-<script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
+@Push('js')
+    <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
+    <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
 
-//       $('.activity_type_name').hide();
-// $('#activity_type').on('change', function() {
-//     if (this.value == 'OTHER') {
-//         $('.activity_type_name').show();
-//     } else {
-//         $('.activity_type_name').hide();
-//     }
-// });
+            //       $('.activity_type_name').hide();
+            // $('#activity_type').on('change', function() {
+            //     if (this.value == 'OTHER') {
+            //         $('.activity_type_name').show();
+            //     } else {
+            //         $('.activity_type_name').hide();
+            //     }
+            // });
 
 
-$('#category_id').on('change', function() {
+            $('#category_id').on('change', function() {
                 var selectedCategory = $('#category_id').find(":selected").val();
                 $.ajax({
                     headers: {
@@ -187,14 +214,15 @@ $('#category_id').on('change', function() {
                             '<option value="0" disabled selected>{{ __('Select The SubCategory') }}</option>'
                         );
                         $.each(data.subCategories, function(index, subCategory) {
-                            $('#sub_category_id').append('<option value="' + subCategory.value +
+                            $('#sub_category_id').append('<option value="' + subCategory
+                                .value +
                                 '">' + subCategory.text + '</option>');
                         })
                     }
                 })
             });
 
-            $.validator.addMethod("emailcheck", function(value, element, regexp) {
+            $.validator.addMethod("formatcheck", function(value, element, regexp) {
                 /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
                 if (regexp && regexp.constructor != RegExp) {
                     /* Create a new regular expression using the regex argument. */
@@ -205,16 +233,23 @@ $('#category_id').on('change', function() {
                 /* Return whether the element is optional or the result of the validation. */
                 return this.optional(element) || regexp.test(value);
             });
-            $.validator.addMethod("passwordcheck", function(value) {
-                return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-                    &&
-                    /[a-z]/.test(value) // has a lowercase letter
-                    &&
-                    /\d/.test(value) // has a digit
+
+            var account_validator = $(".form-sample").validate({
+                rules: {
+                  hs_code: {
+                        required: true,
+                        formatcheck: '[0-9]{2}.[0-9]{4}.[0-9]{4}',
+                    },
+                },
+                messages: {
+                  hs_code: {
+                        required: "{{ __('This field is required.') }}",
+                        formatcheck: "{{ __('Incorrect Format') }}",
+                    },
+                },
             });
 
-            var account_validator = $(".form-sample").validate({});
-
-    });
-</script>
+            $('#hs_code').inputmask("99.9999.9999"); //specifying options
+        });
+    </script>
 @endpush

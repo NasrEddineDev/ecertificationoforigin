@@ -74,7 +74,9 @@
                 padding-right: 5px !important;
                 padding-left: 5px !important;
             }
-
+#pie-chart canvas{
+    height: 352px!important;
+}
         </style>
     @endpush
     <div class="analytics-sparkle-area">

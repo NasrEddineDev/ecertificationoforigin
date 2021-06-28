@@ -213,6 +213,7 @@ input.error {
 {{-- <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}"></script> --}}
 <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
+<script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
 
@@ -284,6 +285,15 @@ messages: {
 },
 });
 
+
+    $('#email').inputmask({alias: "email", rightAlign: false}); 
+    
+    // $('#mobile').inputmask("{{ App()->currentLocale() == 'ar' ? '' : '(+213) '}}5|6|7{1}99-99-99-99{{(App()->currentLocale() == 'ar' ? ' (213+)' : '')}}", {rightAlign: false}); 
+    // $('#tel').inputmask("099999999"); 
+
+            $('#mobile').inputmask("{{ App()->currentLocale() == 'ar' ? '' : ' (+9{1,3}) '}}99[-99]{2,6}{{(App()->currentLocale() == 'ar' ? ' (9{1,3}+)' : '')}}", {rightAlign: false}); 
+    // $('#tel').inputmask("099999999"); 
+    $('#tel').inputmask("{{ App()->currentLocale() == 'ar' ? '' : ' (+9{1,3}) '}}99[-99]{2,6}{{(App()->currentLocale() == 'ar' ? ' (9{1,3}+)' : '')}}", {rightAlign: false}); 
 
     });
 </script>

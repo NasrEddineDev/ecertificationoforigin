@@ -536,6 +536,7 @@
     "Bad username or password" : "اسم المستخدم أو كلمة المرور غير صحيحة",
     "Credentials are incorrect" : "بيانات المدخلة غير صحيحة",
     "The :attribute field is required." : "ضروري :attribute المجال",
+    "This field is required." : "هذا الحقل إلزامي",
     "Captcha must be checked" : "يجب التحقق من الكابشة",
     "Please wait until we check your submitted information that are correct and activate your account" : "يرجى الانتظار حتى نقوم بالتحقق من معلوماتك المقدمة بأنها صحيحة وتفعيل حسابك ",
     "Your request is in process" : "طلبك قيد المعالجة",
@@ -555,7 +556,9 @@
     "Enable Activity Logger" : "تفعيل مسجل النشاط",
     "Delete Records Older Than (Days)" : "حذف السجلات الأقدم من (أيام)",
     "Download" : "تحميل",
-    "Print" : "طبع"
+    "Print" : "طبع",
+    "dd/mm/yyyy" : "يي/شش/عععع",
+    "Incorrect Format" : "النسق غير صحيح"
 
 
 }

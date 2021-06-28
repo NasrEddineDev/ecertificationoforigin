@@ -471,6 +471,7 @@
     <script src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/datapicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+    <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
     {{-- <script type="text/javascript" src="{{ URL::asset('js/pdfobject.min.js') }}"></script> --}}
     {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-export.js') }}"></script> --}}
@@ -803,6 +804,16 @@
                     $("table tbody").append('<td colspan="7">No matching records found</td>');
                 }
             });
+            
+            // masks
+            $('#invoice_date').inputmask({ 
+                alias: "datetime", 
+                inputFormat: "dd/mm/yyyy",  
+                placeholder: String.fromCharCode(parseInt('FEF1',16),parseInt('FEF1',16))+'/'+
+                             String.fromCharCode(parseInt('FEB5',16),parseInt('FEB5',16))+'/'+
+                             String.fromCharCode(parseInt('FEC9',16),parseInt('FEC9',16),parseInt('FEC9',16),parseInt('FEC9',16))
+            });
+            $('#integrity_rate').inputmask("% (9{2}|100)"); //specifying options
         });
 
     </script>

@@ -221,6 +221,14 @@
             })
 
 
+            $(document).on("click", "#details", function() {
+                // $(this).find(".detail-icon").trigger("click");
+                $tr = $('#1');
+                console.log($tr);
+                $table.bootstrapTable('expandRow', $tr);
+            
+            });
+
             $table.on('expand-row.bs.table', function (e, index, row, $detail) {
                 $detail.html('Loading from ajax request...');
                 var txt = []

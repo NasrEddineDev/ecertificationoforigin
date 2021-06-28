@@ -214,6 +214,7 @@ input.error {
 @Push('js') 
 <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
+<script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function() {
       if ($('#category_id').find(":selected").val() == "99"){
@@ -283,6 +284,9 @@ messages: {
     },
 },
 });
+$('#email').inputmask({alias: "email", rightAlign: false}); 
+            $('#mobile').inputmask("{{ App()->currentLocale() == 'ar' ? '' : ' (+9{1,3}) '}}99[-99]{2,6}{{(App()->currentLocale() == 'ar' ? ' (9{1,3}+)' : '')}}", {rightAlign: false}); 
+    $('#tel').inputmask("{{ App()->currentLocale() == 'ar' ? '' : ' (+9{1,3}) '}}99[-99]{2,6}{{(App()->currentLocale() == 'ar' ? ' (9{1,3}+)' : '')}}", {rightAlign: false}); 
 
 
     });

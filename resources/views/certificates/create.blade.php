@@ -78,11 +78,9 @@
     </style>
     @if (App::currentLocale() == 'ar')
         <style>
-            table th,
-            table td {
+            table th, table td {
                 text-align: right;
             }
-
         </style>
     @endif
 @endpush
@@ -452,6 +450,7 @@
     <script type="text/javascript" src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/datapicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+    <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
     {{-- <script type="text/javascript" src="{{ URL::asset('js/pdfobject.min.js') }}"></script> --}}
     {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-export.js') }}"></script> --}}
     <script type="text/javascript">
@@ -780,6 +779,7 @@
                 $("table tbody").append(new_product);
 
             });
+
             $('table tbody').on('click', '#removeRow', function() {
                 console.log($(this).parents('tr').find("td:eq(1)").text());
                 // var products = $.grep(products, function(e){ 
@@ -794,6 +794,22 @@
                     $("table tbody").append('<td colspan="7">No matching records found</td>');
                 }
             });
+
+            // masks
+            // $(selector).inputmask("99-9999999");  //static mask
+            // $('#invoice_date').inputmask({"mask": "(999) 999-9999"}); //specifying options
+            // $('#invoice_date').inputmask("9-a{1,3}9{1,3}"); //mask with dynamic syntax
+            // <input data-inputmask="'alias': 'datetime'" />
+            // <input data-inputmask="'mask': '9', 'repeat': 10, 'greedy' : false" />
+            // <input data-inputmask="'mask': '99-9999999'" />
+            // $('#invoice_date').inputmask({"mask": "99/99/9999"}); //specifying options
+            // $('#integrity_rate').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy"});
+            $('#invoice_date').inputmask({alias: "datetime", inputFormat: "dd/mm/yyyy",  
+                placeholder: String.fromCharCode(parseInt('FEF1',16),parseInt('FEF1',16))+'/'+
+                             String.fromCharCode(parseInt('FEB5',16),parseInt('FEB5',16))+'/'+
+                             String.fromCharCode(parseInt('FEC9',16),parseInt('FEC9',16),parseInt('FEC9',16),parseInt('FEC9',16))
+            });
+            $('#integrity_rate').inputmask("% (9{2}|100)"); //specifying options
         });
 
     </script>
