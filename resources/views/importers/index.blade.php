@@ -41,7 +41,8 @@
                                 <div id="toolbar">
                                     <div class="{{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                         <button id="new" style="background-color: #2C7744;"
-                                            class="dropbtn btn btn-danger dropdown-toggle" data-toggle="dropdown"
+                                            class="dropbtn btn btn-success dropdown-toggle {{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
+                                            "PENDING") ? 'not-active' : '' }}" data-toggle="dropdown"
                                             aria-haspopup="true" aria-expanded="false"
                                             title="{{ __('Add New Importer') }}">
                                             <i class="fa fa-user-plus"></i>
@@ -335,7 +336,9 @@
             });
 
             $(document).on("click", "#new", function() {
-                window.location.href = "{{ route('importers.create') }}";
+                if (this.className.indexOf("not-active") == -1) {
+                    window.location.href = "{{ route('importers.create') }}";
+                }
             });
         });
 

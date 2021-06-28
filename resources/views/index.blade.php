@@ -1230,13 +1230,13 @@
                 console.log('recaptcha mobile is ready'); // showing
                 console.log($('.navbar > .login-link').css('display'));
                 grecaptcha.render('recaptcha1', {
-                    sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+                    sitekey: '{{ env("GOOGLE_CAPTCHA_SITEKEY") }}'
                 });
             } else {
                 console.log('recaptcha desktop is ready'); // showing
                 console.log($('.navbar > .login-link').css('display'));
                 grecaptcha.render('recaptcha2', {
-                    sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+                    sitekey: '{{ env("GOOGLE_CAPTCHA_SITEKEY") }}'
                 });
             }
         };
