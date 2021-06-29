@@ -47,9 +47,9 @@
                                             title="{{ __('Add New Importer') }}">
                                             <i class="fa fa-user-plus"></i>
                                         </button>
-                                        <button id="details" class="btn btn-info" title="{{ __('Details') }}" disabled>
+                                        {{-- <button id="details" class="btn btn-info" title="{{ __('Details') }}" disabled>
                                             <i class="fa fa-eye"></i>
-                                        </button>
+                                        </button> --}}
                                         <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
                                             disabled>
                                             <i class="fa fa-pencil-square-o"></i>
@@ -63,8 +63,8 @@
                                     <div class="col-lg-4 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                         <select id="certificatesSelecor" name="certificatesSelecor" class="form-control">
                                             <option value="ALL" selected>ALL</option>
-                                            <option value="GZALE">UEA</option>
-                                            <option value="FORMULE-A-FR">EGYPT</option>
+                                            <option value="UEA">UEA</option>
+                                            <option value="EGYPT">EGYPT</option>
                                         </select>
                                     </div>
                                 </div>

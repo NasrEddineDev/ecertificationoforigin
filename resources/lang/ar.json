@@ -534,7 +534,7 @@
     "Your web browser doesn't have a PDF plugin. Instead you can" : "لا يحتوي متصفح الويب الخاص بك على البرنامج مساعد PDF. بدلا من ذلك يمكنك ",
     "click here to download the PDF file." : "انقر هنا لتنزيل ملف PDF.",
     "Bad username or password" : "اسم المستخدم أو كلمة المرور غير صحيحة",
-    "Credentials are incorrect" : "بيانات المدخلة غير صحيحة",
+    "Credentials are incorrect" : "البيانات المدخلة غير صحيحة",
     "The :attribute field is required." : "ضروري :attribute المجال",
     "This field is required." : "هذا الحقل إلزامي",
     "Captcha must be checked" : "يجب التحقق من الكابشة",
@@ -558,7 +558,8 @@
     "Download" : "تحميل",
     "Print" : "طبع",
     "dd/mm/yyyy" : "يي/شش/عععع",
-    "Incorrect Format" : "النسق غير صحيح"
+    "Incorrect Format" : "النسق غير صحيح",
+    "The email address format is invalid." : "تنسيق البريد الإلكتروني غير صحيح."
 
 
 }

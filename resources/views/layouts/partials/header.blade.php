@@ -209,7 +209,7 @@
                                                 </li>
                                                 <li><a href="#"><span class="edu-icon edu-money author-log-ic"></span>User Billing</a>
                                                 </li> -->
-                                                <li><a href="#"><span class="edu-icon edu-settings author-log-ic"></span>{{ __('Settings')}}</a>
+                                                <li><a href="{{ route('users.settings') }}"><span class="edu-icon edu-settings author-log-ic"></span>{{ __('Settings')}}</a>
                                                 </li>
                                                 <li><a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                                 <span class="edu-icon edu-locked author-log-ic"></span>{{ __('Log Out') }}</a>

@@ -18,7 +18,6 @@ class CreateImportersTable extends Migration
             $table->string('name');
             $table->string('legal_form');
             $table->string('activity_type_name');
-            $table->string('type');
             $table->string('address');
             $table->string('email')->unique();
             $table->string('mobile')->unique();

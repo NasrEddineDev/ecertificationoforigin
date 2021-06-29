@@ -23,8 +23,8 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/hakim', [HomeController::class, 'indexHakim'])->name('hakim');
 Route::get('/verifiycertificate/{id}', [HomeController::class, 'verifiyCertificate'])->name('verifiy-certificate');
 Route::get('/account', [\App\Http\Controllers\AccountController::class, 'edit'])->name('account.edit');
+Route::get('/users-settings', [\App\Http\Controllers\UserController::class, 'settings'])->name('users.settings');
 Route::post('/account/{tab}', [\App\Http\Controllers\AccountController::class, 'update'])->name('account.update');
-// Route::get('account/{tab}', [\App\Http\Controllers\CertificateController::class, 'update'])->name('certificates.sign-gzal');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth', 'verified']);
 Route::get('setlocale/{lang}', [HomeController::class, 'setlocale'])->name('lang');
 Route::get('setlocale1/{lang}', [DashboardController::class, 'setlocale'])->name('lang1');
@@ -56,7 +56,7 @@ Route::get('getimporter/{id}', [\App\Http\Controllers\ImporterController::class,
 
 Route::resource('certificates', CertificateController::class);
 Route::resource('enterprises', EnterpriseController::class);
-Route::resource('exportermanagers', ExportManagerController::class);
+// Route::resource('exportermanagers', ExportManagerController::class);
 Route::resource('importers', ImporterController::class);
 Route::resource('producers', ProducerController::class);
 Route::resource('managers', ManagerController::class);

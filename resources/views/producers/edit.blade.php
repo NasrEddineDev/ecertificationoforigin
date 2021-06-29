@@ -55,7 +55,8 @@
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Legal Form') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" name="legal_form" id="legal_form"
-                                                        class="form-control" value="{{ $producer->legal_form }}" required />
+                                                        class="form-control" value="{{ $producer->legal_form }}"
+                                                        required />
                                                     </select>
                                                 </div>
                                             </div>
@@ -67,7 +68,8 @@
                                                 <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Activity') }}</label>
                                                 <div class="col-sm-9">
-                                                    <select name="category_id" id="category_id" class="form-control" required>
+                                                    <select name="category_id" id="category_id" class="form-control"
+                                                        required>
                                                         <option value="02" disabled>
                                                             {{ __('Select The Type Of Activity') }}</option>
                                                         @if (isset($categories))
@@ -89,8 +91,8 @@
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Name Of Activity Type') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" name="activity_type_name" id="activity_type_name"
-                                                        class="form-control"
-                                                        value="{{ $producer->activity_type_name }}" required />
+                                                        class="form-control" value="{{ $producer->activity_type_name }}"
+                                                        required />
                                                 </div>
                                             </div>
                                         </div>
@@ -98,28 +100,6 @@
 
                                     <p class="card-description"> {{ __('Contact Information') }} </p>
 
-                                    <div class="row">
-                                        <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="form-group row">
-                                                <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
-                                                <div class="col-sm-9">
-                                                    <input name="email" id="email" type="text" class="form-control"
-                                                        value="{{ $producer->email }}" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile') }}</label>
-                                                <div class="col-sm-9">
-                                                    <input name="mobile" id="mobile" type="text" class="form-control"
-                                                        value="{{ $producer->mobile }}" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="row">
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
@@ -162,6 +142,28 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input name="email" id="email" type="text" class="form-control"
+                                                        value="{{ $producer->email }}" style="direction:LTR" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input name="mobile" id="mobile" type="text" class="form-control"
+                                                        value="{{ $producer->mobile }}" style="direction:LTR" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="form-group row">
+                                                <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
                                                 <div class="col-sm-9">
                                                     <input name="address" id="address" type="text" class="form-control"
@@ -175,7 +177,7 @@
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Tel') }}</label>
                                                 <div class="col-sm-9">
                                                     <input name="tel" id="tel" type="text" class="form-control"
-                                                        value="{{ $producer->tel }}" />
+                                                        value="{{ $producer->tel }}" style="direction:LTR" />
                                                 </div>
                                             </div>
                                         </div>
@@ -270,6 +272,18 @@
                             $('#state_id').append('<option value="' + state.value +
                                 '">' + state.text + '</option>');
                         })
+
+                        var phoneCode = data.country.phonecode;
+                        if (phoneCode.indexOf('+') == -1) phoneCode = '(+' + phoneCode + ')';
+                        if (phoneCode.indexOf('9')) phoneCode = phoneCode.replace('9', '\\9');
+                        var mask = "phoneCode 99[-99]{2,6}";
+                        mask = mask.replace('phoneCode', phoneCode);
+                        $('#mobile').inputmask(mask, {
+                            rightAlign: false
+                        });
+                        $('#tel').inputmask(mask, {
+                            rightAlign: false
+                        });
                     }
                 })
             });
@@ -286,13 +300,6 @@
                 /* Return whether the element is optional or the result of the validation. */
                 return this.optional(element) || regexp.test(value);
             });
-            $.validator.addMethod("passwordcheck", function(value) {
-                return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-                    &&
-                    /[a-z]/.test(value) // has a lowercase letter
-                    &&
-                    /\d/.test(value) // has a digit
-            });
 
             var account_validator = $(".form-sample").validate({
 
@@ -304,15 +311,18 @@
                 },
                 messages: {
                     email: {
-                        required: "Email is required",
-                        emailcheck: "Please enter valid email",
+                        emailcheck: "{{ __('The email address format is invalid.') }}",
                     },
                 },
             });
 
-            $('#email').inputmask({alias: "email", rightAlign: false}); 
-            $('#mobile').inputmask("{{ App()->currentLocale() == 'ar' ? '' : ' (+9{1,3}) '}}99[-99]{2,6}{{(App()->currentLocale() == 'ar' ? ' (9{1,3}+)' : '')}}", {rightAlign: false}); 
-    $('#tel').inputmask("{{ App()->currentLocale() == 'ar' ? '' : ' (+9{1,3}) '}}99[-99]{2,6}{{(App()->currentLocale() == 'ar' ? ' (9{1,3}+)' : '')}}", {rightAlign: false}); 
+            $('#email').inputmask({
+                alias: "email",
+                rightAlign: false
+            });
+
+            $('#mobile').inputmask("(+9{1,3}) 99[-99]{2,6}");
+            $('#tel').inputmask("(+9{1,3}) 99[-99]{2,6}");
 
         });
     </script>

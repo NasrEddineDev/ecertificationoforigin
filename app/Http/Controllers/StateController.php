@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\State;
+use App\Models\Country;
 use App\Models\AlgeriaCity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -97,7 +98,9 @@ class StateController extends Controller
             return $data;
         });
 
-        return response()->json(['states' => $states]);
+        $country = Country::find($country_id);
+
+        return response()->json(['states' => $states, 'country' => $country]);
     } catch (Throwable $e) {
         report($e);
         Log::error($e->getMessage());

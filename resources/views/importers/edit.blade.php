@@ -95,24 +95,6 @@ input.error {
                 <div class="row">
                   <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
-                      <div class="col-sm-9">
-                        <input name="email" id="email" type="text" class="form-control" value="{{ $importer->email }}" required/> 
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile') }}</label>
-                      <div class="col-sm-9">
-                        <input name="mobile" id="mobile" type="text" class="form-control" value="{{ $importer->mobile }}" required/>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                    <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Country') }}</label>
                       <div class="col-sm-9">                                     
                         <select name="country_id" id="country_id" class="form-control" required>
@@ -147,6 +129,24 @@ input.error {
                 <div class="row">
                   <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                     <div class="form-group row">
+                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
+                      <div class="col-sm-9">
+                        <input name="email" id="email" type="text" class="form-control" value="{{ $importer->email }}" style="direction:LTR" required/> 
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group row">
+                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile') }}</label>
+                      <div class="col-sm-9">
+                        <input name="mobile" id="mobile" type="text" class="form-control" value="{{ $importer->mobile }}" style="direction:LTR" required/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                    <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
                       <div class="col-sm-9">
                         <input name="address" id="address" type="text" class="form-control" value="{{ $importer->address }}" required/>
@@ -157,7 +157,7 @@ input.error {
                     <div class="form-group row">
                       <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Tel') }}</label>
                       <div class="col-sm-9">
-                        <input name="tel" id="tel" type="text" class="form-control" value="{{ $importer->tel }}"/>
+                        <input name="tel" id="tel" type="text" class="form-control" value="{{ $importer->tel }}" style="direction:LTR"/>
                       </div>
                     </div>
                   </div>
@@ -245,6 +245,18 @@ input.error {
                         $.each(data.states, function(index, state) {
                             $('#state_id').append('<option value="' + state.value + '">' + state.text + '</option>');
                         })
+                        
+                        var phoneCode = data.country.phonecode;
+                        if (phoneCode.indexOf('+') == -1) phoneCode = '(+' + phoneCode + ')';
+                        if (phoneCode.indexOf('9')) phoneCode = phoneCode.replace('9', '\\9');
+                        var mask = "phoneCode 99[-99]{2,6}";
+                        mask = mask.replace('phoneCode', phoneCode);
+                        $('#mobile').inputmask(mask, {
+                            rightAlign: false
+                        });
+                        $('#tel').inputmask(mask, {
+                            rightAlign: false
+                        });
                     }
                 })
             });
@@ -260,13 +272,6 @@ $.validator.addMethod("emailcheck", function(value, element, regexp) {
                 else if (regexp.global) regexp.lastIndex = 0;
                 /* Return whether the element is optional or the result of the validation. */
                 return this.optional(element) || regexp.test(value);
-            });
-            $.validator.addMethod("passwordcheck", function(value) {
-                return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-                    &&
-                    /[a-z]/.test(value) // has a lowercase letter
-                    &&
-                    /\d/.test(value) // has a digit
             });
 
             var account_validator = $(".form-sample").validate({
@@ -284,11 +289,14 @@ messages: {
     },
 },
 });
-$('#email').inputmask({alias: "email", rightAlign: false}); 
-            $('#mobile').inputmask("{{ App()->currentLocale() == 'ar' ? '' : ' (+9{1,3}) '}}99[-99]{2,6}{{(App()->currentLocale() == 'ar' ? ' (9{1,3}+)' : '')}}", {rightAlign: false}); 
-    $('#tel').inputmask("{{ App()->currentLocale() == 'ar' ? '' : ' (+9{1,3}) '}}99[-99]{2,6}{{(App()->currentLocale() == 'ar' ? ' (9{1,3}+)' : '')}}", {rightAlign: false}); 
 
+$('#email').inputmask({
+                alias: "email",
+                rightAlign: false
+            });
 
+            $('#mobile').inputmask("(+9{1,3}) 99[-99]{2,6}");
+            $('#tel').inputmask("(+9{1,3}) 99[-99]{2,6}");
     });
 </script>
 @endpush

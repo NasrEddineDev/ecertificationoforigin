@@ -9,6 +9,7 @@ use App\Models\State;
 use App\Models\City;
 use App\Models\AlgeriaCity;
 use App\Models\Category;
+use App\Models\Setting;
 use Illuminate\Support\Facades\Hash;
 use File;
 use Storage;

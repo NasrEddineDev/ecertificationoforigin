@@ -604,5 +604,6 @@
     "Download" : "Download",
     "Print" : "Print",
     "dd/mm/yyyy" : "dd/mm/yyyy",
-    "Incorrect Format" : "Incorrect Format"
+    "Incorrect Format" : "Incorrect Format",
+    "The email address format is invalid." : "The email address format is invalid."
 }
