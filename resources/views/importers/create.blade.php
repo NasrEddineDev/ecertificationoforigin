@@ -40,7 +40,7 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Importer Name') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Importer Name') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" name="name" id="name" class="form-control"
                                                         required />
@@ -50,7 +50,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Legal Form') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Legal Form') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" name="legal_form" id="legal_form"
                                                         class="form-control" required />
@@ -63,7 +63,7 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Activity') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Activity') }}</label>
                                                 <div class="col-sm-9">
                                                     <select name="category_id" id="category_id" class="form-control"
                                                         required>
@@ -83,7 +83,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row activity_type_name">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Activity') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Activity') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" name="activity_type_name" id="activity_type_name"
                                                         class="form-control" required />
@@ -106,7 +106,7 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Country') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Country') }}</label>
                                                 <div class="col-sm-9">
                                                     <select name="country_id" id="country_id" class="form-control" required>
                                                         <option value="" selected disabled>{{ __('Select The Country') }}
@@ -124,7 +124,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('State') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('State') }}</label>
                                                 <div class="col-sm-9">
                                                     <select name="state_id" id="state_id" class="form-control" required>
                                                         <option value="" selected disabled>{{ __('Select The State') }}
@@ -144,7 +144,7 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
                                                 <div class="col-sm-9">
                                                     <input name="email" id="email" type="text" class="form-control" required
                                                         style="direction:LTR" />
@@ -154,7 +154,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile') }}</label>
                                                 <div class="col-sm-9">
                                                     <input name="mobile" id="mobile" type="text" class="form-control"
                                                         style="direction:LTR" required />
@@ -166,7 +166,7 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
                                                 <div class="col-sm-9">
                                                     <input name="address" id="address" type="text" class="form-control"
                                                         required />
@@ -209,10 +209,10 @@
                                     <div class="form-group-inner">
                                         <div class="login-btn-inner">
                                             <div class="row">
-                                                <div class="col-lg-3"></div>
-                                                <div class="col-lg-9">
-                                                    <div class="login-horizental cancel-wp pull-left form-bc-ele">
-                                                        <button type="submit" class="btn btn-white">
+                                                <div class="col-lg-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}"
+                                                    style="text-align: center">
+                                                    <div class="login-horizental cancel-wp form-bc-ele">
+                                                        <button type="button" class="btn btn-white">
                                                             <a href="{{ route('importers.index') }}"
                                                                 style="color: inherit;">{{ __('Cancel') }}</a>
                                                         </button>

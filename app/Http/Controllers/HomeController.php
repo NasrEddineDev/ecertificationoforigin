@@ -34,7 +34,6 @@ class HomeController extends Controller
     public function index()
     {
         try {
-            // App::setLocale('ar');
             $locale = App::currentLocale();
 
             // $user = User::where('email', '=', "f.hasni@caci.dz")->first();
@@ -46,6 +45,9 @@ class HomeController extends Controller
             // }
 
             if (Auth::check()) {
+                if (Auth::user()->profile->language){
+                    App::setLocale(Auth::user()->profile->language);
+                }
                 if (Auth::user()->role->name != 'user') return redirect(RouteServiceProvider::HOME);
 
                 if (!Auth::user()->hasVerifiedEmail()) {

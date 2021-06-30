@@ -605,5 +605,12 @@
     "Print" : "Print",
     "dd/mm/yyyy" : "dd/mm/yyyy",
     "Incorrect Format" : "Incorrect Format",
-    "The email address format is invalid." : "The email address format is invalid."
+    "The email address format is invalid." : "The email address format is invalid.",
+    "Language" : "Language",
+    "Default Language" : "Default Language",
+    "Select The Default Language" : "Select The Default Language",
+    "Theme" : "Theme",
+    "Default Theme" : "Default Theme",
+    "Select The Default Theme" : "Select The Default Theme",
+    "Only image file is accpeted" : "Only image file is accpeted"
 }

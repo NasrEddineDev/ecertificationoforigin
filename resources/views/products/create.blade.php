@@ -35,7 +35,7 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Name') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Name') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" name="name" id="name" class="form-control"
                                                         required />
@@ -45,7 +45,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('HS Code') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('HS Code') }}</label>
                                                 <div class="col-sm-9">
                                                     <input name="hs_code" id="hs_code" type="text" class="form-control"
                                                         required />
@@ -57,7 +57,7 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Measure Unit') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Measure Unit') }}</label>
                                                 <div class="col-sm-9">
                                                     <select name="measure_unit" id="measure_unit" class="form-control"
                                                         required>
@@ -88,7 +88,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Brand') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Brand') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" name="brand" id="brand" class="form-control"
                                                         required />
@@ -100,7 +100,7 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Category') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Category') }}</label>
                                                 <div class="col-sm-9">
                                                     <select name="category_id" id="category_id" class="form-control"
                                                         required>
@@ -119,7 +119,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product SubCategory') }}</label>
+                                                    class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product SubCategory') }}</label>
                                                 <div class="col-sm-9">
                                                     <select name="sub_category_id" id="sub_category_id" class="form-control"
                                                         required>
@@ -160,15 +160,6 @@
                                                             class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
                                                     </div>
                                                 </div>
-                                                {{-- <div class="col-lg-3"></div>
-                      <div class="col-lg-9">
-                        <div class="login-horizental cancel-wp pull-left form-bc-ele">
-                          <button type="submit" class="btn btn-white">
-                            <a href="{{ route('products.index') }}" style="color: inherit;">{{ __('Cancel') }}</a>
-                          </button>
-                          <button type="submit" class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
-                        </div>
-                      </div> --}}
                                             </div>
                                         </div>
                                     </div>

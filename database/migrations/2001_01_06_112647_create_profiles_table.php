@@ -27,6 +27,7 @@ class CreateProfilesTable extends Migration
             $table->string('picture');
             $table->string('agce_user_id');
             $table->string('language');
+            $table->string('theme');
             $table->integer('city_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();

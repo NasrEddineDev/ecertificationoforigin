@@ -28,6 +28,7 @@ class Profile extends Model
         'city_id',
         'picture',
         'language',
+        'theme_color',
     ];
 
     public function users()

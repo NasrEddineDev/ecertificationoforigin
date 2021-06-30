@@ -559,7 +559,13 @@
     "Print" : "طبع",
     "dd/mm/yyyy" : "يي/شش/عععع",
     "Incorrect Format" : "النسق غير صحيح",
-    "The email address format is invalid." : "تنسيق البريد الإلكتروني غير صحيح."
-
+    "The email address format is invalid." : "تنسيق البريد الإلكتروني غير صحيح.",
+    "Language" : "اللغة",
+    "Default Language" : "اللغة التلقائية",
+    "Select The Default Language" : "إختر اللغة التلقائية",
+    "Theme" : "المظهر",
+    "Default Theme" : "المظهر التلقائي",
+    "Select The Default Theme" : "إختر المظهر التلقائي",
+    "Only image file is accpeted" : "فقط الصور هي الملفات المقبولة"
 
 }

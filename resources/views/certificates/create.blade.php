@@ -74,7 +74,6 @@
         body {
             height: 100%;
         }
-
     </style>
     @if (App::currentLocale() == 'ar')
         <style>
@@ -104,7 +103,7 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Importer') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Importer') }}</label>
                                                 <div
                                                     class="col-lg-7 col-md-7 col-sm-7 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                                     <select {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
@@ -132,10 +131,10 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Accumulation application') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Accumulation application') }}</label>
                                                 <div
                                                     class="col-lg-3 col-md-3 col-sm-3 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                                    <select name="accumulation" id="accumulation" class="form-control">
+                                                    <select name="accumulation" id="accumulation" class="form-control" required>
                                                         <option value="No" selected>{{ __('No') }}</option>
                                                         <option value="Yes">{{ __('Yes') }}</option>
                                                     </select>
@@ -184,9 +183,9 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Shipment') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Shipment') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
-                                                    <select name="shipment_type" id="shipment_type" class="form-control">
+                                                    <select name="shipment_type" id="shipment_type" class="form-control" required>
                                                         <option value="Land">{{ __('Land') }}</option>
                                                         <option value="Rail">{{ __('Rail') }}</option>
                                                         <option value="Air">{{ __('Air') }}</option>
@@ -202,19 +201,19 @@
                                             <p class="card-description"> {{ __('Invoice') }} </p>
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Number And Date') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Number And Date') }}</label>
                                                 <div class="form-group col-lg-8 col-md-8 col-sm-8">
                                                     <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}"
                                                         style="{{ App()->currentLocale() == 'ar' ? 'padding-right: 0px!important;' : 'padding-left: 0px!important;' }}">
                                                         <input name="invoice_number" id="invoice_number"
                                                             placeholder="{{ __('Number') }}" type="text"
-                                                            class="form-control" />
+                                                            class="form-control"  required/>
                                                     </div>
                                                     <div class="col-md-6"
                                                         style="padding-right: 0px!important;padding-left: 0px!important;">
                                                         <input name="invoice_date" id="invoice_date"
                                                             placeholder="{{ __('Date') }}" type="text"
-                                                            class="form-control" />
+                                                            class="form-control"  required/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,12 +223,13 @@
                                             <p class="card-description"><br \> </p>
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Invoice File') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Invoice File') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
                                                     <div class="box">
                                                         <input type="file" name="invoice" id="invoice"
-                                                            class="inputfile inputfile-2"
-                                                            data-multiple-caption="{count} files selected" multiple />
+                                                            class="inputfile inputfile-2" accept="image/*" oninvalid="setCustomValidity('Please, blah, blah, blah ')"
+                                                            data-msg-accept="{{ __('Only image file is accpeted')}}"
+                                                            data-multiple-caption="{count} files selected" multiple required/>
                                                         <label for="invoice"><svg xmlns="http://www.w3.org/2000/svg"
                                                                 width="20" height="10" viewBox="0 0 20 17">
                                                                 <path
@@ -248,11 +248,11 @@
                                             <p class="card-description"> {{ __('Weight (KG)') }} </p>
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Weight (KG)') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Weight (KG)') }}</label>
                                                 <div class="form-group col-lg-8 col-md-8 col-sm-8">
                                                     <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}"
                                                         style="{{ App()->currentLocale() == 'ar' ? 'padding-right: 0px!important;' : 'padding-left: 0px!important;' }}">
-                                                        <input name="net_weight" id="net_weight"
+                                                        <input name="net_weight" id="net_weight" required
                                                             placeholder="{{ __('Net Weight (KG)') }}" type="text"
                                                             class="form-control" />
                                                     </div>
@@ -269,11 +269,10 @@
                                             <p class="card-description"><br \> </p>
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Integrity Rate') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Integrity Rate') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
-                                                    <input type="text" name="integrity_rate"
-                                                        placeholder="{{ __('Integrity Rate') }}" id="integrity_rate"
-                                                        class="form-control" />
+                                                    <input type="text" name="integrity_rate" placeholder="{{ __('Integrity Rate') }}" id="integrity_rate"
+                                                        class="form-control"  required/>
                                                 </div>
                                             </div>
                                         </div>
@@ -283,10 +282,10 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Description of Products') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Description of Products') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
                                                     <textarea id="products_description" name="products_description"
-                                                        cols="50" class="form-control"
+                                                        cols="50" class="form-control" required
                                                         placeholder="{{ __('Description of Products') }}"
                                                         style="height: 40px"></textarea>
                                                 </div>
@@ -295,9 +294,9 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Incoterms') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Incoterms') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
-                                                    <select name="incoterm" id="incoterm" class="form-control">
+                                                    <select name="incoterm" id="incoterm" class="form-control" required>
                                                         <option value="" selected disabled>
                                                             {{ __('Select The Incoterm') }}</option>
                                                         <option value="EXW">{{ __('EXW') }}</option>
@@ -347,11 +346,11 @@
                                                                         {{ __('Currency') }}</th>
                                                                     <th data-field="package_type" data-editable="true">
                                                                         {{ __('Package Type') }}</th>
+                                                                        <th data-field="package_count" data-editable="true">
+                                                                            {{ __('Package Count') }}</th>
                                                                     <th data-field="package_quantity" data-editable="true">
                                                                         {{ __('Package Quantity') }}</th>
-                                                                    <th data-field="package_count" data-editable="true">
-                                                                        {{ __('Package Count') }}</th>
-                                                                    <th data-field="package_count" data-editable="true">
+                                                                    <th data-field="description" data-editable="true">
                                                                         {{ __('Description') }}</th>
                                                                     <th data-field="action">{{ __('Action') }}
                                                                     </th>
@@ -371,32 +370,20 @@
                                     <div class="form-group-inner">
                                         <div class="login-btn-inner">
                                             <div class="row">
-                                                <div class="col-lg-3"></div>
-                                                <div class="col-lg-9">
-                                                    <div class="login-horizental cancel-wp pull-left form-bc-ele">
+                                                <div class="col-lg-12" style="text-align: center">
+                                                    <div class="login-horizental cancel-wp form-bc-ele">
                                                         <button type="submit" class="btn btn-white">
                                                             <a href="{{ route('certificates.index') }}"
                                                                 style="color: inherit;">{{ __('Cancel') }}</a>
                                                         </button>
                                                         <button id="save" type="submit"
                                                             class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
-                                                        {{-- <button type="submit" class="btn btn-info">
-                                                            <a href="{{ route('certificates.preview') }}"
-                                                                style="color: inherit;">{{ __('Preview') }}</a>
-                                                        </button> --}}
                                                         <a rel="tooltip" id="previous" class="btn btn-success pd-setting-ed"
                                                             href="#"
                                                             data-url="{{ route('certificates.generate-gzal', 1) }}"
                                                             data-certificate_name="" data-original-title=""
                                                             data-toggle="modal" data-target="">
-                                                            {{-- <i class="fa fa-tras-oh fa-lg" aria-hidden="true"></i>
-                                                                <div class="ripple-container"></div> --}}
                                                             {{ __('Preview') }}</a>
-                                                        {{-- <button type="submit" class="btn btn-success">
-                                                            <a id="download"
-                                                                href="{{ route('certificates.generate-gzal') }}"
-                                                                style="color: inherit;">{{ __('Download') }}</a>
-                                                        </button> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -450,7 +437,9 @@
     <script type="text/javascript" src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/datapicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
     {{-- <script type="text/javascript" src="{{ URL::asset('js/pdfobject.min.js') }}"></script> --}}
     {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-export.js') }}"></script> --}}
     <script type="text/javascript">
@@ -485,7 +474,7 @@
                 language: 'ar'
             });
 
-            $.validator.addMethod("prodcutcountcheck", function(value) {
+            $.validator.addMethod("productcountcheck", function(value) {
                 return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
                     &&
                     /[a-z]/.test(value) // has a lowercase letter
@@ -495,74 +484,26 @@
 
 
             var validator = $(".form-sample").validate({
-
+                onfocusout: function(e) {
+        this.element(e);
+    },
                 rules: {
-                    importer_id: {
-                        required: true
-                    },
-                    producer_id: {
-                        required: false
-                    },
-                    invoice_number: {
-                        required: true
-                    },
-                    invoice_date: {
-                        required: true
-                    },
                     invoice: {
-                        required: true
-                    },
-                    net_weight: {
-                        required: true
-                    },
-                    real_weight: {
-                        required: true
-                    },
-                    integrity_rate: {
-                        required: true
-                    },
-                    products_description: {
-                        required: true
-                    },
-                    incoterm: {
-                        required: true
+                        required: true,
+                        extension: "jpg|jpeg|gif|png"
                     },
                     table: {
-                        prodcutcountcheck: $('#table tr').length
+                        productcountcheck: $('#table tr').length
                     },
 
                 },
                 messages: {
-
-                    importer_id: {
-                        required: "{{ __('Importer is required') }}",
-                    },
-                    invoice_number: {
-                        required: "{{ __('Invoice Number is required') }}",
-                    },
-                    invoice_date: {
-                        required: "{{ __('Invoice Date is required') }}",
-                    },
-                    invoice: {
-                        required: "{{ __('Invoice File is required') }}",
-                    },
-                    net_weight: {
-                        required: "{{ __('Net Weight is required') }}",
-                    },
-                    real_weight: {
-                        required: "{{ __('Real Weight is required') }}",
-                    },
-                    integrity_rate: {
-                        required: "{{ __('Integrity Rate is required') }}",
-                    },
-                    products_description: {
-                        required: "{{ __('Products Description is required') }}",
-                    },
-                    incoterm: {
-                        required: "{{ __('Incoterm is required') }}",
+                    invoice: {       
+                        required: "{{ __('This field is required.') }}",
+                        extension:"select valid input file format"
                     },
                     table: {
-                        prodcutcountcheck: "{{ __('Add one product at least') }}"
+                        productcountcheck: "{{ __('Add one product at least') }}"
                     },
                 },
             });
@@ -719,16 +660,16 @@
                     '<td><select name="package_type" id="package_type" class="form-control"><option value="FIBREBOARD BOXES (CARDBOARD BOXES)">{{ __('FIBREBOARD BOXES (CARDBOARD BOXES)') }}' +
                     '</option><option value="CLEATED PLYWOOD BOXES">{{ __('CLEATED PLYWOOD BOXES') }} </option><option value="STEEL DRUMS">{{ __('STEEL DRUMS') }}</option><option value="BARRELS, CASKS OR KEGS">' +
                     '{{ __('BARRELS, CASKS OR KEGS') }}</option><option value="MULTI-WALL SHIPPING SACKS">{{ __('MULTI-WALL SHIPPING SACKS') }}</option><option value="BALES">{{ __('BALES') }}</option>' +
-                    '<option value="PALLETIZING CARGO">{{ __('PALLETIZING CARGO') }}</option></select></td><td><input name="package_quantity" id="package_quantity" ' +
-                    'placeholder="{{ __('Quantity (KG/T/L/U/M/M²)') }}" type="text" class="form-control" /></td><td><input name="package_count" ' +
-                    'id="package_count" placeholder="{{ __('Count') }}" type="text" class="form-control" /></td><td><input ' +
+                    '<option value="PALLETIZING CARGO">{{ __('PALLETIZING CARGO') }}</option></select></td><td><input name="package_count" ' +
+                    'id="package_count" placeholder="{{ __('Count') }}" type="text" class="form-control" /></td><td><input name="package_quantity" id="package_quantity" ' +
+                    'placeholder="{{ __('Quantity (KG/T/L/U/M/M²)') }}" type="text" class="form-control" /></td><td><input ' +
                     'name="description" id="description" placeholder="{{ __('Description') }}"  type="text" class="form-control" /></td>' +
                     '<td><a class="btn btn-success" href="javascript:void(0)" id="checkRow" float-right><i class="fa fa-check"></i></a></td></tr>';
                 if (counter == 1) {
                     $('table tbody').empty();
                 }
                 $("table tbody").append(new_line);
-
+                $(".add-row").addClass('not-active');
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -767,7 +708,7 @@
                         'option:selected').text() + '</td><td>' + $('#unit_price').val() + '</td>' +
                     '<td>' +
                     $('#currency').val() + '</td><td>' + $('#package_type').find('option:selected').text() +
-                    '</td><td>' + $('#package_quantity').val() + '</td><td>' + $('#package_count').val() +
+                    '</td><td>' + $('#package_count').val() + '</td><td>' + $('#package_quantity').val() +
                     '</td><td>' + $('#description').val() + '</td>' +
                     '<td class="datatable-ct"><a rel="tooltip" class="btn btn-danger pd-setting-ed" href="javascript:void(0)" ' +
                     'id="removeRow" style="background-color: #d80027!important;"> <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>' +
@@ -778,6 +719,7 @@
                 $(this).parents('tr').remove();
                 $("table tbody").append(new_product);
 
+                $(".add-row").removeClass('not-active');
             });
 
             $('table tbody').on('click', '#removeRow', function() {
@@ -810,6 +752,16 @@
                              String.fromCharCode(parseInt('FEC9',16),parseInt('FEC9',16),parseInt('FEC9',16),parseInt('FEC9',16))
             });
             $('#integrity_rate').inputmask("% (9{2}|100)"); //specifying options
+
+//             $("#invoice-error").each(function() {
+//     var item = $(this);
+
+//     //either this:
+//      item.next().after(item);
+
+//     //or this:
+//     item.insertBefore(item.next());
+// });
         });
 
     </script>

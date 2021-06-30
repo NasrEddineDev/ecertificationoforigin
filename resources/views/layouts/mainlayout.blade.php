@@ -12,7 +12,7 @@
    @stack('css')
  </head>
 
- <body>
+ <body class="{{Auth::user()->profile->theme ? Auth::user()->profile->theme : 'default'}}">
 
     @include('layouts.partials.nav')
 

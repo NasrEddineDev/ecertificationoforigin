@@ -35,7 +35,7 @@
                 <div class="row">
                   <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Name') }}</label>
+                      <label class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Name') }}</label>
                       <div class="col-sm-9">
                         <input type="text" name="name" id="name" value="{{ $product->name }}" class="form-control" required/>
                       </div>
@@ -43,7 +43,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('HS Code') }}</label>
+                      <label class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('HS Code') }}</label>
                       <div class="col-sm-9">
                         <input name="hs_code" id="hs_code" value="{{ $product->hs_code }}" type="text" class="form-control" required/>
                       </div>
@@ -53,7 +53,7 @@
                 <div class="row">
                   <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Measure Unit') }}</label>
+                      <label class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Measure Unit') }}</label>
                       <div class="col-sm-9">
                         <select name="measure_unit" id="measure_unit" class="form-control" required>
                           <option value="" selected disabled>{{ __('Select The Measure Unit') }}</option>
@@ -69,7 +69,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Brand') }}</label>
+                      <label class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Brand') }}</label>
                       <div class="col-sm-9">
                         <input type="text" name="brand" value="{{ $product->brand }}" id="brand" class="form-control" required/>
                       </div>
@@ -79,7 +79,7 @@
                 <div class="row">
                   <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Category') }}</label>
+                      <label class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Category') }}</label>
                       <div class="col-sm-9">
                         <select name="category_id" id="category_id" class="form-control" required>     
                           <option value="0" disabled>
@@ -96,7 +96,7 @@
                   </div>
                   <div class="col-md-6">
                     <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product SubCategory') }}</label>
+                      <label class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product SubCategory') }}</label>
                       <div class="col-sm-9">
                         <select name="sub_category_id" id="sub_category_id" class="form-control" required> 
                           <option value="0" disabled>

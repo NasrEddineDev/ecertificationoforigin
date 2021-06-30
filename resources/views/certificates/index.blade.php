@@ -435,7 +435,7 @@
                     {{-- <iframe id="iframe" src="{{ asset('data/enterprises/'.Auth::User()->Enterprise->id.'/certificates/gzal-draft.pdf')}}"
                 type="application/pdf" width="100%" height="900px;"></iframe> --}}
                 </div>
-                <div class="modal-footer danger-md" style="background-color: #65b12d!important;">
+                <div class="modal-footer danger-md" style="background-color: #65b12d">
                     @if (Auth::User()->role->name == 'dri_user')
                         <div class="col-sm-3 pull-right notes">
                             <textarea id="notes" name="notes" rows="4" cols="50" class="form-control"></textarea>

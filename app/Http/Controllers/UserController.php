@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\State;
 use App\Models\City;
 use App\Models\Profile;
+use App\Models\Request as ModelsRequest;
 use App\Models\Setting;
 use File;
 use Storage;
@@ -14,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\App;
 
 class UserController extends Controller
 {
@@ -34,9 +36,9 @@ class UserController extends Controller
             // if (! Gate::allows('list-user')) {
             //     abort(403);
             // }
-            $user = User::find(17);
-            $user->password = Hash::make('password');
-            $user->update();
+            // $user = User::find(17);
+            // $user->password = Hash::make('password');
+            // $user->update();
             $role = Role::all()->where('name', '==', 'user')->first();
             // $users = User::all()->where('role_id', '!=', $role->id);
             $users = (Auth::User()->role->name == 'dri_user') ? User::all()->where('role_id', '!=', $role->id) : User::all();
@@ -251,12 +253,33 @@ class UserController extends Controller
         }
     }
 
-    public function settings()
+    public function settings(Request $request)
     {
         try {
-            $settings = Setting::all();
-            return view('users.settings', compact('settings'));
-            // return view('users.settings', compact('users'));
+            $theme = '';
+            $language = '';
+            
+            if (!$request->language && !$request->theme){
+                $theme = Auth::user()->profile->theme ? Auth::user()->profile->theme : 'default';
+                $language = Auth::user()->profile->language ? Auth::user()->profile->language : 'en';
+            }
+
+            if ($request->theme && !empty($request->theme)) {
+                // Auth::User()->profile->update(['theme' => $request->theme]);
+                $theme = $request->theme;
+            }
+
+            if ($request->language && !empty($request->language)) {
+                Auth::User()->profile->update(['language' => $request->language]);
+                $language = $request->language;
+
+                
+                App::setlocale($language);
+                session()->put('locale', $language);
+        // return redirect()->back();
+            }
+
+            return view('users.settings', compact('theme', 'language'));
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());

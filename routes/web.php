@@ -24,6 +24,7 @@ Route::get('/hakim', [HomeController::class, 'indexHakim'])->name('hakim');
 Route::get('/verifiycertificate/{id}', [HomeController::class, 'verifiyCertificate'])->name('verifiy-certificate');
 Route::get('/account', [\App\Http\Controllers\AccountController::class, 'edit'])->name('account.edit');
 Route::get('/users-settings', [\App\Http\Controllers\UserController::class, 'settings'])->name('users.settings');
+Route::post('/users-settings-post', [\App\Http\Controllers\UserController::class, 'settings'])->name('users.settings.post');
 Route::post('/account/{tab}', [\App\Http\Controllers\AccountController::class, 'update'])->name('account.update');
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware(['auth', 'verified']);
 Route::get('setlocale/{lang}', [HomeController::class, 'setlocale'])->name('lang');
@@ -47,6 +48,7 @@ Route::get('images', [\App\Http\Controllers\SettingController::class, 'images'])
 
 Route::get('getproducts', [\App\Http\Controllers\ProductController::class, 'getProducts'])->name('products.getproducts');
 Route::get('getcities/{id}', [\App\Http\Controllers\CityController::class, 'getCities'])->name('cities.getcities');
+Route::get('getalgeriancities/{id}', [\App\Http\Controllers\CityController::class, 'getAlgerianCities'])->name('cities.getalgeriancities');
 Route::get('getstates/{id}', [\App\Http\Controllers\StateController::class, 'getStates'])->name('states.getstates');
 Route::get('getalgerianstates', [\App\Http\Controllers\StateController::class, 'getAlgerianStates'])->name('states.getalgerianstates');
 Route::get('getsubcategories/{id}', [\App\Http\Controllers\SubCategoryController::class, 'getSubCategories'])->name('subc_ategories.getsubcategories');

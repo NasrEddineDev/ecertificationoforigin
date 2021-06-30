@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use Illuminate\Support\Facades\App;
 use Closure;
 
 class Authenticate extends Middleware
@@ -25,6 +26,10 @@ class Authenticate extends Middleware
         if ( ! $this->auth->user() )
         {
             return redirect('/');
+        }
+
+        if ($this->auth->user()->profile->language){
+            App::setLocale($this->auth->user()->profile->language);
         }
         return $next($request);
     }

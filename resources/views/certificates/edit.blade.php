@@ -106,7 +106,7 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Importer') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Importer') }}</label>
                                                 <div
                                                     class="col-lg-7 col-md-7 col-sm-7 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                                     <select {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
@@ -135,7 +135,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Accumulation application') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Accumulation application') }}</label>
                                                 <div
                                                     class="col-lg-3 col-md-3 col-sm-3 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                                     <select name="accumulation" id="accumulation" class="form-control">
@@ -190,7 +190,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Shipment') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Shipment') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
                                                     <select name="shipment_type" id="shipment_type" class="form-control">
                                                         <option value="Land" {{ $certificate->shipment_type ==  'Land' ? 'selected' : ''}}>{{ __('Land') }}</option>
@@ -208,7 +208,7 @@
                                             <p class="card-description"> {{ __('Invoice') }} </p>
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Number And Date') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Number And Date') }}</label>
                                                 <div class="form-group col-lg-8 col-md-8 col-sm-8">
                                                     <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}"
                                                         style="{{ App()->currentLocale() == 'ar' ? 'padding-right: 0px!important;' : 'padding-left: 0px!important;' }}">
@@ -230,7 +230,7 @@
                                             <p class="card-description"><br \> </p>
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Invoice File') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Invoice File') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
                                                     <div class="box">
                                                         <input type="file" name="invoice" id="invoice"
@@ -254,7 +254,7 @@
                                             <p class="card-description"> {{ __('Weight (KG)') }} </p>
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Weight (KG)') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Weight (KG)') }}</label>
                                                 <div class="form-group col-lg-8 col-md-8 col-sm-8">
                                                     <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}"
                                                         style="{{ App()->currentLocale() == 'ar' ? 'padding-right: 0px!important;' : 'padding-left: 0px!important;' }}">
@@ -275,7 +275,7 @@
                                             <p class="card-description"><br \> </p>
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Integrity Rate') }}</label>
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Integrity Rate') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
                                                     <input type="text" name="integrity_rate" value="{{ $certificate->integrity_rate }}"
                                                         placeholder="{{ __('Integrity Rate') }}" id="integrity_rate"
@@ -289,7 +289,7 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 
                                                     'ar' ? 'pull-right' : '' }}">{{ __('Description of Products') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
                                                     <textarea id="products_description" name="products_description"  cols="50" 
@@ -301,7 +301,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group row">
                                                 <label
-                                                    class="col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 
                                                     'ar' ? 'pull-right' : '' }}">{{ __('Incoterms') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
                                                     <select name="incoterm" id="incoterm" class="form-control">

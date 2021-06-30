@@ -116,6 +116,47 @@
 .lobibox-notify-title{
   margin-right: 10px;
 }
+
+.required:after {
+  content:" *";
+  color: red;
+}
+
+/* Themes */
+/* Default Theme */
+.default .header-top-area, .default .footer-copyright-area{
+  background: #2C7744;
+}
+.default #InformationproModalhdbgcl .header-color-modal.bg-color-6, 
+.default #InformationproModalhdbgcl .modal-footer,
+.default #InformationproModalhdbgcl .modal-close-area .close {
+  background: #65b12d!important;
+}
+/* deepskyblue Theme */
+.deepskyblue .header-top-area, .deepskyblue .footer-copyright-area{
+    background: #00BFFF;
+}
+.deepskyblue #InformationproModalhdbgcl .header-color-modal.bg-color-6, 
+.deepskyblue #InformationproModalhdbgcl .modal-footer,
+.deepskyblue #InformationproModalhdbgcl .modal-close-area .close {
+  background: #87CEEB!important;
+}
+/* Default Theme */
+.skyblue .header-top-area, .skyblue .footer-copyright-area{
+    background: #87CEEB;
+}
+/* Default Theme */
+.lightskyblue .header-top-area, .lightskyblue .footer-copyright-area{
+    background: #87CEFA;
+}
+/* Default Theme */
+.caci .header-top-area, .caci .footer-copyright-area{
+  background: #CD0000;
+}
+.caci .header-color-modal.bg-color-6{
+    background: #D52828;
+}
+
 @media (min-width: 992px)  {
   .breadcome-heading{
     margin-left:20px!important;

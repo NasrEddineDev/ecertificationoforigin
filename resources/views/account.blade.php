@@ -50,25 +50,25 @@
         }
 
         /* .modal-dialog {
-                                  width: 90% !important;
-                                  height: 90% !important;
-                                  margin: auto;
-                                  margin-top: 20px;
-                                  padding: auto;
-                              }
+                                      width: 90% !important;
+                                      height: 90% !important;
+                                      margin: auto;
+                                      margin-top: 20px;
+                                      padding: auto;
+                                  }
 
-                              .modal-edu-general .modal-body {
-                                  text-align: center;
-                                  padding: 0;
-                                  width: 100%;
-                                  height: 100% !important;
-                              }
+                                  .modal-edu-general .modal-body {
+                                      text-align: center;
+                                      padding: 0;
+                                      width: 100%;
+                                      height: 100% !important;
+                                  }
 
-                              .modal-content {
-                                  height: auto;
-                                  min-height: 100%;
-                                  border-radius: 0;
-                              } */
+                                  .modal-content {
+                                      height: auto;
+                                      min-height: 100%;
+                                      border-radius: 0;
+                                  } */
 
         #changeProfilePicture {
             display: flex;
@@ -112,9 +112,9 @@
             }
 
             /* span {
-                                display: inline-flex;
-                                padding: .2em;
-                            } */
+                                    display: inline-flex;
+                                    padding: .2em;
+                                } */
         }
 
         .file-upload {
@@ -123,7 +123,7 @@
 
         .profilePicture {
             /* height: 100vh;
-                      background-color: rgba(54,31,72,1); */
+                          background-color: rgba(54,31,72,1); */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -197,7 +197,7 @@
                                             <div id="dropzone1" class="pro-ad">
                                                 <form method="post" action="{{ route('account.update', 'account') }}"
                                                     class="dropzone dropzone-custom needsclick add-professors"
-                                                    id="demo1-upload">
+                                                    id="account">
                                                     @csrf
                                                     <div class="row">
                                                         <div
@@ -283,7 +283,7 @@
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                         <div class="review-content-section">
                                             <form method="post" action="{{ route('account.update', 'basic') }}"
-                                                class="dropzone dropzone-custom needsclick add-professors" id="demo1-upload"
+                                                class="dropzone dropzone-custom needsclick add-professors" id="basic"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="row">
@@ -351,12 +351,12 @@
                                                                         class="form-control">
                                                                         <option value="0" disabled>
                                                                             {{ __('Select The State') }}</option>
-                                                                        @foreach ($states as $state){
+                                                                        {{-- @foreach ($states as $state){
                                                                             <option value="{{ $state->iso2 }}"
                                                                                 {{ $user->Profile->City->wilaya_code == $state->iso2 ? 'selected' : '' }}>
                                                                                 {{ $state->iso2 . ' ' . __($state->name) }}
                                                                             </option>
-                                                                        @endforeach
+                                                                        @endforeach --}}
                                                                     </select>
                                                                 </div>
                                                             </div>
@@ -452,7 +452,7 @@
                                             <div class="review-content-section">
                                                 <form method="post" action="{{ route('account.update', 'enterprise') }}"
                                                     class="dropzone dropzone-custom needsclick add-professors"
-                                                    id="demo1-upload" enctype="multipart/form-data">
+                                                    id="enterprise" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="row">
                                                         <div
@@ -473,17 +473,20 @@
                                                                     <label
                                                                         class="col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Activity Type') }}</label>
                                                                     <div class="col-sm-8">
-                          
-                                                                        <select name="activity_type" id="activity_type" class="form-control">
-                                                                            <option value="02" disabled selected>{{ __('Select The Type Of Activity') }}</option>
+
+                                                                        <select name="activity_type" id="activity_type"
+                                                                            class="form-control">
+                                                                            <option value="02" disabled selected>
+                                                                                {{ __('Select The Type Of Activity') }}
+                                                                            </option>
                                                                             @if (isset($categories))
                                                                                 @foreach ($categories as $category){
                                                                                     <option value="{{ $category->id }}">
-                                                                                        {{ App()->currentLocale() == 'ar' ? $category->name_ar :
-                                                                                        (App()->currentLocale() == 'en' ? $category->name : $category->name_fr) }}</option>
+                                                                                        {{ App()->currentLocale() == 'ar' ? $category->name_ar : (App()->currentLocale() == 'en' ? $category->name : $category->name_fr) }}
+                                                                                    </option>
                                                                                 @endforeach
                                                                             @endif
-                                                                      </select>
+                                                                        </select>
                                                                     </div>
                                                                 </div>
 
@@ -585,12 +588,6 @@
                                                                             class="form-control">
                                                                             <option value="0" disabled>
                                                                                 {{ __('Select The State') }}</option>
-                                                                            @foreach ($states as $state){
-                                                                                <option value="{{ $state->iso2 }}"
-                                                                                    {{ $user->Profile->City->wilaya_code == $state->iso2 ? 'selected' : '' }}>
-                                                                                    {{ $state->iso2 . ' ' . __($state->name) }}
-                                                                                </option>
-                                                                            @endforeach
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -608,8 +605,8 @@
                                                                 </div>
 
                                                                 <div class="form-group row">
-                                                                    <label
-                                                                        class="col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Website') }}</label>
+                                                                    <label class="col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                                                        {{ __('Website') }}</label>
                                                                     <div class="col-sm-8">
                                                                         <input type="text"
                                                                             placeholder="{{ __('Website') }}"
@@ -623,10 +620,9 @@
                                                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 
                                                             <div class="form-group row">
-                                                                <label
-                                                                    class="col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Legal Form') }}</label>
+                                                                <label class="col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                                                    {{ __('Legal Form') }}</label>
                                                                 <div class="col-sm-8">
-
                                                                     <select class="form-control" name="legal_form"
                                                                         id="legal_form">
                                                                         <option value="06" disabled>
@@ -722,13 +718,12 @@
                                                                 </div>
                                                             </div>
 
-
                                                             <div class="form-group row">
                                                                 <label
                                                                     class="col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('City') }}</label>
                                                                 <div class="col-sm-8">
 
-                                                                    <select name="city_id" id="city_id"
+                                                                    <select name="enterprise_city_id" id="enterprise_city_id"
                                                                         class="form-control">
                                                                         @if (isset($cities))
                                                                             @foreach ($cities as $city){
@@ -783,7 +778,7 @@
                                             <div class="review-content-section">
                                                 <form method="post" action="{{ route('account.update', 'manager') }}"
                                                     class="dropzone dropzone-custom needsclick add-professors"
-                                                    id="demo1-upload" enctype="multipart/form-data">
+                                                    id="signature_stamp" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="row">
                                                         <div
@@ -817,6 +812,19 @@
                                                                                 {{ $user->Enterprise->Manager->gender == 'FEMALE' ? 'selected' : '' }}>
                                                                                 {{ __('Female') }}
                                                                             </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group row">
+                                                                    <label
+                                                                        class="col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('State') }}</label>
+                                                                    <div class="col-sm-8">
+
+                                                                        <select name="state_code" id="state_code"
+                                                                            class="form-control">
+                                                                            <option value="0" disabled>
+                                                                                {{ __('Select The State') }}</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -871,6 +879,17 @@
 
                                                             <div class="form-group row">
                                                                 <label
+                                                                    class="col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('City') }}</label>
+                                                                <div class="col-sm-8">
+
+                                                                    <select name="manager_city_id" id="manager_city_id"
+                                                                        class="form-control">
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group row">
+                                                                <label
                                                                     class="col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
                                                                 <div class="col-sm-8">
                                                                     <input type="text" placeholder="{{ __('Address') }}"
@@ -910,7 +929,7 @@
                                         <div class="review-content-section">
                                             <form method="post"
                                                 action="{{ route('account.update', 'signature_stamp') }}"
-                                                class="dropzone dropzone-custom needsclick add-professors" id="demo1-upload"
+                                                class="dropzone dropzone-custom needsclick add-professors" id="manager"
                                                 enctype="multipart/form-data">
                                                 @csrf
                                                 <p class="card-description">
@@ -1046,148 +1065,148 @@
         </div>
     </div>
     <!-- <div class="basic-form-area mg-b-15">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <div class="sparkline12-list">
-                                                <div class="card">
-                                                    <div class="card-body">
-                                                        <h4 class="card-title">{{ __('Edit your account') }}</h4>
-                                                        <br />
-                                                        <p class="card-description"> {{ __('Login Information') }} </p>
-                                                        <form class="form-sample" method="post" action="{{ route('account.update', 'test') }}" >
-                                                          @csrf
-                                                          @method('put')
-                                                          
-                                                          <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group row">
-                                                                        <label class="col-sm-3 col-form-label">{{ __('Username') }}</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" value="{{ $user->username }}" name="username" id="username" class="form-control" />
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                <div class="sparkline12-list">
+                                                    <div class="card">
+                                                        <div class="card-body">
+                                                            <h4 class="card-title">{{ __('Edit your account') }}</h4>
+                                                            <br />
+                                                            <p class="card-description"> {{ __('Login Information') }} </p>
+                                                            <form class="form-sample" method="post" action="{{ route('account.update', 'test') }}" >
+                                                              @csrf
+                                                              @method('put')
+                                                              
+                                                              <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">{{ __('Username') }}</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" value="{{ $user->username }}" name="username" id="username" class="form-control" />
+                                                                            </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group row">
-                                                                        <label class="col-sm-3 col-form-label">{{ __('Email Address') }}</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" value="{{ $user->email }}" name="email" id="email" class="form-control" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <p class="card-description"> {{ __('Change The Password') }} </p>
-                                                          <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group row">
-                                                                        <div class="col-sm-12">
-                                                                            <input type="password" placeholder="{{ __('Old Password') }}" name="old_password" id="old_password" class="form-control" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group row">
-                                                                        <div class="col-sm-12">
-                                                                            <input type="password" placeholder="{{ __('New Password') }}" value="" name="new_password" id="new_password" class="form-control" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group row">
-                                                                        <div class="col-sm-12">
-                                                                            <input type="password" placeholder="{{ __('Confirm New Password') }}" value="" name="new_password_confirmation" id="new_password_confirmation" class="form-control" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-
-                                                            <p class="card-description"> {{ __('General Information') }} </p>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group row">
-                                                                        <label class="col-sm-3 col-form-label">{{ __('First Name') }}</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" value="{{ $user->firstname }}" name="firstname" id="firstname" class="form-control" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group row">
-                                                                        <label class="col-sm-3 col-form-label">{{ __('Last Name') }}</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" value="{{ $user->lastname }}" name="lastname" id="lastname" class="form-control" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group row">
-                                                                        <label class="col-sm-3 col-form-label">{{ __('Gender') }}</label>
-                                                                        <div class="col-sm-9">
-                                                                        <input type="radio" name="gender" id="gender" value="male" class="radio-1"> Male
-                                                                        <input type="radio" name="gender" id="gender" value="female"> Female
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group row">
-                                                                        <label class="col-sm-3 col-form-label">{{ __('Birthday') }}</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="date" value="{{ $user->birthday }}" name="birthday" id="birthday" class="form-control" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group row">
-                                                                        <label class="col-sm-3 col-form-label">{{ __('Address') }}</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" value="{{ $user->address }}" name="address" id="address" class="form-control" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <div class="form-group row">
-                                                                        <label class="col-sm-3 col-form-label">{{ __('Mobile') }}</label>
-                                                                        <div class="col-sm-9">
-                                                                            <input type="text" value="{{ $user->mobile }}" name="mobile" id="mobile" class="form-control" />
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                         
-
-                                                            <div class="form-group-inner">
-                                                                <div class="login-btn-inner">
-                                                                    <div class="row">
-                                                                        <div class="col-lg-3"></div>
-                                                                        <div class="col-lg-9">
-                                                                            <div class="login-horizental cancel-wp pull-left form-bc-ele">
-                                                                                <button type="submit" class="btn btn-white">
-                                                                                    <a href="{{ route('products.index') }}"
-                                                                                        style="color: inherit;">{{ __('Cancel') }}</a>
-                                                                                </button>
-                                                                                <button type="submit"
-                                                                                    class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">{{ __('Email Address') }}</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" value="{{ $user->email }}" name="email" id="email" class="form-control" />
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                        </form>
+
+                                                                <p class="card-description"> {{ __('Change The Password') }} </p>
+                                                              <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-12">
+                                                                                <input type="password" placeholder="{{ __('Old Password') }}" name="old_password" id="old_password" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-12">
+                                                                                <input type="password" placeholder="{{ __('New Password') }}" value="" name="new_password" id="new_password" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group row">
+                                                                            <div class="col-sm-12">
+                                                                                <input type="password" placeholder="{{ __('Confirm New Password') }}" value="" name="new_password_confirmation" id="new_password_confirmation" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+                                                                <p class="card-description"> {{ __('General Information') }} </p>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">{{ __('First Name') }}</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" value="{{ $user->firstname }}" name="firstname" id="firstname" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">{{ __('Last Name') }}</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" value="{{ $user->lastname }}" name="lastname" id="lastname" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">{{ __('Gender') }}</label>
+                                                                            <div class="col-sm-9">
+                                                                            <input type="radio" name="gender" id="gender" value="male" class="radio-1"> Male
+                                                                            <input type="radio" name="gender" id="gender" value="female"> Female
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">{{ __('Birthday') }}</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="date" value="{{ $user->birthday }}" name="birthday" id="birthday" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">{{ __('Address') }}</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" value="{{ $user->address }}" name="address" id="address" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-md-6">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-3 col-form-label">{{ __('Mobile') }}</label>
+                                                                            <div class="col-sm-9">
+                                                                                <input type="text" value="{{ $user->mobile }}" name="mobile" id="mobile" class="form-control" />
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+                             
+
+                                                                <div class="form-group-inner">
+                                                                    <div class="login-btn-inner">
+                                                                        <div class="row">
+                                                                            <div class="col-lg-3"></div>
+                                                                            <div class="col-lg-9">
+                                                                                <div class="login-horizental cancel-wp pull-left form-bc-ele">
+                                                                                    <button type="submit" class="btn btn-white">
+                                                                                        <a href="{{ route('products.index') }}"
+                                                                                            style="color: inherit;">{{ __('Cancel') }}</a>
+                                                                                    </button>
+                                                                                    <button type="submit"
+                                                                                        class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div> -->
+                                </div> -->
     <input type="text" value="{{ !empty(Auth::User()->profile->signature) }}" id="signatureIsExist" hidden>
     <input type="text" value="{{ !empty(Auth::User()->profile->square_stamp) }}" id="squareStampIsExist" hidden>
     <input type="text" value="{{ !empty(Auth::User()->profile->round_stamp) }}" id="roundStampIsExist" hidden>
@@ -1217,9 +1236,117 @@
                     $('.export_activity_code').hide();
                 }
             });
+// states
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/getalgerianstates",
+                type: "GET",
+                success: function(data) {
+                    $('#basic #state_code').empty();
+                    $('#basic #state_code').append(
+                        '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
+                    );
+                    $.each(data.states, function(index, city) {
+                        $('#basic #state_code').append('<option value="' + city.value +
+                            '" ' + (city.value ==
+                                '{{ $user->profile->city->wilaya_code }}' ?
+                                'selected' : '') + '>' + city.text + '</option>');
+                        // $('#basic #state_code').append('<option value="' + city.value +
+                        //     '">' + city.text + '</option>');
+                    })
 
-            $('#state_code').on('change', function() {
-                var selectedState = $('#state_code').find(":selected").val().split(" ")[0];
+                    $('#enterprise #state_code').empty();
+                    $('#enterprise #state_code').append(
+                        '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
+                    );
+                    $.each(data.states, function(index, city) {
+                        $('#enterprise #state_code').append('<option value="' + city.value +
+                            '" ' + (city.value ==
+                                '{{ $user->enterprise->city->wilaya_code }}' ?
+                                'selected' : '') + '>' + city.text + '</option>');
+                    })
+
+                    $('#manager #state_code').empty();
+                    $('#manager #state_code').append(
+                        '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
+                    );
+                    $.each(data.states, function(index, city) {
+                        $('#manager #state_code').append('<option value="' + city.value +
+                            '" ' + (city.value ==
+                                '{{ $user->enterprise->manager->city->wilaya_code }}' ?
+                                'selected' : '') + '>' + city.text + '</option>');
+                        // $('#manager #state_code').append('<option value="' + city.value +
+                        //     '">' + city.text + '</option>');
+                    })
+                }
+            });
+
+            
+// cities
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/getalgeriancities/{{ $user->profile->city->wilaya_code }}",
+                type: "GET",
+                success: function(data) {
+                    $('#basic #city_id').empty();
+                    $('#basic #city_id').append(
+                        '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
+                    );
+                    $.each(data.cities, function(index, city) {
+                        $('#basic #city_id').append('<option value="' + city.value +
+                            '" ' + (city.value ==
+                                '{{ $user->profile->city->id }}' ?
+                                'selected' : '') + '>' + city.text + '</option>');
+                        // $('#basic #state_code').append('<option value="' + city.value +
+                        //     '">' + city.text + '</option>');
+                    })
+                }
+            });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/getalgeriancities/{{ $user->enterprise->city->wilaya_code }}",
+                type: "GET",
+                success: function(data) {
+                    $('#enterprise_city_id').empty();
+                    $('#enterprise_city_id').append(
+                        '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
+                    );
+                    $.each(data.cities, function(index, city) {
+                        $('#enterprise_city_id').append('<option value="' + city.value +
+                            '" ' + (city.value ==
+                                '{{ $user->enterprise->city->id }}' ?
+                                'selected' : '') + '>' + city.text + '</option>');
+                    })
+                }
+            });
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/getalgeriancities/{{ $user->enterprise->manager->city->wilaya_code }}",
+                type: "GET",
+                success: function(data) {
+                    $('#manager_city_id').empty();
+                    $('#manager_city_id').append(
+                        '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
+                    );
+                    $.each(data.cities, function(index, city) {
+                        $('#manager_city_id').append('<option value="' + city.value +
+                            '" ' + (city.value ==
+                                '{{ $user->enterprise->manager->city->id }}' ?
+                                'selected' : '') + '>' + city.text + '</option>');
+                    })
+                }
+            });
+
+            $('#basic #state_code').on('change', function() {
+                var selectedState = $('#basic #state_code').find(":selected").val().split(" ")[0];
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1227,13 +1354,50 @@
                     url: "/getcities/" + selectedState,
                     type: "GET",
                     success: function(data) {
-                        $('#city_id').empty();
-                        $('#city_id').append(
+                        $('#basic #city_id').empty();
+                        $('#basic #city_id').append(
                             '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
                         );
                         $.each(data.cities, function(index, city) {
-                            $('#city_id').append('<option value="' + city.value +
-                                '">' + city.text + '</option>');
+                            $('#basic #city_id').append('<option value="' + city.value + '">' + city.text + '</option>');
+                        })
+                    }
+                })
+            });
+            $('#enterprise #state_code').on('change', function() {
+                var selectedState = $('#enterprise #state_code').find(":selected").val().split(" ")[0];
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "/getcities/" + selectedState,
+                    type: "GET",
+                    success: function(data) {
+                        $('#enterprise_city_id').empty();
+                        $('#enterprise_city_id').append(
+                            '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
+                        );
+                        $.each(data.cities, function(index, city) {
+                            $('#enterprise_city_id').append('<option value="' + city.value + '">' + city.text + '</option>');
+                        })
+                    }
+                })
+            });
+            $('#manager #state_code').on('change', function() {
+                var selectedState = $('#manager #state_code').find(":selected").val().split(" ")[0];
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "/getcities/" + selectedState,
+                    type: "GET",
+                    success: function(data) {
+                        $('#manager_city_id').empty();
+                        $('#manager_city_id').append(
+                            '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
+                        );
+                        $.each(data.cities, function(index, city) {
+                            $('#manager_city_id').append('<option value="' + city.value + '">' + city.text + '</option>');
                         })
                     }
                 })
@@ -1416,6 +1580,5 @@
         $('.image-upload-wrap-square-stamp').bind('dragleave', function() {
             $('.image-upload-wrap-square-stamp').removeClass('image-dropping');
         });
-
     </script>
 @endpush
