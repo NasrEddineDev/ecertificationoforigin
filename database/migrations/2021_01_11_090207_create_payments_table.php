@@ -19,6 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->enum('mode', ['CREDIT', 'DEBIT']);
             $table->enum('status', ['DRAFT', 'ACCEPTED', 'REJECTED']);
             $table->double('amount');
+            $table->double('current_balance');
             $table->date('date');
             $table->string('description');
             $table->string('order_id');

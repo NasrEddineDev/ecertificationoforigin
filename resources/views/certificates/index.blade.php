@@ -221,7 +221,7 @@
                                             <th data-field="signature_date" data-editable="true">{{ __('Signed Date') }}
                                             </th>
                                             <th data-field="dri_signature_date" data-editable="true">
-                                                {{ __('DRI Signed Date') }}</th>
+                                                {{ __('CACI Signed Date') }}</th>
                                             <!-- <th data-field="signed_document" data-editable="true">{{ __('Document') }}</th> -->
                                             <!-- <th data-field="accumulation" data-editable="true">{{ __('Accumulation') }}</th> -->
                                             <th data-field="net_weight" data-editable="true">{{ __('Net Weight') }}</th>

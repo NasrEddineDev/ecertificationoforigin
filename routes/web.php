@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RegistrationWizardController;
+use App\Http\Controllers\RegisterController;
 // use App\Http\Controllers\CertificateController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -40,7 +41,7 @@ Route::get('qr-code', [\App\Http\Controllers\CertificateController::class, 'qrco
 Route::get('create-type/{type}', [\App\Http\Controllers\CertificateController::class, 'createType'])->name('certificates.create-type');
 Route::get('create-balance-poste', [\App\Http\Controllers\PaymentController::class, 'createBalancePoste'])->name('payments.create-balance-poste');
 Route::post('store-balance-poste', [\App\Http\Controllers\PaymentController::class, 'storeBalancePoste'])->name('payments.store-balance-poste');
-Route::get('return/{id}', [\App\Http\Controllers\PaymentController::class, 'returnBalancePoste'])->name('payments.return');
+// Route::get('return/{id}', [\App\Http\Controllers\PaymentController::class, 'returnBalancePoste'])->name('payments.return');
 Route::get('payment-print/{id}', [\App\Http\Controllers\PaymentController::class, 'print'])->name('payments.print');
 Route::get('payment-download/{id}', [\App\Http\Controllers\PaymentController::class, 'download'])->name('payments.download');
 Route::get('return/{id}', [\App\Http\Controllers\PaymentController::class, 'returnBalancePoste'])->name('payments.return');
@@ -72,9 +73,11 @@ Route::resource('payments', PaymentController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('subcategories', SubCategoryController::class);
 
-Route::get('/registration', [RegistrationWizardController::class, 'index'])->name('registration_wizard');
-Route::post('/registration', [RegistrationWizardController::class, 'store'])->name('registration_wizard.post');
+Route::get('/registration-wizard', [RegistrationWizardController::class, 'index'])->name('registration_wizard');
+Route::post('/registration-wizard', [RegistrationWizardController::class, 'store'])->name('registration_wizard.post');
 Route::get('/is-exist/{model}/{property}/{value}', [RegistrationWizardController::class, 'isExist'])->name('registration_wizard.is-exist');
+Route::get('/register1', [RegisterController::class, 'index'])->name('register1');
+Route::post('/register1', [RegisterController::class, 'store'])->name('register1.post');
 
 
 //logger

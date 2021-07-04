@@ -16,6 +16,7 @@ class Payment extends Model
         'mode',
         'status',
         'amount',
+        'current_balance',
         'date',
         'order_id',
         'description',

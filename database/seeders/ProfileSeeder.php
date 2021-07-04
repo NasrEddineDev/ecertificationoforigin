@@ -30,6 +30,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '115',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ],[
             'firstname'  => 'amine',
             'lastname'  => '',
@@ -44,6 +45,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '110',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ],[
             'firstname'  => 'كريم',
             'lastname'  => 'تودرت',
@@ -58,6 +60,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '105',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ],[
             'firstname'  => 'soudani',
             'lastname'  => 'soudani',
@@ -72,6 +75,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '100',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ],[
             'firstname'  => 'tarafi',
             'lastname'  => 'tarafi',
@@ -86,6 +90,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '1',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ],[
             'firstname'  => 'bestal',
             'lastname'  => 'bestal',
@@ -100,6 +105,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '5',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ],[
             'firstname'  => 'hamane',
             'lastname'  => 'hamane',
@@ -114,6 +120,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '10',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ],[
             'firstname'  => 'azzouz',
             'lastname'  => 'azzouz',
@@ -128,6 +135,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '15',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ],[
             'firstname'  => 'ahsan',
             'lastname'  => '',
@@ -142,6 +150,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '20',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ],[
             'firstname'  => 'fouad',
             'lastname'  => '',
@@ -156,6 +165,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '25',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ],[
             'firstname'  => 'seifeddine',
             'lastname'  => '',
@@ -170,6 +180,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '30',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ],[
             'firstname'  => 'محمد',
             'lastname'  => '',
@@ -184,6 +195,7 @@ class ProfileSeeder extends Seeder
             'city_id' => '35',
             'picture' => '',
             'language' => 'ar',
+            'theme' => 'default',
         ]]);
     }
 }

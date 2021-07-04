@@ -66,9 +66,16 @@ class AuthenticatedSessionController extends Controller
                 'url' => url(RouteServiceProvider::HOME)
             ], 200);
         } catch (Throwable $e) {
+        // } catch(\Illuminate\Database\QueryException $ex){ 
             report($e);
             Log::error($e->getMessage());
 
+            return response()->json([
+                'result' => 'failed',
+                'errors' => ['email' => __('Internal Server Error'), 'password' => __('Internal Server Error')]
+                // 'errors' => ['email' => __('Credentials are incorrect'), 'password' => __('Credentials are incorrect')]
+            ], 422);
+            
             return false;
         }
         // if (Auth::user()->role->name != 'user') return redirect(RouteServiceProvider::HOME);

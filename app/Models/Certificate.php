@@ -41,6 +41,7 @@ class Certificate extends Model
         'description',
         'enterprise_id',
         'importer_id',
+        'producer_id',
         'signature_id'
     ];
     
@@ -61,6 +62,10 @@ class Certificate extends Model
     public function importer()
     {
         return $this->belongsTo(Importer::class);
+    }
+    public function producer()
+    {
+        return $this->belongsTo(Producer::class);
     }
     public function signature()
     {

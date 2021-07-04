@@ -64,7 +64,7 @@
         }
 
         .not-active {
-            /* pointer-events: none; */
+            /* pointer-events:none; */
             cursor: default;
             text-decoration: none;
             background-color: gray !important;
@@ -74,12 +74,18 @@
         body {
             height: 100%;
         }
+        a.disable {
+            pointer-events: none;
+            background-color: gray !important;
+        }
     </style>
     @if (App::currentLocale() == 'ar')
         <style>
-            table th, table td {
+            table th,
+            table td {
                 text-align: right;
             }
+
         </style>
     @endif
 @endpush
@@ -128,28 +134,29 @@
                                             </div>
                                         </div>
                                         @if ($type == 'gzale')
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label
-                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Accumulation application') }}</label>
-                                                <div
-                                                    class="col-lg-3 col-md-3 col-sm-3 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                                    <select name="accumulation" id="accumulation" class="form-control" required>
-                                                        <option value="No" selected>{{ __('No') }}</option>
-                                                        <option value="Yes">{{ __('Yes') }}</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-sm-5 accumulation_country" style="display:none;">
-                                                    <select name="accumulation_country" id="accumulation_country"
-                                                        class="form-control">
-                                                        @foreach ($countries as $country){
-                                                            <option value="{{ $country->id }}">
-                                                                {{ $country->native }}</option>
-                                                        @endforeach
-                                                    </select>
+                                            <div class="col-md-6">
+                                                <div class="form-group row">
+                                                    <label
+                                                        class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Accumulation application') }}</label>
+                                                    <div
+                                                        class="col-lg-3 col-md-3 col-sm-3 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                                        <select name="accumulation" id="accumulation" class="form-control"
+                                                            required>
+                                                            <option value="No" selected>{{ __('No') }}</option>
+                                                            <option value="Yes">{{ __('Yes') }}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-5 accumulation_country" style="display:none;">
+                                                        <select name="accumulation_country" id="accumulation_country"
+                                                            class="form-control">
+                                                            @foreach ($countries as $country){
+                                                                <option value="{{ $country->id }}">
+                                                                    {{ $country->native }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         @endif
                                     </div>
                                     <div class="row">
@@ -185,7 +192,8 @@
                                                 <label
                                                     class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Shipment') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
-                                                    <select name="shipment_type" id="shipment_type" class="form-control" required>
+                                                    <select name="shipment_type" id="shipment_type" class="form-control"
+                                                        required>
                                                         <option value="Land">{{ __('Land') }}</option>
                                                         <option value="Rail">{{ __('Rail') }}</option>
                                                         <option value="Air">{{ __('Air') }}</option>
@@ -207,13 +215,13 @@
                                                         style="{{ App()->currentLocale() == 'ar' ? 'padding-right: 0px!important;' : 'padding-left: 0px!important;' }}">
                                                         <input name="invoice_number" id="invoice_number"
                                                             placeholder="{{ __('Number') }}" type="text"
-                                                            class="form-control"  required/>
+                                                            class="form-control" required />
                                                     </div>
                                                     <div class="col-md-6"
                                                         style="padding-right: 0px!important;padding-left: 0px!important;">
                                                         <input name="invoice_date" id="invoice_date"
                                                             placeholder="{{ __('Date') }}" type="text"
-                                                            class="form-control"  required/>
+                                                            class="form-control" required />
                                                     </div>
                                                 </div>
                                             </div>
@@ -227,9 +235,11 @@
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
                                                     <div class="box">
                                                         <input type="file" name="invoice" id="invoice"
-                                                            class="inputfile inputfile-2" accept="image/*" oninvalid="setCustomValidity('Please, blah, blah, blah ')"
-                                                            data-msg-accept="{{ __('Only image file is accpeted')}}"
-                                                            data-multiple-caption="{count} files selected" multiple required/>
+                                                            class="inputfile inputfile-2" accept="image/*"
+                                                            oninvalid="setCustomValidity('Please, blah, blah, blah ')"
+                                                            data-msg-accept="{{ __('Only image file is accpeted') }}"
+                                                            data-multiple-caption="{count} files selected" multiple
+                                                            required />
                                                         <label for="invoice"><svg xmlns="http://www.w3.org/2000/svg"
                                                                 width="20" height="10" viewBox="0 0 20 17">
                                                                 <path
@@ -271,8 +281,9 @@
                                                 <label
                                                     class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Integrity Rate') }}</label>
                                                 <div class="col-lg-8 col-md-8 col-sm-8">
-                                                    <input type="text" name="integrity_rate" placeholder="{{ __('Integrity Rate') }}" id="integrity_rate"
-                                                        class="form-control"  required/>
+                                                    <input type="text" name="integrity_rate"
+                                                        placeholder="{{ __('Integrity Rate') }}" id="integrity_rate"
+                                                        class="form-control" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -346,8 +357,8 @@
                                                                         {{ __('Currency') }}</th>
                                                                     <th data-field="package_type" data-editable="true">
                                                                         {{ __('Package Type') }}</th>
-                                                                        <th data-field="package_count" data-editable="true">
-                                                                            {{ __('Package Count') }}</th>
+                                                                    <th data-field="package_count" data-editable="true">
+                                                                        {{ __('Package Count') }}</th>
                                                                     <th data-field="package_quantity" data-editable="true">
                                                                         {{ __('Package Quantity') }}</th>
                                                                     <th data-field="description" data-editable="true">
@@ -439,7 +450,8 @@
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}">
+    </script>
     {{-- <script type="text/javascript" src="{{ URL::asset('js/pdfobject.min.js') }}"></script> --}}
     {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-export.js') }}"></script> --}}
     <script type="text/javascript">
@@ -459,8 +471,12 @@
                 days: ["الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعة", "السبت"],
                 daysShort: ["الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعة", "السبت"],
                 daysMin: ["الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعة", "السبت"],
-                months: ["جانفي", "فيفري", "مارس", "أفريل", "ماي", "جوان", "جويلية", "أوت", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
-                monthsShort: ["جانفي", "فيفري", "مارس", "أفريل", "ماي", "جوان", "جويلية", "أوت", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+                months: ["جانفي", "فيفري", "مارس", "أفريل", "ماي", "جوان", "جويلية", "أوت", "سبتمبر", "أكتوبر",
+                    "نوفمبر", "ديسمبر"
+                ],
+                monthsShort: ["جانفي", "فيفري", "مارس", "أفريل", "ماي", "جوان", "جويلية", "أوت", "سبتمبر",
+                    "أكتوبر", "نوفمبر", "ديسمبر"
+                ],
                 today: "اليوم",
                 clear: "مسح",
                 format: "dd/mm/yyyy",
@@ -485,8 +501,8 @@
 
             var validator = $(".form-sample").validate({
                 onfocusout: function(e) {
-        this.element(e);
-    },
+                    this.element(e);
+                },
                 rules: {
                     invoice: {
                         required: true,
@@ -498,9 +514,9 @@
 
                 },
                 messages: {
-                    invoice: {       
+                    invoice: {
                         required: "{{ __('This field is required.') }}",
-                        extension:"select valid input file format"
+                        extension: "select valid input file format"
                     },
                     table: {
                         productcountcheck: "{{ __('Add one product at least') }}"
@@ -530,9 +546,11 @@
                 var invoice = document.getElementById("invoice").files[0],
                     formdata = false;
                 formdata = new FormData();
-                formdata.append("producer_name", $('#producer_name').val());
-                formdata.append("producer_address", $('#producer_address').val());
-                formdata.append("importer_id", $('#importer_id').val());
+                // formdata.append("producer_id", $('#producer_id').val());
+                // formdata.append("producer_address", $('#producer_address').val());
+                // formdata.append("importer_id", $('#importer_id').val());
+                formdata.append("importer_id", $('#importer_id').find(":selected").val());
+                formdata.append("producer_id", $('#producer_id').find(":selected").val());
                 formdata.append("accumulation", $('#accumulation').find(":selected").val());
                 formdata.append("accumulation_country", $('#accumulation_country').find(":selected").text());
                 formdata.append("shipment_type", $('#shipment_type').val());
@@ -559,20 +577,20 @@
                         processData: false,
                         data: formdata,
                         success: function(response) {
-                        var w = window,
-                            d = document,
-                            e = d.documentElement,
-                            g = d.getElementsByTagName('body')[0],
-                            y = w.innerHeight || e.clientHeight || g.clientHeight;
+                            var w = window,
+                                d = document,
+                                e = d.documentElement,
+                                g = d.getElementsByTagName('body')[0],
+                                y = w.innerHeight || e.clientHeight || g.clientHeight;
 
-                        var object = document.getElementById("object");
-                        object.height = y * 8.4 / 10;
-                        object.data = response.url;
-                        var embed = document.getElementById("embed");
-                        embed.src = response.url;
-                        $('#InformationproModalhdbgcl').modal('show');
+                            var object = document.getElementById("object");
+                            object.height = y * 8.4 / 10;
+                            object.data = response.url;
+                            var embed = document.getElementById("embed");
+                            embed.src = response.url;
+                            $('#InformationproModalhdbgcl').modal('show');
                         }
-                    }); 
+                    });
                 }
             });
 
@@ -583,9 +601,8 @@
                 var invoice = document.getElementById("invoice").files[0],
                     formdata = false;
                 formdata = new FormData();
-                formdata.append("producer_name", $('#producer_name').val());
-                formdata.append("producer_address", $('#producer_address').val());
-                formdata.append("importer_id", $('#importer_id').val());
+                formdata.append("importer_id", $('#importer_id').find(":selected").val());
+                formdata.append("producer_id", $('#producer_id').find(":selected").val());
                 formdata.append("accumulation", $('#accumulation').find(":selected").val());
                 formdata.append("accumulation_country", $('#accumulation_country').find(":selected").text());
                 formdata.append("shipment_type", $('#shipment_type').val());
@@ -648,6 +665,9 @@
 
             $(".add-row").click(function(e) {
                 e.preventDefault();
+                // <a class="add-row dt-tb" style="float:left;right:auto!important;position: unset;" href="#">إضافة منتوج جديد</a>
+                // <a class="add-row dt-tb not-active" style="float:left;right:auto!important;position: unset;" href="javascript: void(0);">إضافة منتوج جديد</a>
+                // <a class="add-row dt-tb" style="float:left;right:auto!important;position: unset;" href="javascript: void(0);">إضافة منتوج جديد</a>
                 counter++;
                 var new_line =
                     '<tr><td></td><td>' + counter +
@@ -669,7 +689,8 @@
                     $('table tbody').empty();
                 }
                 $("table tbody").append(new_line);
-                $(".add-row").addClass('not-active');
+
+                $(".add-row").addClass('disable');
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -719,14 +740,11 @@
                 $(this).parents('tr').remove();
                 $("table tbody").append(new_product);
 
-                $(".add-row").removeClass('not-active');
+                $(".add-row").removeClass('disable');
             });
 
             $('table tbody').on('click', '#removeRow', function() {
                 console.log($(this).parents('tr').find("td:eq(1)").text());
-                // var products = $.grep(products, function(e){ 
-                //     return e.product_name != $(this).parents('tr').find("td:eq(1)").text(); 
-                // });
                 products = products.filter(function(obj) {
                     return obj.product_name != $(this).parents('tr').find("td:eq(1)").text();
                 });
@@ -746,23 +764,25 @@
             // <input data-inputmask="'mask': '99-9999999'" />
             // $('#invoice_date').inputmask({"mask": "99/99/9999"}); //specifying options
             // $('#integrity_rate').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy"});
-            $('#invoice_date').inputmask({alias: "datetime", inputFormat: "dd/mm/yyyy",  
-                placeholder: String.fromCharCode(parseInt('FEF1',16),parseInt('FEF1',16))+'/'+
-                             String.fromCharCode(parseInt('FEB5',16),parseInt('FEB5',16))+'/'+
-                             String.fromCharCode(parseInt('FEC9',16),parseInt('FEC9',16),parseInt('FEC9',16),parseInt('FEC9',16))
+            $('#invoice_date').inputmask({
+                alias: "datetime",
+                inputFormat: "dd/mm/yyyy",
+                placeholder: String.fromCharCode(parseInt('FEF1', 16), parseInt('FEF1', 16)) + '/' +
+                    String.fromCharCode(parseInt('FEB5', 16), parseInt('FEB5', 16)) + '/' +
+                    String.fromCharCode(parseInt('FEC9', 16), parseInt('FEC9', 16), parseInt('FEC9', 16),
+                        parseInt('FEC9', 16))
             });
-            $('#integrity_rate').inputmask("% (9{2}|100)"); //specifying options
+            // $('#integrity_rate').inputmask("% ^[1-9][0-9]?$|^100$"); //specifying options
+            $('#integrity_rate').inputmask({ regex: "^% [0-9][0-9]?$|^% 100$", placeholder: "" });
+            //             $("#invoice-error").each(function() {
+            //     var item = $(this);
 
-//             $("#invoice-error").each(function() {
-//     var item = $(this);
+            //     //either this:
+            //      item.next().after(item);
 
-//     //either this:
-//      item.next().after(item);
-
-//     //or this:
-//     item.insertBefore(item.next());
-// });
+            //     //or this:
+            //     item.insertBefore(item.next());
+            // });
         });
-
     </script>
 @endpush

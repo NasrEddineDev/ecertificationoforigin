@@ -89,7 +89,6 @@ class CertificateController extends Controller
             'invoice_number' => $request->invoice_number,
             'signature_date' => null,
             'invoice' => '',
-            'invoice_date' => $request->invoice_date,
             'anvoice_number' => $request->anvoice_number,
             'incoterm' => $request->incoterm,
             'products_description' => $request->products_description,
@@ -105,8 +104,8 @@ class CertificateController extends Controller
             "certificate_id" => null
         ]);
 
-        $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;//all()->orderBy('created_at', 'desc')->first() ? Certificate::all()->orderBy('created_at', 'desc')->first()->id : 0;
-        $certificate->code = "E-" . date("Y") . str_repeat("0", 4 - strlen($lastId+1)) . ($lastId+1);
+        $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;
+        $certificate->code = str_repeat("0", 7 - strlen($lastId+1)) . ($lastId+1);
 
         // $file = $request->file('invoice');
         // if ($file && $file->getClientOriginalExtension()) {
@@ -120,7 +119,7 @@ class CertificateController extends Controller
             }
             Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
             // $certificate->invoice = $fileName;
-            $certificate->update(['invoice' => $fileName]);
+            $certificate->invoice = $fileName;
         }
         $certificate->save();
 
@@ -188,7 +187,7 @@ class CertificateController extends Controller
         $certificate = Certificate::find($id);
         if ($certificate) {
             $duplicatedCertificate = $certificate->replicate();
-            $duplicatedCertificate->code = ''; //$certificate->code . '-R';
+            $duplicatedCertificate->code = str_repeat("0", 7 - strlen($duplicatedCertificate->id)) . ($duplicatedCertificate->id);
             $duplicatedCertificate->status = 'PENDING';
             $duplicatedCertificate->signature_date = date('Y-m-d H:m:s');
             $duplicatedCertificate->notes = __('Retroactive Copy from certificcate No');
@@ -211,7 +210,7 @@ class CertificateController extends Controller
 
             $duplicatedCertificate->save();
 
-            $duplicatedCertificate->update(['code' => "E-" . date("Y") . str_repeat("0", 4 - strlen($duplicatedCertificate->id)) . $duplicatedCertificate->id]);
+            // $duplicatedCertificate->update(['code' => "E-" . date("Y") . str_repeat("0", 4 - strlen($duplicatedCertificate->id)) . $duplicatedCertificate->id]);
 
             $lastRequest = Auth::User()->requests->sortByDesc('created_at')->first();
             $newRequest = new ModelsRequest([
@@ -433,66 +432,7 @@ class CertificateController extends Controller
             }
 
             $data = $this->certificateToPDF($certificate);
-            // $count = 1;
-            // $products = $certificate->products->map(function ($items, $count = 1) {
-            //     $count++;
-            //     $data['number'] = $count;
-            //     $data['product_name'] = $items->name;
-            //     $data['package_type'] = $items->pivot->package_type;
-            //     $data['unit_price'] = $items->pivot->unit_price;
-            //     $data['package_type_name'] = $items->pivot->package_type;
-            //     $data['package_quantity'] = $items->pivot->package_quantity;
-            //     $data['package_count'] = $items->pivot->package_count;
-            //     $data['description'] = $items->pivot->description;
-            //     return $data;
-            // });
-
-            // // if ($certificateName == 'gzale' || $certificateName == 'acp-tunisie')
-            // $page1 = ($certificate->status == "DRAFT") ? 'data/documents/' . $certificateName . '/' . $certificateName . '1.jpg'
-            //     : (($certificate->status == "PENDING"
-            //         || $certificate->status == "REJECTED") ? 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/'
-            //         . $certificateName . '/' . $certificateName . '1.jpg'
-            //         : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $certificateName . '/'
-            //         . $certificateName . '1-dri-signed.jpg');
-            // $page2 = 'data/documents/' . $certificateName . '/' . $certificateName . '2.jpg';
-            // $page3 = ($certificate->status == "DRAFT") ? 'data/documents/' . $certificateName . '/' . $certificateName . '3.jpg'
-            //     : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $certificateName . '/' . $certificateName . '3.jpg';
-
-            // $data = [
-            //     'rtl' => ($certificateName == 'gzale' || $certificateName == 'acp-tunisie') ? true : false,
-            //     //(preg_match("/[a-zA-Z]/i", $certificate->producer_name)) ? false : true,
-            //     'code' => $certificate->code,
-            //     'exporter_name' => $certificate->Enterprise->name,
-            //     'exporter_address' => $certificate->Enterprise->address,
-            //     'producer_name' => '', $certificate->producer_id ? $certificate->Producer->name : '',
-            //     'producer_address' => $certificate->producer_id ? $certificate->Producer->address : '',
-            //     'importer_name' => $certificate->importer->name,
-            //     'importer_address' => $certificate->importer->address,
-            //     'original_country' => ($certificateName == 'gzale' || $certificateName == 'acp-tunisie') ? "الجزائر" : "Algeria",
-            //     'destination_country' => $certificate->importer->state->country->name,
-            //     'accumulation' => $certificate->accumulation,
-            //     'accumulation_country' => ($certificate->accumulation == 'Yes') ? $certificate->accumulation_country : null,
-            //     'shipment_type' => $certificate->shipment_type,
-            //     'notes' => $certificate->notes == 'null' ? '' : $certificate->notes,
-            //     'net_weight' => $certificate->net_weight,
-            //     'real_weight' => $certificate->real_weight,
-            //     'invoice' => !empty($certificate->invoice) ? true : false,
-            //     'invoice_path' => !empty($certificate->invoice) ? 'data/enterprises/' . $certificate->Enterprise->id .
-            //         '/' . 'invoices/' . $certificate->invoice : "data/documents/invoice-template-blue.png",
-            //     'invoice_date' => $certificate->invoice_date,
-            //     'invoice_number' => $certificate->invoice_number,
-            //     'integrity_rate' => $certificate->integrity_rate,
-            //     'products' => (array)json_decode($products),
-            //     'status' => $certificate->status,
-            //     'copy_type' => $certificate->copy_type,
-            //     'original_code' => ($certificate->copy_type != "NONE") ? $certificate->certificate->code : '',
-            //     'signature_date' => $certificate->signature_date,
-            //     'dri_signature_date' => $certificate->dri_signature_date,
-            //     'page1' => $page1,
-            //     'page2' => $page2,
-            //     'page3' => $page3,
-            // ];
-
+            
             $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
                 'title' => 'Another Title',
                 'margin_left' => 0,
@@ -538,9 +478,10 @@ class CertificateController extends Controller
             $invoice =  'data/' . $destinationPath . $fileName;
         }
 
+        $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;
         $data = [
             'rtl' => (strtolower($request->type) == 'gzale' || strtolower($request->type) == 'acp-tunisie') ? true : false,
-            'code' => $request->is_retroactive ? $request->code . '-R' : "E-" . date("Y") . "0001",
+            'code' => str_repeat("0", 7 - strlen($lastId+1)) . ($lastId+1),//$request->is_retroactive ? $request->code . '-R' : "E-" . date("Y") . "0001",
             'exporter_name' => Auth::User()->Enterprise->name,
             'exporter_address' => Auth::User()->Enterprise->address,
             'producer_name' => Producer::find($request->producer_id) ? Producer::find($request->producer_id)->name : '',
@@ -861,7 +802,7 @@ class CertificateController extends Controller
                 return response()->json(['url' => route('certificates.create-retroactive-copy', [$id, $reason])], 200);
             } else if ($type == "D") {
                 $duplicatedCertificate = $certificate->replicate();
-                $duplicatedCertificate->code = ''; //$certificate->code . '-D';
+                $duplicatedCertificate->code = str_repeat("0", 7 - strlen($duplicatedCertificate->id)) . ($duplicatedCertificate->id);
                 // $duplicatedCertificate->code = $certificate->code . '-'.$type;
                 $duplicatedCertificate->status = 'PENDING';
                 $certificate->signature_date = date('Y-m-d H:m:s');
@@ -1235,8 +1176,8 @@ class CertificateController extends Controller
             'code' => $certificate->code,
             'exporter_name' => $certificate->Enterprise->name,
             'exporter_address' => $certificate->Enterprise->address,
-            'producer_name' => $certificate->producer_id ? $certificate->Producer->name : '',
-            'producer_address' => $certificate->producer_id ? $certificate->Producer->address : '',
+            'producer_name' => $certificate->producer_id ? $certificate->producer->name : '',
+            'producer_address' => $certificate->producer_id ? $certificate->producer->address : '',
             'importer_name' => $certificate->importer->name,
             'importer_address' => $certificate->importer->address,
             'original_country' => ($certificateName == 'gzale' || $certificateName == 'acp-tunisie') ? "الجزائر" : "Algeria",

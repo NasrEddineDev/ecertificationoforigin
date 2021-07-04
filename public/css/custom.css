@@ -142,6 +142,16 @@
   background: #87CEEB!important;
 }
 /* Default Theme */
+.original .header-top-area, .original .footer-copyright-area{
+  background: #311B92;
+}
+.original #InformationproModalhdbgcl .header-color-modal.bg-color-6, 
+.original #InformationproModalhdbgcl .modal-footer,
+.original #InformationproModalhdbgcl .modal-close-area .close {
+  background: #673AB7!important;
+}
+
+/* Default Theme */
 .skyblue .header-top-area, .skyblue .footer-copyright-area{
     background: #87CEEB;
 }
@@ -156,6 +166,7 @@
 .caci .header-color-modal.bg-color-6{
     background: #D52828;
 }
+
 
 @media (min-width: 992px)  {
   .breadcome-heading{

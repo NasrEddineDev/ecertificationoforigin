@@ -82,19 +82,19 @@
                                       <td>{{__('Payment Type')}}</td>
                                       <td>{{__($payment->type)}}</td>
                                       <td>{{__('Cardholder Name')}}</td>
-                                      <td>{{$params['cardholderName']}}</td>
+                                      <td>{{$params['cardholderName'] ?? ''}}</td>
                                     </tr>
                                     <tr>
                                         <td>{{__('Payment Status')}}</td>
                                         <td>{{__($payment->status)}}</td>
                                       <td>{{__('Pan')}}</td>
-                                      <td>{{$params['Pan']}}</td>
+                                      <td>{{$params['Pan'] ?? ''}}</td>
                                     </tr>
                                     <tr>
                                         <td>{{__('Payment Date')}}</td>
                                         <td>{{$payment->created_at}}</td>
                                       <td>{{__('Order Status Description')}}</td>
-                                      <td>{{__($params['ErrorMessage'])}}</td>
+                                      <td>{{__($params['ErrorMessage'] ?? '')}}</td>
                                     </tr>
                                     <tr>
                                         <td>{{__('Balance')}}</td>
@@ -104,13 +104,13 @@
                                     </tr>
                                     <tr>
                                         <td>{{__('Old Balance')}}</td>
-                                        <td>{{Auth::User()->Enterprise->balance - ($payment->amount/$unit_price->value)}}</td>
+                                        <td>{{$payment->current_balance}}</td>
                                       <td></td>
                                       <td></td>
                                     </tr>
                                     <tr>
                                         <td>{{__('New Balance')}}</td>
-                                        <td style="color: red">{{Auth::User()->Enterprise->balance}}</td>
+                                        <td style="color: red">{{$payment->current_balance + ($payment->amount/$unit_price->value)}}</td>
                                       <td></td>
                                       <td></td>
                                     </tr>

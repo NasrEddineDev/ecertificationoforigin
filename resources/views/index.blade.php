@@ -405,7 +405,7 @@
                                             </a>
                                         </div>
 
-                                        <a href="{{ route('registration_wizard') }}"
+                                        <a href="{{ route('register1') }}"
                                             class="wow fadeInUp btn btn-success col-lg-12"
                                             style="margin-bottom:10px;">{{ __('Create New Account') }}</a>
                                     </form>
@@ -485,7 +485,7 @@
                                                         {{ __('Forgot Password ?') }}
                                                     </a>
                                                 </div>
-                                                <a href="{{ route('registration_wizard') }}"
+                                                <a href="{{ route('register1') }}"
                                                     class="wow fadeInUp btn btn-success col-lg-12"
                                                     style="margin-bottom:10px;">{{ __('Create New Account') }}</a>
                                             </form>
@@ -562,7 +562,7 @@
                                         data-wow-delay="1s" href="#user_guide">{{ __('Discover More') }}</a></li>
                                 <li><a class="main-btn main-btn-2 wow fadeInUp" data-wow-duration="1.3s"
                                         data-wow-delay="1.4s"
-                                        href="{{ route('registration_wizard') }}">{{ __('Register') }}</a>
+                                        href="{{ route('register1') }}">{{ __('Register') }}</a>
                                 </li>
                             </ul>
                         </div> <!-- header hero content -->

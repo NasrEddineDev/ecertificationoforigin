@@ -74,14 +74,26 @@
                 padding-right: 5px !important;
                 padding-left: 5px !important;
             }
-#pie-chart canvas{
-    height: 352px!important;
-}
+
+            #pie-chart canvas {
+                height: 352px !important;
+            }
+
         </style>
+
+        @if (App::currentLocale() == 'ar')
+            <style>
+                .social-edu-ctn {
+                    margin-right: 15px;
+                }
+
+            </style>
+        @endif
     @endpush
     <div class="analytics-sparkle-area">
         <div class="container-fluid">
             <div class="row">
+                @if (Auth::user()->Role->name == "user")
                 <div
                     class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
                     <div class="analytics-sparkle-line reso-mg-b-30">
@@ -93,7 +105,8 @@
                             <div class="progress m-b-0">
                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50"
                                     aria-valuemin="0" aria-valuemax="100" style="width:{{ $current_balance_rate }};">
-                                    <span class="sr-only">20% Complete</span> </div>
+                                    <span class="sr-only"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -109,7 +122,8 @@
                             <div class="progress m-b-0">
                                 <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50"
                                     aria-valuemin="0" aria-valuemax="100" style="width:{{ $consumed_balance_rate }};">
-                                    <span class="sr-only">230% Complete</span> </div>
+                                    <span class="sr-only"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -124,8 +138,8 @@
                             <span class="text-info">100%</span>
                             <div class="progress m-b-0">
                                 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
-                                    aria-valuemin="0" aria-valuemax="100" style="width:100%;"> <span class="sr-only">20%
-                                        Complete</span> </div>
+                                    aria-valuemin="0" aria-valuemax="100" style="width:100%;"> <span class="sr-only"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -154,18 +168,25 @@
                                 <div class="progress-bar progress-bar-inverse" role="progressbar" aria-valuenow="20"
                                     aria-valuemin="0" aria-valuemax="100"
                                     style="width:{{ isset(Auth::user()->Enterprise->payments) && App\Models\Payment::all()->count() != 0 ? Auth::user()->Enterprise->payments->count() / App\Models\Payment::all()->count() . '%' : '0%' }};">
-                                    <span class="sr-only">230% Complete</span> </div>
+                                    <span class="sr-only"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                @elseif (Auth::user()->Role->name == "dri_user")
+
+                @else
+                    
+                @endif
             </div>
         </div>
     </div>
     <div class="product-sales-area mg-tb-15">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-6 col-md-9 col-sm-12 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                <div
+                    class="col-lg-6 col-md-9 col-sm-12 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
                     <div class="product-sales-chart">
                         <div class="portlet-title">
                             <div class="row">
@@ -199,7 +220,8 @@
                         <div id="extra-area-chart" style="height: 356px;"></div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                <div
+                    class="col-lg-3 col-md-6 col-sm-12 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
                     <div class="charts-single-pro responsive-mg-b-30">
                         <div class="alert-title">
                             <h2>{{ __('Balance Statistics') }}</h2>
@@ -210,7 +232,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+
+                @if (Auth::user()->Role->name == "user")
+                <div
+                    class="col-lg-3 col-md-3 col-sm-3 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
                     <div class="white-box analytics-info-cs mg-b-10 res-mg-b-15 tb-sm-res-d-n dk-res-t-d-n">
                         <h3 class="box-title">{{ __('Total Requests') }}</h3>
                         <ul class="list-inline two-part-sp">
@@ -239,7 +264,8 @@
                                 <div id="sparklinedash"></div>
                             </li>
                             <li class="text-right sp-cn-r"><i class="fa fa-level-up" aria-hidden="true"></i> <span
-                                    class="counter text-success">{{ $total_products_weight }}</span> {{__('Kg')}}</li>
+                                    class="counter text-success">{{ $total_products_weight }}</span> {{ __('Kg') }}
+                            </li>
                         </ul>
                     </div>
                     <div class="white-box analytics-info-cs table-dis-n-pro tb-sm-res-d-n dk-res-t-d-n">
@@ -254,13 +280,19 @@
                         </ul>
                     </div>
                 </div>
+                @elseif (Auth::user()->Role->name == "dri_user")
+
+                @else
+                    
+                @endif
             </div>
         </div>
     </div>
     <div class="traffic-analysis-area  reso-mg-b-30 mg-b-10-c">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                <div
+                    class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
                     <div class="social-media-edu">
                         <i class="fa fa-wpforms"></i>
                         <div class="social-edu-ctn">
@@ -269,7 +301,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                <div
+                    class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
                     <div class="social-media-edu twitter-cl res-mg-t-30 table-mg-t-pro-n">
                         <i class="fa fa-edit"></i>
                         <div class="social-edu-ctn">
@@ -278,7 +311,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                <div
+                    class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
                     <div class="social-media-edu youtube-cl res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30">
                         <i class="fa fa-minus-square-o"></i>
                         <div class="social-edu-ctn">
@@ -287,7 +321,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                @if (Auth::user()->Role->name == "user")
+                <div
+                    class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
                     <div class="white-box analytics-info-cs table-dis-n-pro tb-sm-res-d-n dk-res-t-d-n">
                         <h3 class="box-title">{{ __('Total Countries') }}</h3>
                         <ul class="list-inline two-part-sp">
@@ -295,7 +331,8 @@
                                 <div id="sparklinedash5"></div>
                             </li>
                             <li class="text-right graph-three-ctn"><i class="fa fa-level-down" aria-hidden="true"></i> <span
-                                    class="text-info"><span class="counter text-info">{{ $total_countries }}</span></span>
+                                    class="text-info"><span
+                                        class="counter text-info">{{ $total_countries }}</span></span>
                             </li>
                         </ul>
                     </div>
@@ -307,6 +344,11 @@
                             </div>
                         </div> --}}
                 </div>
+                @elseif (Auth::user()->Role->name == "dri_user")
+
+                @else
+                    
+                @endif
             </div>
         </div>
     </div>
@@ -470,7 +512,8 @@
     <div class="product-sales-area mg-tb-10" style="display:none">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                <div
+                    class="col-lg-9 col-md-12 col-sm-12 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
                     <div class="product-sales-chart">
                         <div class="portlet-title">
                             <div class="row">
@@ -507,7 +550,8 @@
                         <div id="morris-area-chart"></div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                <div
+                    class="col-lg-3 col-md-3 col-sm-3 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
                     <div
                         class="analysis-progrebar res-mg-t-30 mg-ub-10 res-mg-b-15 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n">
                         <div class="analysis-progrebar-content">
@@ -653,18 +697,21 @@
 
     <script>
         $(document).ready(function() {
-           /*----------------------------------------*/
-           /*  1.  pie Chart
-           /*----------------------------------------*/
+            /*----------------------------------------*/
+            /*  1.  pie Chart
+            /*----------------------------------------*/
 
-           var gzale_rate = "{{ $gzale_rate }}", acp_tunisie_rate = "{{ $acp_tunisie_rate }}", 
-               formule_a_fr_rate = "{{ $formule_a_fr_rate }}", form_a_en_rate = "{{ $form_a_en_rate }}",
-               total_certificates = "{{ $total_certificates }}", other_rate = 0;
-               if (total_certificates != 0){
-                    other_rate = 100 - parseFloat(gzale_rate) - parseFloat(acp_tunisie_rate)
-                                - parseFloat(form_a_en_rate) - parseFloat(formule_a_fr_rate);
-               }
-        	var ctx = document.getElementById("piechart");
+            var gzale_rate = "{{ $gzale_rate }}",
+                acp_tunisie_rate = "{{ $acp_tunisie_rate }}",
+                formule_a_fr_rate = "{{ $formule_a_fr_rate }}",
+                form_a_en_rate = "{{ $form_a_en_rate }}",
+                total_certificates = "{{ $total_certificates }}",
+                other_rate = 0;
+            if (total_certificates != 0) {
+                other_rate = 100 - parseFloat(gzale_rate) - parseFloat(acp_tunisie_rate) -
+                    parseFloat(form_a_en_rate) - parseFloat(formule_a_fr_rate);
+            }
+            var ctx = document.getElementById("piechart");
             var piechart = new Chart(ctx, {
                 type: 'pie',
                 data: {
@@ -673,14 +720,16 @@
                         label: 'pie Chart',
                         backgroundColor: [
                             '#006DF0',
-                            '#933EC5',
                             '#65b12d',
                             '#EEF116',
+                            '#933EC5',
                             '#303030',
                             '#D80027'
                         ],
-                        data: [parseFloat(gzale_rate), parseFloat(form_a_en_rate), parseFloat(formule_a_fr_rate), 
-                                parseFloat(acp_tunisie_rate), parseFloat(other_rate) ]
+                        data: [parseFloat(gzale_rate), parseFloat(form_a_en_rate), parseFloat(
+                                formule_a_fr_rate),
+                            parseFloat(acp_tunisie_rate), parseFloat(other_rate)
+                        ]
                     }]
                 },
                 options: {
@@ -688,76 +737,38 @@
                 }
             });
 
-    var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    var morris_area = $('#morris_area').data('morris-area');
-    //json_decode(json_encode((array) $certificates_morris_area !!}), TRUE);
-    console.log(morris_area);
-    Morris.Area({
-        element: 'extra-area-chart',
-        data: morris_area,//[
-        //     {
-        //     month: '1',
-        //     GZALE: 50,
-        //     ACP_TUNISIE: 80,
-        //     FORM_A_EN: 20,
-        //     FORMULE_A_FR: 20
-        // }, {
-        //     month: '2',
-        //     GZALE: 130,
-        //     ACP_TUNISIE: 100,
-        //     FORM_A_EN: 80,
-        //     FORMULE_A_FR: 20
-        // }, {
-        //     month: '3',
-        //     GZALE: 80,
-        //     ACP_TUNISIE: 60,
-        //     FORM_A_EN: 70,
-        //     FORMULE_A_FR: 20
-        // }, {
-        //     month: '4',
-        //     GZALE: 70,
-        //     ACP_TUNISIE: 200,
-        //     FORM_A_EN: 70,
-        //     FORMULE_A_FR: 140
-        // }, {
-        //     month: '5',
-        //     GZALE: 180,
-        //     ACP_TUNISIE: 150,
-        //     FORM_A_EN: 70,
-        //     FORMULE_A_FR: 140
-        // }, {
-        //     month: '6',
-        //     GZALE: 105,
-        //     ACP_TUNISIE: 100,
-        //     FORM_A_EN: 70,
-        //     FORMULE_A_FR: 80
-        // }
-        // ],
-        xkey: 'month',
-        parseTime: false,
-        ykeys: ['GZALE', 'ACP-TUNISIE', 'FORM-A-EN', 'FORMULE-A-FR'],
-        labels: ['GZALE', 'ACP TUNISIE', 'FORM A EN', 'FORMULE A FR'],
-        xLabelFormat: function (x) {
-            var index = parseInt(x.src.month);
-            return monthNames[index-1];
-        },
-        xLabels: "month",
-        pointSize: 3,
-        fillOpacity: 0,
-        pointStrokeColors:['#006DF0', '#933EC5', '#65b12d', '#EEF116'],
-        behaveLikeLine: true,
-        gridLineColor: '#e0e0e0',
-        lineWidth: 1,
-        hideHover: 'auto',
-        lineColors: ['#006DF0', '#933EC5', '#65b12d', '#EEF116'],
-        resize: true
-        
-    });
-	});
-           </script>
+            var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            var morris_area = $('#morris_area').data('morris-area');
+            //json_decode(json_encode((array) $certificates_morris_area !!}), TRUE);
+            console.log(morris_area);
+            Morris.Area({
+                element: 'extra-area-chart',
+                data: morris_area,
+                xkey: 'month',
+                parseTime: false,
+                ykeys: ['GZALE', 'ACP-TUNISIE', 'FORM-A-EN', 'FORMULE-A-FR'],
+                labels: ['GZALE', 'ACP TUNISIE', 'FORM A EN', 'FORMULE A FR'],
+                xLabelFormat: function(x) {
+                    var index = parseInt(x.src.month);
+                    return monthNames[index - 1];
+                },
+                xLabels: "month",
+                pointSize: 3,
+                fillOpacity: 0,
+                pointStrokeColors: ['#006DF0', '#933EC5', '#65b12d', '#EEF116'],
+                behaveLikeLine: true,
+                gridLineColor: '#e0e0e0',
+                lineWidth: 1,
+                hideHover: 'auto',
+                lineColors: ['#006DF0', '#933EC5', '#65b12d', '#EEF116'],
+                resize: true
+
+            });
+        });
+    </script>
 
     <!-- Charts JS
-        ============================================ -->
+            ============================================ -->
     <script src="js/charts/Chart.js"></script>
     <script src="js/charts/rounded-chart.js"></script>
 @endpush

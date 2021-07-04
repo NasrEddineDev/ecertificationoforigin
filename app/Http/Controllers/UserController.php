@@ -259,13 +259,13 @@ class UserController extends Controller
             $theme = '';
             $language = '';
             
-            if (!$request->language && !$request->theme){
+            if (!$request->language && !$request->language){
                 $theme = Auth::user()->profile->theme ? Auth::user()->profile->theme : 'default';
                 $language = Auth::user()->profile->language ? Auth::user()->profile->language : 'en';
             }
 
             if ($request->theme && !empty($request->theme)) {
-                // Auth::User()->profile->update(['theme' => $request->theme]);
+                Auth::User()->profile->update(['theme' => $request->theme]);
                 $theme = $request->theme;
             }
 
@@ -276,7 +276,7 @@ class UserController extends Controller
                 
                 App::setlocale($language);
                 session()->put('locale', $language);
-        // return redirect()->back();
+                // return redirect()->back();
             }
 
             return view('users.settings', compact('theme', 'language'));

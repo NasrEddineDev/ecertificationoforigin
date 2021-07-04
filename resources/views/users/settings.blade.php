@@ -101,7 +101,6 @@
                         <div class="card">
                             <div class="card-body">
                                 <h4 class="card-title">{{ __('Theme') }}</h4>
-                                <br />
                                 <form method="post" action="{{ route('users.settings.post') }}"
                                     class="dropzone dropzone-custom needsclick add-professors" id="demo1-upload">
                                     @csrf

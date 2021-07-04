@@ -270,6 +270,7 @@ class PaymentController extends Controller
             $amount = ($request->offer != 0 ? $request->offer : $request->other_offer) * $unit_price->value;
             $payment = new Payment([
                 'amount' => $amount,
+                "current_balance" => Auth::User()->Enterprise->balance,
                 'date' => date('Y-m-d H:m:s'),
                 'mode' => 'CREDIT',
                 'type' => 'DHAHABIA',
