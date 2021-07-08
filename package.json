@@ -28,5 +28,8 @@
         "tailwindcss": "^2.0.2",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "bootstrap-fileinput": "^5.2.2"
     }
 }

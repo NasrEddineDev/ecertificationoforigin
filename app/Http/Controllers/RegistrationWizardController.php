@@ -49,6 +49,10 @@ class RegistrationWizardController extends Controller
         // session()->put('locale', 'ar');
         $locale = App::currentLocale();
         
+
+        $step = Steps::MANAGER;
+        return view('registration_wizard', compact('step'));
+        
         // if (App::isLocale('ar')) {
         //     App::setLocale('ar');
         // }

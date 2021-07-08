@@ -992,8 +992,7 @@
     <script src="{{ URL::asset('wizard/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}">
-    </script>
+    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('select2/js/select2.min.js') }}"></script>
 
@@ -1738,6 +1737,7 @@
                 titleFormat: "MM yyyy",
                 weekStart: 0
             };
+            
             $('#birthday_manager').datepicker({
                 rtl: true,
                 format: 'dd-mm-yyyy',

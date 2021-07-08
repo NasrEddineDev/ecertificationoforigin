@@ -84,7 +84,7 @@ class RegisterController extends Controller
             return redirect(RouteServiceProvider::HOME);
             // return view('registration_wizard', ['step' => Steps::CONFIRMATION]);
         }
-        return view('register', ['step' => Steps::REGISTRATION]);
+        return view('register', ['step' => (Steps::REGISTRATION)]);
         // return redirect(RouteServiceProvider::HOME);
     } catch (Throwable $e) {
         report($e);

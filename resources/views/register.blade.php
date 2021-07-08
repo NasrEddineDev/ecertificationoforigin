@@ -9,7 +9,19 @@
     {{-- <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png"> --}}
     <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('') }}img/logo/caci-logo.ico" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css"
+        crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/css/fileinput.min.css" media="all"
+        rel="stylesheet" type="text/css" />
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
+    <!-- datepicker -->
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('wizard/css/jquery-ui.min.css') }}" />
+
+    <!-- Select2 -->
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('select2/css/select2.min.css') }}" />
+
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/datapicker/datepicker3.css') }}" />
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
@@ -172,7 +184,7 @@
 
         #progressbar #account:before {
             font-family: FontAwesome;
-            content: "\f13e"
+            content: "\f007"
         }
 
         #progressbar #activation:before {
@@ -182,15 +194,28 @@
 
         #progressbar #enterprise:before {
             font-family: FontAwesome;
-            content: "\f007"
+            content: "\f0f7"
+                /* content: "\f007" */
         }
 
-        #progressbar #payment:before {
+        #progressbar #manager:before {
             font-family: FontAwesome;
-            content: "\f030"
+            content: "\f183"
         }
 
-        #progressbar #confirm:before {
+        #progressbar #attachments:before {
+            font-family: FontAwesome;
+            content: "\f093"
+                /* f0c6 */
+        }
+
+        /* content: "\f030" */
+        #progressbar #summary:before {
+            font-family: FontAwesome;
+            content: "\f03a"
+        }
+
+        #progressbar #finish:before {
             font-family: FontAwesome;
             content: "\f00c"
         }
@@ -235,6 +260,56 @@
         .fit-image {
             width: 100%;
             object-fit: cover
+        }
+
+
+
+        .select2-selection.select2-selection--multiple {
+            height: 38px;
+        }
+
+        .select2-search {
+            /* width: 80%!important; */
+        }
+
+        .select2-search__field {
+            background-color: rgba(0, 0, 0, 0) !important;
+            /* background: rgba(0,0,0,0.5); */
+            border: 0px solid #fff !important;
+            height: 30px !important;
+            /* width: 80%!important; */
+
+        }
+
+        .select2-search__field:focus {
+            border: none !important;
+        }
+
+        h6 {
+            color: #ccc;
+        }
+
+        /*
+                    .select2-container--default .select2-search--inline .select2-search__field{
+                width:initial!important;
+            } */
+
+        .dropdown {
+            text-align: left;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .dropdown #dropdownMenuButton {
+            line-height: 1.75;
+        }
+
+        label.error {
+            color: #FF0000;
+        }
+
+        input.error {
+            border: 1px solid red;
         }
 
     </style>
@@ -348,21 +423,23 @@
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <h2 id="heading">Sign Up Your User Account</h2>
                     <p>Fill all form field to go to next step</p>
-                    <form id="msform">
+                    <div id="msform">
                         <!-- progressbar -->
                         <ul id="progressbar">
-                            <li class="active" id="account"><strong>Account</strong></li>
+                            <li id="account" class="active"><strong>Account</strong></li>
                             <li id="activation"><strong>Activation</strong></li>
                             <li id="enterprise"><strong>Enterprise</strong></li>
-                            <li id="payment"><strong>Manager</strong></li>
-                            <li id="payment"><strong>Documents</strong></li>
-                            <li id="payment"><strong>Resume</strong></li>
-                            <li id="confirm"><strong>Finish</strong></li>
+                            <li id="manager"><strong>Manager</strong></li>
+                            <li id="attachments"><strong>Attachments</strong></li>
+                            <li id="summary"><strong>Summary</strong></li>
+                            <li id="finish"><strong>Finish</strong></li>
                         </ul>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                 aria-valuemin="0" aria-valuemax="100"></div>
                         </div> <br> <!-- fieldsets -->
+
+                        <!-- Account -->
                         <fieldset>
                             <div class="form-card">
                                 <div class="row">
@@ -374,54 +451,60 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                        <div class="form-group row">
-                                            <label
-                                                class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="email" id="email" placeholder="Email"
-                                                    class="form-control" />
+                                <form class="account-form" action="#" method="post">
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="email" id="email" placeholder="Email"
+                                                        class="form-control" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="username" id="username"
+                                                        placeholder="Username" class="form-control" required />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label
-                                                class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="username" id="username" placeholder="Username"
-                                                    class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                        <div class="form-group row">
-                                            <label
-                                                class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Password') }}</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="password" id="password" placeholder="password"
-                                                    class="form-control" />
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Password') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input type="password" name="password" id="password"
+                                                        placeholder="password" class="form-control" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Confirm Password') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input type="password" name="confirm_password" id="confirm_password"
+                                                        placeholder="Confirm Password" class="form-control" required />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label
-                                                class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Confirm Password') }}</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="confirm_password" id="confirm_password"
-                                                    placeholder="Confirm Password" class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                </form>
                             </div>
                             <input type="button" name="next" class="next action-button" value="Next" />
                         </fieldset>
+
+                        <!-- Activation -->
                         <fieldset>
                             <div class="form-card">
                                 <div class="row">
@@ -432,29 +515,34 @@
                                         <h2 class="steps">Step 2/7</h2>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-7 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                        <div class="form-group row">
-                                            <p>{{ __('Thank you for creating new account') }}</p>
-                                            <p>{{ __("Before getting started, you must verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another") }}
+                                <form class="activation-form" action="#" method="post">
+                                    <div class="row">
+                                        <div
+                                            class="col-md-7 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <p>{{ __('Thank you for creating new account') }}</p>
+                                                <p>{{ __("Before getting started, you must verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another") }}
 
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <div class="form-group row"
-                                            style="vertical-align: middle!important;margin-top:7%;margin-bottom:5%;">
-                                            <div style="margin:auto;text-align:center;">
-                                                <button id="resend" type="submit"
-                                                    class="btn btn-success btn-block">{{ __('Resend Verification Message by Email') }}</button>
+                                        <div class="col-md-5">
+                                            <div class="row"
+                                                style="vertical-align: middle!important;margin-top:7%;margin-bottom:5%;">
+                                                <div style="margin:auto;text-align:center;">
+                                                    <button id="resend" type="submit"
+                                                        class="btn btn-success btn-block">{{ __('Resend Verification Message by Email') }}</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                             <input type="button" name="next" class="next action-button" value="Next" />
                             <input type="button" name="previous" class="previous action-button-previous"
                                 value="Previous" />
                         </fieldset>
+
+                        <!-- Enterprise -->
                         <fieldset>
                             <div class="form-card">
                                 <div class="row">
@@ -462,125 +550,488 @@
                                         <h2 class="fs-title">Enterprise Information:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 2 - 4</h2>
-                                    </div>
-                                </div> 
-
-                                
-                                <div class="row">
-                                    <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                        <div class="form-group row">
-                                            <label
-                                                class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Enterprise Name') }}</label>
-                                            <div class="col-sm-7">
-                                                <input type="text" name="name_ar" id="name_ar" placeholder="Enterprise Name In Arabic"
-                                                    class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            {{-- <label
-                                                class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
-                                            <div class="col-sm-12">
-                                                <input type="text" name="name" id="name" placeholder="Enterprise Name In English"
-                                                    class="form-control" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group row">
-                                            {{-- <label
-                                                class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
-                                            <div class="col-sm-12">
-                                                <input type="text" name="name_fr" id="name_fr" placeholder="Enterprise Name In French"
-                                                    class="form-control" />
-                                            </div>
-                                        </div>
+                                        <h2 class="steps">Step 3/7</h2>
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                        <div class="form-group row">
-                                            <label
-                                                class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Password') }}</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="password" id="password" placeholder="password"
-                                                    class="form-control" />
+                                <h6>{{ __('General Information') }}</h6>
+
+                                <form class="enterprise-form" action="#" method="post">
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Enterprise Name') }}</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="name_ar" id="name_ar"
+                                                        placeholder="Enterprise Name In Arabic" class="form-control"
+                                                        required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                {{-- <label
+                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                <div class="col-sm-12">
+                                                    <input type="text" name="name" id="name"
+                                                        placeholder="Enterprise Name In English" class="form-control"
+                                                        required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                {{-- <label
+                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                <div class="col-sm-12">
+                                                    <input type="text" name="name_fr" id="name_fr"
+                                                        placeholder="Enterprise Name In French" class="form-control"
+                                                        required />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <label
-                                                class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Confirm Password') }}</label>
-                                            <div class="col-sm-9">
-                                                <input type="text" name="confirm_password" id="confirm_password"
-                                                    placeholder="Confirm Password" class="form-control" />
+
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Number') }}</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="rc_number" id="rc_number"
+                                                        placeholder="{{ __('RC Number') }}" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                {{-- <label
+                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                <div class="col-sm-12">
+                                                    <input type="text" name="nis_number" id="nis_number"
+                                                        placeholder="{{ __('NIS Number') }}" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                {{-- <label
+                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                <div class="col-sm-12">
+                                                    <input type="text" name="nif_number" id="nif_number"
+                                                        placeholder="{{ __('NIF Number') }}" class="form-control" />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div> 
+
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Select Activities Codes') }}</label>
+                                                <div class="col-sm-7 activities-size">
+                                                    <select id="activities" class="col-sm-7 activities select2"
+                                                        name="activities[]" multiple="multiple">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-control"
+                                                        {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
+                                                        name="legal_form" id="legal_form">
+                                                        <option value="06" disabled selected>
+                                                            {{ __('Select The Legal Form') }}
+                                                        </option>
+                                                        <option value="SPA">{{ __('SPA') }}</option>
+                                                        <option value="SARL">{{ __('SARL') }}</option>
+                                                        <option value="EURL">{{ __('EURL') }}</option>
+                                                        <option value="ETS">{{ __('ETS') }}</option>
+                                                        <option value="SNC">{{ __('SNC') }}</option>
+                                                        <option value="OTHER">{{ __('Other') }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3 export-activity-select">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <select class="form-control"
+                                                        {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
+                                                        name="exporter_type" id="exporter_type">
+                                                        <option value="" selected disabled>
+                                                            {{ __('Select The Type Of Exporter') }}</option>
+                                                        <option value="TRADER">{{ __('Trader') }}</option>
+                                                        <option value="CRAFTSMAN">{{ __('Craftsman') }}</option>
+                                                        <option value="PRODUCER">{{ __('Producer') }}</option>
+                                                        <option value="FARMER">{{ __('Farmer') }} </option>
+                                                        <option value="OTHER">{{ __('Other') }}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 export-activity-code">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <select class="form-control"
+                                                        {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
+                                                        name="exporter_type" id="exporter_type">
+                                                        <option value="" disabled>
+                                                            {{ __('Select The Type Of Exporter') }}</option>
+                                                        <option value="TRADER" selected>{{ __('Trader') }}</option>
+                                                        <option value="CRAFTSMAN">{{ __('Craftsman') }}</option>
+                                                        <option value="PRODUCER">{{ __('Producer') }}</option>
+                                                        <option value="FARMER">{{ __('Farmer') }} </option>
+                                                        <option value="OTHER">{{ __('Other') }}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="export_activity_code"
+                                                        name="export_activity_code" value=""
+                                                        placeholder="{{ __('Export Activity Code') }}" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <h6>{{ __('Contact Information') }}</h6>
+
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile/Email/Tel') }}</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="mobile" id="mobile"
+                                                        placeholder="{{ __('Mobile') }}" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                {{-- <label
+                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                <div class="col-sm-12">
+                                                    <input type="text" name="email" id="email"
+                                                        placeholder="{{ __('Email') }}" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                {{-- <label
+                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                <div class="col-sm-12">
+                                                    <input type="text" name="tel_enterprise" id="tel_enterprise"
+                                                        placeholder="{{ __('Tel') }}" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
+                                                <div class="col-sm-7">
+                                                    <input type="text" name="address_ar" id="address_ar"
+                                                        placeholder="Address In Arabic" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                {{-- <label
+                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                <div class="col-sm-12">
+                                                    <input type="text" name="address" id="address"
+                                                        placeholder="Address In English" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                {{-- <label
+                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                <div class="col-sm-12">
+                                                    <input type="text" name="address_fr" id="address_fr"
+                                                        placeholder="Address In French" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile/Email/Tel') }}</label>
+                                                <div class="col-sm-7">
+                                                    <select name="state_code" id="state_code" class="form-control"
+                                                        style="margin-top: 0;"
+                                                        {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}>
+                                                        <option value="0" disabled selected>
+                                                            {{ __('Select The State') }}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                {{-- <label
+                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                <div class="col-sm-12">
+                                                    <select name="city_id" id="city_id" class="form-control"
+                                                        style="margin-top: 0;">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="row">
+                                                {{-- <label
+                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                <div class="col-sm-12">
+                                                    <input type="text" name="website" id="website"
+                                                        placeholder="{{ __('Website') }}" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                             <input type="button" name="next" class="next action-button" value="Next" /> <input
                                 type="button" name="previous" class="previous action-button-previous"
                                 value="Previous" />
                         </fieldset>
+
+                        <!-- Manager -->
                         <fieldset>
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">Enterprise Information:</h2>
+                                        <h2 class="fs-title">Manager Information:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 2 - 4</h2>
+                                        <h2 class="steps">Step 4/7</h2>
                                     </div>
-                                </div> <label class="fieldlabels">First Name: *</label> <input type="text" name="fname"
-                                    placeholder="First Name" /> <label class="fieldlabels">Last Name: *</label> <input
-                                    type="text" name="lname" placeholder="Last Name" /> <label
-                                    class="fieldlabels">Contact No.: *</label> <input type="text" name="phno"
-                                    placeholder="Contact No." /> <label class="fieldlabels">Alternate Contact No.:
-                                    *</label> <input type="text" name="phno_2" placeholder="Alternate Contact No." />
-                            </div> <input type="button" name="next" class="next action-button" value="Next" /> <input
-                                type="button" name="previous" class="previous action-button-previous"
+                                </div>
+
+                                <form class="manager-form" action="#" method="post">
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('First Name') }}</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" name="firstname_ar" id="firstname_ar"
+                                                        placeholder="{{ __('Arabic First Name') }}"
+                                                        class="form-control" />
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <input type="text" name="firstname" id="firstname"
+                                                        placeholder="{{ __('English/French First Name') }}"
+                                                        class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Last Name') }}</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" name="lastname_ar" id="lastname_ar"
+                                                        placeholder="{{ __('Arabic Last Name') }}"
+                                                        class="form-control" />
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <input type="text" name="lastname" id="lastname"
+                                                        placeholder="{{ __('English/French Last Name') }}"
+                                                        class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
+                                                <div class="col-sm-10">
+                                                    <input type="text" name="email" id="email"
+                                                        placeholder="{{ __('Email') }}" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile/Tel') }}</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" name="mobile" id="mobile"
+                                                        placeholder="{{ __('Mobile') }}" class="form-control" />
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <input type="text" name="tel_enterprise" id="tel_enterprise"
+                                                        placeholder="{{ __('Tel') }}" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" name="address_ar" id="address_ar"
+                                                        placeholder="Address In Arabic" class="form-control" />
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <input type="text" name="address" id="address"
+                                                        placeholder="Address In English/French" class="form-control" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('State/City') }}</label>
+                                                <div class="col-sm-5">
+                                                    <select name="state_code_manager" id="state_code_manager"
+                                                        class="form-control" style="margin-top: 0;"
+                                                        {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}>
+                                                        <option value="0" disabled selected>
+                                                            {{ __('Select The State') }}
+                                                        </option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    <select name="city_id_manager" id="city_id_manager"
+                                                        class="form-control" style="margin-top: 0;">
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Birthday') }}</label>
+                                                <div class="col-sm-5">
+                                                    <input type="text" id="birthday_manager" name="birthday_manager">
+                                                </div>
+                                                <div class="col-sm-5">
+                                                    {{-- <input type="text" name="address" id="address"
+                                                                            placeholder="Address In English/French" class="form-control" /> --}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="row">
+                                                <label
+                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Gender') }}</label>
+                                                <div class="col-sm-5">
+                                                    <select {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
+                                                        class="form-control" name="gender_manager" id="gender_manager">
+                                                        <option value="MALE" selected>{{ __('MALE') }}</option>
+                                                        <option value="FEMALE">{{ __('FEMALE') }}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-5">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <input type="button" name="next" class="next action-button" value="Next" />
+                            <input type="button" name="previous" class="previous action-button-previous"
                                 value="Previous" />
                         </fieldset>
+
+                        <!-- Documents -->
                         <fieldset>
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">Enterprise Information:</h2>
+                                        <h2 class="fs-title">Documents:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 2 - 4</h2>
+                                        <h2 class="steps">Step 5/7</h2>
                                     </div>
-                                </div> <label class="fieldlabels">First Name: *</label> <input type="text" name="fname"
-                                    placeholder="First Name" /> <label class="fieldlabels">Last Name: *</label> <input
-                                    type="text" name="lname" placeholder="Last Name" /> <label
-                                    class="fieldlabels">Contact No.: *</label> <input type="text" name="phno"
-                                    placeholder="Contact No." /> <label class="fieldlabels">Alternate Contact No.:
-                                    *</label> <input type="text" name="phno_2" placeholder="Alternate Contact No." />
-                            </div> <input type="button" name="next" class="next action-button" value="Next" /> <input
-                                type="button" name="previous" class="previous action-button-previous"
+                                </div>
+                            </div>
+
+                            <input type="button" name="next" class="next action-button" value="Next" />
+                            <input type="button" name="previous" class="previous action-button-previous"
                                 value="Previous" />
+
+
+                            <div class="dropdown col-lg-3">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
+                                    data-toggle="dropdown" aria-haspopup="true"
+                                    aria-expanded="false">{{ __('Add New Image Or Dowument') }}</button>
+                                <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#">{{ __('RC File') }}</a>
+                                    <a class="dropdown-item" href="#">{{ __('NIS File') }}</a>
+                                    <a class="dropdown-item" href="#">{{ __('NIF File') }}</a>
+                                    <a class="dropdown-item" href="#">{{ __('Signature') }}</a>
+                                    <a class="dropdown-item" href="#">{{ __('Round Stamp') }}</a>
+                                    <a class="dropdown-item" href="#">{{ __('Square Stamp') }}</a>
+                                </div>
+                            </div>
+
+                            <form class="attachments-form" action="#" method="post" enctype="multipart/form-data">
+                                <input type="file" id="attachedFiles" name="attachedFiles[]"
+                                    data-browse-on-zone-click="false" multiple />
+                            </form>
                         </fieldset>
+
+                        <!-- Resume -->
                         <fieldset>
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">Image Upload:</h2>
+                                        <h2 class="fs-title">Resume:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 3 - 4</h2>
+                                        <h2 class="steps">Step 6/7</h2>
                                     </div>
-                                </div> <label class="fieldlabels">Upload Your Photo:</label> <input type="file"
-                                    name="pic" accept="image/*"> <label class="fieldlabels">Upload Signature
-                                    Photo:</label> <input type="file" name="pic" accept="image/*">
+                                </div>
+
                             </div> <input type="button" name="next" class="next action-button" value="Submit" /> <input
                                 type="button" name="previous" class="previous action-button-previous"
                                 value="Previous" />
                         </fieldset>
+
+                        <!-- Finish -->
                         <fieldset>
                             <div class="form-card">
                                 <div class="row">
@@ -588,13 +1039,14 @@
                                         <h2 class="fs-title">Finish:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 4 - 4</h2>
+                                        <h2 class="steps">Step 7/7</h2>
                                     </div>
                                 </div> <br><br>
                                 <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
                                 <div class="row justify-content-center">
-                                    <div class="col-3"> <img src="{{ URL::asset('') }}registration/img/GwStPmg.png"
-                                            class="fit-image">
+                                    <div class="col-3">
+                                        <img src="{{ URL::asset('') }}register/img/finish.gif" class="fit-image">
+                                        {{-- <img src="{{ URL::asset('') }}register/img/GwStPmg.png" class="fit-image"> --}}
                                     </div>
                                 </div> <br><br>
                                 <div class="row justify-content-center">
@@ -604,19 +1056,105 @@
                                 </div>
                             </div>
                         </fieldset>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <div id="loadingDiv" class="spinner-border text-success" role="status"
+        style="width: 100%; height: 100%;position: absolute">
+        <div class="inner" style="width: 200px; height: 200px;text-align:center"><svg xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                style="margin: auto; display: block; /*! shape-rendering: auto; */" width="200px" height="200px"
+                viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                <g transform="translate(50,50)">
+                    <circle cx="0" cy="0" r="10" fill="none" stroke="#d74946" stroke-width="4"
+                        stroke-dasharray="31.41592653589793 31.41592653589793">
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1"
+                            dur="0.48076923076923084s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="0"
+                            repeatCount="indefinite"></animateTransform>
+                    </circle>
+                    <circle cx="0" cy="0" r="20" fill="none" stroke="#0069ce" stroke-width="4"
+                        stroke-dasharray="62.83185307179586 62.83185307179586">
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1"
+                            dur="0.48076923076923084s" calcMode="spline" keySplines="0.2 0 0.8 1"
+                            begin="-0.12019230769230771" repeatCount="indefinite"></animateTransform>
+                    </circle>
+                    <circle cx="0" cy="0" r="30" fill="none" stroke="#f0af31" stroke-width="4"
+                        stroke-dasharray="94.24777960769379 94.24777960769379">
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1"
+                            dur="0.48076923076923084s" calcMode="spline" keySplines="0.2 0 0.8 1"
+                            begin="-0.24038461538461542" repeatCount="indefinite"></animateTransform>
+                    </circle>
+                    <circle cx="0" cy="0" r="40" fill="none" stroke="#94b224" stroke-width="4"
+                        stroke-dasharray="125.66370614359172 125.66370614359172">
+                        <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1"
+                            dur="0.48076923076923084s" calcMode="spline" keySplines="0.2 0 0.8 1"
+                            begin="-0.36057692307692313" repeatCount="indefinite"></animateTransform>
+                    </circle>
+                </g>
+                <!-- [ldio] generated by https://loading.io/ -->
+            </svg>
+            <span class="sr-only">{{ __('Loading...') }}</span>
+        </div>
+    </div>
+
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
+    <script src="{{ URL::asset('wizard/js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}"></script>
+    <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}">
+    </script>
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/js/fileinput.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/js/locales/LANG.js"></script>
+
+    <script src="{{ URL::asset('select2/js/select2.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/datapicker/bootstrap-datepicker.js') }}"></script>
     <script>
+        var $loading = $('#loadingDiv').hide();
+        $(document).ajaxStart(function() {
+            var curr = $('body').height()
+            $('.spinner-border').height(curr);
+            $loading.show();
+        }).ajaxStop(function() {
+            $loading.hide();
+        });
+
+        $.validator.addMethod("emailcheck", function(value, element, regexp) {
+            /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
+            if (regexp && regexp.constructor != RegExp) {
+                /* Create a new regular expression using the regex argument. */
+                regexp = new RegExp(regexp);
+            }
+            /* Check whether the argument is global and, if so set its last index to 0. */
+            else if (regexp.global) regexp.lastIndex = 0;
+            /* Return whether the element is optional or the result of the validation. */
+            return this.optional(element) || regexp.test(value);
+        });
+        $.validator.addMethod("passwordcheck", function(value) {
+            return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+                &&
+                /[a-z]/.test(value) // has a lowercase letter
+                &&
+                /\d/.test(value) // has a digit
+        });
+
+
         $(document).ready(function() {
+            var lang = "{{ App()->currentLocale() }}";
+            var dir = '';
+            if (lang == 'ar') dir = 'rtl';
+            else dir = 'ltr';
 
             var current_fs, next_fs, previous_fs; //fieldsets
             var opacity;
-            var current = 1;
+            var current = '{{ $step ? ($step + 1) : 1}}' ;
             var steps = $("fieldset").length;
 
             setProgressBar(current);
@@ -625,31 +1163,66 @@
 
                 current_fs = $(this).parent();
                 next_fs = $(this).parent().next();
+                move = true;
 
-                //Add Class Active
-                $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-                //show the next fieldset
-                next_fs.show();
-                //hide the current fieldset with style
-                current_fs.animate({
-                    opacity: 0
-                }, {
-                    step: function(now) {
-                        // for making fielset appear animation
-                        opacity = 1 - now;
-
-                        current_fs.css({
-                            'display': 'none',
-                            'position': 'relative'
-                        });
-                        next_fs.css({
-                            'opacity': opacity
-                        });
+                if (current == 1){
+                  if (!account_validator.form()){
+                      move = false;
+                  }
+                  else{
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    duration: 500
+                    type: 'POST',
+                    async: false,
+                    url: "/register1",
+                    data: {
+                        step: '1',
+                        username: $('#username').val(),
+                        email: $('#email').val(),
+                        password: $('#password').val(),
+                        confirm_password: $('#confirm_password').val()
+                    },
+                    success: function(data) {
+                        move = true;
+                        return true;
+                    },
+                    error: function(data) {
+                        move = false;
+                        errors = data.responseJSON.errors;
+                        account_validator.showErrors(errors);
+                        return true;
+                    }
                 });
-                setProgressBar(++current);
+            }
+            }
+                if (move) {
+                    //Add Class Active
+                    $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+                    //show the next fieldset
+                    next_fs.show();
+                    //hide the current fieldset with style
+                    current_fs.animate({
+                        opacity: 0
+                    }, {
+                        step: function(now) {
+                            // for making fielset appear animation
+                            opacity = 1 - now;
+
+                            current_fs.css({
+                                'display': 'none',
+                                'position': 'relative'
+                            });
+                            next_fs.css({
+                                'opacity': opacity
+                            });
+                        },
+                        duration: 500
+                    });
+                    setProgressBar(++current);
+                }
             });
 
             $(".previous").click(function() {
@@ -695,7 +1268,294 @@
                 return false;
             })
 
+            var width = parseInt($('.col-md-6').width()) * (parseInt($('.activities-size').css('max-width')) / 100);
+
+            // select
+            $('#activities').select2({
+                dir: dir,
+                width: width,
+                placeholder: '{{ __('Type Activities Codes') }}',
+                allowClear: true,
+                ajax: {
+                    url: '/getactivities',
+                    dataType: 'json',
+                    delay: 250,
+                    processResults: function(data) {
+                        // console.log(data);
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.code + ' ' + item.name_ar,
+                                    id: item.id
+                                }
+                            })
+                        };
+                    },
+                    cache: true
+                },
+                templateSelection: function(data, container) {
+                    // Add custom attributes to the <option> tag for the selected option
+                    $(data.element).attr('data-custom-attribute', data.code);
+                    return data.text.substr(0, data.text.indexOf(' '));
+                },
+                language: {
+                    "noResults": function() {
+                        return '{{ __('No Activities Found') }}';
+                    }
+                },
+                escapeMarkup: function(markup) {
+                    return markup;
+                }
+            });
+
+
+            // export activity
+            $('.export-activity-select').show();
+            $('.export-activity-code').hide();
+            $(document).on('change', '#exporter_type', function() {
+                // console.log(this.value);
+                if (this.value == 'TRADER') {
+                    $('.export-activity-select').hide();
+                    $('.export-activity-code').show();
+                    // $('#exporter_type option[value="TRADER"]')
+                    $('.export-activity-code #exporter_type option:eq(1)').prop('selected', true);
+                    // console.log($('.export-activity-code #exporter_type').find(":selected").val());
+                } else {
+                    $('.export-activity-select').show();
+                    $('.export-activity-code').hide();
+                    $('.export-activity-select #exporter_type option[value="' + this.value + '"]').prop(
+                        'selected', true);
+                }
+            });
+
+
+            // states cities
+            $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/getalgerianstates",
+                type: "GET",
+                success: function(data) {
+                    $('#state_code').empty();
+                    $('#state_code').append(
+                        '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
+                    );
+                    $.each(data.states, function(index, city) {
+                        $('#state_code').append('<option value="' + city.value +
+                            '">' + city.text + '</option>');
+                    })
+
+
+                    $('#state_code_manager').empty();
+                    $('#state_code_manager').append(
+                        '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
+                    );
+                    $.each(data.states, function(index, city) {
+                        $('#state_code_manager').append('<option value="' + city.value +
+                            '">' + city.text + '</option>');
+                    })
+                }
+            });
+
+            $(document).on('change', '#state_code', function() {
+                var selectedState = $('#state_code').find(":selected").val().split(" ")[0];
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "/getcities/" + selectedState,
+                    type: "GET",
+                    success: function(data) {
+                        $('#city_id').empty();
+                        $('#city_id').append(
+                            '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
+                        );
+                        $.each(data.cities, function(index, city) {
+                            $('#city_id').append('<option value="' + city.value +
+                                '">' + city.text + '</option>');
+                        })
+                    }
+                })
+            });
+
+            $(document).on('change', '#state_code_manager', function() {
+                var selectedState = $('#state_code_manager').find(":selected").val().split(" ")[0];
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "/getcities/" + selectedState,
+                    type: "GET",
+                    success: function(data) {
+                        $('#city_id_manager').empty();
+                        $('#city_id_manager').append(
+                            '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
+                        );
+                        $.each(data.cities, function(index, city) {
+                            $('#city_id_manager').append('<option value="' + city
+                                .value +
+                                '">' + city.text + '</option>');
+                        })
+                    }
+                })
+            });
+
+            // Birthday Manager
+            $.fn.datepicker.dates['ar'] = {
+                days: ["الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعة", "السبت"],
+                daysShort: ["الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعة", "السبت"],
+                daysMin: ["الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعة", "السبت"],
+                months: ["جانفي", "فيفري", "مارس", "أفريل", "ماي", "جوان", "جويلية", "أوت", "سبتمبر",
+                    "أكتوبر", "نوفمبر", "ديسمبر"
+                ],
+                monthsShort: ["جانفي", "فيفري", "مارس", "أفريل", "ماي", "جوان", "جويلية", "أوت", "سبتمبر",
+                    "أكتوبر", "نوفمبر", "ديسمبر"
+                ],
+                today: "اليوم",
+                clear: "مسح",
+                format: "dd/mm/yyyy",
+                titleFormat: "MM yyyy",
+                weekStart: 0
+            };
+
+            $('#birthday_manager').datepicker({
+                rtl: true,
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                language: 'ar'
+            });
+
+            $("#attachedFiles").fileinput({
+                rtl: true,
+                previewFileType: 'any',
+                allowedFileTypes: ["image", "pdf"],
+                // allowedFileExtensions: ["txt", "md", "ini", "text"],
+                // showDrag: false,
+                dropZoneEnabled: false,
+                overwriteInitial: false,
+                autoReplace: false,
+                fileActionSettings: {
+                    showRemove: true,
+                    showUpload: false,
+                },
+                previewSettings: {
+                    image: {
+                        width: "auto",
+                        height: "auto",
+                        'max-width': "100%",
+                        'max-height': "100%"
+                    },
+                },
+                uploadUrl: "/file-upload-batch/1",
+                uploadAsync: false,
+                minFileCount: 6,
+                maxFileCount: 6,
+                overwriteInitial: false,
+                // initialPreview: [
+                //     "{{ URL::asset('') }}register/img/GwStPmg.png"
+                // ],
+                // initialPreviewAsData: true,
+                // initialPreviewFileType: 'image',
+                // initialPreviewConfig: [{
+                //     caption: "GwStPmg.png",
+                //     size: 827000,
+                //     width: "120px",
+                //     url: "/file-upload-batch/2",
+                //     key: 1
+                // }, ]
+            });
+            $(".file-caption").hide();
+
+            $('#attachedFiles').on('change', function() {
+                //get the file name
+                var fileName = $(this).val();
+                // alert($('#attachedFiles').get(0).files.length);
+                //replace the "Choose a file" label
+
+                // $(this).next('.custom-file-label').html(fileName);
+                var files = document.getElementById("attachedFiles").files;
+                // alert(files.length);
+            })
+
+            $(document).on('click', '#dropdown-menu a', function() {
+                $('#attachedFiles').click();
+            });
+
+            // Validation
+            var account_validator = $(".account-form").validate({
+                rules: {
+                    username: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    email: {
+                        required: true,
+                        email: true,
+                        emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
+                    },
+                    password: {
+                        required: true,
+                        passwordcheck: true
+                    },
+                    confirm_password: {
+                        required: true,
+                        passwordcheck: true
+                    },
+                },
+                messages: {
+
+                    username: {
+                        required: "{{ __('Username is required') }}",
+                    },
+                    email: {
+                        required: "{{ __('Email Address is required') }}",
+                        emailcheck: "{{ __('Email Address is invalid') }}",
+                        remote: "{{ __('Email Address is exxiste') }}",
+                    },
+                    password: {
+                        required: "{{ __('Password is required') }}",
+                        passwordcheck: "{{ __('Password is invalid') }}"
+                    },
+                    confirm_password: {
+                        required: "{{ __('Password Confirmation is required') }}",
+                        passwordcheck: "{{ __('Password Confirmation is invalid') }}"
+                    },
+                },
+            });
         });
+
+
+
+        // $("#stepone").click(function() {
+
+        //     current_fs = $(this).parent();
+        //     next_fs = $(this).parent().next();
+
+        //     if (v.form()) {
+
+        //         $("input", "#step2").removeClass("ignore");
+
+        //         $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+        //         $('#step1').hide();
+        //         $('#step2').show();
+        //         window.scrollTo(0, 0);
+        //     }
+
+        // });
+
+        // $("#previous1").click(function() {
+
+        //     $("input", "#step2").addClass("ignore");
+
+        //     current_fs = $(this).parent();
+        //     previous_fs = $(this).parent().prev();
+
+        //     $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
+        //     $('#step2').hide();
+        //     $('#step1').show();
+        //     window.scrollTo(0, 0);
+        // });
     </script>
 
 </body>
