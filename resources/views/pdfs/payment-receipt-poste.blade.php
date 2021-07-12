@@ -146,13 +146,13 @@
                                                         <td style="background-color: #f9f9f9;">
                                                             {{ __('Cardholder Name') }}</td>
                                                         <td style="background-color: #f9f9f9;">
-                                                            {{ $params['cardholderName'] }}</td>
+                                                            {{ $params['cardholderName'] ?? '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>{{ __('Payment Status') }}</td>
                                                         <td>{{ __($status) }}</td>
-                                                        <td>{{ $params['Pan'] }}</td>
-                                                        <td>a</td>
+                                                        <td>{{ __('PAN') }}</td>
+                                                        <td>{{ $params['cardAuthInfo']['pan'] ?? '' }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td style="background-color: #f9f9f9;">
@@ -161,7 +161,7 @@
                                                         <td style="background-color: #f9f9f9;">
                                                             {{ __('Order Status Description') }}</td>
                                                         <td style="background-color: #f9f9f9;">
-                                                            {{ __($params['ErrorMessage']) }}</td>
+                                                            {{ __($params['ErrorMessage'] ?? '') }}</td>
                                                     </tr>
                                                     <tr>
                                                         <td>{{ __('Balance') }}</td>

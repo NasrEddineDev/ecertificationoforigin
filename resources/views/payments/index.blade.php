@@ -97,7 +97,7 @@
                                                     <td>{{ $payment->Enterprise->name }}</td>
                                                 @endif
                                                 <td class="datatable-ct">
-                                            <a rel="tooltip" class="btn btn-info" href="{{ route('payments.return',$payment->id) }}" 
+                                            <a rel="tooltip" class="btn btn-info" href="{{ route('payments.show',$payment->id) }}" 
                                                 data-original-title="" title="{{ __('Edit') }}">
                                                 <i class="fa fa-expand fa-lg" aria-hidden="true"></i>
                                                 <div class="ripple-container"></div>

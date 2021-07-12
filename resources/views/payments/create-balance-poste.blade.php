@@ -64,7 +64,15 @@
                     <div class="sparkline12-list">
                         <div class="card">
                             <div class="card-body">
+                                <div id="code">
+                                    <img src="img/logo/algerie-poste-logo-round.png"
+                                        style="width:100px;height:100px;border-radius: 50%;float:right;">
+                                    <img src="img/logo/caci-logo-round.png" style="width:100px;height:100px;border-radius: 50%;float:left;">
+                                </div>
+                                <br />
+                                <br />
                                 <h2 class="card-title text-center">{{ __('Buy New Balance') }}</h2>
+                                <br />
                                 <br />
                                 <form class="form-sample" method="post" action="{{ route('payments.store-balance-poste') }}">
                                     @csrf

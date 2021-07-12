@@ -29,7 +29,7 @@ class PaymentController extends Controller
         //
         try {
             $current_balance = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->balance : '';
-            $payments = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->payments : Payment::all();
+            $payments = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->payments->sortByDesc('created_at') : Payment::all()->sortByDesc('created_at');
             return view('payments.index', compact('payments'), compact('current_balance'));
         } catch (Throwable $e) {
             report($e);
@@ -112,12 +112,46 @@ class PaymentController extends Controller
      * @param  \App\Models\Payment  $payment
      * @return \Illuminate\Http\Response
      */
+    // public function show($id)
+    // {
+    //     //
+    //     try {
+    //         $payment = Payment::find($id);
+    //         return view('payments.show', compact('payment'));
+    //     } catch (Throwable $e) {
+    //         report($e);
+    //         Log::error($e->getMessage());
+
+    //         return false;
+    //     }
+    // }
+
     public function show($id)
     {
-        //
         try {
             $payment = Payment::find($id);
-            return view('payments.show', compact('payment'));
+            if ($payment) {
+                $settings = Setting::all();
+                $unit_price = $settings->where('name', 'Unit Price')->first();
+                $username_poste = $settings->where('name', 'Username Poste')->first();
+                $password_poste = $settings->where('name', 'Password Poste')->first();
+                $order_status_url_poste = $settings->where('name', 'Order Status Extended Url Poste')->first();
+
+                $client = new Client(['base_uri' => $order_status_url_poste->value]);
+                $params['form_params'] = [
+                    "userName" => $username_poste->value,
+                    "password" => $password_poste->value,
+                    "language" => "en",
+                    'orderId' => $payment->order_id,
+                ];
+                $response = $client->post($order_status_url_poste->value, $params);
+                $params = json_decode((string)$response->getBody(), true);
+                return view('payments.payment-receipt-balance-poste', compact(['payment', 'params', 'unit_price']));
+            }
+
+            $current_balance = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->balance : '';
+            $payments = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->payments : Payment::all();
+            return view('payments.index', compact(['payments', 'current_balance']));
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());
@@ -218,7 +252,6 @@ class PaymentController extends Controller
         // return redirect()->route('payments.index')->with('success','Payment deleted successfully');
     }
 
-
     public function getPayments()
     {
         //
@@ -318,7 +351,7 @@ class PaymentController extends Controller
                 $unit_price = $settings->where('name', 'Unit Price')->first();
                 $username_poste = $settings->where('name', 'Username Poste')->first();
                 $password_poste = $settings->where('name', 'Password Poste')->first();
-                $order_status_url_poste = $settings->where('name', 'Order Status Url Poste')->first();
+                $order_status_url_poste = $settings->where('name', 'Order Status Extended Url Poste')->first();
 
                 $client = new Client(['base_uri' => $order_status_url_poste->value]);
                 $params['form_params'] = [
@@ -329,9 +362,13 @@ class PaymentController extends Controller
                 ];
                 $response = $client->post($order_status_url_poste->value, $params);
                 $params = json_decode((string)$response->getBody(), true);
-                if ($params['ErrorMessage'] == 'Success' && $payment->status != 'ACCEPTED' && $payment->status != 'REJECTED') {
+                // dd($params);
+                if ($params['orderStatus'] == 2) {
                     $payment->update(['status' => 'ACCEPTED']);
                     Auth::User()->Enterprise->update(['balance' => Auth::User()->Enterprise->balance + ($payment->amount / $unit_price->value)]);
+                }
+                else if ($params['paymentAmountInfo']['paymentState'] == 'DECLINED'){
+                    $payment->update(['status' => 'REJECTED']);
                 }
                 return view('payments.payment-receipt-balance-poste', compact(['payment', 'params', 'unit_price']));
             }

@@ -20,7 +20,7 @@ class VerifyEmailController extends Controller
 
         if ($request->user()->hasVerifiedEmail()) {
             // return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
-            return redirect()->route('registration_wizard');
+            return redirect()->route('register1');
         }
 
         if ($request->user()->markEmailAsVerified()) {
@@ -28,7 +28,7 @@ class VerifyEmailController extends Controller
         }
         // Auth::login($request->user());
         // return redirect(RouteServiceProvider::HOME);
-        return redirect()->route('registration_wizard');
+        return redirect()->route('register1');
         // return redirect()->intended(RouteServiceProvider::HOME.'?verified=1');
     }
 }

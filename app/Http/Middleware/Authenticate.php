@@ -28,7 +28,7 @@ class Authenticate extends Middleware
             return redirect('/');
         }
 
-        if ($this->auth->user()->profile->language){
+        if ($this->auth->user()->profile && $this->auth->user()->profile->language){
             App::setLocale($this->auth->user()->profile->language);
         }
         return $next($request);

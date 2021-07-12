@@ -309,9 +309,54 @@
         }
 
         input.error {
-            border: 1px solid red;
+            border: 1px solid red !important;
         }
 
+
+        .spinner-border {
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            position: fixed;
+            display: block;
+            opacity: 0.7;
+            background-color: #fff;
+            z-index: 99;
+            text-align: center;
+            -webkit-animation: none!important;
+            border: none!important;
+        }
+
+        .spinner-border .inner {
+            position: absolute;
+            top: 40%;
+            left: 45%;
+            z-index: 100;
+        }
+
+        #logout {
+
+text-decoration: none;
+padding: auto;
+margin: auto;
+font-size: 16px;
+font-weight: 400;
+cursor: pointer;
+border-radius: 27px;
+border: none;
+color: #fff;
+text-decoration: none;
+padding: 3px 4px;
+justify-content: center;
+align-items: center;
+background: #e83124;
+/* margin-left: 30%; */
+}
+
+#logout img{
+padding-top: 1px;
+}
     </style>
     {{-- @if (App::currentLocale() == 'ar')
         <style>
@@ -423,6 +468,22 @@
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <h2 id="heading">Sign Up Your User Account</h2>
                     <p>Fill all form field to go to next step</p>
+                    @if (Auth::check())
+                    <div class="form-holder" style="width: 100%;">
+                        <form method="POST" action="{{ route('logout') }}" id="loginForm">
+                            @csrf
+                            <div style="right:5px;top:20px; margin:10px;position:absolute">
+                                <button id="logout" type="submit" title="{{ __('Logout') }}"
+                                    class="btn btn-default">
+                                    {{-- <span class="view-text">{{ __('Log In') }}</span> --}}
+                                    <span class="view-icon"><img width="30px;"
+                                            src="{{ URL::asset('') }}assets/images/login-50-white.png"
+                                            alt="" /></span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                @endif
                     <div id="msform">
                         <!-- progressbar -->
                         <ul id="progressbar">
@@ -460,7 +521,7 @@
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" name="email" id="email" placeholder="Email"
-                                                        class="form-control" required />
+                                                        class="form-control" value="{{ Auth::user()->email ?? ''}}" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -469,7 +530,7 @@
                                                 <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="username" id="username"
+                                                    <input type="text" name="username" id="username" value="{{ Auth::user()->username ?? ''}}"
                                                         placeholder="Username" class="form-control" required />
                                                 </div>
                                             </div>
@@ -483,7 +544,7 @@
                                                 <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Password') }}</label>
                                                 <div class="col-sm-9">
-                                                    <input type="password" name="password" id="password"
+                                                    <input type="password" name="password" id="password" value="{{ Auth::user()->password ? 'Test1988*' : ''}}"
                                                         placeholder="password" class="form-control" required />
                                                 </div>
                                             </div>
@@ -493,8 +554,9 @@
                                                 <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Confirm Password') }}</label>
                                                 <div class="col-sm-9">
-                                                    <input type="password" name="confirm_password" id="confirm_password"
-                                                        placeholder="Confirm Password" class="form-control" required />
+                                                    <input type="password" name="password_confirmation"
+                                                        id="password_confirmation" placeholder="Confirm Password"
+                                                        class="form-control" required value="{{ Auth::user()->password ? 'Test1988*' : ''}}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -529,8 +591,13 @@
                                             <div class="row"
                                                 style="vertical-align: middle!important;margin-top:7%;margin-bottom:5%;">
                                                 <div style="margin:auto;text-align:center;">
+                                                    @if (!Auth::user()->hasVerifiedEmail())
                                                     <button id="resend" type="submit"
-                                                        class="btn btn-success btn-block">{{ __('Resend Verification Message by Email') }}</button>
+                                                        class="btn btn-success btn-block">{{ __('Resend Verification Message by Email') }}</button>     
+                                                        @else
+                                                            <img src="{{ URL::asset('') }}register/img/email-verified.png" class="fit-image" style="width: 100px;">
+                                                            {{__('Email Verified Successfully')}}
+                                                        @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -1063,12 +1130,11 @@
     </div>
 
 
-    <div id="loadingDiv" class="spinner-border text-success" role="status"
-        style="width: 100%; height: 100%;position: absolute">
-        <div class="inner" style="width: 200px; height: 200px;text-align:center"><svg xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                style="margin: auto; display: block; /*! shape-rendering: auto; */" width="200px" height="200px"
-                viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+    <div id="loadingDiv" class="spinner-border text-success" role="status" style="width: 100%; height: 100%;position: absolute">
+        <div class="inner" style="width: 200px; height: 200px;text-align:center">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                style="margin: auto; display: block; /*! shape-rendering: auto; */" width="200px" 
+                height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
                 <g transform="translate(50,50)">
                     <circle cx="0" cy="0" r="10" fill="none" stroke="#d74946" stroke-width="4"
                         stroke-dasharray="31.41592653589793 31.41592653589793">
@@ -1095,7 +1161,6 @@
                             begin="-0.36057692307692313" repeatCount="indefinite"></animateTransform>
                     </circle>
                 </g>
-                <!-- [ldio] generated by https://loading.io/ -->
             </svg>
             <span class="sr-only">{{ __('Loading...') }}</span>
         </div>
@@ -1137,6 +1202,7 @@
             /* Return whether the element is optional or the result of the validation. */
             return this.optional(element) || regexp.test(value);
         });
+
         $.validator.addMethod("passwordcheck", function(value) {
             return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
                 &&
@@ -1154,10 +1220,15 @@
 
             var current_fs, next_fs, previous_fs; //fieldsets
             var opacity;
-            var current = '{{ $step ? ($step + 1) : 1}}' ;
+            var current = '{{ $step ? ($step+1) : 1 }}';
             var steps = $("fieldset").length;
 
             setProgressBar(current);
+            for(i=0 ; i<current ; i++){
+                $("#progressbar li").eq(i).addClass("active");
+            }
+            $("fieldset").hide();
+            $("fieldset").eq(current-1).show();
 
             $(".next").click(function() {
 
@@ -1165,50 +1236,44 @@
                 next_fs = $(this).parent().next();
                 move = true;
 
-                if (current == 1){
-                  if (!account_validator.form()){
-                      move = false;
-                  }
-                  else{
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    type: 'POST',
-                    async: false,
-                    url: "/register1",
-                    data: {
-                        step: '1',
-                        username: $('#username').val(),
-                        email: $('#email').val(),
-                        password: $('#password').val(),
-                        confirm_password: $('#confirm_password').val()
-                    },
-                    success: function(data) {
-                        move = true;
-                        return true;
-                    },
-                    error: function(data) {
+                if (current == 1) {
+                    if (!account_validator.form()) {
                         move = false;
-                        errors = data.responseJSON.errors;
-                        account_validator.showErrors(errors);
-                        return true;
+                    } else {
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            type: 'POST',
+                            async: false,
+                            url: "/register1",
+                            data: {
+                                step: current-1,
+                                username: $('#username').val(),
+                                email: $('#email').val(),
+                                password: $('#password').val(),
+                                password_confirmation: $('#password_confirmation').val()
+                            },
+                            success: function(data) {
+                                move = true;
+                                return true;
+                            },
+                            error: function(data) {
+                                move = false;
+                                errors = data.responseJSON.errors;
+                                account_validator.showErrors(errors);
+                                return true;
+                            }
+                        });
                     }
-                });
-            }
-            }
+                }
                 if (move) {
-                    //Add Class Active
                     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-
-                    //show the next fieldset
                     next_fs.show();
-                    //hide the current fieldset with style
                     current_fs.animate({
                         opacity: 0
                     }, {
                         step: function(now) {
-                            // for making fielset appear animation
                             opacity = 1 - now;
 
                             current_fs.css({
@@ -1226,24 +1291,15 @@
             });
 
             $(".previous").click(function() {
-
                 current_fs = $(this).parent();
                 previous_fs = $(this).parent().prev();
-
-                //Remove class active
                 $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-
-                //show the previous fieldset
                 previous_fs.show();
-
-                //hide the current fieldset with style
                 current_fs.animate({
                     opacity: 0
                 }, {
                     step: function(now) {
-                        // for making fielset appear animation
                         opacity = 1 - now;
-
                         current_fs.css({
                             'display': 'none',
                             'position': 'relative'
@@ -1498,7 +1554,7 @@
                         required: true,
                         passwordcheck: true
                     },
-                    confirm_password: {
+                    password_confirmation: {
                         required: true,
                         passwordcheck: true
                     },
@@ -1517,7 +1573,7 @@
                         required: "{{ __('Password is required') }}",
                         passwordcheck: "{{ __('Password is invalid') }}"
                     },
-                    confirm_password: {
+                    password_confirmation: {
                         required: "{{ __('Password Confirmation is required') }}",
                         passwordcheck: "{{ __('Password Confirmation is invalid') }}"
                     },

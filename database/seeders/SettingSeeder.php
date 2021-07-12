@@ -34,6 +34,9 @@ class SettingSeeder extends Seeder
             'name' => 'Order Status Url Poste',
             'value' => 'https://webmerchant.poste.dz/payment/rest/getOrderStatus.do',
         ],[
+            'name' => 'Order Status Extended Url Poste',
+            'value' => 'https://webmerchant.poste.dz/payment/rest/getOrderStatusExtended.do',
+        ],[
             'name' => 'File Path Of The Round Stamp AR',
             'value' => 'data/documents/round_stamp_ar.png',
         ],[

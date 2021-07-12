@@ -82,19 +82,19 @@
                                       <td>{{__('Payment Type')}}</td>
                                       <td>{{__($payment->type)}}</td>
                                       <td>{{__('Cardholder Name')}}</td>
-                                      <td>{{$params['cardholderName'] ?? ''}}</td>
+                                      <td>{{$params['cardAuthInfo']['cardholderName'] ?? ''}}</td>
                                     </tr>
                                     <tr>
                                         <td>{{__('Payment Status')}}</td>
                                         <td>{{__($payment->status)}}</td>
                                       <td>{{__('Pan')}}</td>
-                                      <td>{{$params['Pan'] ?? ''}}</td>
+                                      <td>{{$params['cardAuthInfo']['Pan'] ?? ''}}</td>
                                     </tr>
                                     <tr>
                                         <td>{{__('Payment Date')}}</td>
                                         <td>{{$payment->created_at}}</td>
                                       <td>{{__('Order Status Description')}}</td>
-                                      <td>{{__($params['ErrorMessage'] ?? '')}}</td>
+                                      <td>{{__($params['actionCodeDescription'] ?? '')}}</td>
                                     </tr>
                                     <tr>
                                         <td>{{__('Balance')}}</td>

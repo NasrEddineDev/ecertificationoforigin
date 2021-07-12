@@ -62,27 +62,27 @@ class RegisterController extends Controller
         if (Auth::check() && Auth::user()->Role->name == "user")
         {
             if (!Auth::user()->hasVerifiedEmail()) {
-                return view('registration_wizard', ['step' => Steps::ACTIVATION]);
+                return view('register', ['step' => Steps::ACTIVATION]);
             }
             else if (! Auth::user()->enterprise){
                 // $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
                 // $cities = City::all()->where('country_code', '==', 'DZ');
                 $activities = Activity::all();
                 $step = Steps::ENTERPRISE;
-                return view('registration_wizard', compact('step', 'activities'));
+                return view('register', compact('step', 'activities'));
             }
             else if (! Auth::user()->enterprise->manager_id ){
                 // $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
                 // $cities = City::all()->where('country_code', '==', 'DZ');
                 // $cities = City::all()->where('state_code', '==', $state_code);
                 $step = Steps::MANAGER;
-                return view('registration_wizard', compact('step'));
+                return view('register', compact('step'));
             }
             else if (Auth::user()->enterprise->status == 'DRAFT'){
-                return view('registration_wizard', ['step' => Steps::CONFIRMATION]);
+                return view('register', ['step' => Steps::CONFIRMATION]);
             }
             return redirect(RouteServiceProvider::HOME);
-            // return view('registration_wizard', ['step' => Steps::CONFIRMATION]);
+            // return view('register1', ['step' => Steps::CONFIRMATION]);
         }
         return view('register', ['step' => (Steps::REGISTRATION)]);
         // return redirect(RouteServiceProvider::HOME);
@@ -108,7 +108,7 @@ class RegisterController extends Controller
                 if (!Auth::check()){
                 $validator = $request->validate([
                     'username' => 'required|string|max:255|unique:users',
-                    'email' => 'required|string|email|confirmed|max:255|unique:users',
+                    'email' => 'required|string|email|max:255|unique:users',
                     'password' => 'required|string|confirmed|min:8',
                 ]);
 
@@ -120,6 +120,23 @@ class RegisterController extends Controller
                     'role_id' => Role::where('name', 'user')->first()->id,
                 ]));
                 event(new Registered($user));
+                }
+                else {
+                    $validator = $request->validate([
+                        'username' => 'required|string|max:255',
+                        'email' => 'required|string|email|max:255',
+                        'password' => 'required|string|confirmed|min:8',
+                    ]);
+    
+                    if ($request->username != Auth::user()->username) 
+                    Auth::user()->update(['username' => $request->username]);
+                    if ($request->email != Auth::user()->email) {
+                        Auth::user()->update(['email' => $request->email]);
+                        Auth::user()->update(['email_verified_at' => null]);
+                        $request->user()->sendEmailVerificationNotification();
+                    }
+                    if ($request->password != 'Test1988*' && !Hash::check($request->password, Auth::user()->password)) 
+                    Auth::user()->update(['password' => Hash::make($request->password)]);
                 }
                 return response()->json([
                     'message' => 'Verify your email',
@@ -385,7 +402,7 @@ class RegisterController extends Controller
         //     abort(404);
         // }
 
-        return view('registration_wizard', ['step' => $step]);
+        return view('register1', ['step' => $step]);
         return redirect()->route('wizard.user', [$this->wizard->nextSlug()]);
     } catch (Throwable $e) {
         report($e);

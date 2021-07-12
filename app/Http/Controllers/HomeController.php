@@ -45,27 +45,27 @@ class HomeController extends Controller
             // }
 
             if (Auth::check()) {
-                if (Auth::user()->profile->language){
+                if (Auth::user()->profile && Auth::user()->profile->language){
                     App::setLocale(Auth::user()->profile->language);
                 }
                 if (Auth::user()->role->name != 'user') return redirect(RouteServiceProvider::HOME);
 
                 if (!Auth::user()->hasVerifiedEmail()) {
-                    return view('registration_wizard', ['step' => Steps::ACTIVATION]);
+                    return view('register', ['step' => Steps::ACTIVATION]);
                 } else if (!Auth::user()->enterprise) {
                     $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
                     // $cities = City::all()->where('country_code', '==', 'DZ');
                     $activities = Activity::all();
                     $step = Steps::ENTERPRISE;
-                    return view('registration_wizard', compact('step', 'states', 'cities', 'activities'));
+                    return view('register', compact('step', 'states', 'activities'));
                 } else if (!Auth::user()->enterprise->manager_id) {
                     $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
                     // $cities = City::all()->where('country_code', '==', 'DZ');
                     // $cities = City::all()->where('state_code', '==', $state_code);
                     $step = Steps::MANAGER;
-                    return view('registration_wizard', compact('step', 'states', 'cities'));
+                    return view('register', compact('step', 'states', 'cities'));
                 } else if (Auth::user()->enterprise->status == 'DRAFT') {
-                    return view('registration_wizard', ['step' => Steps::CONFIRMATION]);
+                    return view('register', ['step' => Steps::CONFIRMATION]);
                 }
                 return redirect(RouteServiceProvider::HOME);
             }
