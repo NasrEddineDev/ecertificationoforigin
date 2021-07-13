@@ -274,6 +274,7 @@
 
         .select2-search__field {
             background-color: rgba(0, 0, 0, 0) !important;
+            padding: 0!important;
             /* background: rgba(0,0,0,0.5); */
             border: 0px solid #fff !important;
             height: 30px !important;
@@ -288,7 +289,9 @@
         h6 {
             color: #ccc;
         }
-
+        .select2{
+            width: 100%!important;
+        }
         /*
                     .select2-container--default .select2-search--inline .select2-search__field{
                 width:initial!important;
@@ -308,6 +311,10 @@
             color: #FF0000;
         }
 
+        .email-verification-message.error {
+            color: #FF0000;
+        }
+
         input.error {
             border: 1px solid red !important;
         }
@@ -324,8 +331,8 @@
             background-color: #fff;
             z-index: 99;
             text-align: center;
-            -webkit-animation: none!important;
-            border: none!important;
+            -webkit-animation: none !important;
+            border: none !important;
         }
 
         .spinner-border .inner {
@@ -337,26 +344,31 @@
 
         #logout {
 
-text-decoration: none;
-padding: auto;
-margin: auto;
-font-size: 16px;
-font-weight: 400;
-cursor: pointer;
-border-radius: 27px;
-border: none;
-color: #fff;
-text-decoration: none;
-padding: 3px 4px;
-justify-content: center;
-align-items: center;
-background: #e83124;
-/* margin-left: 30%; */
-}
+            text-decoration: none;
+            padding: auto;
+            margin: auto;
+            font-size: 16px;
+            font-weight: 400;
+            cursor: pointer;
+            border-radius: 27px;
+            border: none;
+            color: #fff;
+            text-decoration: none;
+            padding: 3px 4px;
+            justify-content: center;
+            align-items: center;
+            background: #e83124;
+            /* margin-left: 30%; */
+        }
 
-#logout img{
-padding-top: 1px;
-}
+        #logout img {
+            padding-top: 1px;
+        }
+
+        .hide {
+            display: none;
+        }
+
     </style>
     {{-- @if (App::currentLocale() == 'ar')
         <style>
@@ -469,21 +481,21 @@ padding-top: 1px;
                     <h2 id="heading">Sign Up Your User Account</h2>
                     <p>Fill all form field to go to next step</p>
                     @if (Auth::check())
-                    <div class="form-holder" style="width: 100%;">
-                        <form method="POST" action="{{ route('logout') }}" id="loginForm">
-                            @csrf
-                            <div style="right:5px;top:20px; margin:10px;position:absolute">
-                                <button id="logout" type="submit" title="{{ __('Logout') }}"
-                                    class="btn btn-default">
-                                    {{-- <span class="view-text">{{ __('Log In') }}</span> --}}
-                                    <span class="view-icon"><img width="30px;"
-                                            src="{{ URL::asset('') }}assets/images/login-50-white.png"
-                                            alt="" /></span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                @endif
+                        <div class="form-holder" style="width: 100%;">
+                            <form method="POST" action="{{ route('logout') }}" id="loginForm">
+                                @csrf
+                                <div style="right:5px;top:20px; margin:10px;position:absolute">
+                                    <button id="logout" type="submit" title="{{ __('Logout') }}"
+                                        class="btn btn-default">
+                                        {{-- <span class="view-text">{{ __('Log In') }}</span> --}}
+                                        <span class="view-icon"><img width="30px;"
+                                                src="{{ URL::asset('') }}assets/images/login-50-white.png"
+                                                alt="" /></span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    @endif
                     <div id="msform">
                         <!-- progressbar -->
                         <ul id="progressbar">
@@ -521,7 +533,8 @@ padding-top: 1px;
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" name="email" id="email" placeholder="Email"
-                                                        class="form-control" value="{{ Auth::user()->email ?? ''}}" required />
+                                                        class="form-control" value="{{ Auth::user()->email ?? '' }}"
+                                                        required />
                                                 </div>
                                             </div>
                                         </div>
@@ -530,7 +543,8 @@ padding-top: 1px;
                                                 <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="username" id="username" value="{{ Auth::user()->username ?? ''}}"
+                                                    <input type="text" name="username" id="username"
+                                                        value="{{ Auth::user()->username ?? '' }}"
                                                         placeholder="Username" class="form-control" required />
                                                 </div>
                                             </div>
@@ -544,7 +558,8 @@ padding-top: 1px;
                                                 <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Password') }}</label>
                                                 <div class="col-sm-9">
-                                                    <input type="password" name="password" id="password" value="{{ Auth::user()->password ? 'Test1988*' : ''}}"
+                                                    <input type="password" name="password" id="password"
+                                                        value="{{ Auth::check() && Auth::user()->password ? 'Test1988*' : '' }}"
                                                         placeholder="password" class="form-control" required />
                                                 </div>
                                             </div>
@@ -556,7 +571,8 @@ padding-top: 1px;
                                                 <div class="col-sm-9">
                                                     <input type="password" name="password_confirmation"
                                                         id="password_confirmation" placeholder="Confirm Password"
-                                                        class="form-control" required value="{{ Auth::user()->password ? 'Test1988*' : ''}}" />
+                                                        class="form-control" required
+                                                        value="{{ Auth::check() && Auth::user()->password ? 'Test1988*' : '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -583,7 +599,8 @@ padding-top: 1px;
                                             class="col-md-7 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="row">
                                                 <p>{{ __('Thank you for creating new account') }}</p>
-                                                <p>{{ __("Before getting started, you must verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another") }}
+                                                <p class='email-verification-message'>
+                                                    {{ __("Before getting started, you must verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another") }}
 
                                             </div>
                                         </div>
@@ -591,13 +608,17 @@ padding-top: 1px;
                                             <div class="row"
                                                 style="vertical-align: middle!important;margin-top:7%;margin-bottom:5%;">
                                                 <div style="margin:auto;text-align:center;">
-                                                    @if (!Auth::user()->hasVerifiedEmail())
                                                     <button id="resend" type="submit"
-                                                        class="btn btn-success btn-block">{{ __('Resend Verification Message by Email') }}</button>     
-                                                        @else
-                                                            <img src="{{ URL::asset('') }}register/img/email-verified.png" class="fit-image" style="width: 100px;">
-                                                            {{__('Email Verified Successfully')}}
-                                                        @endif
+                                                        class="btn btn-success btn-block 
+                                                        {{ !Auth::check() || !Auth::user()->hasVerifiedEmail() ? '' : 'hide' }}">
+                                                        {{ __('Resend Verification Message by Email') }}
+                                                    </button>
+                                                    <div
+                                                        class="email-verified {{ Auth::check() && Auth::user()->hasVerifiedEmail() ? '' : 'hide' }}">
+                                                        <img src="{{ URL::asset('') }}register/img/email-verified.png"
+                                                            style="width: 100px;" class="fit-image">
+                                                        {{ __('Email Verified Successfully') }}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -798,7 +819,7 @@ padding-top: 1px;
                                                 {{-- <label
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
-                                                    <input type="text" name="tel_enterprise" id="tel_enterprise"
+                                                    <input type="text" name="tel" id="tel"
                                                         placeholder="{{ __('Tel') }}" class="form-control" />
                                                 </div>
                                             </div>
@@ -942,7 +963,7 @@ padding-top: 1px;
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="email" id="email"
+                                                    <input type="text" name="email_manager" id="email_manager"
                                                         placeholder="{{ __('Email') }}" class="form-control" />
                                                 </div>
                                             </div>
@@ -953,11 +974,11 @@ padding-top: 1px;
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile/Tel') }}</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="mobile" id="mobile"
+                                                    <input type="text" name="mobile_manager" id="mobile_manager"
                                                         placeholder="{{ __('Mobile') }}" class="form-control" />
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="tel_enterprise" id="tel_enterprise"
+                                                    <input type="text" name="tel_manager" id="tel_manager"
                                                         placeholder="{{ __('Tel') }}" class="form-control" />
                                                 </div>
                                             </div>
@@ -971,11 +992,11 @@ padding-top: 1px;
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="address_ar" id="address_ar"
+                                                    <input type="text" name="address_ar_manager" id="address_ar_manager"
                                                         placeholder="Address In Arabic" class="form-control" />
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="address" id="address"
+                                                    <input type="text" name="address_manager" id="address_manager"
                                                         placeholder="Address In English/French" class="form-control" />
                                                 </div>
                                             </div>
@@ -1130,11 +1151,12 @@ padding-top: 1px;
     </div>
 
 
-    <div id="loadingDiv" class="spinner-border text-success" role="status" style="width: 100%; height: 100%;position: absolute">
+    <div id="loadingDiv" class="spinner-border text-success" role="status"
+        style="width: 100%; height: 100%;position: absolute">
         <div class="inner" style="width: 200px; height: 200px;text-align:center">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                style="margin: auto; display: block; /*! shape-rendering: auto; */" width="200px" 
-                height="200px" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
+                style="margin: auto; display: block; /*! shape-rendering: auto; */" width="200px" height="200px"
+                viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
                 <g transform="translate(50,50)">
                     <circle cx="0" cy="0" r="10" fill="none" stroke="#d74946" stroke-width="4"
                         stroke-dasharray="31.41592653589793 31.41592653589793">
@@ -1220,23 +1242,23 @@ padding-top: 1px;
 
             var current_fs, next_fs, previous_fs; //fieldsets
             var opacity;
-            var current = '{{ $step ? ($step+1) : 1 }}';
+            var current = '{{ $step ? $step + 1 : 1 }}';
             var steps = $("fieldset").length;
 
             setProgressBar(current);
-            for(i=0 ; i<current ; i++){
+            for (i = 0; i < current; i++) {
                 $("#progressbar li").eq(i).addClass("active");
             }
             $("fieldset").hide();
-            $("fieldset").eq(current-1).show();
+            $("fieldset").eq(current - 1).show();
 
             $(".next").click(function() {
 
                 current_fs = $(this).parent();
                 next_fs = $(this).parent().next();
                 move = true;
-
                 if (current == 1) {
+                    console.log('Step 01');
                     if (!account_validator.form()) {
                         move = false;
                     } else {
@@ -1248,14 +1270,20 @@ padding-top: 1px;
                             async: false,
                             url: "/register1",
                             data: {
-                                step: current-1,
+                                step: current - 1,
                                 username: $('#username').val(),
                                 email: $('#email').val(),
                                 password: $('#password').val(),
                                 password_confirmation: $('#password_confirmation').val()
                             },
                             success: function(data) {
-                                move = true;
+                                if (data.hasVerifiedEmail) {
+                                    $('.email-verified').removeClass('hide');
+                                    $('#resend').addClass('hide');
+                                } else {
+                                    $('.email-verified').addClass('hide');
+                                    $('#resend').removeClass('hide');
+                                }
                                 return true;
                             },
                             error: function(data) {
@@ -1266,7 +1294,89 @@ padding-top: 1px;
                             }
                         });
                     }
+                } else if (current == 2) {
+                    console.log('Step 02');
+
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'POST',
+                        async: false,
+                        url: "/register1",
+                        data: {
+                            step: current - 1,
+                        },
+                        success: function(data) {
+                            if (data.hasVerifiedEmail) {
+                                $('.email-verification-message').removeClass('error');
+                                    $('.email-verified').removeClass('hide');
+                                    $('#resend').addClass('hide');
+                            } else {
+                                move = false;
+                                $('.email-verification-message').addClass('error');
+                                    $('.email-verified').addClass('hide');
+                                    $('#resend').removeClass('hide');
+                            }
+                            return true;
+                        },
+                        error: function(data) {
+                            move = false;
+                            errors = data.responseJSON.errors;
+                            account_validator.showErrors(errors);
+                            return true;
+                        }
+                    });
+                } else if (current == 3) {
+                    console.log('Step 03');
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            type: 'POST',
+                            async: false,
+                            url: "/register1",
+                            data: {
+                                step: current - 1,
+                                name_ar: $('#name_ar').val(),
+                                name: $('#name').val(),
+                                name_fr: $('#name_fr').val(),
+                                rc_number: $('#rc_number').val(),
+                                nis_number: $('#nis_number').val(),
+                                nif_number: $('#nif_number').val(),
+                                activities: $('#activities').val(),
+                                legal_form: $('#legal_form').find(":selected").val(),
+                                exporter_type: $('#exporter_type').find(":selected").val(),
+                                export_activity_code: $('#export_activity_code').val(),
+                                mobile: $('#mobile').val(),
+                                email: $('#email').val(),
+                                tel: $('#tel').val(),
+                                address_ar: $('#address_ar').val(),
+                                address: $('#address').val(),
+                                address_fr: $('#address_fr').val(),
+                                state_code: $('#state_code').find(":selected").val(),
+                                city_id: $('#city_id').find(":selected").val(),
+                                website: $('#website').val()
+                            },
+                            success: function(data) {
+                                if (data.hasVerifiedEmail) {
+                                    $('.email-verified').removeClass('hide');
+                                    $('#resend').addClass('hide');
+                                } else {
+                                    $('.email-verified').addClass('hide');
+                                    $('#resend').removeClass('hide');
+                                }
+                                return true;
+                            },
+                            error: function(data) {
+                                move = false;
+                                errors = data.responseJSON.errors;
+                                account_validator.showErrors(errors);
+                                return true;
+                            }
+                        });
                 }
+
                 if (move) {
                     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
                     next_fs.show();

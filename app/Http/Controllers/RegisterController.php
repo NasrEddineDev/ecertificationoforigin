@@ -128,8 +128,9 @@ class RegisterController extends Controller
                         'password' => 'required|string|confirmed|min:8',
                     ]);
     
-                    if ($request->username != Auth::user()->username) 
-                    Auth::user()->update(['username' => $request->username]);
+                    if ($request->username != Auth::user()->username) {
+                        Auth::user()->update(['username' => $request->username]);
+                    }
                     if ($request->email != Auth::user()->email) {
                         Auth::user()->update(['email' => $request->email]);
                         Auth::user()->update(['email_verified_at' => null]);
@@ -139,14 +140,14 @@ class RegisterController extends Controller
                     Auth::user()->update(['password' => Hash::make($request->password)]);
                 }
                 return response()->json([
-                    'message' => 'Verify your email',
-                    'step' => Steps::ACTIVATION
+                    'hasVerifiedEmail' => Auth::user()->hasVerifiedEmail(),
+                    'step' => Steps::ACTIVATION,
                 ], 200);
             } else if ($step == Steps::ACTIVATION) {
                 //validate
                 if ($request->user()->hasVerifiedEmail()) {
                     return response()->json([
-                        'message' => 'Email is verified',
+                        'hasVerifiedEmail' => Auth::user()->hasVerifiedEmail(),
                         'step' => Steps::ENTERPRISE
                     ], 200);
                 }
