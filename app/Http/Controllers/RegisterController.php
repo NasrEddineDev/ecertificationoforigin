@@ -109,7 +109,7 @@ class RegisterController extends Controller
                 $validator = $request->validate([
                     'username' => 'required|string|max:255|unique:users',
                     'email' => 'required|string|email|max:255|unique:users',
-                    'password' => 'required|string|confirmed|min:8',
+                    'password' => 'required|string|password|confirmed|min:8',
                 ]);
 
                 // process: add user and login
@@ -125,7 +125,7 @@ class RegisterController extends Controller
                     $validator = $request->validate([
                         'username' => 'required|string|max:255',
                         'email' => 'required|string|email|max:255',
-                        'password' => 'required|string|confirmed|min:8',
+                        'password' => 'required|string|password|confirmed|min:8',
                     ]);
     
                     if ($request->username != Auth::user()->username) {
@@ -159,34 +159,51 @@ class RegisterController extends Controller
                  
             } else if ($step == Steps::ENTERPRISE) {
                 //validate
-                // $request->validate([
-                //     'username' => 'required|string|max:255|',//unique:users',
-                //     'email' => 'required|string|email|confirmed|max:255|',//unique:users',
-                //     'password' => 'required|string|confirmed|min:8',
-                // ]);
+                $request->validate([
+                    'name_ar' => 'required|string|max:255|',
+                    'name' => 'required|string|max:255|',
+                    'name_fr' => 'required|string|max:255|',
+                    'rc_number' => 'required|string|max:255|',
+                    'nis_number' => 'required|string|max:255|',
+                    'nif_number' => 'required|string|max:255|',
+                    // 'activities' => 'required|array',
+                    'exporter_type' => 'required|string|max:255|',
+                    'legal_form' => 'required|string|max:255|',
+                    'mobile' => 'required|numeric|max:255|',
+                    'email_enterprise' => 'required|string|email|max:255|',
+                    'tel' => 'nullable|numeric|max:255|',
+                    'address_ar' => 'required|string|max:255|',
+                    'address' => 'required|string|max:255|',
+                    'address_fr' => 'required|string|max:255|',
+                    'state_code' => 'required|string|max:255|',
+                    'city_id' => 'required|string|max:255|',
+                    'website' => 'nullable|url|max:255|',
+                ]);
                 // process: add enterprise
 
                 $enterprise = new Enterprise([
+                    'name_ar' => $request->name_ar,
                     'name' => $request->name,
-                    // 'activity_type' => $request->activity_type,
-                    // 'activity_type_name' => $request->activity_type_name ? $request->activity_type_name : '',
+                    'name_fr' => $request->name_fr,
+                    'rc_number' => $request->rc_number,
+                    'nis_number' => $request->nis_number,
+                    'nif_number' => $request->nif_number,
                     'legal_form' => $request->legal_form,
                     'exporter_type' => $request->exporter_type,
-                    // 'export_activity_code' => $request->export_activity_code ? $request->export_activity_code : '',
-                    'address' => $request->address_enterprise,
-                    'email' => $request->email_enterprise,
+                    'export_activity_code' => $request->export_activity_code ? $request->export_activity_code : '',
                     'mobile' => $request->mobile_enterprise,
-                    'tel' => $request->tel_enterprise ? $request->tel_enterprise : '',
+                    'email' => $request->email,
+                    'tel' => $request->tel ? $request->tel : '',
+                    'address_ar' => $request->address_ar,
+                    'address' => $request->address,
+                    'address_fr' => $request->address_fr,
+                    'city_id' => $request->city_id,
                     'website' => $request->website ? $request->website : '',
-                    'fax' => $request->fax_enterprise ? $request->fax_enterprise : '',
                     'balance' => 100,
                     'status' => 'DRAFT',
                     'rc' => '',
-                    'rc_number' => $request->rc_number,
                     'nif' => '',
-                    'nif_number' => $request->nif_number,
                     'nis' => '',
-                    'nis_number' => $request->nis_number,
                     'manager_id' => null,
                     'user_id' => Auth::Id(),
                     'city_id' => $request->city_id,
@@ -200,45 +217,45 @@ class RegisterController extends Controller
                     ]);
                 }
 
-                $destinationPath = 'enterprises/' . $enterprise->id .'/' . 'documents/';
-                if (!file_exists('data/'.$destinationPath)) {
-                    File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
-                }
+                // $destinationPath = 'enterprises/' . $enterprise->id .'/' . 'documents/';
+                // if (!file_exists('data/'.$destinationPath)) {
+                //     File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
+                // }
 
-                $file = $request->file('rc');
-                if ($file) {
-                    $fileName = $enterprise->id.'_rc.'.$file->clientExtension();
-                    Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-                    $enterprise->rc = $fileName;
-                }
+                // $file = $request->file('rc');
+                // if ($file) {
+                //     $fileName = $enterprise->id.'_rc.'.$file->clientExtension();
+                //     Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
+                //     $enterprise->rc = $fileName;
+                // }
 
-                $file = $request->file('nis');
-                if ($file) {
-                    $fileName = $enterprise->id.'_nis.'.$file->clientExtension();
-                    Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-                    $enterprise->nis = $fileName;
-                }
-                $file = $request->file('nif');
-                if ($file) {
-                    $fileName = $enterprise->id.'_nif.'.$file->clientExtension();
-                    Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-                    $enterprise->nif = $fileName;
-                }
+                // $file = $request->file('nis');
+                // if ($file) {
+                //     $fileName = $enterprise->id.'_nis.'.$file->clientExtension();
+                //     Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
+                //     $enterprise->nis = $fileName;
+                // }
+                // $file = $request->file('nif');
+                // if ($file) {
+                //     $fileName = $enterprise->id.'_nif.'.$file->clientExtension();
+                //     Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
+                //     $enterprise->nif = $fileName;
+                // }
                 $enterprise->update();
                 return response()->json([
                     'message' => '',
                     'step' => Steps::MANAGER
                 ], 200);
                  
-                $activities = (array)json_decode($request->activities);
-                foreach($activities as $activity){
-                    $activity = new Activity([
-                        'code' => $request->activity_code,
-                        'name' => $request->activity_name,
-                        'enterprise_id' => $enterprise->id
-                    ]);
-                    $activity->save();
-                }
+                // $activities = (array)json_decode($request->activities);
+                // foreach($activities as $activity){
+                //     $activity = new Activity([
+                //         'code' => $request->activity_code,
+                //         'name' => $request->activity_name,
+                //         'enterprise_id' => $enterprise->id
+                //     ]);
+                //     $activity->save();
+                // }
 
 
             } else if ($step == Steps::MANAGER) {

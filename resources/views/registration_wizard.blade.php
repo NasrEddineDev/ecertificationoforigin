@@ -532,8 +532,8 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <select id="activities" class="activities select2 form-control" name="activities[]"
-                                        multiple="multiple">
+                                    <select id="activities" class="activities select2 form-control" name="activities"
+                                        multiple="multiple" required>
                                     </select>
                                 </div>
                             </div>

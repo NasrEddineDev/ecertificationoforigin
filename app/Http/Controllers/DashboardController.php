@@ -31,6 +31,7 @@ class DashboardController extends Controller
     {
         try {
             // $locale = App::currentLocale();
+            // $locale = Auth::user()->profile ? Auth::user()->profile->language : 'ar';
             $locale = Auth::user()->profile->language;
 
             // User or Enterprise KPI

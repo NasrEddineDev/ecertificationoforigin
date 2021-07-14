@@ -274,7 +274,7 @@
 
         .select2-search__field {
             background-color: rgba(0, 0, 0, 0) !important;
-            padding: 0!important;
+            padding: 0 !important;
             /* background: rgba(0,0,0,0.5); */
             border: 0px solid #fff !important;
             height: 30px !important;
@@ -289,9 +289,11 @@
         h6 {
             color: #ccc;
         }
-        .select2{
-            width: 100%!important;
+
+        .select2 {
+            width: 100% !important;
         }
+
         /*
                     .select2-container--default .select2-search--inline .select2-search__field{
                 width:initial!important;
@@ -317,6 +319,7 @@
 
         input.error {
             border: 1px solid red !important;
+            margin-bottom: 0!important;
         }
 
 
@@ -723,9 +726,10 @@
                                                 <label
                                                     class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Select Activities Codes') }}</label>
                                                 <div class="col-sm-7 activities-size">
-                                                    <select id="activities" class="col-sm-7 activities select2"
+                                                    <select id="activities" class="col-sm-7 activities select2 form-control"
                                                         name="activities[]" multiple="multiple">
                                                     </select>
+                                    <label id="legal_form-error" class="error hide" for="legal_form">{{__('This field is required.')}}</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -809,7 +813,7 @@
                                                 {{-- <label
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
-                                                    <input type="text" name="email" id="email"
+                                                    <input type="text" name="email_enterprise" id="email_enterprise"
                                                         placeholder="{{ __('Email') }}" class="form-control" />
                                                 </div>
                                             </div>
@@ -1213,28 +1217,42 @@
             $loading.hide();
         });
 
-        $.validator.addMethod("emailcheck", function(value, element, regexp) {
-            /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
-            if (regexp && regexp.constructor != RegExp) {
-                /* Create a new regular expression using the regex argument. */
-                regexp = new RegExp(regexp);
-            }
-            /* Check whether the argument is global and, if so set its last index to 0. */
-            else if (regexp.global) regexp.lastIndex = 0;
-            /* Return whether the element is optional or the result of the validation. */
-            return this.optional(element) || regexp.test(value);
-        });
+        // $.validator.addMethod("emailcheck", function(value, element, regexp) {
+        //     /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
+        //     if (regexp && regexp.constructor != RegExp) {
+        //         /* Create a new regular expression using the regex argument. */
+        //         regexp = new RegExp(regexp);
+        //     }
+        //     /* Check whether the argument is global and, if so set its last index to 0. */
+        //     else if (regexp.global) regexp.lastIndex = 0;
+        //     /* Return whether the element is optional or the result of the validation. */
+        //     return this.optional(element) || regexp.test(value);
+        // });
 
-        $.validator.addMethod("passwordcheck", function(value) {
-            return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-                &&
-                /[a-z]/.test(value) // has a lowercase letter
-                &&
-                /\d/.test(value) // has a digit
-        });
+        // $.validator.addMethod("passwordcheck", function(value) {
+        //     return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
+        //         &&
+        //         /[a-z]/.test(value) // has a lowercase letter
+        //         &&
+        //         /\d/.test(value) // has a digit
+        // });
 
+
+            // Validation
+            var account_validator = $(".account-form").validate({});
+
+            var enterprise_validator = $(".enterprise-form").validate({
+                ignore: [],       
+                rules: {
+                },
+                messages: {
+                }
+            });
+
+            var manager_validator = $(".manager-form").validate({});
 
         $(document).ready(function() {
+
             var lang = "{{ App()->currentLocale() }}";
             var dir = '';
             if (lang == 'ar') dir = 'rtl';
@@ -1259,41 +1277,41 @@
                 move = true;
                 if (current == 1) {
                     console.log('Step 01');
-                    if (!account_validator.form()) {
-                        move = false;
-                    } else {
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            type: 'POST',
-                            async: false,
-                            url: "/register1",
-                            data: {
-                                step: current - 1,
-                                username: $('#username').val(),
-                                email: $('#email').val(),
-                                password: $('#password').val(),
-                                password_confirmation: $('#password_confirmation').val()
-                            },
-                            success: function(data) {
-                                if (data.hasVerifiedEmail) {
-                                    $('.email-verified').removeClass('hide');
-                                    $('#resend').addClass('hide');
-                                } else {
-                                    $('.email-verified').addClass('hide');
-                                    $('#resend').removeClass('hide');
-                                }
-                                return true;
-                            },
-                            error: function(data) {
-                                move = false;
-                                errors = data.responseJSON.errors;
-                                account_validator.showErrors(errors);
-                                return true;
+                    // if (!account_validator.form()) {
+                    //     move = false;
+                    // } else {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'POST',
+                        async: false,
+                        url: "/register1",
+                        data: {
+                            step: current - 1,
+                            username: $('#username').val(),
+                            email: $('#email').val(),
+                            password: $('#password').val(),
+                            password_confirmation: $('#password_confirmation').val()
+                        },
+                        success: function(data) {
+                            if (data.hasVerifiedEmail) {
+                                $('.email-verified').removeClass('hide');
+                                $('#resend').addClass('hide');
+                            } else {
+                                $('.email-verified').addClass('hide');
+                                $('#resend').removeClass('hide');
                             }
-                        });
-                    }
+                            return true;
+                        },
+                        error: function(data) {
+                            move = false;
+                            errors = data.responseJSON.errors;
+                            account_validator.showErrors(errors);
+                            return true;
+                        }
+                    });
+                    // }
                 } else if (current == 2) {
                     console.log('Step 02');
 
@@ -1310,13 +1328,13 @@
                         success: function(data) {
                             if (data.hasVerifiedEmail) {
                                 $('.email-verification-message').removeClass('error');
-                                    $('.email-verified').removeClass('hide');
-                                    $('#resend').addClass('hide');
+                                $('.email-verified').removeClass('hide');
+                                $('#resend').addClass('hide');
                             } else {
                                 move = false;
                                 $('.email-verification-message').addClass('error');
-                                    $('.email-verified').addClass('hide');
-                                    $('#resend').removeClass('hide');
+                                $('.email-verified').addClass('hide');
+                                $('#resend').removeClass('hide');
                             }
                             return true;
                         },
@@ -1329,52 +1347,66 @@
                     });
                 } else if (current == 3) {
                     console.log('Step 03');
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            type: 'POST',
-                            async: false,
-                            url: "/register1",
-                            data: {
-                                step: current - 1,
-                                name_ar: $('#name_ar').val(),
-                                name: $('#name').val(),
-                                name_fr: $('#name_fr').val(),
-                                rc_number: $('#rc_number').val(),
-                                nis_number: $('#nis_number').val(),
-                                nif_number: $('#nif_number').val(),
-                                activities: $('#activities').val(),
-                                legal_form: $('#legal_form').find(":selected").val(),
-                                exporter_type: $('#exporter_type').find(":selected").val(),
-                                export_activity_code: $('#export_activity_code').val(),
-                                mobile: $('#mobile').val(),
-                                email: $('#email').val(),
-                                tel: $('#tel').val(),
-                                address_ar: $('#address_ar').val(),
-                                address: $('#address').val(),
-                                address_fr: $('#address_fr').val(),
-                                state_code: $('#state_code').find(":selected").val(),
-                                city_id: $('#city_id').find(":selected").val(),
-                                website: $('#website').val()
-                            },
-                            success: function(data) {
-                                if (data.hasVerifiedEmail) {
-                                    $('.email-verified').removeClass('hide');
-                                    $('#resend').addClass('hide');
-                                } else {
-                                    $('.email-verified').addClass('hide');
-                                    $('#resend').removeClass('hide');
-                                }
-                                return true;
-                            },
-                            error: function(data) {
-                                move = false;
-                                errors = data.responseJSON.errors;
-                                account_validator.showErrors(errors);
-                                return true;
+                    
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'POST',
+                        async: false,
+                        url: "/register1",
+                        data: {
+                            step: current - 1,
+                            name_ar: $('#name_ar').val(),
+                            name: $('#name').val(),
+                            name_fr: $('#name_fr').val(),
+                            rc_number: $('#rc_number').val(),
+                            nis_number: $('#nis_number').val(),
+                            nif_number: $('#nif_number').val(),
+                            activities: $('#activities').val(),
+                            legal_form: $('#legal_form').find(":selected").val(),
+                            exporter_type: $('#exporter_type').find(":selected").val(),
+                            export_activity_code: $('#export_activity_code').val(),
+                            mobile: $('#mobile').val(),
+                            email_enterprise: $('#email_enterprise').val(),
+                            tel: $('#tel').val(),
+                            address_ar: $('#address_ar').val(),
+                            address: $('#address').val(),
+                            address_fr: $('#address_fr').val(),
+                            state_code: $('#state_code').find(":selected").val(),
+                            city_id: $('#city_id').find(":selected").val(),
+                            website: $('#website').val()
+                        },
+                        success: function(data) {
+                            if (data.hasVerifiedEmail) {
+                                $('.email-verified').removeClass('hide');
+                                $('#resend').addClass('hide');
+                            } else {
+                                $('.email-verified').addClass('hide');
+                                $('#resend').removeClass('hide');
                             }
-                        });
+                            return true;
+                        },
+                        error: function(data) {
+                            move = false;
+                            errors = data.responseJSON.errors;
+                            // if ($('#state_code').find(":selected").val()){
+                                // alert($("#state_code").val() );
+                            if (!$("#state_code").val()){
+                                errors.state_code = ["{{__('This field is required.')}}"];
+                            }
+                            if (!$("#legal_form").val()){
+                                errors.legal_form = ["{{__('This field is required.')}}"];
+                            }
+                            if ($("#activities").val() == ""){
+                                // errors.activities = ["{{__('This field is required.')}}"];
+                                $('.select2-selection--multiple').css('border', '1px solid red !important');
+                                $('#legal_form-error').removeClass('hide');
+                            }
+                            enterprise_validator.showErrors(errors);
+                            return true;
+                        }
+                    });
                 }
 
                 if (move) {
@@ -1646,48 +1678,6 @@
 
             $(document).on('click', '#dropdown-menu a', function() {
                 $('#attachedFiles').click();
-            });
-
-            // Validation
-            var account_validator = $(".account-form").validate({
-                rules: {
-                    username: {
-                        required: true,
-                        maxlength: 50
-                    },
-                    email: {
-                        required: true,
-                        email: true,
-                        emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
-                    },
-                    password: {
-                        required: true,
-                        passwordcheck: true
-                    },
-                    password_confirmation: {
-                        required: true,
-                        passwordcheck: true
-                    },
-                },
-                messages: {
-
-                    username: {
-                        required: "{{ __('Username is required') }}",
-                    },
-                    email: {
-                        required: "{{ __('Email Address is required') }}",
-                        emailcheck: "{{ __('Email Address is invalid') }}",
-                        remote: "{{ __('Email Address is exxiste') }}",
-                    },
-                    password: {
-                        required: "{{ __('Password is required') }}",
-                        passwordcheck: "{{ __('Password is invalid') }}"
-                    },
-                    password_confirmation: {
-                        required: "{{ __('Password Confirmation is required') }}",
-                        passwordcheck: "{{ __('Password Confirmation is invalid') }}"
-                    },
-                },
             });
         });
 
