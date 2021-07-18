@@ -992,7 +992,8 @@
     <script src="{{ URL::asset('wizard/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}">
+    </script>
     <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ URL::asset('select2/js/select2.min.js') }}"></script>
 
@@ -1044,32 +1045,32 @@
             });
 
             $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: "/getalgerianstates",
-                    type: "GET",
-                    success: function(data) {
-                        $('#state_code').empty();
-                        $('#state_code').append(
-                            '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
-                        );
-                        $.each(data.states, function(index, city) {
-                            $('#state_code').append('<option value="' + city.value +
-                                '">' + city.text + '</option>');
-                        })
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/getalgerianstates",
+                type: "GET",
+                success: function(data) {
+                    $('#state_code').empty();
+                    $('#state_code').append(
+                        '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
+                    );
+                    $.each(data.states, function(index, city) {
+                        $('#state_code').append('<option value="' + city.value +
+                            '">' + city.text + '</option>');
+                    })
 
 
-                        $('#state_code_manager').empty();
-                        $('#state_code_manager').append(
-                            '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
-                        );
-                        $.each(data.states, function(index, city) {
-                            $('#state_code_manager').append('<option value="' + city.value +
-                                '">' + city.text + '</option>');
-                        })
-                    }
-                });
+                    $('#state_code_manager').empty();
+                    $('#state_code_manager').append(
+                        '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
+                    );
+                    $.each(data.states, function(index, city) {
+                        $('#state_code_manager').append('<option value="' + city.value +
+                            '">' + city.text + '</option>');
+                    })
+                }
+            });
 
             $(document).on('change', '#state_code', function() {
                 var selectedState = $('#state_code').find(":selected").val().split(" ")[0];
@@ -1151,19 +1152,7 @@
                     email: {
                         required: true,
                         email: true,
-                        emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
-                        // remote: { url : "{{ route('registration_wizard.is-exist', ['user', 'email', '']) }}" + $("#email").val()},
-                        // {
-                        //     url: "{{ route('registration_wizard.is-exist', ['user', 'email', '']) }}" + $("#email").val(),
-                        //     type: "get",
-                        //     // data: {
-                        //     //     model: 'user',
-                        //     //     property: 'email',
-                        //     //     value: function() {
-                        //     //         return $("#email").val();
-                        //     //     }
-                        //     // }
-                        // }
+                        emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
                     },
                     email_confirmation: {
                         required: true,
@@ -1737,7 +1726,7 @@
                 titleFormat: "MM yyyy",
                 weekStart: 0
             };
-            
+
             $('#birthday_manager').datepicker({
                 rtl: true,
                 format: 'dd-mm-yyyy',
@@ -1758,51 +1747,22 @@
             $('#exporter_type-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->exporter_type : '' }}'
             );
-            $('#rc_number-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->rc_number : '' }}'
-            );
-            $('#activities_codes-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->activities()->pluck('code')->join(',') : '' }}'
-            );
-            $('#nif_number-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->nif_number : '' }}'
-            );
-            $('#nis_number-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->nis_number : '' }}'
-            );
-            $('#address_enterprise-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->enterprise : '' }}'
-            );
-            $('#email_enterprise-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->email : '' }}');
-            $('#mobile_enterprise-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->mobile : '' }}'
-            );
-            $('#address_enterprise-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->address : '' }}'
-            );
-            $('#website-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->website : '' }}'
-            );
-            $('#tel_enterprise-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->tel : '' }}');
-            $('#fax_enterprise-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->fax : '' }}');
-            $('#city_enterprise-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise ? (App()->currentLocale() == 'ar' ? Auth::user()->Enterprise->city->daira_name : Auth::user()->Enterprise->city->daira_name_ascii) : '' }}'
-                );
-            $('#state_enterprise-val').text(
-                '{{ Auth::user() && Auth::user()->enterprise ? (App()->currentLocale() == 'ar' ? Auth::user()->Enterprise->city->wilaya_name : Auth::user()->Enterprise->city->wilaya_name_ascii) : '' }}'
-                );
-            $('#firstname_manager-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->firstname : '' }}'
-                );
-            $('#lastname_manager-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->lastname : '' }}'
-                );
-            $('#gender_manager-val').text(
-                '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? __(Auth::user()->Enterprise->Manager->gender) : '' }}'
-            );
+            $('#rc_number-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->rc_number : '' }}');
+            $('#activities_codes-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->activities()->pluck('code')->join(',') : '' }}');
+            $('#nif_number-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->nif_number : '' }}');
+            $('#nis_number-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->nis_number : '' }}');
+            $('#address_enterprise-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->enterprise : '' }}');
+            $('#email_enterprise-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->email : '' }}');
+            $('#mobile_enterprise-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->mobile : '' }}');
+            $('#address_enterprise-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->address : '' }}');
+            $('#website-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->website : '' }}');
+            $('#tel_enterprise-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->tel : '' }}');
+            $('#fax_enterprise-val').text('{{ Auth::user() && Auth::user()->Enterprise ? Auth::user()->Enterprise->fax : '' }}');
+            $('#city_enterprise-val').text('{{ Auth::user() && Auth::user()->Enterprise ? (App()->currentLocale() == 'ar' ? Auth::user()->Enterprise->city->daira_name : Auth::user()->Enterprise->city->daira_name_ascii) : '' }}');
+            $('#state_enterprise-val').text('{{ Auth::user() && Auth::user()->enterprise ? (App()->currentLocale() == 'ar' ? Auth::user()->Enterprise->city->wilaya_name : Auth::user()->Enterprise->city->wilaya_name_ascii) : '' }}');
+            $('#firstname_manager-val').text('{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->firstname : '' }}');
+            $('#lastname_manager-val').text('{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->lastname : '' }}');
+            $('#gender_manager-val').text('{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? __(Auth::user()->Enterprise->Manager->gender) : '' }}');
             $('#birthday_manager-val').text(
                 '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? Auth::user()->Enterprise->Manager->birthday : '' }}'
             );
@@ -1825,7 +1785,6 @@
                 '{{ Auth::user() && Auth::user()->Enterprise && Auth::user()->Enterprise->Manager ? (App()->currentLocale() == 'ar' ? Auth::user()->Enterprise->manager->city->wilaya_name : Auth::user()->Enterprise->manager->city->wilaya_name_ascii) : '' }}'
             );
         });
-
     </script>
     <script src="{{ URL::asset('wizard/js/main.js') }}"></script>
 

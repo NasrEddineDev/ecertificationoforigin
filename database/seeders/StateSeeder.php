@@ -15,7 +15,7 @@ class StateSeeder extends Seeder
     public function run()
     {
         //
-        $sql = file_get_contents(database_path() . '/seeders/countries-states-cities/states.sql');
+        $sql = file_get_contents(database_path() . '/data/countries-states-cities/states.sql');
         $statements = array_filter(array_map('trim', explode(';', $sql)));
         foreach ($statements as $stmt) {
             DB::statement($stmt);

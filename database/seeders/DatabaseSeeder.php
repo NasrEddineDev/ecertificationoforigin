@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         $this->call([
+            ActivitySeeder::class,
             CategorySeeder::class,
             SubCategorySeeder::class,
             CountrySeeder::class,
@@ -29,7 +30,6 @@ class DatabaseSeeder extends Seeder
             EnterpriseSeeder::class,
             ProductSeeder::class,
             ImporterSeeder::class,
-            ActivitySeeder::class,
             SettingSeeder::class,
         ]);
         $this->command->info('All tables are seeded!');

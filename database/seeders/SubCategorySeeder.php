@@ -22,6 +22,6 @@ class SubCategorySeeder extends Seeder
     public function run()
     {
         //
-        Excel::import(new CategoryImport, database_path() . '/seeders/Products Categories.xlsx');
+        Excel::import(new CategoryImport, database_path() . '/data/categories/Products Categories.xlsx');
     }
 }

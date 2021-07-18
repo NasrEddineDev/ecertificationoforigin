@@ -319,9 +319,18 @@
 
         input.error {
             border: 1px solid red !important;
-            margin-bottom: 0!important;
+            margin-bottom: 0 !important;
         }
 
+        select.error {
+            border: 1px solid red !important;
+            margin-bottom: 0 !important;
+        }
+
+        .select2-selection.error {
+            border: 1px solid red !important;
+            margin-bottom: 0 !important;
+        }
 
         .spinner-border {
             width: 100%;
@@ -652,12 +661,14 @@
                                         <div
                                             class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="row">
-                                                <label
-                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Enterprise Name') }}</label>
+                                                <label class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                                    {{ __('Enterprise Name') }}
+                                                </label>
                                                 <div class="col-sm-7">
                                                     <input type="text" name="name_ar" id="name_ar"
                                                         placeholder="Enterprise Name In Arabic" class="form-control"
-                                                        required />
+                                                        required
+                                                        value="{{ Auth::user()->enterprise->name_ar ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -668,7 +679,8 @@
                                                 <div class="col-sm-12">
                                                     <input type="text" name="name" id="name"
                                                         placeholder="Enterprise Name In English" class="form-control"
-                                                        required />
+                                                        required
+                                                        value="{{ Auth::user()->enterprise->name ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -679,7 +691,8 @@
                                                 <div class="col-sm-12">
                                                     <input type="text" name="name_fr" id="name_fr"
                                                         placeholder="Enterprise Name In French" class="form-control"
-                                                        required />
+                                                        required
+                                                        value="{{ Auth::user()->enterprise->name_fr ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -693,7 +706,8 @@
                                                     class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Number') }}</label>
                                                 <div class="col-sm-7">
                                                     <input type="text" name="rc_number" id="rc_number"
-                                                        placeholder="{{ __('RC Number') }}" class="form-control" />
+                                                        placeholder="{{ __('RC Number') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->rc_number ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -703,7 +717,8 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="nis_number" id="nis_number"
-                                                        placeholder="{{ __('NIS Number') }}" class="form-control" />
+                                                        placeholder="{{ __('NIS Number') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->nis_number ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -713,7 +728,8 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="nif_number" id="nif_number"
-                                                        placeholder="{{ __('NIF Number') }}" class="form-control" />
+                                                        placeholder="{{ __('NIF Number') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->nif_number ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -726,10 +742,12 @@
                                                 <label
                                                     class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Select Activities Codes') }}</label>
                                                 <div class="col-sm-7 activities-size">
-                                                    <select id="activities" class="col-sm-7 activities select2 form-control"
+                                                    <select id="activities"
+                                                        class="col-sm-7 activities select2 form-control"
                                                         name="activities[]" multiple="multiple">
                                                     </select>
-                                    <label id="legal_form-error" class="error hide" for="legal_form">{{__('This field is required.')}}</label>
+                                                    <label id="activities-error" class="error hide"
+                                                        for="legal_form">{{ __('This field is required.') }}</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -737,6 +755,7 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <select class="form-control"
+                                                        value="{{ Auth::user()->enterprise->legal_form ?? '' }}"
                                                         {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
                                                         name="legal_form" id="legal_form">
                                                         <option value="06" disabled selected>
@@ -749,6 +768,8 @@
                                                         <option value="SNC">{{ __('SNC') }}</option>
                                                         <option value="OTHER">{{ __('Other') }}</option>
                                                     </select>
+                                                    <label id="legal_form-error" class="error hide"
+                                                        for="legal_form">{{ __('This field is required.') }}</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -756,6 +777,7 @@
                                             <div class="row">
                                                 <div class="col-sm-12">
                                                     <select class="form-control"
+                                                        value="{{ Auth::user()->enterprise->exporter_type ?? '' }}"
                                                         {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
                                                         name="exporter_type" id="exporter_type">
                                                         <option value="" selected disabled>
@@ -774,6 +796,7 @@
                                             <div class="row">
                                                 <div class="col-lg-4">
                                                     <select class="form-control"
+                                                        value="{{ Auth::user()->enterprise->exporter_type ?? '' }}"
                                                         {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
                                                         name="exporter_type" id="exporter_type">
                                                         <option value="" disabled>
@@ -787,7 +810,8 @@
                                                 </div>
                                                 <div class="col-lg-8">
                                                     <input type="text" class="form-control" id="export_activity_code"
-                                                        name="export_activity_code" value=""
+                                                        name="export_activity_code"
+                                                        value="{{ Auth::user()->enterprise->export_activity_code ?? '' }}"
                                                         placeholder="{{ __('Export Activity Code') }}" required>
                                                 </div>
                                             </div>
@@ -804,7 +828,8 @@
                                                     class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile/Email/Tel') }}</label>
                                                 <div class="col-sm-7">
                                                     <input type="text" name="mobile" id="mobile"
-                                                        placeholder="{{ __('Mobile') }}" class="form-control" />
+                                                        placeholder="{{ __('Mobile') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->mobile ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -814,7 +839,8 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="email_enterprise" id="email_enterprise"
-                                                        placeholder="{{ __('Email') }}" class="form-control" />
+                                                        placeholder="{{ __('Email') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->email ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -824,7 +850,8 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="tel" id="tel"
-                                                        placeholder="{{ __('Tel') }}" class="form-control" />
+                                                        placeholder="{{ __('Tel') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->tel ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -838,7 +865,8 @@
                                                     class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
                                                 <div class="col-sm-7">
                                                     <input type="text" name="address_ar" id="address_ar"
-                                                        placeholder="Address In Arabic" class="form-control" />
+                                                        placeholder="Address In Arabic" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->address_ar ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -848,7 +876,8 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="address" id="address"
-                                                        placeholder="Address In English" class="form-control" />
+                                                        placeholder="Address In English" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->address ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -858,7 +887,8 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="address_fr" id="address_fr"
-                                                        placeholder="Address In French" class="form-control" />
+                                                        placeholder="Address In French" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->address_fr ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -873,6 +903,7 @@
                                                 <div class="col-sm-7">
                                                     <select name="state_code" id="state_code" class="form-control"
                                                         style="margin-top: 0;"
+                                                        value="{{ Auth::user()->enterprise->state_code ?? '' }}"
                                                         {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}>
                                                         <option value="0" disabled selected>
                                                             {{ __('Select The State') }}
@@ -887,7 +918,8 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <select name="city_id" id="city_id" class="form-control"
-                                                        style="margin-top: 0;">
+                                                        style="margin-top: 0;"
+                                                        value="{{ Auth::user()->enterprise->city_id ?? '' }}">
                                                     </select>
                                                 </div>
                                             </div>
@@ -898,7 +930,8 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="website" id="website"
-                                                        placeholder="{{ __('Website') }}" class="form-control" />
+                                                        placeholder="{{ __('Website') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->website ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1217,39 +1250,16 @@
             $loading.hide();
         });
 
-        // $.validator.addMethod("emailcheck", function(value, element, regexp) {
-        //     /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
-        //     if (regexp && regexp.constructor != RegExp) {
-        //         /* Create a new regular expression using the regex argument. */
-        //         regexp = new RegExp(regexp);
-        //     }
-        //     /* Check whether the argument is global and, if so set its last index to 0. */
-        //     else if (regexp.global) regexp.lastIndex = 0;
-        //     /* Return whether the element is optional or the result of the validation. */
-        //     return this.optional(element) || regexp.test(value);
-        // });
+        // Validation
+        var account_validator = $(".account-form").validate({});
 
-        // $.validator.addMethod("passwordcheck", function(value) {
-        //     return /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-        //         &&
-        //         /[a-z]/.test(value) // has a lowercase letter
-        //         &&
-        //         /\d/.test(value) // has a digit
-        // });
+        var enterprise_validator = $(".enterprise-form").validate({
+            ignore: [],
+            rules: {},
+            messages: {}
+        });
 
-
-            // Validation
-            var account_validator = $(".account-form").validate({});
-
-            var enterprise_validator = $(".enterprise-form").validate({
-                ignore: [],       
-                rules: {
-                },
-                messages: {
-                }
-            });
-
-            var manager_validator = $(".manager-form").validate({});
+        var manager_validator = $(".manager-form").validate({});
 
         $(document).ready(function() {
 
@@ -1347,7 +1357,7 @@
                     });
                 } else if (current == 3) {
                     console.log('Step 03');
-                    
+
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1385,23 +1395,28 @@
                                 $('.email-verified').addClass('hide');
                                 $('#resend').removeClass('hide');
                             }
+
+                            $('#legal_form-error').addClass('hide');
+                            $('.select2-selection').removeClass('error');
+                            $('#activities-error').addClass('hide');
                             return true;
                         },
                         error: function(data) {
                             move = false;
                             errors = data.responseJSON.errors;
                             // if ($('#state_code').find(":selected").val()){
-                                // alert($("#state_code").val() );
-                            if (!$("#state_code").val()){
-                                errors.state_code = ["{{__('This field is required.')}}"];
+                            // alert($("#state_code").val() );
+                            if (!$("#state_code").val()) {
+                                errors.state_code = ["{{ __('This field is required.') }}"];
                             }
-                            if (!$("#legal_form").val()){
-                                errors.legal_form = ["{{__('This field is required.')}}"];
-                            }
-                            if ($("#activities").val() == ""){
-                                // errors.activities = ["{{__('This field is required.')}}"];
-                                $('.select2-selection--multiple').css('border', '1px solid red !important');
+                            if (!$("#legal_form").val()) {
+                                errors.legal_form = ["{{ __('This field is required.') }}"];
                                 $('#legal_form-error').removeClass('hide');
+                            }
+                            if ($("#activities").val() == "") {
+                                // errors.activities = ["{{ __('This field is required.') }}"];
+                                $('.select2-selection').addClass('error');
+                                $('#activities-error').removeClass('hide');
                             }
                             enterprise_validator.showErrors(errors);
                             return true;

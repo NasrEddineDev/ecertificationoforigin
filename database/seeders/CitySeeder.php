@@ -15,7 +15,7 @@ class CitySeeder extends Seeder
     public function run()
     {
         //
-        $sql = file_get_contents(database_path() . '/seeders/countries-states-cities/cities.sql');
+        $sql = file_get_contents(database_path() . '/data/countries-states-cities/cities.sql');
         $statements = array_filter(array_map('trim', explode(';', $sql)));
         foreach ($statements as $stmt) {
             DB::statement($stmt);

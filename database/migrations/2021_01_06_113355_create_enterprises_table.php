@@ -15,9 +15,8 @@ class CreateEnterprisesTable extends Migration
     {
         Schema::create('enterprises', function (Blueprint $table) {
             $table->increments('id', true);
-            // $table->string('name_ar');
-            // $table->string('name_en');
-            // $table->string('name_fr');
+            $table->string('name_ar');
+            $table->string('name_fr');
             $table->string('name');
             $table->enum('legal_form', ['SPA', 'SARL', 'EURL', 'ETS', 'SNC', 'OTHER']);
             $table->string('rc');
@@ -29,12 +28,11 @@ class CreateEnterprisesTable extends Migration
             // $table->string('activity_type');
             // $table->string('activity_type_name')->nullable();
             $table->enum('exporter_type', ['TRADER', 'CRAFTSMAN', 'PRODUCER', 'FARMER', 'OTHER']);
-            // $table->string('export_activity_code')->nullable();
+            $table->string('export_activity_code')->nullable();
             $table->integer('balance');
             $table->enum('status', ['DRAFT', 'PENDING', 'ACTIVATED', 'SUSPENDED', 'STOPPED']);
-            // $table->string('address_ar');
-            // $table->string('address_en');
-            // $table->string('address_fr');
+            $table->string('address_ar');
+            $table->string('address_fr');
             $table->string('address');
             $table->string('email');//->unique();
             $table->string('mobile');//->unique();

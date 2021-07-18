@@ -12,9 +12,8 @@ class Enterprise extends Model
     protected static $logName = 'enterprise';
     static $logFillable = true;
     protected $fillable = [
-        // 'name_ar',
-        // 'name_en',
-        // 'name_fr',
+        'name_ar',
+        'name_fr',
         'name',
         'legal_form',
         'rc',
@@ -25,9 +24,8 @@ class Enterprise extends Model
         'nis_number',
         'exporter_type',
         // 'export_activity_code',
-        // 'address_ar',
-        // 'address_en',
-        // 'address_fr',
+        'address_ar',
+        'address_fr',
         'address',
         'email',
         'mobile',

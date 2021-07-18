@@ -109,7 +109,7 @@ class RegisterController extends Controller
                 $validator = $request->validate([
                     'username' => 'required|string|max:255|unique:users',
                     'email' => 'required|string|email|max:255|unique:users',
-                    'password' => 'required|string|password|confirmed|min:8',
+                    'password' => 'required|confirmed|min:8'
                 ]);
 
                 // process: add user and login
@@ -158,7 +158,7 @@ class RegisterController extends Controller
                 ], 200);
                  
             } else if ($step == Steps::ENTERPRISE) {
-                //validate
+                // validate
                 $request->validate([
                     'name_ar' => 'required|string|max:255|',
                     'name' => 'required|string|max:255|',
@@ -169,7 +169,7 @@ class RegisterController extends Controller
                     // 'activities' => 'required|array',
                     'exporter_type' => 'required|string|max:255|',
                     'legal_form' => 'required|string|max:255|',
-                    'mobile' => 'required|numeric|max:255|',
+                    'mobile' => 'required|numeric|',
                     'email_enterprise' => 'required|string|email|max:255|',
                     'tel' => 'nullable|numeric|max:255|',
                     'address_ar' => 'required|string|max:255|',
@@ -179,8 +179,7 @@ class RegisterController extends Controller
                     'city_id' => 'required|string|max:255|',
                     'website' => 'nullable|url|max:255|',
                 ]);
-                // process: add enterprise
-
+                // add enterprise
                 $enterprise = new Enterprise([
                     'name_ar' => $request->name_ar,
                     'name' => $request->name,
@@ -191,8 +190,8 @@ class RegisterController extends Controller
                     'legal_form' => $request->legal_form,
                     'exporter_type' => $request->exporter_type,
                     'export_activity_code' => $request->export_activity_code ? $request->export_activity_code : '',
-                    'mobile' => $request->mobile_enterprise,
-                    'email' => $request->email,
+                    'mobile' => $request->mobile,
+                    'email' => $request->email_enterprise,
                     'tel' => $request->tel ? $request->tel : '',
                     'address_ar' => $request->address_ar,
                     'address' => $request->address,
@@ -211,10 +210,8 @@ class RegisterController extends Controller
 
                 Auth::user()->enterprise()->save($enterprise);
    
-                foreach (explode(',', $request->activities) as $activity_id) {
-                    $enterprise->activities()->attach($activity_id, [
-                        'enterprise_id' => $enterprise->id,
-                    ]);
+                foreach ($request->activities as $activity_id) {
+                    $enterprise->activities()->attach($activity_id, ['enterprise_id' => $enterprise->id]);
                 }
 
                 // $destinationPath = 'enterprises/' . $enterprise->id .'/' . 'documents/';

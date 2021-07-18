@@ -15,7 +15,7 @@ class CountrySeeder extends Seeder
     public function run()
     {
         //
-        $sql = file_get_contents(database_path() . '/seeders/countries-states-cities/countries.sql');
+        $sql = file_get_contents(database_path() . '/data/countries-states-cities/countries.sql');
         DB::statement($sql);
     }
 }
