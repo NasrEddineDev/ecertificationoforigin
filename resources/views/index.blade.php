@@ -1217,7 +1217,7 @@
     {{-- <script src="https://www.google.com/recaptcha/api.js?hl={{ App()->currentLocale() }}" async defer></script> --}}
     {{-- <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&&render=explicit&hl={{ App()->currentLocale() }}"
         async defer></script> --}}
-    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit&hl=ar" async defer>
+    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit&hl={{App()->currentLocale()}}" async defer>
     </script>
     <script>
         var is_mobile = false;

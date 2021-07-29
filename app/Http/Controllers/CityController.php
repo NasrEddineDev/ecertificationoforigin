@@ -92,7 +92,7 @@ class CityController extends Controller
         $cities = AlgeriaCity::all()->where('wilaya_code', '=', $state_code);
         $cities = $cities->map(function($items){
             $data['value'] = $items->id;
-            $data['text'] = $items->commune_name;
+            $data['text'] = App()->currentLocale() == 'ar' ? $items->commune_name : $items->commune_name_ascii;
             return $data;
             });
 
@@ -113,7 +113,7 @@ class CityController extends Controller
         $cities = AlgeriaCity::all()->where('wilaya_code', '=', $state_code);
         $cities = $cities->map(function($items){
             $data['value'] = $items->id;
-            $data['text'] = $items->commune_name;
+            $data['text'] = App()->currentLocale() == 'ar' ? $items->commune_name : $items->commune_name_ascii;
             return $data;
             });
 

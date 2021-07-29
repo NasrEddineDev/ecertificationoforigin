@@ -15,10 +15,13 @@ class CreateManagersTable extends Migration
     {
         Schema::create('managers', function (Blueprint $table) {
             $table->increments('id', true);
+            $table->string('firstname_ar');
             $table->string('firstname');
+            $table->string('lastname_ar');
             $table->string('lastname');
             $table->string('birthday');
             $table->enum('gender', ['MALE', 'FEMALE'])->nullable();
+            $table->string('address_ar');
             $table->string('address');
             $table->string('email');//->unique();
             $table->string('mobile');//->unique();

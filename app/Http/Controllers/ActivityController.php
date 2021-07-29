@@ -87,32 +87,31 @@ class ActivityController extends Controller
     public function getActivities(Request $request)
     {
         try {
-    	$data = [];
-        if($request->has('q')){
-            $search = $request->q;
-            $data = (empty($request->q)) ? Activity::all() : Activity::where('code','LIKE',"%$search%")->get();
-            //select("id","code", "")            		
-
+            $data = [];
+            if ($request->has('q')) {
+                $search = $request->q;
+                $data = (empty($request->q)) ? Activity::all() : Activity::where('code', 'LIKE', "%$search%")
+                    ->orWhere('name_ar', 'LIKE', "%$search%")
+                    ->orWhere('name_fr', 'LIKE', "%$search%")->get();
+            }
+            return response()->json($data);
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+            return false;
         }
-        return response()->json($data);
-    } catch (Throwable $e) {
-        report($e);
-        Log::error($e->getMessage());
+    }
 
-        return false;
-    }
-    }
     public function getSelectedActivities($enterprise_id)
     {
         try {
-        $enterprise = Enterprise::find($enterprise_id);
-        return response()->json([ 'activities' => $enterprise->activities]);
-    } catch (Throwable $e) {
-        report($e);
-        Log::error($e->getMessage());
+            $enterprise = Enterprise::find($enterprise_id);
+            return response()->json(['activities' => $enterprise->activities]);
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
 
-        return false;
+            return false;
+        }
     }
-    }
-
 }

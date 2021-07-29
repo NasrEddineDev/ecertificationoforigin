@@ -67,14 +67,16 @@
                                 <div id="code">
                                     <img src="img/logo/algerie-poste-logo-round.png"
                                         style="width:100px;height:100px;border-radius: 50%;float:right;">
-                                    <img src="img/logo/caci-logo-round.png" style="width:100px;height:100px;border-radius: 50%;float:left;">
+                                    <img src="img/logo/caci-logo-round.png"
+                                        style="width:100px;height:100px;border-radius: 50%;float:left;">
                                 </div>
                                 <br />
                                 <br />
                                 <h2 class="card-title text-center">{{ __('Buy New Balance') }}</h2>
                                 <br />
                                 <br />
-                                <form class="form-sample" method="post" action="{{ route('payments.store-balance-poste') }}">
+                                <form class="form-sample" method="post"
+                                    action="{{ route('payments.store-balance-poste') }}">
                                     @csrf
                                     <div class="row">
                                         <div class="col-lg-8 col-md-6 col-mx-4" style="float: none;margin: 0 auto;">
@@ -92,14 +94,18 @@
                                     </div>
                                     <div class="row others">
                                         <div class="col-md-1" style="float: none;margin: 0 auto;">
-                                            <input name="other_offer" id="other_offer" type="text" class="form-control text-center" placeholder="{{ __('Number Of Points') }}" />
+                                            <input name="other_offer" id="other_offer" type="text"
+                                                class="form-control text-center"
+                                                placeholder="{{ __('Number Of Points') }}" />
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-md-3" style="float: none;margin: 0 auto;">
-                                            <input type="checkbox" name="conditions_is_checked" id="conditions_is_checked" 
-                                            style="margin-left: 20px; margin-right: 5px" value="FEMALE" required>{{ __('I accept the') }}
-                                            <a href="{{ URL::asset('') . 'data/gzal-draft.pdf' }}" target="_blank" >{{ __('terms and conditions') }}</a>
+                                            <input type="checkbox" name="conditions_is_checked" id="conditions_is_checked"
+                                                style="margin-left: 20px; margin-right: 5px" value="FEMALE"
+                                                required>{{ __('I accept the') }}
+                                            <a href="{{ URL::asset('') . 'data/settings/الشروط الخاصة والعامة لإستعمال خدمة الدفع الإلكتروني.pdf' }}"
+                                                target="_blank">{{ __('terms and conditions') }}</a>
                                         </div>
                                     </div>
                                     <div class="form-group-inner">
@@ -145,9 +151,9 @@
 
             $(document).on('change', '#offer', function() {
                 // alert($('#offer').find(":selected").val());
-                if ($('#offer').find(":selected").val() == '0'){
+                if ($('#offer').find(":selected").val() == '0') {
                     $('.others').show();
-                }else{
+                } else {
                     $('.others').hide();
                 }
             });
@@ -220,6 +226,5 @@
 
 
         });
-
     </script>
 @endpush

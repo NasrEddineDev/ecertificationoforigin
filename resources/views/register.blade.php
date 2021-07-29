@@ -571,7 +571,7 @@
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Password') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="password" name="password" id="password"
-                                                        value="{{ Auth::check() && Auth::user()->password ? 'Test1988*' : '' }}"
+                                                        value="{{ Auth::check() && Auth::user()->password ? Auth::user()->password : '' }}"
                                                         placeholder="password" class="form-control" required />
                                                 </div>
                                             </div>
@@ -584,7 +584,7 @@
                                                     <input type="password" name="password_confirmation"
                                                         id="password_confirmation" placeholder="Confirm Password"
                                                         class="form-control" required
-                                                        value="{{ Auth::check() && Auth::user()->password ? 'Test1988*' : '' }}" />
+                                                        value="{{ Auth::check() && Auth::user()->password ? Auth::user()->password : '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -661,7 +661,8 @@
                                         <div
                                             class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="row">
-                                                <label class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                                <label
+                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                                     {{ __('Enterprise Name') }}
                                                 </label>
                                                 <div class="col-sm-7">
@@ -745,6 +746,10 @@
                                                     <select id="activities"
                                                         class="col-sm-7 activities select2 form-control"
                                                         name="activities[]" multiple="multiple">
+                                                        @foreach (Auth::user()->enterprise->activities as $activity)
+                                                        <option selected value="{{ $activity->code }}">
+                                                            {{ $activity->code . ' ' . $activity->name_ar }}</option>
+                                                        @endforeach
                                                     </select>
                                                     <label id="activities-error" class="error hide"
                                                         for="legal_form">{{ __('This field is required.') }}</label>
@@ -758,15 +763,15 @@
                                                         value="{{ Auth::user()->enterprise->legal_form ?? '' }}"
                                                         {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
                                                         name="legal_form" id="legal_form">
-                                                        <option value="06" disabled selected>
+                                                        <option value="06" disabled>
                                                             {{ __('Select The Legal Form') }}
                                                         </option>
-                                                        <option value="SPA">{{ __('SPA') }}</option>
-                                                        <option value="SARL">{{ __('SARL') }}</option>
-                                                        <option value="EURL">{{ __('EURL') }}</option>
-                                                        <option value="ETS">{{ __('ETS') }}</option>
-                                                        <option value="SNC">{{ __('SNC') }}</option>
-                                                        <option value="OTHER">{{ __('Other') }}</option>
+                                                        <option value="SPA" {{ Auth::user()->enterprise->legal_form ==  "SPA" ? 'selected' : '' }}>{{ __('SPA') }}</option>
+                                                        <option value="SARL" {{ Auth::user()->enterprise->legal_form ==  "SARL" ? 'selected' : '' }}>{{ __('SARL') }}</option>
+                                                        <option value="EURL" {{ Auth::user()->enterprise->legal_form ==  "EURL" ? 'selected' : '' }}>{{ __('EURL') }}</option>
+                                                        <option value="ETS" {{ Auth::user()->enterprise->legal_form ==  "ETS" ? 'selected' : '' }}>{{ __('ETS') }}</option>
+                                                        <option value="SNC" {{ Auth::user()->enterprise->legal_form ==  "SNC" ? 'selected' : '' }}>{{ __('SNC') }}</option>
+                                                        <option value="OTHER" {{ Auth::user()->enterprise->legal_form ==  "OTHER" ? 'selected' : '' }}>{{ __('Other') }}</option>
                                                     </select>
                                                     <label id="legal_form-error" class="error hide"
                                                         for="legal_form">{{ __('This field is required.') }}</label>
@@ -782,11 +787,11 @@
                                                         name="exporter_type" id="exporter_type">
                                                         <option value="" selected disabled>
                                                             {{ __('Select The Type Of Exporter') }}</option>
-                                                        <option value="TRADER">{{ __('Trader') }}</option>
-                                                        <option value="CRAFTSMAN">{{ __('Craftsman') }}</option>
-                                                        <option value="PRODUCER">{{ __('Producer') }}</option>
-                                                        <option value="FARMER">{{ __('Farmer') }} </option>
-                                                        <option value="OTHER">{{ __('Other') }}</option>
+                                                        <option value="TRADER" {{ Auth::user()->enterprise->exporter_type ==  "TRADER" ? 'selected' : '' }}>{{ __('Trader') }}</option>
+                                                        <option value="CRAFTSMAN" {{ Auth::user()->enterprise->exporter_type ==  "CRAFTSMAN" ? 'selected' : '' }}>{{ __('Craftsman') }}</option>
+                                                        <option value="PRODUCER" {{ Auth::user()->enterprise->exporter_type ==  "PRODUCER" ? 'selected' : '' }}>{{ __('Producer') }}</option>
+                                                        <option value="FARMER" {{ Auth::user()->enterprise->exporter_type ==  "FARMER" ? 'selected' : '' }}>{{ __('Farmer') }} </option>
+                                                        <option value="OTHER" {{ Auth::user()->enterprise->exporter_type ==  "OTHER" ? 'selected' : '' }}>{{ __('Other') }}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -801,11 +806,21 @@
                                                         name="exporter_type" id="exporter_type">
                                                         <option value="" disabled>
                                                             {{ __('Select The Type Of Exporter') }}</option>
-                                                        <option value="TRADER" selected>{{ __('Trader') }}</option>
-                                                        <option value="CRAFTSMAN">{{ __('Craftsman') }}</option>
-                                                        <option value="PRODUCER">{{ __('Producer') }}</option>
-                                                        <option value="FARMER">{{ __('Farmer') }} </option>
-                                                        <option value="OTHER">{{ __('Other') }}</option>
+                                                            <option value="TRADER" {{ Auth::user()->enterprise->exporter_type ==  "TRADER" ? 'selected' : '' }}>
+                                                                {{ __('Trader') }}
+                                                            </option>
+                                                            <option value="CRAFTSMAN" {{ Auth::user()->enterprise->exporter_type ==  "CRAFTSMAN" ? 'selected' : '' }}>
+                                                                {{ __('Craftsman') }}
+                                                            </option>
+                                                            <option value="PRODUCER" {{ Auth::user()->enterprise->exporter_type ==  "PRODUCER" ? 'selected' : '' }}>
+                                                                {{ __('Producer') }}
+                                                            </option>
+                                                            <option value="FARMER" {{ Auth::user()->enterprise->exporter_type ==  "FARMER" ? 'selected' : '' }}>
+                                                                {{ __('Farmer') }}
+                                                            </option>
+                                                            <option value="OTHER" {{ Auth::user()->enterprise->exporter_type ==  "OTHER" ? 'selected' : '' }}>
+                                                                {{ __('Other') }}
+                                                            </option>    
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-8">
@@ -965,12 +980,12 @@
                                                 <div class="col-sm-5">
                                                     <input type="text" name="firstname_ar" id="firstname_ar"
                                                         placeholder="{{ __('Arabic First Name') }}"
-                                                        class="form-control" />
+                                                        class="form-control" value="{{ Auth::user()->enterprise->manager->firstname_ar ?? '' }}"/>
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <input type="text" name="firstname" id="firstname"
                                                         placeholder="{{ __('English/French First Name') }}"
-                                                        class="form-control" />
+                                                        class="form-control" value="{{ Auth::user()->enterprise->manager->firstname ?? '' }}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -982,12 +997,12 @@
                                                 <div class="col-sm-5">
                                                     <input type="text" name="lastname_ar" id="lastname_ar"
                                                         placeholder="{{ __('Arabic Last Name') }}"
-                                                        class="form-control" />
+                                                        class="form-control" value="{{ Auth::user()->enterprise->manager->lastname_ar ?? '' }}"/>
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <input type="text" name="lastname" id="lastname"
                                                         placeholder="{{ __('English/French Last Name') }}"
-                                                        class="form-control" />
+                                                        class="form-control" value="{{ Auth::user()->enterprise->manager->lastname ?? '' }}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -1000,8 +1015,8 @@
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="email_manager" id="email_manager"
-                                                        placeholder="{{ __('Email') }}" class="form-control" />
+                                                    <input type="text" name="email_manager" id="email_manager" placeholder="{{ __('Email') }}" 
+                                                    class="form-control" value="{{ Auth::user()->enterprise->manager->email ?? '' }}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -1011,12 +1026,12 @@
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile/Tel') }}</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="mobile_manager" id="mobile_manager"
-                                                        placeholder="{{ __('Mobile') }}" class="form-control" />
+                                                    <input type="text" name="mobile_manager" id="mobile_manager" placeholder="{{ __('Mobile') }}" 
+                                                    class="form-control" value="{{ Auth::user()->enterprise->manager->mobile ?? '' }}"/>
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="tel_manager" id="tel_manager"
-                                                        placeholder="{{ __('Tel') }}" class="form-control" />
+                                                    <input type="text" name="tel_manager" id="tel_manager" placeholder="{{ __('Tel') }}" 
+                                                    class="form-control" value="{{ Auth::user()->enterprise->manager->tel ?? '' }}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -1029,12 +1044,12 @@
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="address_ar_manager" id="address_ar_manager"
-                                                        placeholder="Address In Arabic" class="form-control" />
+                                                    <input type="text" name="address_manager_ar" id="address_manager_ar" placeholder="Address In Arabic" 
+                                                    class="form-control" value="{{ Auth::user()->enterprise->manager->address_ar ?? '' }}"/>
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="address_manager" id="address_manager"
-                                                        placeholder="Address In English/French" class="form-control" />
+                                                    <input type="text" name="address_manager" id="address_manager" placeholder="Address In English/French" 
+                                                    class="form-control" value="{{ Auth::user()->enterprise->manager->address ?? '' }}"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -1068,7 +1083,7 @@
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Birthday') }}</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" id="birthday_manager" name="birthday_manager">
+                                                    <input type="text" id="birthday" name="birthday" value="{{ Auth::user()->enterprise->manager->birthday ?? '' }}">
                                                 </div>
                                                 <div class="col-sm-5">
                                                     {{-- <input type="text" name="address" id="address"
@@ -1083,9 +1098,13 @@
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Gender') }}</label>
                                                 <div class="col-sm-5">
                                                     <select {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
-                                                        class="form-control" name="gender_manager" id="gender_manager">
-                                                        <option value="MALE" selected>{{ __('MALE') }}</option>
-                                                        <option value="FEMALE">{{ __('FEMALE') }}</option>
+                                                        class="form-control" name="gender" id="gender">
+                                                        <option value="MALE" {{ Auth::user()->enterprise->manager->gender ==  "MALE" ? 'selected' : '' }}>
+                                                            {{ __('MALE') }}
+                                                        </option>
+                                                        <option value="FEMALE" {{ Auth::user()->enterprise->manager->gender ==  "FEMALE" ? 'selected' : '' }}>
+                                                            {{ __('FEMALE') }}
+                                                        </option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-5">
@@ -1097,8 +1116,7 @@
 
                             </div>
                             <input type="button" name="next" class="next action-button" value="Next" />
-                            <input type="button" name="previous" class="previous action-button-previous"
-                                value="Previous" />
+                            <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
                         </fieldset>
 
                         <!-- Documents -->
@@ -1231,6 +1249,7 @@
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}">
     </script>
+    <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
@@ -1272,7 +1291,7 @@
             var opacity;
             var current = '{{ $step ? $step + 1 : 1 }}';
             var steps = $("fieldset").length;
-
+            
             setProgressBar(current);
             for (i = 0; i < current; i++) {
                 $("#progressbar li").eq(i).addClass("active");
@@ -1404,8 +1423,6 @@
                         error: function(data) {
                             move = false;
                             errors = data.responseJSON.errors;
-                            // if ($('#state_code').find(":selected").val()){
-                            // alert($("#state_code").val() );
                             if (!$("#state_code").val()) {
                                 errors.state_code = ["{{ __('This field is required.') }}"];
                             }
@@ -1414,7 +1431,6 @@
                                 $('#legal_form-error').removeClass('hide');
                             }
                             if ($("#activities").val() == "") {
-                                // errors.activities = ["{{ __('This field is required.') }}"];
                                 $('.select2-selection').addClass('error');
                                 $('#activities-error').removeClass('hide');
                             }
@@ -1422,6 +1438,141 @@
                             return true;
                         }
                     });
+                } else if (current == 4) {
+                    console.log('Step 04');
+
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'POST',
+                        async: false,
+                        url: "/register1",
+                        data: {
+                            step: current - 1,
+                            firstname_ar: $('#firstname_ar').val(),
+                            firstname: $('#firstname').val(),
+                            lastname_ar: $('#lastname_ar').val(),
+                            lastname: $('#lastname').val(),
+                            email_manager: $('#email_manager').val(),
+                            mobile_manager: $('#mobile_manager').val(),
+                            tel_manager: $('#tel_manager').val(),
+                            address_manager_ar: $('#address_manager_ar').val(),
+                            address_manager: $('#address_manager').val(),
+                            state_code_manager: $('#state_code_manager').find(":selected").val(),
+                            city_id_manager: $('#city_id_manager').find(":selected").val(),
+                            birthday: $('#birthday').val(),
+                            gender: $('#gender').find(":selected").val()
+                        },
+                        success: function(data) {
+                            // if (data.hasVerifiedEmail) {
+                            //     $('.email-verified').removeClass('hide');
+                            //     $('#resend').addClass('hide');
+                            // } else {
+                            //     $('.email-verified').addClass('hide');
+                            //     $('#resend').removeClass('hide');
+                            // }
+
+                            // $('#legal_form-error').addClass('hide');
+                            // $('.select2-selection').removeClass('error');
+                            // $('#activities-error').addClass('hide');
+                            return true;
+                        },
+                        error: function(data) {
+                            move = false;
+                            errors = data.responseJSON.errors;
+                            if (!$("#state_code_manager").val()) {
+                                errors.state_code_manager = [
+                                    "{{ __('This field is required.') }}"
+                                ];
+                            }
+                            manager_validator.showErrors(errors);
+                            return true;
+                        }
+                    });
+                } else if (current == 5) {
+                    console.log('Step 05 - 0' + (current - 1));
+
+
+                    // var files = document.getElementById("attachedFiles").files;
+                    var formData = new FormData();
+                    formData.append("step", current - 1);
+                    // formData.append("files", files);
+
+                    // Read selected files
+                    var totalfiles = document.getElementById('attachedFiles').files.length;
+                    for (var index = 0; index < totalfiles; index++) {
+                        formData.append("files[]", document.getElementById('attachedFiles').files[index]);
+                    }
+
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        url: "/register1",
+                        type: 'POST',
+                        data: formData,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        // xhr: function() {
+                        //     var myXhr = $.ajaxSettings.xhr();
+                        //     return myXhr;
+                        // },
+                        success: function (data) {
+                            console.log("Data Uploaded: "+data);
+                            return true;
+                        },
+                        error: function(data) {
+                            console.log(data);
+                            move = false;
+                            errors = data.responseJSON.errors;
+                            // if (!$("#state_code_manager").val()) {
+                            //     errors.state_code_manager = [
+                            //         "{{ __('This field is required.') }}"
+                            //     ];
+                            // }
+                            // files_validator.showErrors(errors);
+                            return true;
+                        }
+                    });
+                    return false;
+
+                    // var round_stamp = document.getElementById("round_stamp").files[0],
+                    //     square_stamp = document.getElementById("square_stamp").files[0],
+                    //     signature = document.getElementById("signature").files[0],
+                    //     formdata = false;
+                    // formdata = new FormData();
+                    // formdata.append("step", current - 1);
+                    // formdata.append("round_stamp", round_stamp);
+                    // formdata.append("square_stamp", square_stamp);
+                    // formdata.append("signature", signature);
+
+                    // $.ajax({
+                    //     headers: {
+                    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    //     },
+                    //     type: 'POST',
+                    //     url: "/registration",
+                    //     cache: false,
+                    //     contentType: false,
+                    //     processData: false,
+                    //     data: formdata,
+                    //     success: function(data) {
+                    //         return true;
+                    //     },
+                    //     error: function(data) {
+                    //         move = false;
+                    //         errors = data.responseJSON.errors;
+                    //         if (!$("#state_code_manager").val()) {
+                    //             errors.state_code_manager = [
+                    //                 "{{ __('This field is required.') }}"
+                    //             ];
+                    //         }
+                    //         manager_validator.showErrors(errors);
+                    //         return true;
+                    //     }
+                    // });
                 }
 
                 if (move) {
@@ -1484,11 +1635,34 @@
             var width = parseInt($('.col-md-6').width()) * (parseInt($('.activities-size').css('max-width')) / 100);
 
             // select
-            $('#activities').select2({
+            var data = [
+                {
+                    id: 0,
+                    text: 'enhancement'
+                },
+                {
+                    id: 1,
+                    text: 'bug'
+                },
+                {
+                    id: 2,
+                    text: 'duplicate'
+                },
+                {
+                    id: 3,
+                    text: 'invalid'
+                },
+                {
+                    id: 4,
+                    text: 'wontfix'
+                }
+            ];
+            var activities = $('#activities').select2({
                 dir: dir,
                 width: width,
                 placeholder: '{{ __('Type Activities Codes') }}',
                 allowClear: true,
+                // data: data,
                 ajax: {
                     url: '/getactivities',
                     dataType: 'json',
@@ -1498,7 +1672,8 @@
                         return {
                             results: $.map(data, function(item) {
                                 return {
-                                    text: item.code + ' ' + item.name_ar,
+                                    text: item.code + ' ' + (lang == 'ar' ? item.name_ar : item
+                                        .name_fr),
                                     id: item.id
                                 }
                             })
@@ -1520,7 +1695,13 @@
                     return markup;
                 }
             });
-
+            $(document).on('change', '#activities', function() {
+                console.log('Activities : ');
+                console.log($('#attachedFiles').val());
+            });
+            // activities.val(["CA", "AL"]).trigger("change");
+            // var defaultData = [{id:1, text:'Item1'},{id:2,text:'Item2'},{id:3,text:'Item3'}];
+            // $('#activities').data().select2.updateSelection(defaultData);
 
             // export activity
             $('.export-activity-select').show();
@@ -1553,10 +1734,13 @@
                     $('#state_code').empty();
                     $('#state_code').append(
                         '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
-                    );
-                    $.each(data.states, function(index, city) {
-                        $('#state_code').append('<option value="' + city.value +
-                            '">' + city.text + '</option>');
+                        );
+                    $.each(data.states, function(index, state) {
+                        $('#state_code').append('<option value="' + state.value +
+                            '" ' + (state.value ==
+                                '{{ Auth::user()->enterprise->city->wilaya_code }}' ?
+                                'selected' : '') +'>' + state.text + '</option>');
+
                     })
 
 
@@ -1564,12 +1748,59 @@
                     $('#state_code_manager').append(
                         '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
                     );
-                    $.each(data.states, function(index, city) {
-                        $('#state_code_manager').append('<option value="' + city.value +
-                            '">' + city.text + '</option>');
+                    $.each(data.states, function(index, state) {
+                        $('#state_code_manager').append('<option value="' + state.value +
+                            '" ' + (state.value ==
+                                '{{ Auth::user()->enterprise->manager->city->wilaya_code }}' ?
+                                'selected' : '') +'>' + state.text + '</option>');
                     })
                 }
             });
+            
+            if ('{{ Auth::user()->enterprise->city->id }}' != ''){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "/getcities/{{Auth::user()->enterprise->city->wilaya_code}}",
+                    type: "GET",
+                    success: function(data) {
+                        $('#city_id').empty();
+                        $('#city_id').append(
+                            '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
+                        );
+                        $.each(data.cities, function(index, city) {
+                            $('#city_id').append('<option value="' + city.value +
+                                '" ' + (city.value ==
+                                '{{ Auth::user()->enterprise->city->id }}' ?
+                                'selected' : '') +'>' + city.text + '</option>');
+                        })
+                    }
+                })
+            }
+
+            if ('{{ Auth::user()->enterprise->manager->city->id }}' != ''){
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "/getcities/{{Auth::user()->enterprise->manager->city->wilaya_code}}",
+                    type: "GET",
+                    success: function(data) {
+                        $('#city_id_manager').empty();
+                        $('#city_id_manager').append(
+                            '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
+                        );
+                        $.each(data.cities, function(index, city) {
+                            $('#city_id_manager').append('<option value="' + city.value +
+                                '" ' + (city.value ==
+                                '{{ Auth::user()->enterprise->manager->city->id }}' ?
+                                'selected' : '') +'>' + city.text + '</option>');
+                        })
+                    }
+                })
+            }
+
 
             $(document).on('change', '#state_code', function() {
                 var selectedState = $('#state_code').find(":selected").val().split(" ")[0];
@@ -1632,7 +1863,7 @@
                 weekStart: 0
             };
 
-            $('#birthday_manager').datepicker({
+            $('#birthday').datepicker({
                 rtl: true,
                 format: 'dd-mm-yyyy',
                 autoclose: true,
@@ -1650,7 +1881,7 @@
                 autoReplace: false,
                 fileActionSettings: {
                     showRemove: true,
-                    showUpload: false,
+                    showUpload: true,
                 },
                 previewSettings: {
                     image: {
@@ -1678,11 +1909,12 @@
                 //     key: 1
                 // }, ]
             });
-            $(".file-caption").hide();
+             $(".file-caption").hide();
 
             $('#attachedFiles').on('change', function() {
                 //get the file name
                 var fileName = $(this).val();
+                alert(fileName);
                 // alert($('#attachedFiles').get(0).files.length);
                 //replace the "Choose a file" label
 
@@ -1694,6 +1926,23 @@
             $(document).on('click', '#dropdown-menu a', function() {
                 $('#attachedFiles').click();
             });
+
+            $('#email_enterprise').inputmask({
+                alias: "email",
+                rightAlign: false
+            });
+
+            $('#mobile').inputmask("((+213|0)(5|6|7)) 99-99-99-99");
+            $('#tel').inputmask("(+213|0)99-99-99-99");
+
+
+            $('#email_manager').inputmask({
+                alias: "email",
+                rightAlign: false
+            });
+
+            $('#mobile_manager').inputmask("((+213|0)(5|6|7)) 99-99-99-99");
+            $('#tel_manager').inputmask("(+213|0)99-99-99-99");
         });
 
 

@@ -13,15 +13,18 @@ class Manager extends Model
     static $logFillable = true;
 
     protected $fillable = [
+        'firstname_ar',
         'firstname',
+        'lastname_ar',
         'lastname',
-        'birthday',
-        'gender',
-        'address',
         'email',
         'mobile',
         'tel',
+        'address_ar',
+        'address',
         'city_id',
+        'birthday',
+        'gender',
     ];
 
     public function enterprise()

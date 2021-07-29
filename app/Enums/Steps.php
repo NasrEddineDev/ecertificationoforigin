@@ -8,5 +8,6 @@ abstract class Steps
     public const ACTIVATION = 1;
     public const ENTERPRISE = 2;
     public const MANAGER = 3;
-    public const CONFIRMATION = 4;
+    public const ATTACHMENTS = 4;
+    public const CONFIRMATION = 5;
 }

@@ -38,10 +38,8 @@ class FrenchActivityImport implements ToCollection
     //             'name_fr' => $row[4],
     //             'description' => '',
     //             'category_id' => Category::where('number', $row[0])->first()->id,
-
     //         ]);
     //     // }
-
     // }
 
     public function collection(Collection $rows)
@@ -59,7 +57,7 @@ class FrenchActivityImport implements ToCollection
                         'group_fr' => $group,
                         'created_at' => date('Y-m-d H:i:s'),
                         'updated_at' => date('Y-m-d H:i:s'),
-                    ]);
+                        ]);
 
         }
     }

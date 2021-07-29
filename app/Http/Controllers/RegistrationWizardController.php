@@ -303,69 +303,7 @@ class RegistrationWizardController extends Controller
                     'message' => $request->firstname_manager,
                     'step' => Steps::CONFIRMATION
                 ], 200);
-            }                
-            // else if ($step == Steps::EXPORT_MANAGER) {
-            //     //validate
-            //     // $request->validate([
-            //     //     'username' => 'required|string|max:255|',//unique:users',
-            //     //     'email' => 'required|string|email|confirmed|max:255|',//unique:users',
-            //     //     'password' => 'required|string|confirmed|min:8',
-            //     // ]);
-            //     // process: add enterprise
-            //     $export_manager = new ExportManager([
-            //         'firstname' => $request->firstname_export_manager,
-            //         'lastname' => $request->lastname_export_manager,
-            //         'birthday' => $request->birthday_export_manager,
-            //         'gender' => $request->gender_export_manager,
-            //         'position' => $request->position_export_manager,
-            //         // 'status' => 0,
-            //         'address' => $request->address_export_manager,
-            //         'email' => $request->email_export_manager,
-            //         'mobile' => $request->mobile_export_manager,
-            //         'tel' => $request->tel_export_manager
-            //     ]);
-
-            //     if( $file = $request->stamp ) {
-            //         $destinationPath ='data/enterprises/'. (Auth::User()->Enterprise->id) .'/export-manager\/';
-            //         // $destinationPath = storage_path( 'app/public/export_manager' );
-            //         $fileName = $export_manager->firstname.' '.$export_manager->lastname.' stamp.'.$file->clientExtension();
-                    
-            //         $request->file('stamp')->storeAs($destinationPath, $fileName);
-            //         Auth::user()->stamp = $fileName;
-            //     }
-
-            //     // Auth::user()->enterprise()->manager()->export_manager()->save($export_manager);
-                
-            //     $export_manager->save();
-
-            //     Auth::user()->enterprise->update(['export_manager_id' => $export_manager->id]);
-
-                
-            //     if( $file = $request->signature ) {
-            //         $destinationPath ='enterprises/'. (Auth::User()->Enterprise->id) .'/export-manager\/';
-            //         // $destinationPath = storage_path( 'app/public/export_manager' );
-            //         $fileName = $export_manager->firstname.' '.$export_manager->lastname.' signature.'.$file->clientExtension();
-            //         $request->file('signature')->storeAs($destinationPath, $fileName);
-
-            //         $signature = new Signature([
-            //             'title' => 'First signature',
-            //             'description' => 'Created at registration',
-            //             'signature' => $fileName,
-            //             'user_id' => Auth::user()->id
-            //         ]);
-
-            //         $signature->save();
-            //         // Auth::user()->enterprise()->export_manager()->signature()->save($signature);
-
-            //         // Auth::user()->enterprise()->manager()->export_manager()->signature()->save($signature);
-            //     }
-
-            //     return response()->json([
-            //         'message' => '',
-            //         'step' => Steps::CONFIRMATION
-            //     ], 200);
-                 
-            // } 
+            } 
             else if ($step == Steps::CONFIRMATION) {
                 //validate
                 // if ($request->user()->hasVerifiedEmail()) {

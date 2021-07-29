@@ -272,8 +272,7 @@
                             '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
                         );
                         $.each(data.states, function(index, state) {
-                            $('#state_id').append('<option value="' + state.value +
-                                '">' + state.text + '</option>');
+                            $('#state_id').append('<option value="' + state.value + '">' + state.text + '</option>');
                         })
 
                         var phoneCode = data.country.phonecode;
