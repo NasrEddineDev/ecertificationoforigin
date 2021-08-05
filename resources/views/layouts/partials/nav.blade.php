@@ -15,14 +15,14 @@
             <div class="left-custom-menu-adp-wrap comment-scrollbar">
                 <nav class="sidebar-nav left-sidebar-menu-pro">
                     <ul class="metismenu" id="menu1">
-                        <li class="active">
+                        <li class="{{preg_replace("/\.[^.]+$/", "", Route::currentRouteName()) == 'dashboard' ? 'active' : ''}}">
                             <a title="Landing Page" href="{{ route('home') }}" aria-expanded="false">
                                 <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
                                         class="fa fa-dashboard" style="font-size:19px;"></i></span>
                                 <span class="mini-click-non">{{ __('Dashboard') }}</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="{{preg_replace("/\.[^.]+$/", "", Route::currentRouteName()) == 'certificates' ? 'active' : ''}}">
                             <a title="Landing Page" href="{{ route('certificates.index') }}" aria-expanded="false">
                                 <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
                                         class="fa fa-wpforms" style="font-size:19px;"></i></span>
@@ -36,28 +36,28 @@
                                 <span class="mini-click-non">{{ __('Requests') }}</span>
                             </a>
                         </li> --}}
-                        <li>
+                        <li class='{{preg_replace("/\.[^.]+$/", "", Route::currentRouteName()) == 'products' ? 'active' : ''}}'>
                             <a title="Landing Page" href="{{ route('products.index') }}" aria-expanded="false">
                                 <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
                                         class="fa fa-dropbox" style="font-size:19px;"></i></span>
                                 <span class="mini-click-non">{{ __('Products') }}</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="{{preg_replace("/\.[^.]+$/", "", Route::currentRouteName()) == 'importers' ? 'active' : ''}}">
                             <a title="Landing Page" href="{{ route('importers.index') }}" aria-expanded="false">
                                 <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
                                         class="fa fa-download" style="font-size:19px;"></i></span>
                                 <span class="mini-click-non">{{ __('Importers') }}</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="{{preg_replace("/\.[^.]+$/", "", Route::currentRouteName()) == 'producers' ? 'active' : ''}}">
                             <a title="Landing Page" href="{{ route('producers.index') }}" aria-expanded="false">
                                 <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
                                         class="fa fa-inbox" style="font-size:19px;"></i></span>
                                 <span class="mini-click-non">{{ __('Producers') }}</span>
                             </a>
                         </li>
-                        <li>
+                        <li class="{{preg_replace("/\.[^.]+$/", "", Route::currentRouteName()) == 'payments' ? 'active' : ''}}">
                             <a title="Landing Page" href="{{ route('payments.index') }}" aria-expanded="false">
                                 <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
                                         class="fa fa-money" style="font-size:19px;"></i></span>
@@ -65,7 +65,7 @@
                             </a>
                         </li>
                         @if (Auth::user()->can('list-user'))
-                            <li>
+                        <li class="{{preg_replace("/\.[^.]+$/", "", Route::currentRouteName()) == 'enterprises' ? 'active' : ''}}">
                                 <a title="Landing Page" href="{{ route('enterprises.index') }}"
                                     aria-expanded="false">
                                     <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
@@ -75,7 +75,7 @@
                             </li>
                         @endif
                         @if (Auth::user()->can('list-user'))
-                            <li>
+                        <li class="{{preg_replace("/\.[^.]+$/", "", Route::currentRouteName()) == 'managers' ? 'active' : ''}}">
                                 <a title="Landing Page" href="{{ route('managers.index') }}"
                                     aria-expanded="false">
                                     <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i

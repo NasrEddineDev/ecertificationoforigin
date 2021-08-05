@@ -89,6 +89,9 @@ class UserController extends Controller
                 'birthday' => $request->birthday,
                 'address' => $request->address,
                 'agce_user_id' => $request->agce_user_id,
+                'city_id' => $request->city_id,
+                'picture' => '',
+                'language' => App()->currentLocale()
             ]);
             $signature = $request->file('signature');
             $round_stamp = $request->file('round_stamp');
@@ -99,7 +102,6 @@ class UserController extends Controller
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
                     'role_id' => $request->role_id,
-                    'city_id' => $request->city_id,
                 ]);
                 $user->save();
 

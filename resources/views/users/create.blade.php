@@ -178,14 +178,22 @@
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('State') }}</label>
                                                 <div class="col-sm-9">
 
-                                                    <select name="state_id" id="state_id" class="form-control">
+                                                    <select name="state_code" id="state_code"
+                                                        class="form-control" style="margin-top: 0;"
+                                                        {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}>
+                                                        <option value="0" disabled selected>
+                                                            {{ __('Select The State') }}
+                                                        </option>
+                                                    </select>
+
+                                                    {{-- <select name="state_id" id="state_id" class="form-control">
                                                         <option value="0" disabled selected>{{__('Select The State')}}</option>
                                                         @foreach ($states as $state)
                                                             <option value="{{ $state->id }}">
                                                                 {{ $state->iso2 . ' ' . __($state->name) }}
                                                             </option>
                                                         @endforeach
-                                                    </select>
+                                                    </select> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -322,7 +330,7 @@
                                                 <div class="col-lg-9">
                                                     <div class="login-horizental cancel-wp pull-left form-bc-ele">
                                                         <button type="submit" class="btn btn-white">
-                                                            <a href="{{ route('products.index') }}"
+                                                            <a href="{{ route('users.index') }}"
                                                                 style="color: inherit;">{{ __('Cancel') }}</a>
                                                         </button>
                                                         <button type="submit"
@@ -348,8 +356,53 @@
     <script type="text/javascript">
         $(document).ready(function() {
 
-            $('#state_id').on('change', function() {
-                var selectedState = $('#state_id').find(":selected").val().split(" ")[0];
+                        // states cities
+                        $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                url: "/getalgerianstates",
+                type: "GET",
+                success: function(data) {
+                    $('#state_code').empty();
+                    $('#state_code').append(
+                        '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
+                    );
+                    $.each(data.states, function(index, state) {
+                        $('#state_code').append('<option value="' + state.value +
+                            '" ' + (state.value ==
+                                '{{ Auth::user()->enterprise->city->wilaya_code ?? '' }}' ?
+                                'selected' : '') + '>' + state.text + '</option>');
+
+                    })
+                }
+            });
+
+            if ('{{ Auth::user()->enterprise->city->id ?? '0' }}' != '') {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: "/getcities/{{ Auth::user()->enterprise->city->wilaya_code ?? '' }}",
+                    type: "GET",
+                    success: function(data) {
+                        $('#city_id').empty();
+                        $('#city_id').append(
+                            '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
+                        );
+                        $.each(data.cities, function(index, city) {
+                            $('#city_id').append('<option value="' + city.value +
+                                '" ' + (city.value ==
+                                    '{{ Auth::user()->enterprise->city->id ?? '' }}' ?
+                                    'selected' : '') + '>' + city.text + '</option>');
+                        })
+                    }
+                })
+            }
+
+
+            $(document).on('change', '#state_code', function() {
+                var selectedState = $('#state_code').find(":selected").val().split(" ")[0];
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -359,7 +412,7 @@
                     success: function(data) {
                         $('#city_id').empty();
                         $('#city_id').append(
-                            '<option value="0" disabled selected>{{__('Select The City')}}</option>'
+                            '<option value="0" disabled selected>{{ __('Select The City') }}</option>'
                         );
                         $.each(data.cities, function(index, city) {
                             $('#city_id').append('<option value="' + city.value +
@@ -368,6 +421,27 @@
                     }
                 })
             });
+
+            // $('#state_id').on('change', function() {
+            //     var selectedState = $('#state_id').find(":selected").val().split(" ")[0];
+            //     $.ajax({
+            //         headers: {
+            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //         },
+            //         url: "/getcities/" + selectedState,
+            //         type: "GET",
+            //         success: function(data) {
+            //             $('#city_id').empty();
+            //             $('#city_id').append(
+            //                 '<option value="0" disabled selected>{{__('Select The City')}}</option>'
+            //             );
+            //             $.each(data.cities, function(index, city) {
+            //                 $('#city_id').append('<option value="' + city.value +
+            //                     '">' + city.text + '</option>');
+            //             })
+            //         }
+            //     })
+            // });
 
             $.validator.addMethod("emailcheck", function(value, element, regexp) {
                 /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
@@ -517,8 +591,6 @@
             });
 
         });
-
-
 
         function readURLRoundStamp(input) {
             if (input.files && input.files[0]) {

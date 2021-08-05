@@ -30,6 +30,10 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "@finch/cli": "^1.0.8",
+        "@finch/regexp-accept": "^1.0.8",
+        "@finch/regexp-ignore": "^1.0.8",
+        "@finch/values": "^1.0.8",
         "bootstrap-fileinput": "^5.2.2"
     }
 }

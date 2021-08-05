@@ -94,7 +94,9 @@
                                         <th data-field="description" data-editable="true">{{ __('Description') }}</th>
                                         <!-- <th data-field="package_type" data-editable="true">Package Type</th>
                                         <th data-field="package_count" data-editable="true">Package Count</th> -->
-                                        {{-- <th data-field="action">{{ __('Action') }}</th> --}}
+                                        @if (Auth::User()->role->name != 'user')
+                                        <th data-field="action">{{ __('Enterprise') }}</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -111,6 +113,9 @@
                                         <!-- <td>{{ $product->net_weight }}</td>
                                         <td>{{ $product->real_weight }}</td> -->
                                         <td>{{ $product->description }}</td>
+                                        @if (Auth::User()->role->name != 'user')
+                                        <td>{{ $product->enterprise->name }}</td>
+                                        @endif
                                         <!-- <td>{{ $product->package_type }}</td>
                                         <td>{{ $product->package_count }}</td> -->
                                         {{-- <td class="datatable-ct">

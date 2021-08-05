@@ -60,19 +60,31 @@
             });
 
 
-            
-            $(document).on('click', '.not-active', function(e) {
-                e.preventDefault();
-                $(this).off("click").attr('href', "javascript: void(0);");
-                Lobibox.notify('info', {
-                    showClass: 'fadeInDown',
-                    hideClass: 'fadeUpDown',
-                    title: '{{__("Your request is in process")}}',
-                    position: 'bottom left',
-                    sound: 'eventually-590', // info, swiftly-610
-                    // img: 'img/notification/1.jpg',
-                    msg: '{{__("Please wait until we check your submitted information that are correct and activate your account")}}'
-                });
+
+        $(document).on('click', '.not-active', function(e) {
+            e.preventDefault();
+            $(this).off("click").attr('href', "javascript: void(0);");
+            Lobibox.notify('info', {
+                showClass: 'fadeInDown',
+                hideClass: 'fadeUpDown',
+                title: '{{ __('Your request is in process') }}',
+                position: 'bottom left',
+                sound: 'eventually-590', // info, swiftly-610
+                // img: 'img/notification/1.jpg',
+                msg: '{{ __('Please wait until we check your submitted information that are correct and activate your account') }}'
             });
-            
+        });
+
+        // $(document).ready(function() {
+        //     $('.sidebar-nav .metismenu li a').click(function(e) {
+        //         $('.sidebar-nav .metismenu li.active').removeClass('active');
+        //         var $parent = $(this).parent();
+        //         $parent.addClass('active');
+        //         // e.preventDefault();
+        //     });
+        // });
+        // var route = '{{Route::currentRouteName()}}';
+        // if (route.lastIndexOf('.') != -1) route = route.substr(0, route.lastIndexOf('.'));
+        // console.log(route);
+        $('.bread-blod').text('{{__(ucwords(preg_replace("/\.[^.]+$/", "", Route::currentRouteName())))}}');
     </script>

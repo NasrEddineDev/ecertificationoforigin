@@ -4965,6 +4965,10 @@ div#sparklinehome canvas {
     background: #F6F6F6;
 }
 
+.sidebar-nav .metismenu .active > a {
+    background: #F6F6F6;
+}
+
 .header-top-menu .navbar-nav>li .dropdown-menu,
 .header-right-info ul.header-right-menu li .author-message-top,
 .header-right-info ul.header-right-menu li .notification-author,

@@ -134,14 +134,30 @@
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
+                                                    class="required col-md-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Enterprise') }}</label>
+                                                <div class="col-md-9">
+                                                    <select name="enterprise_id" id="enterprise_id" class="form-control"
+                                                        required>
+                                                        <option selected disabled>{{ __('Select The Enterprise') }}
+                                                        </option>
+                                                        @foreach ($enterprises as $enterprise){
+                                                            <option value="{{ $enterprise->id }}">
+                                                                {{ __($enterprise->name) }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="form-group row">
+                                                <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Description') }}</label>
                                                 <div class="col-sm-9">
                                                     <input name="description" id="description" type="text"
                                                         class="form-control" />
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-md-6">
                                         </div>
                                     </div>
 

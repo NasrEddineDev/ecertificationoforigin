@@ -38,6 +38,7 @@ try {
     public function create()
     {
         //
+        return view('managers.create');
     }
 
     /**

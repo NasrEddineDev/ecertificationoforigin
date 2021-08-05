@@ -397,7 +397,7 @@
                                                 <div class="col-lg-3"></div>
                                                 <div class="col-lg-9">
                                                     <div class="login-horizental cancel-wp pull-left form-bc-ele">
-                                                        <button type="submit" class="btn btn-white">
+                                                        <button type="button" class="btn btn-white">
                                                             <a href="{{ route('certificates.index') }}"
                                                                 style="color: inherit;">{{ __('Cancel') }}</a>
                                                         </button>

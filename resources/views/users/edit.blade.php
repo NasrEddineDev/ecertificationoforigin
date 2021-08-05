@@ -137,7 +137,7 @@
                       <div class="col-lg-9">
                         <div class="login-horizental cancel-wp pull-left form-bc-ele">
                           <button type="submit" class="btn btn-white">
-                            <a href="{{ route('products.index') }}" style="color: inherit;">{{ __('Cancel') }}</a>
+                            <a href="{{ route('users.index') }}" style="color: inherit;">{{ __('Cancel') }}</a>
                           </button>
                           <button type="submit" class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
                         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Certificate;
 use App\Models\Setting;
 use Illuminate\Http\Request;
 use File;
@@ -22,14 +23,14 @@ class SettingController extends Controller
     public function index()
     {
         //
-try {
-        $settings = Setting::all();
-        // $offers_list = explode(",", $settings->where('name', 'Offers List')->first()->value);
-        return view('settings', compact('settings'));    
-    } catch (Throwable $e) {
+        try {
+            $settings = Setting::all();
+            // $offers_list = explode(",", $settings->where('name', 'Offers List')->first()->value);
+            return view('settings.index', compact('settings'));
+        } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());
-    
+
             return false;
         }
     }
@@ -87,119 +88,119 @@ try {
     {
 
         try {
-        $settings = Setting::all();
-        if ($section == 'payments') {
+            $settings = Setting::all();
+            if ($section == 'payments') {
 
-            $unit_price = $settings->where('name', 'Unit Price')->first();
-            $unit_price->update(['value' => $request->unit_price]);
+                $unit_price = $settings->where('name', 'Unit Price')->first();
+                $unit_price->update(['value' => $request->unit_price]);
 
-            $username_poste = $settings->where('name', 'Username Poste')->first();
-            $username_poste->update(['value' => $request->username_poste]);
+                $username_poste = $settings->where('name', 'Username Poste')->first();
+                $username_poste->update(['value' => $request->username_poste]);
 
-            $password_poste = $settings->where('name', 'Password Poste')->first();
-            $password_poste->update(['value' => $request->password_poste]);
+                $password_poste = $settings->where('name', 'Password Poste')->first();
+                $password_poste->update(['value' => $request->password_poste]);
 
-            $order_registration_url_poste = $settings->where('name', 'Order Registration Url Poste')->first();
-            $order_registration_url_poste->update(['value' => $request->order_registration_url_poste]);
+                $order_registration_url_poste = $settings->where('name', 'Order Registration Url Poste')->first();
+                $order_registration_url_poste->update(['value' => $request->order_registration_url_poste]);
 
-            $order_status_url_poste = $settings->where('name', 'Order Status Url Poste')->first();
-            $order_status_url_poste->update(['value' => $request->order_status_url_poste]);
+                $order_status_url_poste = $settings->where('name', 'Order Status Url Poste')->first();
+                $order_status_url_poste->update(['value' => $request->order_status_url_poste]);
 
-            $offers_list = $settings->where('name', 'Offers List')->first();
-            $new_offers_list = $request->offers_list;
-            sort($new_offers_list, SORT_NUMERIC);
-            $offers_list->update(['value' => implode(",", $new_offers_list)]);
-            $destinationPath = 'data/settings/offers/';
-            $img = imagecreatetruecolor(100, 40);
-            // Create some colors
-            $lightsky = imagecolorallocate($img, 135, 206, 250);
-            $blue = imagecolorallocate($img, 25, 25, 112);
-            foreach ($new_offers_list as $offer) {
+                $offers_list = $settings->where('name', 'Offers List')->first();
+                $new_offers_list = $request->offers_list;
+                sort($new_offers_list, SORT_NUMERIC);
+                $offers_list->update(['value' => implode(",", $new_offers_list)]);
+                $destinationPath = 'data/settings/offers/';
+                $img = imagecreatetruecolor(100, 40);
+                // Create some colors
+                $lightsky = imagecolorallocate($img, 135, 206, 250);
+                $blue = imagecolorallocate($img, 25, 25, 112);
+                foreach ($new_offers_list as $offer) {
+                    imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
+                    // The text to draw
+                    imagestring($img, 5, 8, 12, $offer . ' Points', $blue);
+                    imagesetthickness($img, 14);
+                    // Using imagepng() results in clearer text compared with imagejpeg() 
+                    imagepng($img, $destinationPath . $offer . '.png');
+
+                    imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
+                    // The text to draw
+                    imagestring($img, 5, 48, 12, utf8_encode('نقطة') . $offer, $blue);
+                    imagesetthickness($img, 14);
+                    // Using imagepng() results in clearer text compared with imagejpeg() 
+                    imagepng($img, $destinationPath . $offer . '_ar.png');
+                }
+
                 imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                // The text to draw
-                imagestring($img, 5, 8, 12, $offer . ' Points', $blue);
+                imagestring($img, 5, 12, 12, 'Others', $blue);
+                imagesetthickness($img, 14);
+                imagepng($img, $destinationPath . 'others_en.png');
+
+                imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
+                imagestring($img, 5, 12, 12, 'Autres', $blue);
+                imagesetthickness($img, 14);
+                imagepng($img, $destinationPath . 'others_fr.png');
+
+                imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
+                imagestring($img, 5, 48, 12, utf8_encode('نقطة'), $blue);
                 imagesetthickness($img, 14);
                 // Using imagepng() results in clearer text compared with imagejpeg() 
-                imagepng($img, $destinationPath . $offer . '.png');
+                imagepng($img, $destinationPath . 'others_ar.png');
 
-                imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                // The text to draw
-                imagestring($img, 5, 48, 12, utf8_encode('نقطة') . $offer, $blue);
-                imagesetthickness($img, 14);
-                // Using imagepng() results in clearer text compared with imagejpeg() 
-                imagepng($img, $destinationPath . $offer . '_ar.png');
+                imagedestroy($img);
+            } else if ($section == 'stamps') {
+
+                $roundStampAr = $request->file('round_stamp_ar');
+                if ($roundStampAr) {
+                    $round_stamp_ar_file_path = $settings->where('name', 'File Path Of The Round Stamp AR')->first()->value;
+                    $image_resize = Image::make($roundStampAr->getRealPath());
+                    $image_resize->resize(300, 300);
+                    $image_resize->save($round_stamp_ar_file_path);
+                    // $image_resize->save(config('settings.ROUND_STAMP_AR_FILE_PATH'));
+                }
+
+                $roundStampEn = $request->file('round_stamp_en');
+                if ($roundStampEn) {
+                    $round_stamp_en_file_path = $settings->where('name', 'File Path Of The Round Stamp EN')->first()->value;
+                    $image_resize = Image::make($roundStampEn->getRealPath());
+                    $image_resize->resize(300, 300);
+                    $image_resize->save($round_stamp_en_file_path);
+                }
+            } else if ($section == 'agce') {
+
+                $originator_id = $settings->where('name', 'AGCE ORIGINATOR ID')->first();
+                $originator_id->update(['value' => $request->originator_id]);
+                if (isset($request->digital_signature_activation)) {
+                    $digital_signature_activation = $settings->where('name', 'Activate Digital Signature')->first();
+                    $digital_signature_activation->update(['value' => 'Yes']);
+                } else {
+                    $digital_signature_activation = $settings->where('name', 'Activate Digital Signature')->first();
+                    $digital_signature_activation->update(['value' => 'No']);
+                }
+
+                $agce_ssl_cert_file_path = $settings->where('name', 'File Path Of The AGCE SSL Certificate')->first()->value;
+                $agce_ssl_key_file_path = $settings->where('name', 'File Path Of The AGCE SSL Key')->first()->value;
+
+                $file = $request->file('agce_ssl_cert_file');
+                if ($file) {
+                    Storage::disk('public')->put($agce_ssl_cert_file_path, file_get_contents($file));
+                }
+                $file = $request->file('agce_ssl_key_file');
+                if ($file) {
+                    Storage::disk('public')->put($agce_ssl_key_file_path, file_get_contents($file));
+                }
             }
 
-            imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-            imagestring($img, 5, 12, 12, 'Others', $blue);
-            imagesetthickness($img, 14);
-            imagepng($img, $destinationPath . 'others_en.png');
-
-            imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-            imagestring($img, 5, 12, 12, 'Autres', $blue);
-            imagesetthickness($img, 14);
-            imagepng($img, $destinationPath . 'others_fr.png');
-
-            imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-            imagestring($img, 5, 48, 12, utf8_encode('نقطة'), $blue);
-            imagesetthickness($img, 14);
-            // Using imagepng() results in clearer text compared with imagejpeg() 
-            imagepng($img, $destinationPath . 'others_ar.png');
-
-            imagedestroy($img);
-        } else if ($section == 'stamps') {
-
-            $roundStampAr = $request->file('round_stamp_ar');
-            if ($roundStampAr) {
-                $round_stamp_ar_file_path = $settings->where('name', 'File Path Of The Round Stamp AR')->first()->value;
-                $image_resize = Image::make($roundStampAr->getRealPath());
-                $image_resize->resize(300, 300);
-                $image_resize->save($round_stamp_ar_file_path);
-                // $image_resize->save(config('settings.ROUND_STAMP_AR_FILE_PATH'));
-            }
-
-            $roundStampEn = $request->file('round_stamp_en');
-            if ($roundStampEn) {
-                $round_stamp_en_file_path = $settings->where('name', 'File Path Of The Round Stamp EN')->first()->value;
-                $image_resize = Image::make($roundStampEn->getRealPath());
-                $image_resize->resize(300, 300);
-                $image_resize->save($round_stamp_en_file_path);
-            }
-        } else if ($section == 'agce') {
-
-            $originator_id = $settings->where('name', 'AGCE ORIGINATOR ID')->first();
-            $originator_id->update(['value' => $request->originator_id]);
-            if (isset($request->digital_signature_activation)) {
-                $digital_signature_activation = $settings->where('name', 'Activate Digital Signature')->first();
-                $digital_signature_activation->update(['value' => 'Yes']);
-            } else {
-                $digital_signature_activation = $settings->where('name', 'Activate Digital Signature')->first();
-                $digital_signature_activation->update(['value' => 'No']);
-            }
-
-            $agce_ssl_cert_file_path = $settings->where('name', 'File Path Of The AGCE SSL Certificate')->first()->value;
-            $agce_ssl_key_file_path = $settings->where('name', 'File Path Of The AGCE SSL Key')->first()->value;
-
-            $file = $request->file('agce_ssl_cert_file');
-            if ($file) {
-                Storage::disk('public')->put($agce_ssl_cert_file_path, file_get_contents($file));
-            }
-            $file = $request->file('agce_ssl_key_file');
-            if ($file) {
-                Storage::disk('public')->put($agce_ssl_key_file_path, file_get_contents($file));
-            }
-        }
 
 
 
 
-
-        return redirect()->route('settings.index')
-            ->with('success', 'Account edited successfully.');
+            return redirect()->route('settings.index')
+                ->with('success', 'Account edited successfully.');
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());
-    
+
             return false;
         }
     }
@@ -502,5 +503,16 @@ try {
     public function images()
     {
         //
+        try {
+            $settings = Setting::all();
+            $certificate_template = $settings->where('name', 'Default Certificate Template')->first();
+            $certificate_template = $certificate_template->value;
+            return view('settings.certificates-images', compact('settings', 'certificate_template'));
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
+        }
     }
 }

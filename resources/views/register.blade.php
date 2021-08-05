@@ -322,7 +322,8 @@
             margin-bottom: 0 !important;
         }
 
-        select.error {
+        select.error,
+        button.error {
             border: 1px solid red !important;
             margin-bottom: 0 !important;
         }
@@ -379,6 +380,18 @@
 
         .hide {
             display: none;
+        }
+
+        .file-preview {
+            width: 253px !important;
+        }
+
+        .file-input.kv-rtl {
+            float: left;
+        }
+
+        #attachments-error {
+            margin-top: 10%;
         }
 
     </style>
@@ -490,8 +503,8 @@
         <div class="row justify-content-center">
             <div class="col-lg-8 col-11 col-sm-9 col-md-7 text-center p-0 mt-3 mb-2">
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
-                    <h2 id="heading">Sign Up Your User Account</h2>
-                    <p>Fill all form field to go to next step</p>
+                    <h2 id="heading">{{ __('Sign Up Your User Account') }}</h2>
+                    <p>{{ __('Fill all form field to go to next step') }}</p>
                     @if (Auth::check())
                         <div class="form-holder" style="width: 100%;">
                             <form method="POST" action="{{ route('logout') }}" id="loginForm">
@@ -511,13 +524,13 @@
                     <div id="msform">
                         <!-- progressbar -->
                         <ul id="progressbar">
-                            <li id="account" class="active"><strong>Account</strong></li>
-                            <li id="activation"><strong>Activation</strong></li>
-                            <li id="enterprise"><strong>Enterprise</strong></li>
-                            <li id="manager"><strong>Manager</strong></li>
-                            <li id="attachments"><strong>Attachments</strong></li>
-                            <li id="summary"><strong>Summary</strong></li>
-                            <li id="finish"><strong>Finish</strong></li>
+                            <li id="account" class="active"><strong>{{ __('Account') }}</strong></li>
+                            <li id="activation"><strong>{{ __('Activation') }}</strong></li>
+                            <li id="enterprise"><strong>{{ __('Enterprise') }}</strong></li>
+                            <li id="manager"><strong>{{ __('Manager') }}</strong></li>
+                            <li id="attachments"><strong>{{ __('Attachments') }}</strong></li>
+                            <li id="summary"><strong>{{ __('Summary') }}</strong></li>
+                            <li id="finish"><strong>{{ __('Finish') }}</strong></li>
                         </ul>
                         <div class="progress">
                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
@@ -529,10 +542,10 @@
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">Account Information:</h2>
+                                        <h2 class="fs-title">{{ __('Account Information') }}:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 1/7</h2>
+                                        <h2 class="steps">{{ __('Step') }} 1/7</h2>
                                     </div>
                                 </div>
 
@@ -544,7 +557,7 @@
                                                 <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="email" id="email" placeholder="Email"
+                                                    <input type="text" name="email" id="email" placeholder="{{ __('Email') }}"
                                                         class="form-control" value="{{ Auth::user()->email ?? '' }}"
                                                         required />
                                                 </div>
@@ -553,11 +566,11 @@
                                         <div class="col-md-6">
                                             <div class="row">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label>
+                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Username') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" name="username" id="username"
                                                         value="{{ Auth::user()->username ?? '' }}"
-                                                        placeholder="Username" class="form-control" required />
+                                                        placeholder="{{ __('Username') }}" class="form-control" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -572,7 +585,7 @@
                                                 <div class="col-sm-9">
                                                     <input type="password" name="password" id="password"
                                                         value="{{ Auth::check() && Auth::user()->password ? Auth::user()->password : '' }}"
-                                                        placeholder="password" class="form-control" required />
+                                                        placeholder="{{ __('Password') }}" class="form-control" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -582,7 +595,7 @@
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Confirm Password') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="password" name="password_confirmation"
-                                                        id="password_confirmation" placeholder="Confirm Password"
+                                                        id="password_confirmation" placeholder="{{ __('Confirm Password') }}"
                                                         class="form-control" required
                                                         value="{{ Auth::check() && Auth::user()->password ? Auth::user()->password : '' }}" />
                                                 </div>
@@ -591,7 +604,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <input type="button" name="next" class="next action-button" value="Next" />
+                            <input type="button" name="next" class="next action-button" value="{{ __('Next') }}" />
                         </fieldset>
 
                         <!-- Activation -->
@@ -599,10 +612,10 @@
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">Account Activation:</h2>
+                                        <h2 class="fs-title">{{ __('Account Activation') }}:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 2/7</h2>
+                                        <h2 class="steps">{{ __('Step') }} 2/7</h2>
                                     </div>
                                 </div>
                                 <form class="activation-form" action="#" method="post">
@@ -637,9 +650,9 @@
                                     </div>
                                 </form>
                             </div>
-                            <input type="button" name="next" class="next action-button" value="Next" />
+                            <input type="button" name="next" class="next action-button" value="{{ __('Next') }}" />
                             <input type="button" name="previous" class="previous action-button-previous"
-                                value="Previous" />
+                                value="{{ __('Previous') }}" />
                         </fieldset>
 
                         <!-- Enterprise -->
@@ -647,10 +660,10 @@
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">Enterprise Information:</h2>
+                                        <h2 class="fs-title">{{ __('Enterprise Information') }}:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 3/7</h2>
+                                        <h2 class="steps">{{ __('Step') }} 3/7</h2>
                                     </div>
                                 </div>
 
@@ -667,7 +680,7 @@
                                                 </label>
                                                 <div class="col-sm-7">
                                                     <input type="text" name="name_ar" id="name_ar"
-                                                        placeholder="Enterprise Name In Arabic" class="form-control"
+                                                        placeholder="{{ __('Enterprise Name In Arabic') }}" class="form-control"
                                                         required
                                                         value="{{ Auth::user()->enterprise->name_ar ?? '' }}" />
                                                 </div>
@@ -679,7 +692,7 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="name" id="name"
-                                                        placeholder="Enterprise Name In English" class="form-control"
+                                                        placeholder="{{ __('Enterprise Name In English') }}" class="form-control"
                                                         required
                                                         value="{{ Auth::user()->enterprise->name ?? '' }}" />
                                                 </div>
@@ -691,7 +704,7 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="name_fr" id="name_fr"
-                                                        placeholder="Enterprise Name In French" class="form-control"
+                                                        placeholder="{{ __('Enterprise Name In French') }}" class="form-control"
                                                         required
                                                         value="{{ Auth::user()->enterprise->name_fr ?? '' }}" />
                                                 </div>
@@ -746,10 +759,13 @@
                                                     <select id="activities"
                                                         class="col-sm-7 activities select2 form-control"
                                                         name="activities[]" multiple="multiple">
-                                                        @foreach (Auth::user()->enterprise->activities as $activity)
-                                                        <option selected value="{{ $activity->code }}">
-                                                            {{ $activity->code . ' ' . $activity->name_ar }}</option>
-                                                        @endforeach
+                                                        @if (Auth::check() && Auth::user()->enterprise)
+                                                            @foreach (Auth::user()->enterprise->activities as $activity)
+                                                                <option selected value="{{ $activity->code }}">
+                                                                    {{ $activity->code . ' ' . $activity->name_ar }}
+                                                                </option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                     <label id="activities-error" class="error hide"
                                                         for="legal_form">{{ __('This field is required.') }}</label>
@@ -766,12 +782,24 @@
                                                         <option value="06" disabled>
                                                             {{ __('Select The Legal Form') }}
                                                         </option>
-                                                        <option value="SPA" {{ Auth::user()->enterprise->legal_form ==  "SPA" ? 'selected' : '' }}>{{ __('SPA') }}</option>
-                                                        <option value="SARL" {{ Auth::user()->enterprise->legal_form ==  "SARL" ? 'selected' : '' }}>{{ __('SARL') }}</option>
-                                                        <option value="EURL" {{ Auth::user()->enterprise->legal_form ==  "EURL" ? 'selected' : '' }}>{{ __('EURL') }}</option>
-                                                        <option value="ETS" {{ Auth::user()->enterprise->legal_form ==  "ETS" ? 'selected' : '' }}>{{ __('ETS') }}</option>
-                                                        <option value="SNC" {{ Auth::user()->enterprise->legal_form ==  "SNC" ? 'selected' : '' }}>{{ __('SNC') }}</option>
-                                                        <option value="OTHER" {{ Auth::user()->enterprise->legal_form ==  "OTHER" ? 'selected' : '' }}>{{ __('Other') }}</option>
+                                                        <option value="SPA"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->legal_form == 'SPA' ? 'selected' : '' }}>
+                                                            {{ __('SPA') }}</option>
+                                                        <option value="SARL"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->legal_form == 'SARL' ? 'selected' : '' }}>
+                                                            {{ __('SARL') }}</option>
+                                                        <option value="EURL"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->legal_form == 'EURL' ? 'selected' : '' }}>
+                                                            {{ __('EURL') }}</option>
+                                                        <option value="ETS"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->legal_form == 'ETS' ? 'selected' : '' }}>
+                                                            {{ __('ETS') }}</option>
+                                                        <option value="SNC"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->legal_form == 'SNC' ? 'selected' : '' }}>
+                                                            {{ __('SNC') }}</option>
+                                                        <option value="OTHER"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->legal_form == 'OTHER' ? 'selected' : '' }}>
+                                                            {{ __('Other') }}</option>
                                                     </select>
                                                     <label id="legal_form-error" class="error hide"
                                                         for="legal_form">{{ __('This field is required.') }}</label>
@@ -787,11 +815,21 @@
                                                         name="exporter_type" id="exporter_type">
                                                         <option value="" selected disabled>
                                                             {{ __('Select The Type Of Exporter') }}</option>
-                                                        <option value="TRADER" {{ Auth::user()->enterprise->exporter_type ==  "TRADER" ? 'selected' : '' }}>{{ __('Trader') }}</option>
-                                                        <option value="CRAFTSMAN" {{ Auth::user()->enterprise->exporter_type ==  "CRAFTSMAN" ? 'selected' : '' }}>{{ __('Craftsman') }}</option>
-                                                        <option value="PRODUCER" {{ Auth::user()->enterprise->exporter_type ==  "PRODUCER" ? 'selected' : '' }}>{{ __('Producer') }}</option>
-                                                        <option value="FARMER" {{ Auth::user()->enterprise->exporter_type ==  "FARMER" ? 'selected' : '' }}>{{ __('Farmer') }} </option>
-                                                        <option value="OTHER" {{ Auth::user()->enterprise->exporter_type ==  "OTHER" ? 'selected' : '' }}>{{ __('Other') }}</option>
+                                                        <option value="TRADER"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->exporter_type == 'TRADER' ? 'selected' : '' }}>
+                                                            {{ __('Trader') }}</option>
+                                                        <option value="CRAFTSMAN"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->exporter_type == 'CRAFTSMAN' ? 'selected' : '' }}>
+                                                            {{ __('Craftsman') }}</option>
+                                                        <option value="PRODUCER"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->exporter_type == 'PRODUCER' ? 'selected' : '' }}>
+                                                            {{ __('Producer') }}</option>
+                                                        <option value="FARMER"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->exporter_type == 'FARMER' ? 'selected' : '' }}>
+                                                            {{ __('Farmer') }} </option>
+                                                        <option value="OTHER"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->exporter_type == 'OTHER' ? 'selected' : '' }}>
+                                                            {{ __('Other') }}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -806,21 +844,26 @@
                                                         name="exporter_type" id="exporter_type">
                                                         <option value="" disabled>
                                                             {{ __('Select The Type Of Exporter') }}</option>
-                                                            <option value="TRADER" {{ Auth::user()->enterprise->exporter_type ==  "TRADER" ? 'selected' : '' }}>
-                                                                {{ __('Trader') }}
-                                                            </option>
-                                                            <option value="CRAFTSMAN" {{ Auth::user()->enterprise->exporter_type ==  "CRAFTSMAN" ? 'selected' : '' }}>
-                                                                {{ __('Craftsman') }}
-                                                            </option>
-                                                            <option value="PRODUCER" {{ Auth::user()->enterprise->exporter_type ==  "PRODUCER" ? 'selected' : '' }}>
-                                                                {{ __('Producer') }}
-                                                            </option>
-                                                            <option value="FARMER" {{ Auth::user()->enterprise->exporter_type ==  "FARMER" ? 'selected' : '' }}>
-                                                                {{ __('Farmer') }}
-                                                            </option>
-                                                            <option value="OTHER" {{ Auth::user()->enterprise->exporter_type ==  "OTHER" ? 'selected' : '' }}>
-                                                                {{ __('Other') }}
-                                                            </option>    
+                                                        <option value="TRADER"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->exporter_type == 'TRADER' ? 'selected' : '' }}>
+                                                            {{ __('Trader') }}
+                                                        </option>
+                                                        <option value="CRAFTSMAN"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->exporter_type == 'CRAFTSMAN' ? 'selected' : '' }}>
+                                                            {{ __('Craftsman') }}
+                                                        </option>
+                                                        <option value="PRODUCER"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->exporter_type == 'PRODUCER' ? 'selected' : '' }}>
+                                                            {{ __('Producer') }}
+                                                        </option>
+                                                        <option value="FARMER"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->exporter_type == 'FARMER' ? 'selected' : '' }}>
+                                                            {{ __('Farmer') }}
+                                                        </option>
+                                                        <option value="OTHER"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->exporter_type == 'OTHER' ? 'selected' : '' }}>
+                                                            {{ __('Other') }}
+                                                        </option>
                                                     </select>
                                                 </div>
                                                 <div class="col-lg-8">
@@ -880,7 +923,7 @@
                                                     class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
                                                 <div class="col-sm-7">
                                                     <input type="text" name="address_ar" id="address_ar"
-                                                        placeholder="Address In Arabic" class="form-control"
+                                                        placeholder="{{ __('Address In Arabic') }}" class="form-control"
                                                         value="{{ Auth::user()->enterprise->address_ar ?? '' }}" />
                                                 </div>
                                             </div>
@@ -891,7 +934,7 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="address" id="address"
-                                                        placeholder="Address In English" class="form-control"
+                                                        placeholder="{{ __('Address In English') }}" class="form-control"
                                                         value="{{ Auth::user()->enterprise->address ?? '' }}" />
                                                 </div>
                                             </div>
@@ -902,7 +945,7 @@
                                                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="address_fr" id="address_fr"
-                                                        placeholder="Address In French" class="form-control"
+                                                        placeholder="{{ __('Address In French') }}" class="form-control"
                                                         value="{{ Auth::user()->enterprise->address_fr ?? '' }}" />
                                                 </div>
                                             </div>
@@ -953,9 +996,9 @@
                                     </div>
                                 </form>
                             </div>
-                            <input type="button" name="next" class="next action-button" value="Next" /> <input
+                            <input type="button" name="next" class="next action-button" value="{{ __('Next') }}" /> <input
                                 type="button" name="previous" class="previous action-button-previous"
-                                value="Previous" />
+                                value="{{ __('Previous') }}" />
                         </fieldset>
 
                         <!-- Manager -->
@@ -963,10 +1006,10 @@
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">Manager Information:</h2>
+                                        <h2 class="fs-title">{{ __('Manager Information') }}:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 4/7</h2>
+                                        <h2 class="steps">{{ __('Step') }} 4/7</h2>
                                     </div>
                                 </div>
 
@@ -979,13 +1022,15 @@
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('First Name') }}</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" name="firstname_ar" id="firstname_ar"
-                                                        placeholder="{{ __('Arabic First Name') }}"
-                                                        class="form-control" value="{{ Auth::user()->enterprise->manager->firstname_ar ?? '' }}"/>
+                                                        placeholder="{{ __('First Name In Arabic') }}"
+                                                        class="form-control"
+                                                        value="{{ Auth::user()->enterprise->manager->firstname_ar ?? '' }}" />
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <input type="text" name="firstname" id="firstname"
-                                                        placeholder="{{ __('English/French First Name') }}"
-                                                        class="form-control" value="{{ Auth::user()->enterprise->manager->firstname ?? '' }}"/>
+                                                        placeholder="{{ __('First Name In English/French') }}"
+                                                        class="form-control"
+                                                        value="{{ Auth::user()->enterprise->manager->firstname ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -996,13 +1041,15 @@
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Last Name') }}</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" name="lastname_ar" id="lastname_ar"
-                                                        placeholder="{{ __('Arabic Last Name') }}"
-                                                        class="form-control" value="{{ Auth::user()->enterprise->manager->lastname_ar ?? '' }}"/>
+                                                        placeholder="{{ __('Last Name In Arabic') }}"
+                                                        class="form-control"
+                                                        value="{{ Auth::user()->enterprise->manager->lastname_ar ?? '' }}" />
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <input type="text" name="lastname" id="lastname"
-                                                        placeholder="{{ __('English/French Last Name') }}"
-                                                        class="form-control" value="{{ Auth::user()->enterprise->manager->lastname ?? '' }}"/>
+                                                        placeholder="{{ __('Last Name In English/French') }}"
+                                                        class="form-control"
+                                                        value="{{ Auth::user()->enterprise->manager->lastname ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1015,8 +1062,9 @@
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="email_manager" id="email_manager" placeholder="{{ __('Email') }}" 
-                                                    class="form-control" value="{{ Auth::user()->enterprise->manager->email ?? '' }}"/>
+                                                    <input type="text" name="email_manager" id="email_manager"
+                                                        placeholder="{{ __('Email') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->manager->email ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1026,12 +1074,14 @@
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile/Tel') }}</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="mobile_manager" id="mobile_manager" placeholder="{{ __('Mobile') }}" 
-                                                    class="form-control" value="{{ Auth::user()->enterprise->manager->mobile ?? '' }}"/>
+                                                    <input type="text" name="mobile_manager" id="mobile_manager"
+                                                        placeholder="{{ __('Mobile') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->manager->mobile ?? '' }}" />
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="tel_manager" id="tel_manager" placeholder="{{ __('Tel') }}" 
-                                                    class="form-control" value="{{ Auth::user()->enterprise->manager->tel ?? '' }}"/>
+                                                    <input type="text" name="tel_manager" id="tel_manager"
+                                                        placeholder="{{ __('Tel') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->manager->tel ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1044,12 +1094,14 @@
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="address_manager_ar" id="address_manager_ar" placeholder="Address In Arabic" 
-                                                    class="form-control" value="{{ Auth::user()->enterprise->manager->address_ar ?? '' }}"/>
+                                                    <input type="text" name="address_manager_ar" id="address_manager_ar"
+                                                        placeholder="{{ __('Address In Arabic') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->manager->address_ar ?? '' }}" />
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input type="text" name="address_manager" id="address_manager" placeholder="Address In English/French" 
-                                                    class="form-control" value="{{ Auth::user()->enterprise->manager->address ?? '' }}"/>
+                                                    <input type="text" name="address_manager" id="address_manager"
+                                                        placeholder="{{ __('Address In English/French') }}" class="form-control"
+                                                        value="{{ Auth::user()->enterprise->manager->address ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
@@ -1083,7 +1135,8 @@
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Birthday') }}</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" id="birthday" name="birthday" value="{{ Auth::user()->enterprise->manager->birthday ?? '' }}">
+                                                    <input type="text" id="birthday" name="birthday" placeholder="{{__('Birthday') }}"
+                                                        value="{{ Auth::user()->enterprise->manager->birthday ?? '' }}">
                                                 </div>
                                                 <div class="col-sm-5">
                                                     {{-- <input type="text" name="address" id="address"
@@ -1099,10 +1152,12 @@
                                                 <div class="col-sm-5">
                                                     <select {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
                                                         class="form-control" name="gender" id="gender">
-                                                        <option value="MALE" {{ Auth::user()->enterprise->manager->gender ==  "MALE" ? 'selected' : '' }}>
+                                                        <option value="MALE"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->manager && Auth::user()->enterprise->manager->gender == 'MALE' ? 'selected' : '' }}>
                                                             {{ __('MALE') }}
                                                         </option>
-                                                        <option value="FEMALE" {{ Auth::user()->enterprise->manager->gender ==  "FEMALE" ? 'selected' : '' }}>
+                                                        <option value="FEMALE"
+                                                            {{ Auth::check() && Auth::user()->enterprise && Auth::user()->enterprise->manager && Auth::user()->enterprise->manager->gender == 'FEMALE' ? 'selected' : '' }}>
                                                             {{ __('FEMALE') }}
                                                         </option>
                                                     </select>
@@ -1115,8 +1170,9 @@
                                 </form>
 
                             </div>
-                            <input type="button" name="next" class="next action-button" value="Next" />
-                            <input type="button" name="previous" class="previous action-button-previous" value="Previous" />
+                            <input type="button" name="next" class="next action-button" value="{{ __('Next') }}" />
+                            <input type="button" name="previous" class="previous action-button-previous"
+                                value="{{ __('Previous') }}" />
                         </fieldset>
 
                         <!-- Documents -->
@@ -1124,36 +1180,50 @@
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">Documents:</h2>
+                                        <h2 class="fs-title">{{ __('Documents') }}:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 5/7</h2>
+                                        <h2 class="steps">{{ __('Step') }} 5/7</h2>
                                     </div>
                                 </div>
                             </div>
 
-                            <input type="button" name="next" class="next action-button" value="Next" />
+                            <input type="button" name="next" class="next action-button" value="{{ __('Next') }}" />
                             <input type="button" name="previous" class="previous action-button-previous"
-                                value="Previous" />
+                                value="{{ __('Previous') }}" />
 
 
-                            <div class="dropdown col-lg-3">
-                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton"
-                                    data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">{{ __('Add New Image Or Dowument') }}</button>
-                                <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">{{ __('RC File') }}</a>
-                                    <a class="dropdown-item" href="#">{{ __('NIS File') }}</a>
-                                    <a class="dropdown-item" href="#">{{ __('NIF File') }}</a>
-                                    <a class="dropdown-item" href="#">{{ __('Signature') }}</a>
-                                    <a class="dropdown-item" href="#">{{ __('Round Stamp') }}</a>
-                                    <a class="dropdown-item" href="#">{{ __('Square Stamp') }}</a>
+                            <div class="row">
+                                <div class="dropdown col-lg-3">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">{{ __('Add New Image Or Dowument') }}</button>
+                                    <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#" data-id='rc'>{{ __('RC') }}</a>
+                                        <a class="dropdown-item" href="#" data-id='nis'>{{ __('NIS') }}</a>
+                                        <a class="dropdown-item" href="#" data-id='nif'>{{ __('NIF') }}</a>
+                                        <a class="dropdown-item" href="#" data-id='signature'>{{ __('Signature') }}</a>
+                                        <a class="dropdown-item" href="#" data-id='round_stamp'>{{ __('Round Stamp') }}</a>
+                                        <a class="dropdown-item" href="#" data-id='square_stamp'>{{ __('Square Stamp') }}</a>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-3">
+                                    <label id="attachments-error" class="error hide" for="legal_form">
+                                        {{ __('Upload all files.') }}
+                                    </label>
                                 </div>
                             </div>
 
                             <form class="attachments-form" action="#" method="post" enctype="multipart/form-data">
-                                <input type="file" id="attachedFiles" name="attachedFiles[]"
-                                    data-browse-on-zone-click="false" multiple />
+                                {{-- <input type="file" id="attachedFiles" name="attachedFiles[]"
+                                    data-browse-on-zone-click="false" multiple="multiple" /> --}}
+                                <input type="file" id="rc" name="rc" />
+                                <input type="file" id="nis" name="nis" />
+                                <input type="file" id="nif" name="nif" />
+                                <input type="file" id="signature" name="signature" />
+                                <input type="file" id="round_stamp" name="round_stamp" />
+                                <input type="file" id="square_stamp" name="round_stamp" />
                             </form>
                         </fieldset>
 
@@ -1162,16 +1232,111 @@
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">Resume:</h2>
+                                        <h2 class="fs-title">{{ __('Resume') }}:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 6/7</h2>
+                                        <h2 class="steps">{{ __('Step') }} 6/7</h2>
                                     </div>
                                 </div>
+                                <div class="content-wrapper">
+                                    <h5 class="section-heading mb-4">{{ __('Review your Information') }}</h5>
+                                    <div clas="row">
+                                        <div class="col-lg-6" style="float: left;">
+                                            <h6 class="font-weight-bold">{{ __('Account Details') }}</h6>
+                                            <p class="mb-3">
+                                                {{ __('Username') . ' : ' }} <span
+                                                    id="enteredUsername">{{ Auth::user()->username ?? '' }}</span>
+                                                <br>
+                                                {{ __('Email') . ' : ' }} <span
+                                                    id="enteredEmail">{{ Auth::user()->email ?? '' }}</span></p>
+                                            <h6 class="font-weight-bold">{{ __('Manager Details') }}</h6>
+                                            <p class="mb-3">
+                                                {{ __('Name') . ' : ' }}
+                                                <span
+                                                    id="enteredFirstNameAr">{{ Auth::user()->enterprise->manager->firstname_ar ?? '' }}</span>
+                                                <span
+                                                    id="enteredLastNameAr">{{ Auth::user()->enterprise->manager->lastname_ar ?? '' }}</span>
+                                                -
+                                                <span
+                                                    id="enteredFirstName">{{ Auth::user()->enterprise->manager->firstname ?? '' }}</span>
+                                                <span
+                                                    id="enteredLastName">{{ Auth::user()->enterprise->manager->lastname ?? '' }}</span><br>
+                                                {{ __('Email') . ' : ' }} <span
+                                                    id="enteredManagerEmail">{{ Auth::user()->enterprise->manager->email ?? '' }}</span><br>
+                                                {{ __('Mobile') . ' : ' }} <span
+                                                    id="enteredManagerMobile">{{ Auth::user()->enterprise->manager->mobile ?? '' }}</span><br>
+                                                {{ __('Tel') . ' : ' }} <span
+                                                    id="enteredManagerTel">{{ Auth::user()->enterprise->manager->tel ?? '' }}</span><br>
+                                                {{ __('Birthday') . ' : ' }} <span
+                                                    id="enteredBirthday">{{ Auth::user()->enterprise->manager->birthday ?? '' }}</span><br>
+                                                {{ __('Gender') . ' : ' }} <span
+                                                    id="enteredGender">{{ Auth::user()->enterprise->manager->gender ?? '' }}</span><br>
+                                                {{ __('Address') . ' : ' }} <span
+                                                    id="enteredAddressAr">{{ Auth::user()->enterprise->manager->address_ar ?? '' }}</span>,
+                                                <span
+                                                    id="enteredAddressEn">{{ Auth::user()->enterprise->manager->address ?? '' }}</span>,
+                                                <span
+                                                    id="enteredAddressFr">{{ Auth::user()->enterprise->manager->address_fr ?? '' }}</span><br>
+                                                {{ __('City') . ' : ' }} <span
+                                                    id="enteredCity">{{ Auth::user()->Enterprise->manager->city->commune_name ?? '' }}</span><br>
+                                                {{ __('State') . ' : ' }} <span
+                                                    id="enteredState">{{ Auth::user()->Enterprise->manager->city->daira_name ?? '' }}</span><br>
+                                            </p>
+                                        </div>
+                                        <div class="col-lg-6" style="float: left;">
+                                            <h6 class="font-weight-bold">{{ __('Enterprise Details') }}</h6>
+                                            <p class="mb-3">
+                                                {{ __('Name') . ' : ' }} <span
+                                                    id="enteredNameAr">{{ Auth::user()->enterprise->name_ar ?? '' }}</span>
+                                                ,
+                                                <span
+                                                    id="enteredName">{{ Auth::user()->enterprise->name ?? '' }}</span>
+                                                ,
+                                                <span
+                                                    id="enteredNameEn">{{ Auth::user()->enterprise->name ?? '' }}</span>
+                                                <br>
 
-                            </div> <input type="button" name="next" class="next action-button" value="Submit" /> <input
-                                type="button" name="previous" class="previous action-button-previous"
-                                value="Previous" />
+                                                {{ __('RC Number') . ' : ' }} <span
+                                                    id="enteredRCNumber">{{ Auth::user()->enterprise->rc_number ?? '' }}</span><br>
+                                                {{ __('NIS Number') . ' : ' }} <span
+                                                    id="enteredNISNumber">{{ Auth::user()->enterprise->nis_number ?? '' }}</span><br>
+                                                {{ __('NIF Number') . ' : ' }} <span
+                                                    id="enteredNIFNumber">{{ Auth::user()->enterprise->nif_number ?? '' }}</span>
+                                                <br>
+                                                {{ __('Activities') . ' : ' }} <span
+                                                    id="enteredActivities">{{ (Auth::check() && Auth::user()->Enterprise) ? 
+                                                    (Auth::user()->Enterprise->activities()->pluck('code')->join(',') ?? '') : '' }}</span>
+                                                <br>
+                                                {{ __('Legal Form') . ' : ' }} <span
+                                                    id="enteredLegalForm">{{ Auth::user()->enterprise->legal_form ?? '' }}</span><br>
+                                                {{-- {{ __('Exporter Type') . ' : ' }} <span
+                                                    id="enteredExporterType">{{ (Auth::check() && Auth::user()->Enterprise) ? (__(Auth::user()->enterprise->exporter_type) ?? '') . ' ' . (Auth::user()->enterprise->export_activity_code ?? '')):'' }}</span><br> --}}
+                                                {{ __('Mobile') . ' : ' }} <span
+                                                    id="enteredMobile">{{ Auth::user()->enterprise->mobile ?? '' }}</span><br>
+                                                {{ __('Email') . ' : ' }} <span
+                                                    id="enteredEnterpriseEmail">{{ Auth::user()->enterprise->email ?? '' }}</span><br>
+                                                {{ __('Tel') . ' : ' }} <span
+                                                    id="enteredTel">{{ Auth::user()->enterprise->tel ?? '' }}</span><br>
+                                                {{ __('Address') . ' : ' }} <span
+                                                    id="enteredAddressAr">{{ Auth::user()->enterprise->address_ar ?? '' }}</span>,
+                                                <span
+                                                    id="enteredAddressEn">{{ Auth::user()->enterprise->address ?? '' }}</span>,
+                                                <span
+                                                    id="enteredAddressFr">{{ Auth::user()->enterprise->address_fr ?? '' }}</span><br>
+                                                {{ __('City') . ' : ' }} <span
+                                                    id="enteredCity">{{ Auth::user()->Enterprise->city->commune_name ?? '' }}</span><br>
+                                                {{ __('State') . ' : ' }} <span
+                                                    id="enteredState">{{ Auth::user()->Enterprise->city->daira_name ?? '' }}</span><br>
+                                                {{ __('Website') . ' : ' }} <span
+                                                    id="enteredWebsite">{{ Auth::user()->Enterprise->website ?? '' }}</span><br>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="button" name="next" class="next action-button" value="{{ __('Submit') }}" />
+                            <input type="button" name="previous" class="previous action-button-previous"
+                                value="{{ __('Previous') }}" />
                         </fieldset>
 
                         <!-- Finish -->
@@ -1179,13 +1344,13 @@
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">Finish:</h2>
+                                        <h2 class="fs-title">{{ __('Finish') }}:</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">Step 7/7</h2>
+                                        <h2 class="steps">{{ __('Step') }} 7/7</h2>
                                     </div>
                                 </div> <br><br>
-                                <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+                                <h2 class="purple-text text-center"><strong>{{ __('SUCCESS') }} !</strong></h2> <br>
                                 <div class="row justify-content-center">
                                     <div class="col-3">
                                         <img src="{{ URL::asset('') }}register/img/finish.gif" class="fit-image">
@@ -1194,7 +1359,7 @@
                                 </div> <br><br>
                                 <div class="row justify-content-center">
                                     <div class="col-7 text-center">
-                                        <h5 class="purple-text text-center">You Have Successfully Signed Up</h5>
+                                        <h5 class="purple-text text-center">{{ __('You Have Successfully Signed Up') }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -1289,9 +1454,10 @@
 
             var current_fs, next_fs, previous_fs; //fieldsets
             var opacity;
+            // var files = {};
             var current = '{{ $step ? $step + 1 : 1 }}';
             var steps = $("fieldset").length;
-            
+
             setProgressBar(current);
             for (i = 0; i < current; i++) {
                 $("#progressbar li").eq(i).addClass("active");
@@ -1304,6 +1470,7 @@
                 current_fs = $(this).parent();
                 next_fs = $(this).parent().next();
                 move = true;
+                url = "";
                 if (current == 1) {
                     console.log('Step 01');
                     // if (!account_validator.form()) {
@@ -1486,29 +1653,47 @@
                                     "{{ __('This field is required.') }}"
                                 ];
                             }
+                            // if (!$("#city_id_manager").val()) {
+                            //     errors.city_id_manager = ["{{ __('This field is required.') }}"];
+                            // }
                             manager_validator.showErrors(errors);
                             return true;
                         }
                     });
                 } else if (current == 5) {
-                    console.log('Step 05 - 0' + (current - 1));
-
-
-                    // var files = document.getElementById("attachedFiles").files;
                     var formData = new FormData();
                     formData.append("step", current - 1);
-                    // formData.append("files", files);
+                    var rc = document.getElementById("rc").files[0],
+                        nis = document.getElementById("nis").files[0],
+                        nif = document.getElementById("nif").files[0],
+                        signature = document.getElementById("signature").files[0],
+                        round_stamp = document.getElementById("round_stamp").files[0],
+                        square_stamp = document.getElementById("square_stamp").files[0];
 
-                    // Read selected files
-                    var totalfiles = document.getElementById('attachedFiles').files.length;
-                    for (var index = 0; index < totalfiles; index++) {
-                        formData.append("files[]", document.getElementById('attachedFiles').files[index]);
+                    if (rc) {
+                        formData.append("rc", rc);
+                    }
+                    if (nis) {
+                        formData.append("nis", nis);
+                    }
+                    if (nif) {
+                        formData.append("nif", nif);
+                    }
+                    if (signature) {
+                        formData.append("signature", signature);
+                    }
+                    if (round_stamp) {
+                        formData.append("round_stamp", round_stamp);
+                    }
+                    if (square_stamp) {
+                        formData.append("square_stamp", square_stamp);
                     }
 
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
+                        async: false,
                         url: "/register1",
                         type: 'POST',
                         data: formData,
@@ -1519,62 +1704,53 @@
                         //     var myXhr = $.ajaxSettings.xhr();
                         //     return myXhr;
                         // },
-                        success: function (data) {
-                            console.log("Data Uploaded: "+data);
+                        success: function(data) {
                             return true;
                         },
                         error: function(data) {
-                            console.log(data);
                             move = false;
                             errors = data.responseJSON.errors;
-                            // if (!$("#state_code_manager").val()) {
-                            //     errors.state_code_manager = [
-                            //         "{{ __('This field is required.') }}"
-                            //     ];
+                            // if (!$("#state_code").val()) {
+                            //     errors.state_code = ["{{ __('This field is required.') }}"];
                             // }
-                            // files_validator.showErrors(errors);
+                            // if (!$("#legal_form").val()) {
+                            //     errors.legal_form = ["{{ __('This field is required.') }}"];
+                            //     $('#legal_form-error').removeClass('hide');
+                            // }
+                            // if ($("#activities").val() == "") {
+                            $('#dropdownMenuButton').addClass('error');
+                            $('#attachments-error').removeClass('hide');
+                            // }
+                            // enterprise_validator.showErrors(errors);
                             return true;
                         }
                     });
-                    return false;
+                    //  return true;
+                } else if (current == 6){
+                    console.log('Step 06');
 
-                    // var round_stamp = document.getElementById("round_stamp").files[0],
-                    //     square_stamp = document.getElementById("square_stamp").files[0],
-                    //     signature = document.getElementById("signature").files[0],
-                    //     formdata = false;
-                    // formdata = new FormData();
-                    // formdata.append("step", current - 1);
-                    // formdata.append("round_stamp", round_stamp);
-                    // formdata.append("square_stamp", square_stamp);
-                    // formdata.append("signature", signature);
-
-                    // $.ajax({
-                    //     headers: {
-                    //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    //     },
-                    //     type: 'POST',
-                    //     url: "/registration",
-                    //     cache: false,
-                    //     contentType: false,
-                    //     processData: false,
-                    //     data: formdata,
-                    //     success: function(data) {
-                    //         return true;
-                    //     },
-                    //     error: function(data) {
-                    //         move = false;
-                    //         errors = data.responseJSON.errors;
-                    //         if (!$("#state_code_manager").val()) {
-                    //             errors.state_code_manager = [
-                    //                 "{{ __('This field is required.') }}"
-                    //             ];
-                    //         }
-                    //         manager_validator.showErrors(errors);
-                    //         return true;
-                    //     }
-                    // });
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        type: 'POST',
+                        async: false,
+                        url: "/register1",
+                        data: {
+                            step: current - 1,
+                        },
+                        success: function(data) {
+                            move = true;
+                            url = data.url;
+                            return true;
+                        },
+                        error: function(data) {
+                            move = false;
+                            return true;
+                        }
+                    });
                 }
-
+                // $(document).ajaxStop(function() {
                 if (move) {
                     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
                     next_fs.show();
@@ -1595,7 +1771,13 @@
                         duration: 500
                     });
                     setProgressBar(++current);
+                    if (current == 7){
+                        setTimeout(function(){
+                            window.location.href = url;
+                        }, 5000);                        
+                    }
                 }
+                // });
             });
 
             $(".previous").click(function() {
@@ -1635,8 +1817,7 @@
             var width = parseInt($('.col-md-6').width()) * (parseInt($('.activities-size').css('max-width')) / 100);
 
             // select
-            var data = [
-                {
+            var data = [{
                     id: 0,
                     text: 'enhancement'
                 },
@@ -1696,8 +1877,8 @@
                 }
             });
             $(document).on('change', '#activities', function() {
-                console.log('Activities : ');
-                console.log($('#attachedFiles').val());
+                // console.log('Activities : ');
+                // console.log($('#attachedFiles').val());
             });
             // activities.val(["CA", "AL"]).trigger("change");
             // var defaultData = [{id:1, text:'Item1'},{id:2,text:'Item2'},{id:3,text:'Item3'}];
@@ -1734,12 +1915,12 @@
                     $('#state_code').empty();
                     $('#state_code').append(
                         '<option value="0" disabled selected>{{ __('Select The State') }}</option>'
-                        );
+                    );
                     $.each(data.states, function(index, state) {
                         $('#state_code').append('<option value="' + state.value +
                             '" ' + (state.value ==
-                                '{{ Auth::user()->enterprise->city->wilaya_code }}' ?
-                                'selected' : '') +'>' + state.text + '</option>');
+                                '{{ Auth::user()->enterprise->city->wilaya_code ?? '' }}' ?
+                                'selected' : '') + '>' + state.text + '</option>');
 
                     })
 
@@ -1751,18 +1932,18 @@
                     $.each(data.states, function(index, state) {
                         $('#state_code_manager').append('<option value="' + state.value +
                             '" ' + (state.value ==
-                                '{{ Auth::user()->enterprise->manager->city->wilaya_code }}' ?
-                                'selected' : '') +'>' + state.text + '</option>');
+                                '{{ Auth::user()->enterprise->manager->city->wilaya_code ?? '' }}' ?
+                                'selected' : '') + '>' + state.text + '</option>');
                     })
                 }
             });
-            
-            if ('{{ Auth::user()->enterprise->city->id }}' != ''){
+
+            if ('{{ Auth::user()->enterprise->city->id ?? '0' }}' != '') {
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "/getcities/{{Auth::user()->enterprise->city->wilaya_code}}",
+                    url: "/getcities/{{ Auth::user()->enterprise->city->wilaya_code ?? '' }}",
                     type: "GET",
                     success: function(data) {
                         $('#city_id').empty();
@@ -1772,19 +1953,19 @@
                         $.each(data.cities, function(index, city) {
                             $('#city_id').append('<option value="' + city.value +
                                 '" ' + (city.value ==
-                                '{{ Auth::user()->enterprise->city->id }}' ?
-                                'selected' : '') +'>' + city.text + '</option>');
+                                    '{{ Auth::user()->enterprise->city->id ?? '' }}' ?
+                                    'selected' : '') + '>' + city.text + '</option>');
                         })
                     }
                 })
             }
 
-            if ('{{ Auth::user()->enterprise->manager->city->id }}' != ''){
+            if ('{{ Auth::user()->enterprise->manager->city->id ?? '0' }}' != '') {
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
-                    url: "/getcities/{{Auth::user()->enterprise->manager->city->wilaya_code}}",
+                    url: "/getcities/{{ Auth::user()->enterprise->manager->city->wilaya_code ?? '' }}",
                     type: "GET",
                     success: function(data) {
                         $('#city_id_manager').empty();
@@ -1794,8 +1975,8 @@
                         $.each(data.cities, function(index, city) {
                             $('#city_id_manager').append('<option value="' + city.value +
                                 '" ' + (city.value ==
-                                '{{ Auth::user()->enterprise->manager->city->id }}' ?
-                                'selected' : '') +'>' + city.text + '</option>');
+                                    '{{ Auth::user()->enterprise->manager->city->id ?? '' }}' ?
+                                    'selected' : '') + '>' + city.text + '</option>');
                         })
                     }
                 })
@@ -1870,7 +2051,7 @@
                 language: 'ar'
             });
 
-            $("#attachedFiles").fileinput({
+            $("#rc, #nis, #nif, #signature, #round_stamp, #square_stamp").fileinput({
                 rtl: true,
                 previewFileType: 'any',
                 allowedFileTypes: ["image", "pdf"],
@@ -1878,10 +2059,16 @@
                 // showDrag: false,
                 dropZoneEnabled: false,
                 overwriteInitial: false,
-                autoReplace: false,
+                // autoReplace: false,
+                uploadExtraData: function() {
+                    return {
+                        _token: $("input[name='_token']").val(),
+                    };
+                },
+
                 fileActionSettings: {
                     showRemove: true,
-                    showUpload: true,
+                    showUpload: false,
                 },
                 previewSettings: {
                     image: {
@@ -1893,9 +2080,8 @@
                 },
                 uploadUrl: "/file-upload-batch/1",
                 uploadAsync: false,
-                minFileCount: 6,
-                maxFileCount: 6,
-                overwriteInitial: false,
+                minFileCount: 1,
+                maxFileCount: 1,
                 // initialPreview: [
                 //     "{{ URL::asset('') }}register/img/GwStPmg.png"
                 // ],
@@ -1909,23 +2095,26 @@
                 //     key: 1
                 // }, ]
             });
-             $(".file-caption").hide();
 
-            $('#attachedFiles').on('change', function() {
-                //get the file name
-                var fileName = $(this).val();
-                alert(fileName);
-                // alert($('#attachedFiles').get(0).files.length);
-                //replace the "Choose a file" label
+            $(".file-caption").hide();
 
-                // $(this).next('.custom-file-label').html(fileName);
-                var files = document.getElementById("attachedFiles").files;
-                // alert(files.length);
-            })
-
+            // var currentFile;
             $(document).on('click', '#dropdown-menu a', function() {
-                $('#attachedFiles').click();
+                currentFile = $(this).attr("data-id");
+                //$(this).text().replace(/ /g, '_').toLowerCase();
+                // console.log(currentFile);
+                // alert(currentFile);
+                // files.push(fileName);
+                $('#' + currentFile).click();
             });
+
+            $(document).on('change', '#attachedFiles', function() {
+                //get the file name
+                // var filePath = $(this).val();
+                // var fileNameIndex = filePath.lastIndexOf("\\") + 1;
+                // var fileName = filePath.substr(fileNameIndex);
+                // files[currentFile] = fileName;
+            })
 
             $('#email_enterprise').inputmask({
                 alias: "email",
@@ -1944,38 +2133,6 @@
             $('#mobile_manager').inputmask("((+213|0)(5|6|7)) 99-99-99-99");
             $('#tel_manager').inputmask("(+213|0)99-99-99-99");
         });
-
-
-
-        // $("#stepone").click(function() {
-
-        //     current_fs = $(this).parent();
-        //     next_fs = $(this).parent().next();
-
-        //     if (v.form()) {
-
-        //         $("input", "#step2").removeClass("ignore");
-
-        //         $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-        //         $('#step1').hide();
-        //         $('#step2').show();
-        //         window.scrollTo(0, 0);
-        //     }
-
-        // });
-
-        // $("#previous1").click(function() {
-
-        //     $("input", "#step2").addClass("ignore");
-
-        //     current_fs = $(this).parent();
-        //     previous_fs = $(this).parent().prev();
-
-        //     $("#progressbar li").eq($("fieldset").index(current_fs)).removeClass("active");
-        //     $('#step2').hide();
-        //     $('#step1').show();
-        //     window.scrollTo(0, 0);
-        // });
     </script>
 
 </body>

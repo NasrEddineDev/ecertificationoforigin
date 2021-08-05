@@ -60,45 +60,32 @@ class AuthenticatedSessionController extends Controller
                     'result' => 'failed',
                     'errors' => ['email' => __('Credentials are incorrect'), 'password' => __('Credentials are incorrect')]
                 ], 422);
-                else{
-                        // if (Auth::user()->profile && Auth::user()->profile->language){
-                        //     App::setLocale(Auth::user()->profile->language);
-                        // }
-                        // if (Auth::user()->role->name != 'user') return redirect(RouteServiceProvider::HOME);
-        
-                        // if (!Auth::user()->hasVerifiedEmail()) {
-                        //     return view('register', ['step' => Steps::ACTIVATION]);
-                        // } else if (!Auth::user()->enterprise) {
-                        //     $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
-                        //     // $cities = City::all()->where('country_code', '==', 'DZ');
-                        //     $activities = Activity::all();
-                        //     $step = Steps::ENTERPRISE;
-                        //     return view('register', compact('step', 'states', 'activities'));
-                        // } else if (!Auth::user()->enterprise->manager_id) {
-                        //     $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
-                        //     // $cities = City::all()->where('country_code', '==', 'DZ');
-                        //     // $cities = City::all()->where('state_code', '==', $state_code);
-                        //     $step = Steps::MANAGER;
-                        //     return view('register', compact('step', 'states', 'cities'));
-                        // } else if (Auth::user()->enterprise->status == 'DRAFT') {
-                        //     return view('register', ['step' => Steps::CONFIRMATION]);
-                        // }
-                        if (!Auth::user()->hasVerifiedEmail() || !Auth::user()->enterprise || !Auth::user()->enterprise->manager_i
-                            || Auth::user()->enterprise->status == 'DRAFT') {
-                                return response()->json([
-                                    'result' => 'success',
-                                    'message' => '',
-                                    'url' => route('register1')
-                                ], 200);
-                            }
-                        return response()->json([
-                            'result' => 'success',
-                            'message' => '',
-                            'url' => url(RouteServiceProvider::HOME)
-                        ], 200);
+            else {
+                if (Auth::user()->role->name != 'user')
+                    return response()->json([
+                        'result' => 'success',
+                        'message' => '',
+                        'url' => url(RouteServiceProvider::HOME)
+                    ], 200);
+
+                if (
+                    !Auth::user()->hasVerifiedEmail() || !Auth::user()->enterprise || !Auth::user()->enterprise->manager_id
+                    || Auth::user()->enterprise->status == 'DRAFT'
+                ) {
+                    return response()->json([
+                        'result' => 'success',
+                        'message' => '',
+                        'url' => route('register1')
+                    ], 200);
                 }
+                return response()->json([
+                    'result' => 'success',
+                    'message' => '',
+                    'url' => url(RouteServiceProvider::HOME)
+                ], 200);
+            }
         } catch (Throwable $e) {
-        // } catch(\Illuminate\Database\QueryException $ex){ 
+            // } catch(\Illuminate\Database\QueryException $ex){ 
             report($e);
             Log::error($e->getMessage());
 
@@ -107,7 +94,7 @@ class AuthenticatedSessionController extends Controller
                 'errors' => ['email' => __('Internal Server Error'), 'password' => __('Internal Server Error')]
                 // 'errors' => ['email' => __('Credentials are incorrect'), 'password' => __('Credentials are incorrect')]
             ], 422);
-            
+
             return false;
         }
         // if (Auth::user()->role->name != 'user') return redirect(RouteServiceProvider::HOME);

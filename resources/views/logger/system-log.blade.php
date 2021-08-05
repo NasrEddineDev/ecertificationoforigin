@@ -66,8 +66,8 @@
                                                 <td>{{ str_replace("App\Models\\","",$userActivity->subject_type) }}</td>
                                                 <td>{{ $userActivity->causer_id }}</td>
                                                 <td><a class="btn btn-success" style="font-size: 14px;padding-top:0px;padding-bottom:0px;"
-                                                    href="{{ route('users.show', $userActivity->causer_id) }}">
-                                                    {{ __($userActivity->causer->username) }}</a></td>
+                                                    href="{{ route('users.show', $userActivity->causer_id ?? '') }}">
+                                                    {{ __($userActivity->causer->username ?? '') }}</a></td>
                                                 <td>{{ __($userActivity->description) }}</td>
                                                 <td><a class="btn btn-info" style="font-size: 14px;padding-top:0px;padding-bottom:0px;"
                                                     href="{{ route('certificates.show', $userActivity->subject_id) }}">

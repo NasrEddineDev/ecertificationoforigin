@@ -74,7 +74,8 @@ class RegisterController extends Controller
                     // $cities = City::all()->where('state_code', '==', $state_code);
                     $step = Steps::MANAGER;
                     return view('register', compact('step'));
-                } else if (!Auth::user()->enterprise->rc) {
+                } else if (!Auth::user()->enterprise->rc || !Auth::user()->enterprise->nis || !Auth::user()->enterprise->nif 
+                            || !Auth::user()->enterprise->rc) {
                     // $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
                     // $cities = City::all()->where('country_code', '==', 'DZ');
                     // $cities = City::all()->where('state_code', '==', $state_code);
@@ -291,7 +292,6 @@ class RegisterController extends Controller
                         'tel_manager' => 'nullable|string|max:255|',
                         'address_manager_ar' => 'required|string|max:255|',
                         'address_manager' => 'required|string|max:255|',
-                        'state_code_manager' => 'required|string|max:255|',
                         'city_id_manager' => 'required|string|max:255|',
                         'birthday' => 'required|string|max:255|'
                     ]);
@@ -379,118 +379,99 @@ class RegisterController extends Controller
                     'step' => Steps::ATTACHMENTS
                 ], 200);
             } else if ($step == Steps::ATTACHMENTS) {
-                // $request->validate([
-                //     'file' => 'required',
-                //     'file.*' => 'mimes:doc,pdf,docx,txt,zip,jpeg,jpg,png'
-                // ]);
-                // if($request->hasfile('file')) { 
-                    $destinationPath = 'data/enterprises/' . (Auth::User()->Enterprise->id) . '/' . 'documents/testfolder/';
-                    if (!file_exists($destinationPath)) {
-                        File::makeDirectory($destinationPath, $mode = 0777, true, true);
-                    }
-                    foreach($request->file('files') as $file)
-                    {
 
-                        $fileName = mt_rand(100000,999999).'_'.'.'.$file->clientExtension();
-                        Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-                        // Auth::User()->Enterprise->rc = $fileName;
-                        // if (image){
-                        //     $signatureFileName = $manager->firstname . '_' . $manager->lastname . '_signature.' . $signature->clientExtension();
-                        //     $image_resize = Image::make($signature->getRealPath());
-                        //     $image_resize->resize(300, 300);
-                        //     $image_resize->save($destinationPath . $signatureFileName);
-                        // }
-                        // else {
-                        //     $file = $request->file('rc');
-                        //     if ($file) {
-                        //         $fileName = $enterprise->id.'_rc.'.$file->clientExtension();
-                        //         Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-                        //         $enterprise->rc = $fileName;
-                        //     }
-                        // }
-        
-                        // $fileName = time().rand(0, 1000).pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
-                        // $fileName = $fileName.'.'.$file->getClientOriginalExtension();
-                        // $file->move(public_path(),$fileName);
-                        // $input['file'] = $filename;
-                        // Document::create($input);
-                    }
-                // } 
 
-                // $signature = $request->signature;
-                // $round_stamp = $request->round_stamp;
-                // $square_stamp = $request->square_stamp;
-                // if ($signature && $round_stamp && $square_stamp) {
-                //     $destinationPath = 'data/enterprises/' . (Auth::User()->Enterprise->id) . '/' . 'documents/';
-                //     if (!file_exists($destinationPath)) {
-                //         File::makeDirectory($destinationPath, $mode = 0777, true, true);
-                //     }
+                $request->validate([
+                    'rc' => 'required|max:10000|mimes:doc,pdf,docx,jpeg,jpg,png',
+                    'nis' => 'required|max:10000|mimes:doc,pdf,docx,jpeg,jpg,png',
+                    'nif' => 'required|max:10000|mimes:doc,pdf,docx,jpeg,jpg,png',
+                    'signature' => 'required|max:10000|mimes:jpeg,jpg,png',
+                    'round_stamp' => 'required|max:10000|mimes:jpeg,jpg,png',
+                    'square_stamp' => 'required|max:10000|mimes:jpeg,jpg,png',
+                ]);
 
-                //     $signatureFileName = $manager->firstname . '_' . $manager->lastname . '_signature.' . $signature->clientExtension();
-                //     // Storage::disk('public')->put($destinationPath . $signatureFileName, file_get_contents($signature));
-                //     $image_resize = Image::make($signature->getRealPath());
-                //     $image_resize->resize(300, 300);
-                //     $image_resize->save($destinationPath . $signatureFileName);
+                $destinationPath = 'enterprises/' . (Auth::User()->Enterprise->id) . '/' . 'documents/';
+                if (!file_exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                }
 
-                //     $roundStampFileName = $manager->firstname . '_' . $manager->lastname . '_round_stamp.' . $round_stamp->clientExtension();
-                //     // Storage::disk('public')->put($destinationPath . $roundStampFileName, file_get_contents($round_stamp));
-                //     $image_resize = Image::make($round_stamp->getRealPath());
-                //     $image_resize->resize(300, 300);
-                //     $image_resize->save($destinationPath . $roundStampFileName);
+                $file = $request->file('rc');
+                $fileName = Auth::User()->Enterprise->id . '_rc.' . $file->getClientOriginalExtension();
+                Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
+                Auth::user()->Enterprise->rc = $fileName;
 
-                //     $squareStampFileName = $manager->firstname . '_' . $manager->lastname . '_square_stamp.' . $square_stamp->clientExtension();
-                //     // Storage::disk('public')->put($destinationPath . $squareStampFileName, file_get_contents($square_stamp));
-                //     $image_resize = Image::make($square_stamp->getRealPath());
-                //     $image_resize->resize(300, 300);
-                //     $image_resize->save($destinationPath . $squareStampFileName);
+                $file = $request->file('nis');
+                $fileName = Auth::User()->Enterprise->id . '_nis.' . $file->clientExtension();
+                Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
+                Auth::user()->Enterprise->nis = $fileName;
 
-                //     $profile = new Profile([
-                //         'firstname'  => '',
-                //         'lastname'  => '',
-                //         'birthday' => null,
-                //         'gender'  => null,
-                //         'address'  => '',
-                //         'mobile'  => '',
-                //         'agce_user_id'  => '',
-                //         'signature'  => $signatureFileName,
-                //         'round_stamp'  => $roundStampFileName,
-                //         'square_stamp' => $squareStampFileName,
-                //         'picture' => '',
-                //         'city_id' => Auth::user()->enterprise->city_id,
-                //         'language' => 'ar'
-                //     ]);
+                $file = $request->file('nif');
+                $fileName = Auth::User()->Enterprise->id . '_nif.' . $file->clientExtension();
+                Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
+                Auth::user()->Enterprise->nif = $fileName;
+                Auth::user()->Enterprise->update();
 
-                //     $profile->save();
+                $destinationPath = "data/".$destinationPath;
+                
+                $signature = $request->file('signature');
+                $signatureFileName = Auth::User()->Enterprise->id . '_signature.' . $signature->clientExtension();
+                $image_resize = Image::make($signature->getRealPath());              
+                $image_resize->resize(300, 300);
+                $image_resize->save($destinationPath . $signatureFileName);
 
-                //     Auth::user()->update(['profile_id' => $profile->id]);
-                // }
+                $file = $request->file('round_stamp');
+                $roundStampFileName = Auth::User()->Enterprise->id . '_round_stamp.' . $file->clientExtension();
+                $image_resize = Image::make($signature->getRealPath());              
+                $image_resize->resize(300, 300);
+                $image_resize->save($destinationPath . $roundStampFileName);
+                
+                $file = $request->file('square_stamp');
+                $squareStampFileName = Auth::User()->Enterprise->id . '_square_stamp.' . $file->clientExtension();
+                $image_resize = Image::make($signature->getRealPath());              
+                $image_resize->resize(300, 300);
+                $image_resize->save($destinationPath . $squareStampFileName);
+
+                if (!Auth::user()->profile_id){
+                    $profile = new Profile([
+                        'firstname'  => '',
+                        'lastname'  => '',
+                        'birthday' => null,
+                        'gender'  => null,
+                        'address'  => '',
+                        'mobile'  => '',
+                        'agce_user_id'  => '',
+                        'signature'  => $signatureFileName,
+                        'round_stamp'  => $roundStampFileName,
+                        'square_stamp' => $squareStampFileName,
+                        'picture' => '',
+                        'city_id' => Auth::user()->enterprise->city_id,
+                        'language' => App()->currentLocale()
+                    ]);
+                    $profile->save();
+                    Auth::user()->update(['profile_id' => $profile->id]);
+                }
+                else{
+                    Auth::user()->profile->signature = $signatureFileName;
+                    Auth::user()->profile->round_stamp = $roundStampFileName;
+                    Auth::user()->profile->square_stamp = $squareStampFileName;
+                    Auth::user()->profile->update();
+                }
 
                 return response()->json([
                     'message' => $request->hasfile('files'),
                     'step' => Steps::CONFIRMATION
                 ], 200);
             } else if ($step == Steps::CONFIRMATION) {
-                //validate
-                // if ($request->user()->hasVerifiedEmail()) {
-                //     return response()->json([
-                //         'message' => '',
-                //         'step' => config('enums.steps.')
-                //     ], 200);
-                // }
                 Auth::user()->enterprise->update(['status' => 'PENDING']);
 
                 return response()->json([
                     'message' => '',
                     'url' => RouteServiceProvider::HOME
                 ], 200);
-                //process
 
             } else {
                 $step = $this->wizard->getBySlug($step);
             }
-            // } catch (StepNotFoundException $e) {
-            //     abort(404);
-            // }
 
             return view('register1', ['step' => $step]);
             return redirect()->route('wizard.user', [$this->wizard->nextSlug()]);
