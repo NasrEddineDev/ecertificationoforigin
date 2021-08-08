@@ -30,20 +30,7 @@
             margin-left: -1cm; */
         }
 
-
-        /* #stamp {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100px!important;;
-            width: 100px!important;
-            background-image: url('img/logo/caci-logosn.png');
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        } */
-        #page1 {
+        /* #page1 {
             position: absolute;
             top: 0;
             left: 0;
@@ -68,7 +55,7 @@
             background-repeat: no-repeat;
             background-size: 100%;
             z-index: -1;
-        }
+        } */
 
         /* 
         #page3 {
@@ -153,6 +140,83 @@
         }
 
     </style>
+    @if ($template == 0)
+        <style>
+            #page1 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+            }
+
+            #page2 {
+                page-break-before: always;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+            }
+
+            #page3 {
+                page-break-before: always;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+            }
+
+        </style>
+    @else
+        <style>
+            #page1 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-image: url({{ $page1 }});
+                background-position: center top;
+                background-repeat: no-repeat;
+                background-size: 100%;
+                z-index: -1;
+            }
+
+            #page2 {
+                page-break-before: always;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-image: url({{ $page2 }});
+                background-position: center top;
+                background-repeat: no-repeat;
+                background-size: 100%;
+                z-index: -1;
+            }
+
+            #page3 {
+                page-break-before: always;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-image: url({{ $page3 }});
+                background-position: center top;
+                background-repeat: no-repeat;
+                background-size: 100%;
+                z-index: -1;
+            }
+
+        </style>
+    @endif
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
@@ -168,8 +232,7 @@
                         <td width="48.5%"
                             style="height: 23px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
                         </td>
-                        <td width="51.5%"
-                            style="font-weight: bold;text-align:center">
+                        <td width="51.5%" style="font-weight: bold;text-align:center">
                             <label>{{ $code }}</label>
                         </td>
                     </tr>
@@ -185,8 +248,7 @@
                 </table>
                 <table style="width:100%;padding-top:20px;">
                     <tr>
-                        <td width="48.5%"
-                            style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
+                        <td width="48.5%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
                             {{ $importer_name }}<br />
                             {{ $importer_address }}
                         </td>
@@ -196,9 +258,8 @@
                 </table>
                 <table style="width:100%;margin-top:22px;">
                     <tr>
-                        <td width="48.3%"
-                            style="text-align:center;font-weight: bold;">
-                            {{ Lang::get($shipment_type,[],'fr') }}</td>
+                        <td width="48.3%" style="text-align:center;font-weight: bold;">
+                            {{ Lang::get($shipment_type, [], 'fr') }}</td>
                         <td width="51.7%"
                             style="height: 130px;{{ $rtl ? 'text-align:center;' : '' }}font-weight: bold;">
                             {{ $copy_type == 'NONE' ? $notes : ($rtl ? $original_code . $notes : $notes . $original_code) }}
@@ -210,16 +271,15 @@
                         <td width="6.5%"
                             style="font-size:11px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
                         </td>
-                        <td width="60.5%"
-                            style="padding:5px;{{ $rtl ? 'text-align:right;' : '' }}">
+                        <td width="60.5%" style="padding:5px;{{ $rtl ? 'text-align:right;' : '' }}">
                             <table width="100%" id="products" style="" {{ $rtl ? 'dir=rtl' : '' }}
                                 style="font-size: 12px;">
                                 <tr>
-                                    <th>{{ Lang::get('Number',[],'fr') }}</th>
-                                    <th>{{ Lang::get('Mark',[],'fr') }}</th>
-                                    <th>{{ Lang::get('Pkg Type',[],'fr') }}</th>
-                                    <th>{{ Lang::get('Pkg Qty',[],'fr') }}</th>
-                                    <th>{{ Lang::get('Pkg Count',[],'fr') }}</th>
+                                    <th>{{ Lang::get('Number', [], 'fr') }}</th>
+                                    <th>{{ Lang::get('Mark', [], 'fr') }}</th>
+                                    <th>{{ Lang::get('Pkg Type', [], 'fr') }}</th>
+                                    <th>{{ Lang::get('Pkg Qty', [], 'fr') }}</th>
+                                    <th>{{ Lang::get('Pkg Count', [], 'fr') }}</th>
                                     {{-- <th>Description</th> --}}
                                 </tr>
                                 @foreach ($products as $product)
@@ -239,13 +299,13 @@
                         </td>
                         <td width="12%"
                             style="font-size:11px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
-                            {{ Lang::get('Net Weight',[],'fr') }}<br /> {{ $net_weight . 'KG' }}<br />
-                            {{ Lang::get('Real Weight',[],'fr') }}<br /> {{ $real_weight . 'KG' }}<br />
+                            {{ Lang::get('Net Weight', [], 'fr') }}<br /> {{ $net_weight . 'KG' }}<br />
+                            {{ Lang::get('Real Weight', [], 'fr') }}<br /> {{ $real_weight . 'KG' }}<br />
                         </td>
                         <td width="12%"
                             style="font-size:11px;height: 385px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
-                            {{ Lang::get('Invoice Number',[],'fr') }}<br /> {{ $invoice_number }}<br />
-                            {{ Lang::get('Invoice Date',[],'fr') }}<br /> {{ $invoice_date }}
+                            {{ Lang::get('Invoice Number', [], 'fr') }}<br /> {{ $invoice_number }}<br />
+                            {{ Lang::get('Invoice Date', [], 'fr') }}<br /> {{ $invoice_date }}
                         </td>
                     </tr>
                 </table>
@@ -256,10 +316,10 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td width="2%" ></td>
+                        <td width="2%"></td>
                         <td width="48.5%" style="height: 10px;"></td>
                         <td width="49.5%" style="height: 10px;text-align: center"><strong>
-                            {{ Lang::get($original_country,[],'fr') }}</strong></td>
+                                {{ Lang::get($original_country, [], 'fr') }}</strong></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -267,11 +327,11 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td width="2%" ></td>
+                        <td width="2%"></td>
                         <td width="48.5%" style="height: 10px;"></td>
                         <td width="49.5%" style="height: 10px;text-align: center"><strong>
-                            {{ 'Chine' }}</strong></td>
-                            {{-- destination_country --}}
+                                {{ 'Chine' }}</strong></td>
+                        {{-- destination_country --}}
                     </tr>
                     <tr>
                         <td></td>
@@ -279,17 +339,17 @@
                         <td style="height: 18px;"></td>
                     </tr>
                     <tr>
-                        <td width="2%" ></td>
+                        <td width="2%"></td>
                         <td width="48.5%" style="height: 10px;">
                             @if ($status == 'SIGNED')
-                                                    <strong>{{ 'Algiers '.$dri_signature_date }}</strong>
-                                                    
-                                                    @endif
+                                <strong>{{ 'Algiers ' . $dri_signature_date }}</strong>
+
+                            @endif
                         </td>
                         <td width="49.5%" style="height: 10px;">
-                                                    @if ($status == 'PENDING' || $status == 'SIGNED')
-                                                    <strong>{{ 'Algiers '.$signature_date }}</strong>
-                                                    @endif
+                            @if ($status == 'PENDING' || $status == 'SIGNED')
+                                <strong>{{ 'Algiers ' . $signature_date }}</strong>
+                            @endif
                         </td>
                     </tr>
                 </table>

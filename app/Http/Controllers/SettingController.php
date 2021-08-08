@@ -515,4 +515,103 @@ class SettingController extends Controller
             return false;
         }
     }
+
+    public function template($template)
+    {
+        try {
+            Setting::where('name', 'Default Certificate Template')->update(['value' => $template]);
+            return response()->json([
+                'message' => 'Template saved successfully'
+            ], 200);
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+            return response()->json([
+                'message' => 'Template not saved'
+            ], 404);
+        }
+    }
+
+    public function getCertificatesImages()
+    {
+        try {
+            return response()->json([
+                'gzale1' => [['url' => 'data/settings/certificates_images/1/gzale/gzale1.jpg',
+                              'caption' => 'gzale1.jpg'],
+                              ['url' => 'data/settings/certificates_images/1/gzale/gzale2.jpg',
+                              'caption' => 'gzale2.jpg'],
+                              ['url' => 'data/settings/certificates_images/1/gzale/gzale3.jpg',
+                              'caption' => 'gzale3.jpg']],
+                'gzale2' => [['url' => 'data/settings/certificates_images/2/gzale/gzale1.jpg',
+                              'caption' => 'gzale1.jpg'],
+                              ['url' => 'data/settings/certificates_images/2/gzale/gzale2.jpg',
+                              'caption' => 'gzale2.jpg'],
+                              ['url' => 'data/settings/certificates_images/2/gzale/gzale3.jpg',
+                              'caption' => 'gzale3.jpg']],
+                'acpTunisie1' => [['url' => 'data/settings/certificates_images/1/acp-tunisie/acp-tunisie1.jpg',
+                              'caption' => 'acp-tunisie1.jpg'],
+                              ['url' => 'data/settings/certificates_images/1/acp-tunisie/acp-tunisie2.jpg',
+                              'caption' => 'acp-tunisie2.jpg'],
+                              ['url' => 'data/settings/certificates_images/1/acp-tunisie/acp-tunisie3.jpg',
+                              'caption' => 'acp-tunisie3.jpg']],
+                'acpTunisie2' => [['url' => 'data/settings/certificates_images/2/acp-tunisie/acp-tunisie1.jpg',
+                              'caption' => 'acp-tunisie1.jpg'],
+                              ['url' => 'data/settings/certificates_images/2/acp-tunisie/acp-tunisie2.jpg',
+                              'caption' => 'acp-tunisie2.jpg'],
+                              ['url' => 'data/settings/certificates_images/2/acp-tunisie/acp-tunisie3.jpg',
+                              'caption' => 'acp-tunisie3.jpg']],
+                'formAEn1' => [['url' => 'data/settings/certificates_images/1/form-a-en/form-a-en1.jpg',
+                              'caption' => 'form-a-en1.jpg'],
+                              ['url' => 'data/settings/certificates_images/1/form-a-en/form-a-en2.jpg',
+                              'caption' => 'form-a-en2.jpg']],
+                'formAEn2' => [['url' => 'data/settings/certificates_images/2/form-a-en/form-a-en1.jpg',
+                              'caption' => 'form-a-en1.jpg'],
+                              ['url' => 'data/settings/certificates_images/2/form-a-en/form-a-en2.jpg',
+                              'caption' => 'form-a-en2.jpg']],
+                'formuleAFr1' => [['url' => 'data/settings/certificates_images/1/formule-a-fr/formule-a-fr1.jpg',
+                              'caption' => 'formule-a-fr1.jpg'],
+                              ['url' => 'data/settings/certificates_images/1/formule-a-fr/formule-a-fr2.jpg',
+                              'caption' => 'formule-a-fr2.jpg']],
+                'formuleAFr2' => [['url' => 'data/settings/certificates_images/2/formule-a-fr/formule-a-fr1.jpg',
+                              'caption' => 'formule-a-fr1.jpg'],
+                              ['url' => 'data/settings/certificates_images/2/formule-a-fr/formule-a-fr2.jpg',
+                              'caption' => 'formule-a-fr2.jpg']],
+            ], 200);
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+            return response()->json([
+                'message' => 'Template not saved'
+            ], 404);
+        }
+    }
+
+    public function uploadCertificatesImages(Request $request, $template, $type)
+    {
+        try {
+            $destinationPath = 'settings/certificates_images/'.$template.'/'.$type.'/';
+            if (!file_exists($destinationPath)) {
+                File::makeDirectory($destinationPath, $mode = 0777, true, true);
+            }
+            if ( 0 < $template && $template < 3){
+                $i=0;
+                foreach($request->file($template.$type) as $file)
+                {
+                    $i = $i + 1;
+                    $fileName = $type.$i.'.'.$file->clientExtension();
+                    Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
+                }    
+            }
+
+            return response()->json([
+                'message' => 'Files uploaded succesfully'
+            ], 200);
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+            return response()->json([
+                'message' => 'Files not uploaded'
+            ], 404);
+        }
+    }
 }

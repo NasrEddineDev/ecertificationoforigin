@@ -79,6 +79,10 @@ Route::get('/is-exist/{model}/{property}/{value}', [RegistrationWizardController
 Route::get('/register1', [RegisterController::class, 'index'])->name('register1');
 Route::post('/register1', [RegisterController::class, 'store'])->name('register1.post');
 
+//images
+Route::get('/template/{id}', [\App\Http\Controllers\SettingController::class, 'template'])->name('settings.template');
+Route::get('/getcertificatesimages', [\App\Http\Controllers\SettingController::class, 'getCertificatesImages'])->name('settings.getcertificatesimages');
+Route::post('/uploadcertificatesimages/{template}/{type}', [\App\Http\Controllers\SettingController::class, 'uploadCertificatesImages'])->name('settings.uploadcertificatesimages');
 
 //logger
 Route::get('/system-log', [\App\Http\Controllers\LoggerController::class, 'systemLog'])->name('logger.system-log');

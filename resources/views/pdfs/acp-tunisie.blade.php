@@ -30,20 +30,7 @@
             margin-left: -1cm; */
         }
 
-
-        /* #stamp {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100px!important;;
-            width: 100px!important;
-            background-image: url('img/logo/caci-logosn.png');
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        } */
-        #page1 {
+        /* #page1 {
             position: absolute;
             top: 0;
             left: 0;
@@ -82,7 +69,7 @@
             background-repeat: no-repeat;
             background-size: 100%;
             z-index: -1;
-        }
+        } */
 
         #invoice {
             page-break-before: always;
@@ -151,6 +138,83 @@
         }
 
     </style>
+
+@if ($template == 0)
+<style>
+#page1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+#page2 {
+    page-break-before: always;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+#page3 {
+    page-break-before: always;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+</style>
+@else
+<style>
+#page1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url({{ $page1 }});
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    z-index: -1;
+}
+
+#page2 {
+    page-break-before: always;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url({{ $page2 }});
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    z-index: -1;
+}
+
+#page3 {
+    page-break-before: always;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url({{ $page3 }});
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    z-index: -1;
+}
+</style>
+@endif
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
