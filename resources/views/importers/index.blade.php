@@ -40,6 +40,7 @@
                             </div> --}}
                                 <div id="toolbar">
                                     <div class="{{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                        @can('create',  App\Models\Importer::class)
                                         <button id="new" style="background-color: #2C7744;"
                                             class="dropbtn btn btn-success dropdown-toggle {{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
                                             "PENDING") ? 'not-active' : '' }}" data-toggle="dropdown"
@@ -47,19 +48,22 @@
                                             title="{{ __('Add New Importer') }}">
                                             <i class="fa fa-user-plus"></i>
                                         </button>
-                                        {{-- <button id="details" class="btn btn-info" title="{{ __('Details') }}" disabled>
-                                            <i class="fa fa-eye"></i>
-                                        </button> --}}
+                                        @endcan
+                                        @can('update',  App\Models\Importer::class)
                                         <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
                                             disabled>
                                             <i class="fa fa-pencil-square-o"></i>
                                         </button>
+                                        @endcan
+                                        @can('delete',  App\Models\Importer::class)
                                         <button id="remove" class="btn btn-danger" title="{{ __('Delete') }}"
                                             data-toggle="modal" data-target="#DangerModalhdbgcl"
                                             style="background-color: #d80027!important;" disabled>
                                             <i class="fa fa-trash"></i>
                                         </button>
+                                        @endcan
                                     </div>
+                                    @can('filter-country',  App\Models\Importer::class)
                                     <div class="col-lg-4 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                         <select id="certificatesSelecor" name="certificatesSelecor" class="form-control">
                                             <option value="ALL" selected>ALL</option>
@@ -67,6 +71,7 @@
                                             <option value="EGYPT">EGYPT</option>
                                         </select>
                                     </div>
+                                    @endcan
                                 </div>
                                 {{-- <div class="toolbar add-product dt-tb">
                                 <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 

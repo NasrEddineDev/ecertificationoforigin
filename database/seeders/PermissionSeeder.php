@@ -105,6 +105,44 @@ class PermissionSeeder extends Seeder
 'name' => 'delete-certificate',
 'description' => '',
 'group' => 'certificate',
+],[
+'name' => 'duplicate-certificate',
+'description' => '',
+'group' => 'certificate',
+],[
+'name' => 'retrospective-certificate',
+'description' => '',
+'group' => 'certificate',
+],[
+'name' => 'enterprise-certificate',
+'description' => '',
+'group' => 'certificate',
+],
+// producer permissions
+[
+'name' => 'create-producer',
+'description' => '',
+'group' => 'producer',
+],[
+'name' => 'view-producer',
+'description' => '',
+'group' => 'producer',
+],[
+'name' => 'list-producers',
+'description' => '',
+'group' => 'producer',
+],[
+'name' => 'update-producer',
+'description' => '',
+'group' => 'producer',
+],[
+'name' => 'delete-producer',
+'description' => '',
+'group' => 'producer',
+],[
+'name' => 'enterprise-producer',
+'description' => '',
+'group' => 'producer',
 ],
 // product permissions
 [
@@ -125,6 +163,10 @@ class PermissionSeeder extends Seeder
 'group' => 'product',
 ],[
 'name' => 'delete-product',
+'description' => '',
+'group' => 'product',
+],[
+'name' => 'enterprise-product',
 'description' => '',
 'group' => 'product',
 ],
@@ -149,6 +191,14 @@ class PermissionSeeder extends Seeder
 'name' => 'delete-importer',
 'description' => '',
 'group' => 'importer',
+],[
+'name' => 'filter-country-importer',
+'description' => '',
+'group' => 'importer',
+],[
+'name' => 'enterprise-importer',
+'description' => '',
+'group' => 'importer',
 ],
 // enterprise permissions
 [
@@ -171,28 +221,10 @@ class PermissionSeeder extends Seeder
 'name' => 'delete-enterprise',
 'description' => '',
 'group' => 'enterprise',
-],
-// export manager permissions
-[
-'name' => 'create-export-manager',
-'description' => '',
-'group' => 'export-manager',
 ],[
-'name' => 'view-export-manager',
+'name' => 'filter-type-enterprise',
 'description' => '',
-'group' => 'export-manager',
-],[
-'name' => 'list-export-managers',
-'description' => '',
-'group' => 'export-manager',
-],[
-'name' => 'update-export-manager',
-'description' => '',
-'group' => 'export-manager',
-],[
-'name' => 'delete-export-manager',
-'description' => '',
-'group' => 'export-manager',
+'group' => 'enterprise',
 ],
 // manager permissions
 [
@@ -202,7 +234,7 @@ class PermissionSeeder extends Seeder
 ],[
 'name' => 'view-manager',
 'description' => '',
-'group' => 'certificate',
+'group' => 'manager',
 ],[
 'name' => 'list-managers',
 'description' => '',
@@ -266,7 +298,15 @@ class PermissionSeeder extends Seeder
 'description' => '',
 'group' => 'payment',
 ],[
+'name' => 'dhahabia-payment',
+'description' => '',
+'group' => 'payment',
+],[
 'name' => 'view-payment',
+'description' => '',
+'group' => 'payment',
+],[
+'name' => 'balance-payment',
 'description' => '',
 'group' => 'payment',
 ],[
@@ -279,6 +319,10 @@ class PermissionSeeder extends Seeder
 'group' => 'payment',
 ],[
 'name' => 'delete-payment',
+'description' => '',
+'group' => 'payment',
+],[
+'name' => 'enterprise-payment',
 'description' => '',
 'group' => 'payment',
 ],
@@ -360,7 +404,7 @@ class PermissionSeeder extends Seeder
 ],[
 'name' => 'list-countries',
 'description' => '',
-'group' => 'payment',
+'group' => 'country',
 ],[
 'name' => 'update-country',
 'description' => '',

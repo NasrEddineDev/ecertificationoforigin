@@ -37,7 +37,7 @@
                     <div class="sparkline13-graph">
                         <div class="datatable-dashv1-list custom-datatable-overright">
                             <div class="toolbar add-product dt-tb">
-                                @if(Auth::User()->role->name == 'dri_admin')
+                                @can('create',  App\Models\Category::class)
                                 <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
                                 "PENDING") ? 'not-active' : '' }}" href="{{ route('categories.create') }}"
                                 style="{{App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : ''}}">{{ __('Add New Category') }}</a>
@@ -73,14 +73,19 @@
                                         <td>{{ $category->name_fr }}</td>
                                         <td>{{ $category->description }}</td>
                                         <td class="datatable-ct">
+                                            @can('view',  App\Models\Category::class)
                                             <a rel="tooltip" class="btn btn-success" href="{{ route('categories.show',$category->id) }}" data-original-title="" title="View">
                                                 <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
                                                 <div class="ripple-container"></div>
                                             </a>
+                                            @endcan
+                                            @can('update',  App\Models\Category::class)
                                             <a rel="tooltip" class="btn btn-primary" href="{{ route('categories.edit',$category->id) }}" data-original-title="" title="Edit">
                                                 <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
                                                 <div class="ripple-container"></div>
                                             </a>
+                                            @endcan
+                                            @can('delete',  App\Models\Category::class)
                                             <a rel="tooltip" class="btn btn-danger pd-setting-ed" href="#" data-url="{{ route('categories.destroy',$category->id) }}" 
                                             data-category_name="{{ App()->currentLocale() == 'ar' ? $category->name_ar : (
                                                 App()->currentLocale() == 'en' ? $category->name : $category->name_fr)}}" data-original-title="" title="Delete" data-toggle="modal" 
@@ -88,6 +93,7 @@
                                                 <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
                                                 <div class="ripple-container"></div>
                                             </a>
+                                            @endcan
                                         </td>
                                     </tr>
                                     @endforeach

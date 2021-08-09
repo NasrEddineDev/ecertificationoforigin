@@ -146,7 +146,7 @@ class PaymentController extends Controller
                 ];
                 $response = $client->post($order_status_url_poste->value, $params);
                 $params = json_decode((string)$response->getBody(), true);
-                dd($params);
+                // dd($params);
                 return view('payments.payment-receipt-balance-poste', compact(['payment', 'params', 'unit_price']));
             }
 

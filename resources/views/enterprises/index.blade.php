@@ -21,10 +21,13 @@
                             <div class="sparkline13-graph">
                                 <div class="datatable-dashv1-list custom-datatable-overright">
                                         <div class="toolbar add-product dt-tb">
+                                            @can('create',  App\Models\Enterprise::class)
                                             <a class="" href="{{ route('enterprises.create') }}" 
                                             style="{{App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : ''}}">{{__('Add New Enterprise') }}</a>
+                                            @endcan
                                         </div>
                                     <div id="toolbar">
+                                        @can('filter-type',  App\Models\Enterprise::class)
                                         <select class="form-control dt-tb">
 											<option value="ALL" selected>{{__('ALL') }}</option>
 											<option value="DRAFT">{{__('DRAFT') }}</option>
@@ -33,6 +36,7 @@
 											<option value="SUSPENDED">{{__('SUSPENDED') }}</option>
 											<option value="STOPPED">{{__('STOPPED') }}</option>
 										</select>
+                                        @endcan
                                     </div>
                                     <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" 
                                     data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" 
@@ -86,18 +90,23 @@
                                                         <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
                                                         <div class="ripple-container"></div>
                                                     </a>--}}
+                                                    @can('view',  App\Models\Enterprise::class)
                                                     <a rel="tooltip" class="btn btn-success"
                                                         href="{{ route('enterprises.show', $enterprise->id) }}"
                                                         data-original-title="" title="{{ __('Detail') }}">
                                                         <i class="fa fa-list fa-lg" aria-hidden="true"></i>
                                                         <div class="ripple-container"></div>
                                                     </a> 
+                                                    @endcan
+                                                    @can('update',  App\Models\Enterprise::class)
                                                     <a rel="tooltip" class="btn btn-primary" style="margin-left: 5px;margin-right: 5px;"
                                                         href="{{ route('enterprises.edit', $enterprise->id) }}"
                                                         data-original-title="" title="{{ __('Edit') }}">
                                                         <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
                                                         <div class="ripple-container"></div>
                                                     </a> 
+                                                    @endcan
+                                                    @can('delete',  App\Models\Enterprise::class)
                                                     <a rel="tooltip" class="btn btn-danger pd-setting-ed" href="#"
                                                         data-url="{{ route('enterprises.destroy', $enterprise->id) }}"
                                                         data-enterprise_name="{{ $enterprise->name }}"
@@ -107,6 +116,7 @@
                                                         <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
                                                         <div class="ripple-container"></div>
                                                     </a>
+                                                    @endcan
                                                 </div>
                                                 </td>
                                             </tr>

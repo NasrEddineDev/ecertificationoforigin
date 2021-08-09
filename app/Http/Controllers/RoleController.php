@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Role;
+use App\Models\Permission;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -18,15 +19,15 @@ class RoleController extends Controller
      */
     public function index()
     {
-        //        
-try {
-        $roles = Role::all();
-        return view('roles.index', compact('roles'));
-    } catch (Throwable $e) {
-        report($e);
+        //
+        try {
+            $roles = Role::all();
+            return view('roles.index', compact('roles'));
+        } catch (Throwable $e) {
+            report($e);
 
-        return false;
-    }
+            return false;
+        }
     }
 
     /**
@@ -37,13 +38,13 @@ try {
     public function create()
     {
         //
-try {
-        return view('roles.create');
-    } catch (Throwable $e) {
-        report($e);
+        try {
+            return view('roles.create');
+        } catch (Throwable $e) {
+            report($e);
 
-        return false;
-    }
+            return false;
+        }
     }
 
     /**
@@ -54,20 +55,20 @@ try {
      */
     public function store(Request $request)
     {
-        //      
-try {
-        $role = new Role([
-            'name' => $request->name,
-        ]);
+        //
+        try {
+            $role = new Role([
+                'name' => $request->name,
+            ]);
 
-        $role->save();
+            $role->save();
 
-        return redirect()->route('roles.index')->with('success','Role created successfully.');
-    } catch (Throwable $e) {
-        report($e);
+            return redirect()->route('roles.index')->with('success', 'Role created successfully.');
+        } catch (Throwable $e) {
+            report($e);
 
-        return false;
-    }
+            return false;
+        }
     }
 
     /**
@@ -90,14 +91,17 @@ try {
     public function edit($id)
     {
         //
-try {
-        $role = Role::find($id);
-        return view('roles.edit',compact('role'));
-    } catch (Throwable $e) {
-        report($e);
+        try {
+            $role = Role::find($id);
+            $permissions_groups = Permission::all()->groupBy('group');
+            $permissions_ids = $role->permissions->pluck('id');
+            // dd($permissions_ids);
+            return view('roles.edit', compact('role', 'permissions_groups', 'permissions_ids'));
+        } catch (Throwable $e) {
+            report($e);
 
-        return false;
-    }
+            return false;
+        }
     }
 
     /**
@@ -110,18 +114,25 @@ try {
     public function update(Request $request, $id)
     {
         //
-try {
-        $role = Role::find($id);
-        $role->name = $request->input('name');
-        $role->save();
+        try {
+            $role = Role::find($id);
+            $role->name = $request->name;
 
-        return redirect()->route('roles.index')
-                        ->with('success','Role updated successfully');
-                    } catch (Throwable $e) {
-                        report($e);
-                
-                        return false;
-                    }
+            $role->permissions()->detach();
+            $permissions_ids = (array)json_decode($request->permissions_ids);
+            $role->givePermissionsToByIds($permissions_ids);
+            $role->update();
+
+            return response()->json([
+                'message' => 'Role updated successfully name=' . $request->name
+            ], 200);
+            // return redirect()->route('roles.index')
+            //                 ->with('success','Role updated successfully');
+        } catch (Throwable $e) {
+            report($e);
+
+            return false;
+        }
     }
 
     /**
@@ -133,22 +144,22 @@ try {
     public function destroy($id)
     {
         //
-try {
-        $role = Role::find($id);
-        if ($role){
-            $role->delete();
+        try {
+            $role = Role::find($id);
+            if ($role) {
+                $role->delete();
+                return response()->json([
+                    'message' => 'Role deleted successfully'
+                ], 200);
+            }
+
             return response()->json([
-                'message' => 'Role deleted successfully'
+                'message' => 'Role not found'
             ], 200);
+        } catch (Throwable $e) {
+            report($e);
+
+            return false;
         }
-
-        return response()->json([
-            'message' => 'Role not found'
-        ], 200);
-    } catch (Throwable $e) {
-        report($e);
-
-        return false;
-    }
     }
 }

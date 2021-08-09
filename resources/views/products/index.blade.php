@@ -38,6 +38,7 @@
                             
                             <div id="toolbar">
                                 <div class="{{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                    @can('create',  App\Models\Product::class)
                                     <button id="new" style="background-color: #2C7744;"
                                         class="dropbtn btn btn-success dropdown-toggle {{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
                                         "PENDING") ? 'not-active' : '' }}" data-toggle="dropdown"
@@ -45,25 +46,29 @@
                                         title="{{ __('Add New Product') }}">
                                         <i class="fa fa-plus-square"></i>
                                     </button>
-                                    {{-- <button id="details" class="btn btn-info" title="{{ __('Details') }}" disabled>
-                                        <i class="fa fa-eye"></i>
-                                    </button> --}}
+                                    @endcan
+                                    @can('update',  App\Models\Product::class)
                                     <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
                                         disabled>
                                         <i class="fa fa-pencil-square-o"></i>
                                     </button>
+                                    @endcan
+                                    @can('delete',  App\Models\Product::class)
                                     <button id="remove" class="btn btn-danger" title="{{ __('Delete') }}"
                                         data-toggle="modal" data-target="#DangerModalhdbgcl"
                                         style="background-color: #d80027!important;" disabled>
                                         <i class="fa fa-trash"></i>
                                     </button>
+                                    @endcan
                                 </div>
                                 <div class="col-lg-4 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                    @can('filter-country',  App\Models\Product::class)
                                     <select id="certificatesSelecor" name="certificatesSelecor" class="form-control">
                                         <option value="ALL" selected>ALL</option>
                                         <option value="GZALE">UEA</option>
                                         <option value="FORMULE-A-FR">EGYPT</option>
                                     </select>
+                                    @endcan
                                 </div>
                             </div>
                             <!-- <div id="toolbar">
@@ -94,9 +99,10 @@
                                         <th data-field="description" data-editable="true">{{ __('Description') }}</th>
                                         <!-- <th data-field="package_type" data-editable="true">Package Type</th>
                                         <th data-field="package_count" data-editable="true">Package Count</th> -->
-                                        @if (Auth::User()->role->name != 'user')
-                                        <th data-field="action">{{ __('Enterprise') }}</th>
-                                        @endif
+                                        @can('view-enterprise',  App\Models\product::class)
+                                                <th data-field="enterprise" data-editable="true">{{ __('Enterprise') }}
+                                                </th>
+                                            @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -113,29 +119,9 @@
                                         <!-- <td>{{ $product->net_weight }}</td>
                                         <td>{{ $product->real_weight }}</td> -->
                                         <td>{{ $product->description }}</td>
-                                        @if (Auth::User()->role->name != 'user')
+                                        @can('view-enterprise',  App\Models\product::class)
                                         <td>{{ $product->enterprise->name }}</td>
-                                        @endif
-                                        <!-- <td>{{ $product->package_type }}</td>
-                                        <td>{{ $product->package_count }}</td> -->
-                                        {{-- <td class="datatable-ct">
-                                            <a rel="tooltip" class="btn btn-success" href="{{ route('products.show',$product->id) }}" 
-                                                data-original-title="" title="{{ __('Detail') }}">
-                                                <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
-                                                <div class="ripple-container"></div>
-                                            </a>
-                                            <a rel="tooltip" class="btn btn-primary" href="{{ route('products.edit',$product->id) }}" 
-                                                data-original-title="" title="{{ __('Edit') }}">
-                                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
-                                                <div class="ripple-container"></div>
-                                            </a>
-                                            <a rel="tooltip" class="btn btn-danger pd-setting-ed" href="#" data-url="{{ route('products.destroy',$product->id) }}" 
-                                            data-product_name="{{ $product->name }}" data-original-title="" title="{{ __('Delete') }}" data-toggle="modal" 
-                                            data-target="#DangerModalhdbgcl" style="background-color: #d80027!important;">
-                                                <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
-                                                <div class="ripple-container"></div>
-                                            </a>
-                                        </td> --}}
+                                        @endcan
                                     </tr>
                                     @endforeach
                                 </tbody>

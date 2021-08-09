@@ -33,31 +33,36 @@
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <div id="toolbar">
                                     <div class="{{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                        @can('create',  App\Models\Producer::class)
                                         <button id="new" style="background-color: #2C7744;"
                                             class="dropbtn btn btn-success dropdown-toggle {{ Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 'PENDING' ? 'not-active' : '' }}"
                                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                                             title="{{ __('Add New Producer') }}">
                                             <i class="fa fa-user-plus"></i>
                                         </button>
-                                        {{-- <button id="details" class="btn btn-info" title="{{ __('Details') }}" disabled>
-                                        <i class="fa fa-eye"></i>
-                                    </button> --}}
+                                        @endcan
+                                        @can('update',  App\Models\Producer::class)
                                         <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
                                             disabled>
                                             <i class="fa fa-pencil-square-o"></i>
                                         </button>
+                                        @endcan
+                                        @can('delete',  App\Models\Producer::class)
                                         <button id="remove" class="btn btn-danger" title="{{ __('Delete') }}"
                                             data-toggle="modal" data-target="#DangerModalhdbgcl"
                                             style="background-color: #d80027!important;" disabled>
                                             <i class="fa fa-trash"></i>
                                         </button>
+                                        @endcan
                                     </div>
                                     <div class="col-lg-4 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                        @can('filter-country',  App\Models\Producer::class)
                                         <select id="certificatesSelecor" name="certificatesSelecor" class="form-control">
                                             <option value="ALL" selected>ALL</option>
                                             <option value="UEA">UEA</option>
                                             <option value="EGYPT">EGYPT</option>
                                         </select>
+                                        @endcan
                                     </div>
                                 </div>
                                 {{-- <div class="toolbar add-product dt-tb">
@@ -96,10 +101,10 @@
                                             <!-- <th data-field="website" data-editable="true">{{ __('Website') }}</th>
                                             <th data-field="tel" data-editable="true">{{ __('Tel') }}</th>
                                             <th data-field="fax" data-editable="true">{{ __('Fax') }}</th> -->
-                                            @if (Auth::user()->can('view-enterprise-user'))
+                                        @can('view-enterprise',  App\Models\Product::class)
                                                 <th data-field="enterprise" data-editable="true">{{ __('Enterprise') }}
                                                 </th>
-                                            @endif
+                                            @endcan
                                             {{-- <th data-field="action">{{ __('Action')}}</th> --}}
                                         </tr>
                                     </thead>
@@ -119,27 +124,9 @@
                                                     <!-- <td>{{ $producer->website }}</td>
                                                     <td>{{ $producer->tel }}</td>
                                                     <td>{{ $producer->fax }}</td> -->
-                                                    @if (Auth::user()->can('view-enterprise-user'))
+                                                @can('view-enterprise',  App\Models\Product::class)
                                                         <td>{{ $producer->enterprise_id }}</td>
-                                                    @endif
-                                                    {{-- <td class="datatable-ct">
-                                                    <a rel="tooltip" class="btn btn-success" href="{{ route('producers.show',$producer->id) }}" 
-                                                        data-original-title="" title="{{ __('Detail') }}">
-                                                        <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                    <a rel="tooltip" class="btn btn-primary" href="{{ route('producers.edit',$producer->id) }}" 
-                                                        data-original-title="" title="{{ __('Edit') }}">
-                                                        <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                    <a rel="tooltip" class="btn btn-danger pd-setting-ed" href="#" data-url="{{ route('producers.destroy',$producer->id) }}" 
-                                                    data-producer_name="{{ $producer->name }}" data-original-title="" title="{{ __('Delete') }}" data-toggle="modal" 
-                                                    data-target="#DangerModalhdbgcl" style="background-color: #d80027!important;">
-                                                        <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>
-                                                </td> --}}
+                                                        @endcan
                                                 </tr>
                                             @endforeach
                                         @endif

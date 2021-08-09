@@ -70,18 +70,10 @@
                                         <td>{{ $role->id }}</td>
                                         <td>{{ __($role->name) }}</td>
                                         <td class="datatable-ct">
-                                            {{-- <a rel="tooltip" class="btn btn-warning" href="{{ route('roles.show',$role->id) }}" data-original-title="" title="View">
-                                                <i class="fa fa-lock fa-lg" aria-hidden="true"></i>
-                                                <div class="ripple-container"></div>
-                                            </a> --}}
-                                            <a rel="tooltip" class="btn btn-warning" href="#" data-url="{{ route('roles.destroy',$role->id) }}" 
+                                            {{-- <a rel="tooltip" class="btn btn-warning" href="#" data-url="{{ route('roles.destroy',$role->id) }}" 
                                             data-role_name="{{ $role->name }}" data-original-title="" title="{{__('Permissions')}}" data-toggle="modal" 
                                             data-target="#PermissionsModalhdbgcl">
                                             <i class="fa fa-lock fa-lg" aria-hidden="true"></i>
-                                                <div class="ripple-container"></div>
-                                            </a>
-                                            {{-- <a rel="tooltip" class="btn btn-success" href="{{ route('roles.show',$role->id) }}" data-original-title="" title="View">
-                                                <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
                                                 <div class="ripple-container"></div>
                                             </a> --}}
                                             <a rel="tooltip" class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}" data-original-title="" title="Edit">

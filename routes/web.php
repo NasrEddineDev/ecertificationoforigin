@@ -34,8 +34,8 @@ Route::get('certificates/preview/{id}', [\App\Http\Controllers\CertificateContro
 Route::post('generate-gzal', [\App\Http\Controllers\CertificateController::class, 'generateGZAL'])->name('certificates.generate-gzal');
 Route::get('/sign/{id}/{notes}', [\App\Http\Controllers\CertificateController::class, 'sign'])->name('certificates.sign');
 Route::get('reject-gzal/{id}/{notes}', [\App\Http\Controllers\CertificateController::class, 'rejectGZAL'])->name('certificates.reject-gzal');
-Route::get('create-retroactive-copy/{id}/{reason}', [\App\Http\Controllers\CertificateController::class, 'createRetroactiveCopy'])->name('certificates.create-retroactive-copy');
-Route::post('store-retroactive-copy/{id}', [\App\Http\Controllers\CertificateController::class, 'storeRetroactiveCopy'])->name('certificates.store-retroactive-copy');
+Route::get('create-retrospective-copy/{id}/{reason}', [\App\Http\Controllers\CertificateController::class, 'createRetrospectiveCopy'])->name('certificates.create-retrospective-copy');
+Route::post('store-retrospective-copy/{id}', [\App\Http\Controllers\CertificateController::class, 'storeRetrospectiveCopy'])->name('certificates.store-retrospective-copy');
 Route::get('duplicate-gzale/{id}/{type}/{reason}', [\App\Http\Controllers\CertificateController::class, 'duplicateGZALE'])->name('certificates.duplicate-gzale');
 Route::get('qr-code', [\App\Http\Controllers\CertificateController::class, 'qrcode'])->name('certificates.qrcode');
 Route::get('create-type/{type}', [\App\Http\Controllers\CertificateController::class, 'createType'])->name('certificates.create-type');

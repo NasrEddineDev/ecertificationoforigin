@@ -217,10 +217,14 @@ textarea#notes{
 .header-right-info ul.header-right-menu li .dropdown-header-top.author-log li .author-log-ic {
     margin-right: 0px!important;
 }
-
+.add-product a {
+  margin-left:5px;
+  float: right;
+  position: inherit;
+}
 .add-product span {
     float: right;
-    position: absolute;
+    position: inherit;
     top: 20px;
     right: 35px;
     left: auto;

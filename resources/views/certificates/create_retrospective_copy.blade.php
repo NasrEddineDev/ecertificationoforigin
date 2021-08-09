@@ -95,9 +95,9 @@
                     <div class="sparkline12-list">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">{{ __('Create Retroactive Certificate') }}</h4>
+                                <h4 class="card-title">{{ __('Create Retrospective Certificate') }}</h4>
                                 <br />
-                                <form class="form-sample" method="post" action="{{ route('certificates.store-retroactive-copy', 
+                                <form class="form-sample" method="post" action="{{ route('certificates.store-retrospective-copy', 
                                     $certificate->id) }}" enctype="multipart/form-data">
                                     @csrf
                                     <input name="reason" id="reason" type="hidden" value="{{ $reason }}">
@@ -605,7 +605,7 @@
                 formdata.append("invoice_number", $('#invoice_number').val());
                 formdata.append("integrity_rate", $('#integrity_rate').val());
                 formdata.append("incoterm", $('#incoterm').val());
-                formdata.append("is_retroactive", true);
+                formdata.append("is_retrospective", true);
                 formdata.append("reason", $('#reason').val());
                 formdata.append("code", $('#code').val());
                 formdata.append("products_description", $('#products_description').val());
@@ -653,7 +653,7 @@
                 formdata.append("invoice_number", $('#invoice_number').val());
                 formdata.append("integrity_rate", $('#integrity_rate').val());
                 formdata.append("incoterm", $('#incoterm').val());
-                formdata.append("is_retroactive", true);
+                formdata.append("is_retrospective", true);
                 formdata.append("reason", $('#reason').val());
                 formdata.append("code", $('#code').val());
                 formdata.append("products_description", $('#products_description').val());
@@ -670,7 +670,7 @@
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
                         type: 'POST',
-                        url: '{{ route('certificates.store-retroactive-copy', $certificate->id) }}',
+                        url: '{{ route('certificates.store-retrospective-copy', $certificate->id) }}',
                         cache: false,
                         contentType: false,
                         processData: false,

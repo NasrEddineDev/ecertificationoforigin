@@ -62,7 +62,7 @@
 |        |           |                                       |                                      |                                                                         | auth                         |
 |        | GET|HEAD  | create-balance-poste                  | payments.create-balance-poste        | App\Http\Controllers\PaymentController@createBalancePoste               | web                          |
 |        |           |                                       |                                      |                                                                         | verified                     |
-|        | GET|HEAD  | create-retroactive-copy/{id}/{reason} | certificates.create-retroactive-copy | App\Http\Controllers\CertificateController@createRetroactiveCopy        | web                          |
+|        | GET|HEAD  | create-retrospective-copy/{id}/{reason} | certificates.create-retrospective-copy | App\Http\Controllers\CertificateController@createRetrospectiveCopy        | web                          |
 |        |           |                                       |                                      |                                                                         | auth                         |
 |        |           |                                       |                                      |                                                                         | verified                     |
 |        | GET|HEAD  | create-type/{type}                    | certificates.create-type             | App\Http\Controllers\CertificateController@createType                   | web                          |
@@ -327,7 +327,7 @@
 |        |           |                                       |                                      |                                                                         | verified                     |
 |        | POST      | store-balance-poste                   | payments.store-balance-poste         | App\Http\Controllers\PaymentController@storeBalancePoste                | web                          |
 |        |           |                                       |                                      |                                                                         | verified                     |
-|        | POST      | store-retroactive-copy/{id}           | certificates.store-retroactive-copy  | App\Http\Controllers\CertificateController@storeRetroactiveCopy         | web                          |
+|        | POST      | store-retrospective-copy/{id}           | certificates.store-retrospective-copy  | App\Http\Controllers\CertificateController@storeRetrospectiveCopy         | web                          |
 |        |           |                                       |                                      |                                                                         | auth                         |
 |        |           |                                       |                                      |                                                                         | verified                     |
 |        | POST      | subcategories                         | subcategories.store                  | App\Http\Controllers\SubCategoryController@store                        | web                          |

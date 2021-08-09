@@ -2,10 +2,11 @@
 
 namespace App\Policies;
 
+use App\Models\Producer;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class ProductPolicy
+class ProducerPolicy
 {
     use HandlesAuthorization;
 
@@ -18,7 +19,7 @@ class ProductPolicy
     public function viewList(User $user)
     {
         //
-        return $user->role->hasPermissionByName('list-products');
+        return $user->role->hasPermissionByName('list-producers');
     }
 
     /**
@@ -31,7 +32,7 @@ class ProductPolicy
     public function view(User $user)
     {
         //
-        return $user->role->hasPermissionByName('view-product');
+        return $user->role->hasPermissionByName('view-producer');
     }
 
     /**
@@ -43,7 +44,7 @@ class ProductPolicy
     public function create(User $user)
     {
         //
-        return $user->role->hasPermissionByName('create-product');
+        return $user->role->hasPermissionByName('create-producer');
     }
 
     /**
@@ -56,7 +57,7 @@ class ProductPolicy
     public function update(User $user)
     {
         //
-        return $user->role->hasPermissionByName('update-product');
+        return $user->role->hasPermissionByName('update-producer');
     }
 
     /**
@@ -69,7 +70,7 @@ class ProductPolicy
     public function delete(User $user)
     {
         //
-        return $user->role->hasPermissionByName('delete-product');
+        return $user->role->hasPermissionByName('delete-producer');
     }
 
     /**
@@ -82,7 +83,7 @@ class ProductPolicy
     public function restore(User $user)
     {
         //
-        return $user->role->hasPermissionByName('restore-product');
+        return $user->role->hasPermissionByName('restore-producer');
     }
 
     /**
@@ -95,12 +96,12 @@ class ProductPolicy
     public function forceDelete(User $user)
     {
         //
-        return $user->role->hasPermissionByName('force-delete-product');
+        return $user->role->hasPermissionByName('force-delete-producer');
     }
 
     public function filterCountry(User $user)
     {
         //
-        return $user->role->hasPermissionByName('filter-country-product');
+        return $user->role->hasPermissionByName('filter-country-producer');
     }
 }

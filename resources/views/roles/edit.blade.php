@@ -2,14 +2,20 @@
 
 @Push('css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css"
-        crossorigin="anonymous">
+        crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ URL::asset('css/data-table/bootstrap-table.css') }}" />
     <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
-        rel="stylesheet">
+        rel="stylesheet" />
     <style>
         .slow .toggle-group {
             transition: left 0.7s;
             -webkit-transition: left 0.7s;
+        }
+
+        .toggle.btn-dark {
+            color: #fff;
+            background-color: #6c757d;
+            border-color: #6c757d;
         }
 
         table tr td,
@@ -55,57 +61,51 @@
                                                 <tr>
                                                     <th data-field="type" data-editable="true">{{ __('Permissions') }}
                                                     </th>
-                                                    <th data-field="white_background" data-editable="true">
+                                                    <th data-field="create" data-editable="true">
                                                         {{ __('Create') }}</th>
-                                                    <th data-field="colorized_background" data-editable="true">
-                                                        {{ __('Read') }}</th>
-                                                    <th data-field="white_background" data-editable="true">
-                                                        {{ __('Update') }}</th>
-                                                    <th data-field="colorized_background" data-editable="true">
-                                                        {{ __('Delete') }}</th>
-                                                    <th data-field="colorized_background" data-editable="true">
+                                                    <th data-field="view" data-editable="true">
+                                                        {{ __('View') }}</th>
+                                                    <th data-field="list" data-editable="true">
                                                         {{ __('List') }}</th>
-                                                    <th data-field="colorized_background" data-editable="true">
+                                                    <th data-field="update" data-editable="true">
+                                                        {{ __('Update') }}</th>
+                                                    <th data-field="delete" data-editable="true">
+                                                        {{ __('Delete') }}</th>
+                                                    <th data-field="others" data-editable="true">
                                                         {{ __('Others') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr id="">
-                                                    <td>
-                                                    </td>
-                                                    <td>
-                                                      <input type="checkbox" checked data-toggle="toggle" data-size="xs"
-                                                          data-style="slow">
-                                                        <input type="checkbox" checked data-toggle="toggle" data-size="xs"
-                                                            data-onstyle="primary" data-style="slow">
-                                                    </td>
-                                                    <td>
-                                                        <input type="checkbox" checked data-toggle="toggle" data-size="xs"
-                                                            data-onstyle="secondary" data-style="slow">
-                                                    </td>
-                                                    <td>
-                                                        <input type="checkbox" checked data-toggle="toggle" data-size="xs"
-                                                            data-onstyle="success" data-style="slow">
-                                                    </td>
-                                                    <td>
-                                                        <input type="checkbox" checked data-toggle="toggle" data-size="xs"
-                                                            data-onstyle="danger" data-style="slow">
-                                                    </td>
-                                                    <td>
-                                                        <input type="checkbox" checked data-toggle="toggle" data-size="xs"
-                                                            data-onstyle="warning" data-style="slow">
-                                                    </td>
-                                                    <td>
-                                                        <input type="checkbox" checked data-toggle="toggle" data-size="xs"
-                                                            data-onstyle="info" data-style="slow">
 
-                                                        <input type="checkbox" checked data-toggle="toggle" data-size="xs"
-                                                            data-onstyle="light" data-style="slow">
-
-                                                        <input type="checkbox" checked data-toggle="toggle" data-size="xs"
-                                                            data-onstyle="dark" data-style="slow">
-                                                    </td>
-                                                </tr>
+                                                @foreach ($permissions_groups as $permissions_group)
+                                                    <tr>
+                                                        <td>
+                                                            {{ __(ucfirst(explode('-', $permissions_group->first()->name)[1])) }}
+                                                        </td>
+                                                        @foreach ($permissions_group as $permission)
+                                                            @if (str_contains($permission->name, 'create') || str_contains($permission->name, 'view') || str_contains($permission->name, 'update') || str_contains($permission->name, 'delete') || str_contains($permission->name, 'list'))
+                                                                <td>
+                                                                    <input id='{{$permission->id}}' type="checkbox" 
+                                                                        {{ $permissions_ids->contains($permission->id) ? 'checked' : '' }}
+                                                                        data-toggle="toggle" data-size="xs"
+                                                                        data-style="slow"  data-on="{{__("On")}}" data-off="{{__("Off")}}"
+                                                                        data-onstyle="{{ str_contains($permission->name, 'create') ? 'dark' : (str_contains($permission->name, 'view') ? 'success' : (str_contains($permission->name, 'update') ? 'danger' : (str_contains($permission->name, 'delete') ? 'warning' : (str_contains($permission->name, 'list') ? 'info' : (str_contains($permission->name, 'others') ? 'slow' : 'slow'))))) }}"
+                                                                        data-style="ios">
+                                                                </td>
+                                                            @endif
+                                                        @endforeach
+                                                        <td>
+                                                            @foreach ($permissions_group as $permission)
+                                                                @if (!str_contains($permission->name, 'create') && !str_contains($permission->name, 'view') && !str_contains($permission->name, 'update') && !str_contains($permission->name, 'delete') && !str_contains($permission->name, 'list'))
+                                                                    <input id='{{$permission->id}}' type="checkbox" 
+                                                                        {{ $permissions_ids->contains($permission->id) ? 'checked' : '' }}
+                                                                        data-toggle="toggle" data-size="sm"  data-on="{{__(ucfirst(explode('-', $permission->name)[0]))}}" 
+                                                                        data-off="{{__(ucfirst(explode('-', $permission->name)[0]))}}" data-style="random">
+                                                                @endif
+                                                            @endforeach
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>
@@ -116,12 +116,10 @@
                                                 <div class="col-lg-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}"
                                                     style="text-align: center">
                                                     <div class="login-horizental cancel-wp form-bc-ele">
-                                                        <button type="submit" class="btn btn-white">
-                                                            <a href="{{ route('roles.index') }}"
-                                                                style="color: inherit;">{{ __('Cancel') }}</a>
+                                                        <button type="button" class="btn btn-white">
+                                                            <a href="{{ route('roles.index') }}" style="color: inherit;">{{ __('Cancel') }}</a>
                                                         </button>
-                                                        <button type="submit"
-                                                            class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
+                                                        <button type="button" id="save" class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -135,11 +133,46 @@
             </div>
         </div>
     </div>
+    <div style="display:none;" id="permissions_ids" data-permissions-ids="{{ json_encode($permissions_ids) }}"></div>
 
 @endsection
 
 @Push('js')
-<script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var permissions_ids = $('#permissions_ids').data('permissions-ids');
+            $(document).on('change', 'input', function() {
+                // console.log(permissions_ids);
+                var permission_id = this.id;
+                // console.log(permission_id+' '+ this.id+ ' '+ this.checked);
+                if (this.checked){
+                    permissions_ids.push(parseInt(permission_id));
+                }else{
+                    permissions_ids = jQuery.grep(permissions_ids, function(value) {
+                    return value != permission_id;
+                });
+                }
+                // console.log(permissions_ids);
+            });
+            
+            $("#save").click(function(e) {
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: '/roles/{{$role->id}}',
+                    type: 'PUT',
+                    data: {"name": $('#name').val(), "permissions_ids": JSON.stringify(permissions_ids)},
+                    success: function(data) {
+                            window.location.href = "{{ route('roles.index') }}";
+                    }
+                })
+            });
 
+            // $('label:contains("On")').text('{{__("On")}}');
+            // $('label:contains("Off")').text('{{__("Off")}}');
+        });
+    </script>
 @endpush

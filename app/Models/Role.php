@@ -31,9 +31,33 @@ class Role extends Model
         return $this->permissions()->attach($permission->id);
     }
 
+    public function givePermissionToById($permission_id)
+    {
+        return $this->permissions()->attach($permission_id);
+    }
+
+    public function givePermissionsToByIds($permissions_ids)
+    {
+        foreach($permissions_ids as $permission_id)
+        $this->permissions()->attach($permission_id);
+        return true;
+    }
+
     public function romvePermissionTo(Permission $permission)
     {
         return $this->permissions()->detach($permission->id);
+    }
+
+    public function romvePermissionToById($permission_id)
+    {
+        return $this->permissions()->detach($permission_id);
+    }
+
+    public function romvePermissionsToByIds($permissions_ids)
+    {
+        foreach($permissions_ids as $permission_id)
+        $this->permissions()->detach($permission_id);
+        return true;
     }
 
     /**
@@ -46,6 +70,12 @@ class Role extends Model
     {
       if (!isset($permission)) return false;
           return $this->permissions->contains('name', $permission->name);
+    }
+
+    public function hasPermissionByName($permission_name)
+    {
+      if (!isset($permission_name)) return false;
+          return $this->permissions->contains('name', $permission_name);
     }
 
     /**

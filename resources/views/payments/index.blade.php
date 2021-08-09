@@ -29,19 +29,22 @@
                         </div>
                         <div class="sparkline13-graph">
                             <div class="datatable-dashv1-list custom-datatable-overright">
-                                <div class="toolbar add-product dt-tb">
-                                    @if (Auth::User()->role->name != 'user')
-                                        <a href="{{ route('payments.create') }}" class="{{ (Auth::User()->role->name == 'admin') ? '' : 'not-active' }}"
+                                <div class="toolbar add-product dt-tb {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                                    @can('create',  App\Models\Payment::class)
+                                        <a href="{{ route('payments.create') }}"
                                             style="{{ App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : '' }}">
                                             {{ __('Add New Payment') }}
                                         </a>
-                                    @else
+                                        @endcan
+                                        @can('dhahabia',  App\Models\Payment::class)
                                         <a href="{{ route('payments.create-balance-poste') }}" class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
                                             "PENDING") ? 'not-active' : '' }}"
                                             style="{{ App()->currentLocale() == 'ar' ? 'right:auto;left: 215px;' : '' }}">{{ __('Buy New Balance') }}</a>
-                                        <span style="{{ App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : '' }}">
-                                            {{ __('Current Balance') . ' : ' . $current_balance . ' ' . __('Points') }} </span>
-                                    @endif
+                                        
+                                            @endcan
+                                            @can('balance',  App\Models\Payment::class)
+                                            <span style="{{ App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : '' }}">{{ __('Current Balance') . ' : ' . $current_balance . ' ' . __('Points') }} </span>
+                                            @endcan
                                 </div>
                                 <!-- <div id="toolbar">
                                     <select class="form-control dt-tb">
@@ -71,11 +74,12 @@
                                             <th data-field="document" data-editable="true">{{ __('Document') }}</th>
                                             <th data-field="description" data-editable="true">{{ __('Description') }}
                                             </th>
-                                            @if (Auth::User()->role->name != 'user')
-                                                <th data-field="enterprise_name" data-editable="true">
-                                                    {{ __('Enterprise Name') }}</th>
-                                            @endif
+                                            @can('view-enterprise',  App\Models\Payment::class)
+                                            <th data-field="enterprise_name" data-editable="true">{{ __('Enterprise Name') }}</th>
+                                            @endcan
+                                            @can('view',  App\Models\Payment::class)
                                             <th data-field="action">{{ __('Action') }}</th>
+                                            @endcan
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -93,16 +97,18 @@
                                                 <td>{{ $payment->date }}</td>
                                                 <td>{{ $payment->document }}</td>
                                                 <td>{{ $payment->description }}</td>
-                                                @if (Auth::User()->role->name != 'user')
+                                                @can('view-enterprise',  App\Models\Payment::class)
                                                     <td>{{ $payment->Enterprise->name }}</td>
-                                                @endif
+                                                    @endcan
+                                                @can('view',  App\Models\Payment::class)
                                                 <td class="datatable-ct">
                                             <a rel="tooltip" class="btn btn-info" href="{{ route('payments.show',$payment->id) }}" 
-                                                data-original-title="" title="{{ __('Edit') }}">
+                                                data-original-title="" title="{{ __('Details') }}">
                                                 <i class="fa fa-expand fa-lg" aria-hidden="true"></i>
                                                 <div class="ripple-container"></div>
                                             </a>
                                                 </td>
+                                                @endcan
                                             </tr>
                                         @endforeach
                                     </tbody>

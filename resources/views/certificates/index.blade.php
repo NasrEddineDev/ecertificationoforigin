@@ -117,10 +117,11 @@
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <div id="toolbar">
                                     <div class="{{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                        @if (Auth::User()->role->name == 'user')
-                                            {{-- <button id="new" class="btn btn-success" style="background-color: #2C7744;" title="{{ __('Preview') }}" disabled>
-                                                <img style="height:20px" src="{{ URL::asset('') }}img/icons/icons8-add-file-64.png"/>
-                                            </button> --}}
+                                        {{-- <button id="new" class="btn btn-success" style="background-color: #2C7744;" title="{{ __('Preview') }}" disabled>
+                                            <img style="height:20px" src="{{ URL::asset('') }}img/icons/icons8-add-file-64.png"/>
+                                        </button> --}}
+                                        @can('create',  App\Models\Certificate::class)
+                                        {{-- @if (Auth::User()->role->name == 'user') --}}
                                             <div class="dropdown">
                                                 <button onclick="myFunction()" type="button"
                                                     style="background-color: #2C7744;"
@@ -143,30 +144,37 @@
                                                     <a href="#">{{ __('Certificate of common rights') }}</a> --}}
                                                 </div>
                                             </div>
-                                        @endif
+                                        @endcan
+                                        @can('view',  App\Models\Certificate::class)
                                         <button id="preview" class="btn btn-info" title="{{ __('Preview') }}" disabled>
                                             <i class="fa fa-eye"></i>
                                         </button>
-                                        {{-- <button id="details" class="btn btn-success" title="{{ __('Detail') }}" disabled>
-                                        <i class="fa fa-eye"></i>
-                                    </button> --}}
+                                        @endcan
+                                        @can('update',  App\Models\Certificate::class)
                                         <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
                                             disabled>
                                             <i class="fa fa-pencil-square-o"></i>
                                         </button>
+                                        @endcan
+                                        @can('duplicate',  App\Models\Certificate::class)
                                         <button id="duplicate" class="btn btn-warning" title="{{ __('Duplicate') }}"
                                             data-toggle="modal" data-target="#DuplicateModalhdbgcl" disabled>
                                             <i class="fa fa-clone"></i>
                                         </button>
-                                        <button id="retroactive" class="btn btn-info" title="{{ __('Retroactive') }}"
-                                            data-toggle="modal" data-target="#RetroactiveModalhdbgcl" disabled>
+                                        @endcan
+                                        @can('retrospective',  App\Models\Certificate::class)
+                                        <button id="retrospective" class="btn btn-info" title="{{ __('Retrospective') }}"
+                                            data-toggle="modal" data-target="#RetrospectiveModalhdbgcl" disabled>
                                             <i class="fa fa-exchange"></i>
                                         </button>
+                                        @endcan
+                                        @can('delete',  App\Models\Certificate::class)
                                         <button id="remove" class="btn btn-danger" title="{{ __('Delete') }}"
                                             data-toggle="modal" data-target="#DangerModalhdbgcl"
                                             style="background-color: #d80027!important;" disabled>
                                             <i class="fa fa-trash"></i>
                                         </button>
+                                        @endcan
                                     </div>
                                     {{-- <button id="remove" class="btn btn-danger" disabled>
                                         <i class="fa fa-trash"></i>
@@ -285,10 +293,10 @@
                                                         </a> --}}
                                                 {{-- <a rel="tooltip" class="btn btn-info"
                                                             data-code="{{ $certificate->code }}" data-toggle="modal"
-                                                            data-target="#RetroactiveModalhdbgcl"
+                                                            data-target="#RetrospectiveModalhdbgcl"
                                                             class="{{ $certificate->status == 'SIGNED' && $certificate->copy_type == 'NONE' ? 'not-active' : '' }}"
-                                                            data-url="{{ route('certificates.create-retroactive-copy', [$certificate->id, '']) }}"
-                                                            data-original-title="" title="{{ __('Retroactive') }}">
+                                                            data-url="{{ route('certificates.create-retrospective-copy', [$certificate->id, '']) }}"
+                                                            data-original-title="" title="{{ __('Retrospective') }}">
                                                             <i class="fa fa-exchange fa-lg" aria-hidden="true"></i>
                                                             <div class="ripple-container"></div>
                                                         </a> --}}
@@ -383,7 +391,7 @@
         </div>
     </div>
 
-    <div id="RetroactiveModalhdbgcl" class="modal modal-edu-general Customwidth-popup-WarningModal fade" role="dialog">
+    <div id="RetrospectiveModalhdbgcl" class="modal modal-edu-general Customwidth-popup-WarningModal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-close-area modal-close-df">
@@ -394,8 +402,8 @@
             </div> --}}
                 <div class="modal-body">
                     <span class="educate-icon educate-warning modal-check-pro information-icon-pro"></span>
-                    <h2>{{ __('Retroactive Copy Request') }} !</h2>
-                    <p>{{ __('Would you like to create retroactive certificate from the certificate No :code ?', ['code' => '%code%']) }}
+                    <h2>{{ __('Retrospective Copy Request') }} !</h2>
+                    <p>{{ __('Would you like to create retrospective certificate from the certificate No :code ?', ['code' => '%code%']) }}
                     </p>
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <textarea id="notes" name="notes" cols="50" class="form-control"
@@ -405,7 +413,7 @@
                 <div class="modal-footer footer-modal-admin warning-md">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <a data-dismiss="modal" style="background-color: #65b12d" href="#">{{ __('No') }}</a>
-                        <a id="Retroactive" style="background-color: #65b12d" href="#">{{ __('Yes') }}</a>
+                        <a id="Retrospective" style="background-color: #65b12d" href="#">{{ __('Yes') }}</a>
                     </div>
                 </div>
             </div>
@@ -520,7 +528,7 @@
         var $new = $('#new')
         var $preview = $('#preview')
         var $duplicate = $('#duplicate')
-        var $retroactive = $('#retroactive')
+        var $retrospective = $('#retrospective')
         var $details = $('#details')
         var $edit = $('#edit')
         var $remove = $('#remove')
@@ -530,7 +538,7 @@
         $remove.prop('disabled', true)
         $preview.prop('disabled', true)
         $duplicate.prop('disabled', true)
-        $retroactive.prop('disabled', true)
+        $retrospective.prop('disabled', true)
         $details.prop('disabled', true)
         $edit.prop('disabled', true)
 
@@ -545,7 +553,7 @@
                 $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
                 $preview.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 $duplicate.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
-                $retroactive.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
+                $retrospective.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 $details.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 $edit.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 // console.log($table.bootstrapTable('getSelections'));
@@ -579,14 +587,14 @@
                 $("#DuplicateModalhdbgcl p").text(text.replace('%code%', selections[0]));
             });
 
-            $('#RetroactiveModalhdbgcl').on('shown.bs.modal', function(e) {
+            $('#RetrospectiveModalhdbgcl').on('shown.bs.modal', function(e) {
                 e.preventDefault();
                 selections = getIdSelections()
-                var url = "{{ route('certificates.create-retroactive-copy', ['id', '']) }}".replace('id',
+                var url = "{{ route('certificates.create-retrospective-copy', ['id', '']) }}".replace('id',
                     selections[0]);
-                $("#Retroactive").attr("href", url);
-                var text = $("#RetroactiveModalhdbgcl p").text();
-                $("#RetroactiveModalhdbgcl p").text(text.replace('%code%', selections[0]));
+                $("#Retrospective").attr("href", url);
+                var text = $("#RetrospectiveModalhdbgcl p").text();
+                $("#RetrospectiveModalhdbgcl p").text(text.replace('%code%', selections[0]));
             });
 
             $("#InformationproModalhdbgcl").on('shown.bs.modal', function() {
@@ -645,11 +653,11 @@
                 });
             });
 
-            $("#Retroactive").click(function(e) {
+            $("#Retrospective").click(function(e) {
                 e.preventDefault();
-                var url = $("#Retroactive").attr("href") + '/' + $("#RetroactiveModalhdbgcl textarea")
+                var url = $("#Retrospective").attr("href") + '/' + $("#RetrospectiveModalhdbgcl textarea")
                     .val();
-                $('#RetroactiveModalhdbgcl').modal('toggle');
+                $('#RetrospectiveModalhdbgcl').modal('toggle');
                 window.location.href = url;
             });
 

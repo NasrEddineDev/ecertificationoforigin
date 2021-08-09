@@ -34,7 +34,7 @@ class CertificateController extends Controller
     public function index()
     {
         //
-        //   $this->authorize('viewList', Product::class);
+        // $this->authorize('create', new Certificate());
         $certificates = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->certificates->sortByDesc('id') : ((Auth::User()->role->name
             == 'dri_user') ? Certificate::all()->where('status', '!=', 'DRAFT')->sortByDesc('id') : Certificate::all()->sortByDesc('id'));
         return view('certificates.index', compact('certificates'));
@@ -147,7 +147,7 @@ class CertificateController extends Controller
             ->with('success', 'Certificate created successfully.');
     }
 
-    public function createRetroactiveCopy($id, $reason)
+    public function createRetrospectiveCopy($id, $reason)
     {
         //
         $certificate = Certificate::where('code', '=', $id)->first();
@@ -173,7 +173,7 @@ class CertificateController extends Controller
             $producers = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->producers : Producer::all();
             $products = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->products : Product::all();
             $countries = Country::all();
-            return view('certificates.create_retroactive_copy', compact([
+            return view('certificates.create_retrospective_copy', compact([
                 'certificate', 'reason', 'importers', 'producers', 'products', 'countries', 'exported_products'
             ]));
         }
@@ -182,7 +182,7 @@ class CertificateController extends Controller
         return view('certificates.index', compact('certificates'));
     }
 
-    public function storeRetroactiveCopy(Request $request, $id)
+    public function storeRetrospectiveCopy(Request $request, $id)
     {
         //
         $certificate = Certificate::find($id);
@@ -191,7 +191,7 @@ class CertificateController extends Controller
             $duplicatedCertificate->code = str_repeat("0", 7 - strlen($duplicatedCertificate->id)) . ($duplicatedCertificate->id);
             $duplicatedCertificate->status = 'PENDING';
             $duplicatedCertificate->signature_date = date('Y-m-d H:m:s');
-            $duplicatedCertificate->notes = __('Retroactive Copy from certificcate No');
+            $duplicatedCertificate->notes = __('Retrospective Copy from certificcate No');
             $duplicatedCertificate->copy_type = 'RETROACTIVE';
             $duplicatedCertificate->certificate_id = $certificate->id;
 
@@ -216,7 +216,7 @@ class CertificateController extends Controller
             $lastRequest = Auth::User()->requests->sortByDesc('created_at')->first();
             $newRequest = new ModelsRequest([
                 'number' => $lastRequest ? $lastRequest->number + 1 : 1,
-                'title' => 'Retroactive Request',
+                'title' => 'Retrospective Request',
                 'description' => '',
                 'message' => $request->reason ? $request->reason : '',
                 'status' => "PENDING",
@@ -491,7 +491,7 @@ class CertificateController extends Controller
 
         $data = [
             'rtl' => (strtolower($request->type) == 'gzale' || strtolower($request->type) == 'acp-tunisie') ? true : false,
-            'code' => str_repeat("0", 7 - strlen($lastId+1)) . ($lastId+1),//$request->is_retroactive ? $request->code . '-R' : "E-" . date("Y") . "0001",
+            'code' => str_repeat("0", 7 - strlen($lastId+1)) . ($lastId+1),//$request->is_retrospective ? $request->code . '-R' : "E-" . date("Y") . "0001",
             'exporter_name' => Auth::User()->Enterprise->name,
             'exporter_address' => Auth::User()->Enterprise->address,
             'producer_name' => Producer::find($request->producer_id) ? Producer::find($request->producer_id)->name : '',
@@ -502,7 +502,7 @@ class CertificateController extends Controller
             'accumulation' => $request->accumulation,
             'accumulation_country' => ($request->accumulation == 'Yes') ? $request->accumulation_country : null,
             'shipment_type' => $request->shipment_type,
-            'notes' => $request->is_retroactive ? $request->code . ' ' . __('Retroactive Copy from certificcate No') : '',
+            'notes' => $request->is_retrospective ? $request->code . ' ' . __('Retrospective Copy from certificcate No') : '',
             'net_weight' => $request->net_weight,
             'real_weight' => $request->real_weight,
             'invoice' => !empty($invoice) ? true : false,
@@ -752,15 +752,15 @@ class CertificateController extends Controller
         $certificate = $certificate ? $certificate : Certificate::find($id);
         if ($certificate) {
             if ($type == "R") {
-                return redirect()->route('certificates.create-retroactive-copy', [$id, $reason]);
-                return response()->json(['url' => route('certificates.create-retroactive-copy', [$id, $reason])], 200);
+                return redirect()->route('certificates.create-retrospective-copy', [$id, $reason]);
+                return response()->json(['url' => route('certificates.create-retrospective-copy', [$id, $reason])], 200);
             } else if ($type == "D") {
                 $duplicatedCertificate = $certificate->replicate();
                 $duplicatedCertificate->code = str_repeat("0", 7 - strlen($duplicatedCertificate->id)) . ($duplicatedCertificate->id);
                 // $duplicatedCertificate->code = $certificate->code . '-'.$type;
                 $duplicatedCertificate->status = 'PENDING';
                 $certificate->signature_date = date('Y-m-d H:m:s');
-                // $duplicatedCertificate->notes = $type == 'D' ? __('Duplicate Certificate from certificcate No') : __('Retroactive Copy from certificcate No');
+                // $duplicatedCertificate->notes = $type == 'D' ? __('Duplicate Certificate from certificcate No') : __('Retrospective Copy from certificcate No');
                 $duplicatedCertificate->notes = __('Duplicate Certificate from certificcate No');
                 // $duplicatedCertificate->copy_type = $type == 'D' ? 'DUPLICATE' : 'RETROACTIVE';
                 $duplicatedCertificate->copy_type = 'DUPLICATE';

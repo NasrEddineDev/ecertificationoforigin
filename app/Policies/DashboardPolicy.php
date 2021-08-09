@@ -18,4 +18,16 @@ class DashboardPolicy
     {
         //
     }
+        /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User  $user
+     * @param  \App\Models\Post  $post
+     * @return mixed
+     */
+    public function view(User $user)
+    {
+        //
+        return $user->role->hasPermissionByName('view-dashboard');
+    }
 }
