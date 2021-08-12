@@ -13,18 +13,13 @@
         crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.2/css/fileinput.min.css" media="all"
         rel="stylesheet" type="text/css" />
-
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet" />
     <!-- datepicker -->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('wizard/css/jquery-ui.min.css') }}" />
-
     <!-- Select2 -->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('select2/css/select2.min.css') }}" />
-
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/datapicker/datepicker3.css') }}" />
-
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <style>
         * {
             margin: 0;
@@ -394,107 +389,64 @@
             margin-top: 10%;
         }
 
+
+        .resume > div{
+    float: left;
+}
+.resume span{
+    margin-left: 5px;
+    margin-right: 5px;
+}
     </style>
-    {{-- @if (App::currentLocale() == 'ar')
+
+    @if (App::currentLocale() == 'ar')
         <style>
-            #form-total>.steps>ul {
+            #progressbar>li {
                 float: right;
-                display: inline-block;
             }
 
-            #form-total>.steps>ul>li {
-                float: right;
-                display: inline-block;
-            }
-
-            #form-total>.actions>ul {
-                float: left;
-                display: inline-block;
-            }
-
-            #form-total>.actions>ul>li {
-                float: right;
-                margin-left: 5px;
-            }
-
-            .inner {
+            .fs-title,
+            h6, h5,
+            .dropdown,
+            .dropdown a,
+            .resume p {
                 text-align: right;
             }
-
-            .label {
-                left: auto;
-                right: 10px;
+            h6{
+                padding-top: 15px;
+            }
+            .steps {
+                text-align: left;
             }
 
-            .wizard-v3-content {
-                /* font-family: 'Amiri'!important, serif!important; */
-                font-family: "Amiri", "serif", "Times New Roman" !important;
+            .next,
+            .previous {
+                float: left !important;
+                text-align: center !important;
+                margin-left: 5px !important;
             }
 
-            #form-total .steps li .step-icon::before {
-                right: auto;
-                left: 100%
-            }
-
-            #form-total .steps li:last-child .step-icon::after {
-                left: auto;
-                right: 100%
-            }
-
-            #username {
+            label,
+            input,
+            .activation-form p {
                 text-align: right;
-            }
-
-            .actions ul li:first-child {
-                margin-left: auto;
-            }
-
-            #form-total .steps li:nth-child(5) a .step-text {
-                margin-left: 7px !important;
-            }
-
-            .form-row .form-holder:nth-child(0) {
-                float: right;
-            }
-
-            table th,
-            table td {
-                text-align: right;
-            }
-
-            /* .dropdown-toggle{
-                height: 40px;
-                width: 400px !important;
-            } */
-            .select2 {
-                z-index: 99999;
-            }
-
-            .select2-drop-active {
-                margin-top: -25px;
-            }
-
-            .select2-dropdown {
-                z-index: 99999 !important;
-                position: absolute;
-                cursor: default;
-            }
-
-            .selectRow {
                 display: block;
-                padding: 20px;
             }
 
-            .select2-container {
-                width: 200px;
+            .file-input.kv-rtl {
+                float: right;
             }
 
-            .select2-drop-active {
-                margin-top: -25px;
+            .row{
+                flex-direction: row-reverse;
+            }
+
+            .resume > div, .resume p > span{
+                float: right;
             }
 
         </style>
-    @endif --}}
+    @endif
 </head>
 
 <body>
@@ -532,7 +484,7 @@
                             <li id="summary"><strong>{{ __('Summary') }}</strong></li>
                             <li id="finish"><strong>{{ __('Finish') }}</strong></li>
                         </ul>
-                        <div class="progress">
+                        <div class="progress {{ App()->currentLocale() == 'ar' ? 'flex-row-reverse' : '' }}">
                             <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
                                 aria-valuemin="0" aria-valuemax="100"></div>
                         </div> <br> <!-- fieldsets -->
@@ -540,62 +492,68 @@
                         <!-- Account -->
                         <fieldset>
                             <div class="form-card">
-                                <div class="row">
+                                <div class="row"
+                                    style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                     <div class="col-7">
-                                        <h2 class="fs-title">{{ __('Account Information') }}:</h2>
+                                        <h2 class="fs-title">{{ __('Account Information') }}</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">{{ __('Step') }} 1/7</h2>
+                                        <h2 class="steps">
+                                            {{ __('Step') . (App()->currentLocale() == 'ar' ? ' 1\7' : ' 1/7') }} </h2>
                                     </div>
                                 </div>
 
                                 <form class="account-form" action="#" method="post">
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
-                                                <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                                <label class="col-sm-3 col-form-label">{{ __('Email') }}</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="email" id="email" placeholder="{{ __('Email') }}"
-                                                        class="form-control" value="{{ Auth::user()->email ?? '' }}"
+                                                    <input type="text" name="email" id="email"
+                                                        placeholder="{{ __('Email') }}" class="form-control"
+                                                        value="{{ Auth::user()->email ?? '' }}" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                                <label class="col-sm-3 col-form-label">{{ __('Username') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input type="text" name="username" id="username"
+                                                        value="{{ Auth::user()->username ?? '' }}"
+                                                        placeholder="{{ __('Username') }}" class="form-control"
+                                                        required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                                <label class="col-sm-3 col-form-label">{{ __('Password') }}</label>
+                                                <div class="col-sm-9">
+                                                    <input type="password" name="password" id="password"
+                                                        value="{{ Auth::check() && Auth::user()->password ? Auth::user()->password : '' }}"
+                                                        placeholder="{{ __('Password') }}" class="form-control"
                                                         required />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Username') }}</label>
-                                                <div class="col-sm-9">
-                                                    <input type="text" name="username" id="username"
-                                                        value="{{ Auth::user()->username ?? '' }}"
-                                                        placeholder="{{ __('Username') }}" class="form-control" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
-                                                <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Password') }}</label>
-                                                <div class="col-sm-9">
-                                                    <input type="password" name="password" id="password"
-                                                        value="{{ Auth::check() && Auth::user()->password ? Auth::user()->password : '' }}"
-                                                        placeholder="{{ __('Password') }}" class="form-control" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="row">
-                                                <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Confirm Password') }}</label>
+                                                    class="col-sm-3 col-form-label">{{ __('Confirm Password') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="password" name="password_confirmation"
-                                                        id="password_confirmation" placeholder="{{ __('Confirm Password') }}"
+                                                        id="password_confirmation"
+                                                        placeholder="{{ __('Confirm Password') }}"
                                                         class="form-control" required
                                                         value="{{ Auth::check() && Auth::user()->password ? Auth::user()->password : '' }}" />
                                                 </div>
@@ -610,19 +568,22 @@
                         <!-- Activation -->
                         <fieldset>
                             <div class="form-card">
-                                <div class="row">
+                                <div class="row"
+                                    style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                     <div class="col-7">
-                                        <h2 class="fs-title">{{ __('Account Activation') }}:</h2>
+                                        <h2 class="fs-title">{{ __('Account Activation') }}</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">{{ __('Step') }} 2/7</h2>
+                                        <h2 class="steps">
+                                            {{ __('Step') . (App()->currentLocale() == 'ar' ? ' 2\7' : ' 2/7') }} </h2>
                                     </div>
                                 </div>
                                 <form class="activation-form" action="#" method="post">
-                                    <div class="row">
-                                        <div
-                                            class="col-md-7 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-7">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 <p>{{ __('Thank you for creating new account') }}</p>
                                                 <p class='email-verification-message'>
                                                     {{ __("Before getting started, you must verify your email address by clicking on the link we just emailed to you? If you didn't receive the email, we will gladly send you another") }}
@@ -658,66 +619,70 @@
                         <!-- Enterprise -->
                         <fieldset>
                             <div class="form-card">
-                                <div class="row">
+                                <div class="row"
+                                    style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                     <div class="col-7">
-                                        <h2 class="fs-title">{{ __('Enterprise Information') }}:</h2>
+                                        <h2 class="fs-title">{{ __('Enterprise Information') }}</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">{{ __('Step') }} 3/7</h2>
+                                        <h2 class="steps">
+                                            {{ __('Step') . (App()->currentLocale() == 'ar' ? ' 3\7' : ' 3/7') }} </h2>
                                     </div>
                                 </div>
 
                                 <h6>{{ __('General Information') }}</h6>
 
                                 <form class="enterprise-form" action="#" method="post">
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
-                                                <label
-                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                                <label class="col-sm-5 col-form-label">
                                                     {{ __('Enterprise Name') }}
                                                 </label>
                                                 <div class="col-sm-7">
                                                     <input type="text" name="name_ar" id="name_ar"
-                                                        placeholder="{{ __('Enterprise Name In Arabic') }}" class="form-control"
-                                                        required
+                                                        placeholder="{{ __('Enterprise Name In Arabic') }}"
+                                                        class="form-control" required
                                                         value="{{ Auth::user()->enterprise->name_ar ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 {{-- <label
-                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="name" id="name"
-                                                        placeholder="{{ __('Enterprise Name In English') }}" class="form-control"
-                                                        required
+                                                        placeholder="{{ __('Enterprise Name In English') }}"
+                                                        class="form-control" required
                                                         value="{{ Auth::user()->enterprise->name ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 {{-- <label
-                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="name_fr" id="name_fr"
-                                                        placeholder="{{ __('Enterprise Name In French') }}" class="form-control"
-                                                        required
+                                                        placeholder="{{ __('Enterprise Name In French') }}"
+                                                        class="form-control" required
                                                         value="{{ Auth::user()->enterprise->name_fr ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
-                                                <label
-                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Number') }}</label>
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                                <label class="col-sm-5 col-form-label">{{ __('Number') }}</label>
                                                 <div class="col-sm-7">
                                                     <input type="text" name="rc_number" id="rc_number"
                                                         placeholder="{{ __('RC Number') }}" class="form-control"
@@ -726,9 +691,10 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 {{-- <label
-                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="nis_number" id="nis_number"
                                                         placeholder="{{ __('NIS Number') }}" class="form-control"
@@ -737,9 +703,10 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 {{-- <label
-                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="nif_number" id="nif_number"
                                                         placeholder="{{ __('NIF Number') }}" class="form-control"
@@ -749,12 +716,13 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 <label
-                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Select Activities Codes') }}</label>
+                                                    class="col-sm-5 col-form-label">{{ __('Select Activities Codes') }}</label>
                                                 <div class="col-sm-7 activities-size">
                                                     <select id="activities"
                                                         class="col-sm-7 activities select2 form-control"
@@ -773,7 +741,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 <div class="col-sm-12">
                                                     <select class="form-control"
                                                         value="{{ Auth::user()->enterprise->legal_form ?? '' }}"
@@ -807,7 +776,8 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3 export-activity-select">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 <div class="col-sm-12">
                                                     <select class="form-control"
                                                         value="{{ Auth::user()->enterprise->exporter_type ?? '' }}"
@@ -836,7 +806,8 @@
                                         </div>
 
                                         <div class="col-md-3 export-activity-code">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 <div class="col-lg-4">
                                                     <select class="form-control"
                                                         value="{{ Auth::user()->enterprise->exporter_type ?? '' }}"
@@ -878,12 +849,13 @@
 
                                     <h6>{{ __('Contact Information') }}</h6>
 
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 <label
-                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile/Email/Tel') }}</label>
+                                                    class="col-sm-5 col-form-label">{{ __('Mobile/Email/Tel') }}</label>
                                                 <div class="col-sm-7">
                                                     <input type="text" name="mobile" id="mobile"
                                                         placeholder="{{ __('Mobile') }}" class="form-control"
@@ -892,9 +864,10 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 {{-- <label
-                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="email_enterprise" id="email_enterprise"
                                                         placeholder="{{ __('Email') }}" class="form-control"
@@ -903,9 +876,10 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 {{-- <label
-                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="tel" id="tel"
                                                         placeholder="{{ __('Tel') }}" class="form-control"
@@ -915,49 +889,55 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
-                                                <label
-                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                                <label class="col-sm-5 col-form-label">{{ __('Address') }}</label>
                                                 <div class="col-sm-7">
                                                     <input type="text" name="address_ar" id="address_ar"
-                                                        placeholder="{{ __('Address In Arabic') }}" class="form-control"
+                                                        placeholder="{{ __('Address In Arabic') }}"
+                                                        class="form-control"
                                                         value="{{ Auth::user()->enterprise->address_ar ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 {{-- <label
-                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="address" id="address"
-                                                        placeholder="{{ __('Address In English') }}" class="form-control"
+                                                        placeholder="{{ __('Address In English') }}"
+                                                        class="form-control"
                                                         value="{{ Auth::user()->enterprise->address ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 {{-- <label
-                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="address_fr" id="address_fr"
-                                                        placeholder="{{ __('Address In French') }}" class="form-control"
+                                                        placeholder="{{ __('Address In French') }}"
+                                                        class="form-control"
                                                         value="{{ Auth::user()->enterprise->address_fr ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 <label
-                                                    class="col-sm-5 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile/Email/Tel') }}</label>
+                                                    class="col-sm-5 col-form-label">{{ __('Mobile/Email/Tel') }}</label>
                                                 <div class="col-sm-7">
                                                     <select name="state_code" id="state_code" class="form-control"
                                                         style="margin-top: 0;"
@@ -971,21 +951,24 @@
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 {{-- <label
-                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <select name="city_id" id="city_id" class="form-control"
                                                         style="margin-top: 0;"
+                                                        {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
                                                         value="{{ Auth::user()->enterprise->city_id ?? '' }}">
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-md-3">
-                                            <div class="row">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 {{-- <label
-                                                                        class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('User Name') }}</label> --}}
+                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="website" id="website"
                                                         placeholder="{{ __('Website') }}" class="form-control"
@@ -996,30 +979,34 @@
                                     </div>
                                 </form>
                             </div>
-                            <input type="button" name="next" class="next action-button" value="{{ __('Next') }}" /> <input
-                                type="button" name="previous" class="previous action-button-previous"
+                            <input type="button" name="next" class="next action-button" value="{{ __('Next') }}" />
+                            <input type="button" name="previous" class="previous action-button-previous"
                                 value="{{ __('Previous') }}" />
                         </fieldset>
 
                         <!-- Manager -->
                         <fieldset>
                             <div class="form-card">
-                                <div class="row">
+                                <div class="row"
+                                    style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                     <div class="col-7">
-                                        <h2 class="fs-title">{{ __('Manager Information') }}:</h2>
+                                        <h2 class="fs-title">{{ __('Manager Information') }}</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">{{ __('Step') }} 4/7</h2>
+                                        <h2 class="steps">
+                                            {{ __('Step') . (App()->currentLocale() == 'ar' ? ' 4\7' : ' 4/7') }}
+                                        </h2>
                                     </div>
                                 </div>
 
                                 <form class="manager-form" action="#" method="post">
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 <label
-                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('First Name') }}</label>
+                                                    class="col-sm-2 col-form-label">{{ __('First Name') }}</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" name="firstname_ar" id="firstname_ar"
                                                         placeholder="{{ __('First Name In Arabic') }}"
@@ -1034,11 +1021,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
-                                                <label
-                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Last Name') }}</label>
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                                <label class="col-sm-2 col-form-label">{{ __('Last Name') }}</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" name="lastname_ar" id="lastname_ar"
                                                         placeholder="{{ __('Last Name In Arabic') }}"
@@ -1055,12 +1041,12 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
-                                                <label
-                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Email') }}</label>
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                                <label class="col-sm-2 col-form-label">{{ __('Email') }}</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" name="email_manager" id="email_manager"
                                                         placeholder="{{ __('Email') }}" class="form-control"
@@ -1068,11 +1054,11 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 <label
-                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Mobile/Tel') }}</label>
+                                                    class="col-sm-2 col-form-label">{{ __('Mobile/Tel') }}</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" name="mobile_manager" id="mobile_manager"
                                                         placeholder="{{ __('Mobile') }}" class="form-control"
@@ -1087,29 +1073,31 @@
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
-                                                <label
-                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Address') }}</label>
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                                <label class="col-sm-2 col-form-label">{{ __('Address') }}</label>
                                                 <div class="col-sm-5">
                                                     <input type="text" name="address_manager_ar" id="address_manager_ar"
-                                                        placeholder="{{ __('Address In Arabic') }}" class="form-control"
+                                                        placeholder="{{ __('Address In Arabic') }}"
+                                                        class="form-control"
                                                         value="{{ Auth::user()->enterprise->manager->address_ar ?? '' }}" />
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <input type="text" name="address_manager" id="address_manager"
-                                                        placeholder="{{ __('Address In English/French') }}" class="form-control"
+                                                        placeholder="{{ __('Address In English/French') }}"
+                                                        class="form-control"
                                                         value="{{ Auth::user()->enterprise->manager->address ?? '' }}" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                                 <label
-                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('State/City') }}</label>
+                                                    class="col-sm-2 col-form-label">{{ __('State/City') }}</label>
                                                 <div class="col-sm-5">
                                                     <select name="state_code_manager" id="state_code_manager"
                                                         class="form-control" style="margin-top: 0;"
@@ -1121,21 +1109,23 @@
                                                 </div>
                                                 <div class="col-sm-5">
                                                     <select name="city_id_manager" id="city_id_manager"
-                                                        class="form-control" style="margin-top: 0;">
+                                                        class="form-control" style="margin-top: 0;"
+                                                        {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}>
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
-                                                <label
-                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Birthday') }}</label>
+                                    <div class="row"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                                <label class="col-sm-2 col-form-label">{{ __('Birthday') }}</label>
                                                 <div class="col-sm-5">
-                                                    <input type="text" id="birthday" name="birthday" placeholder="{{__('Birthday') }}"
+                                                    <input type="text" id="birthday" name="birthday"
+                                                        placeholder="{{ __('Birthday') }}"
                                                         value="{{ Auth::user()->enterprise->manager->birthday ?? '' }}">
                                                 </div>
                                                 <div class="col-sm-5">
@@ -1144,11 +1134,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div
-                                            class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                            <div class="row">
-                                                <label
-                                                    class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Gender') }}</label>
+                                        <div class="col-md-6">
+                                            <div class="row"
+                                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
+                                                <label class="col-sm-2 col-form-label">{{ __('Gender') }}</label>
                                                 <div class="col-sm-5">
                                                     <select {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}
                                                         class="form-control" name="gender" id="gender">
@@ -1178,12 +1167,15 @@
                         <!-- Documents -->
                         <fieldset>
                             <div class="form-card">
-                                <div class="row">
+                                <div class="row"
+                                    style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                     <div class="col-7">
-                                        <h2 class="fs-title">{{ __('Documents') }}:</h2>
+                                        <h2 class="fs-title">{{ __('Documents') }}</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">{{ __('Step') }} 5/7</h2>
+                                        <h2 class="steps">
+                                            {{ __('Step') . (App()->currentLocale() == 'ar' ? ' 5\7' : ' 5/7') }}
+                                        </h2>
                                     </div>
                                 </div>
                             </div>
@@ -1193,18 +1185,22 @@
                                 value="{{ __('Previous') }}" />
 
 
-                            <div class="row">
+                            <div class="row"
+                                style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                 <div class="dropdown col-lg-3">
                                     <button class="btn btn-secondary dropdown-toggle" type="button"
                                         id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">{{ __('Add New Image Or Dowument') }}</button>
+                                        aria-expanded="false">{{ __('Add New Image Or Document') }}</button>
                                     <div class="dropdown-menu" id="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                         <a class="dropdown-item" href="#" data-id='rc'>{{ __('RC') }}</a>
                                         <a class="dropdown-item" href="#" data-id='nis'>{{ __('NIS') }}</a>
                                         <a class="dropdown-item" href="#" data-id='nif'>{{ __('NIF') }}</a>
-                                        <a class="dropdown-item" href="#" data-id='signature'>{{ __('Signature') }}</a>
-                                        <a class="dropdown-item" href="#" data-id='round_stamp'>{{ __('Round Stamp') }}</a>
-                                        <a class="dropdown-item" href="#" data-id='square_stamp'>{{ __('Square Stamp') }}</a>
+                                        <a class="dropdown-item" href="#"
+                                            data-id='signature'>{{ __('Signature') }}</a>
+                                        <a class="dropdown-item" href="#"
+                                            data-id='round_stamp'>{{ __('Round Stamp') }}</a>
+                                        <a class="dropdown-item" href="#"
+                                            data-id='square_stamp'>{{ __('Square Stamp') }}</a>
                                     </div>
                                 </div>
 
@@ -1232,26 +1228,29 @@
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">{{ __('Resume') }}:</h2>
+                                        <h2 class="fs-title">{{ __('Resume') }}</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">{{ __('Step') }} 6/7</h2>
+                                        <h2 class="steps">
+                                            {{ __('Step') . (App()->currentLocale() == 'ar' ? ' 6\7' : ' 6/7') }} </h2>
                                     </div>
                                 </div>
+                                
                                 <div class="content-wrapper">
                                     <h5 class="section-heading mb-4">{{ __('Review your Information') }}</h5>
-                                    <div clas="row">
-                                        <div class="col-lg-6" style="float: left;">
+                                    <div class="row resume">
+                                        <div class="col-lg-6">
                                             <h6 class="font-weight-bold">{{ __('Account Details') }}</h6>
                                             <p class="mb-3">
-                                                {{ __('Username') . ' : ' }} <span
-                                                    id="enteredUsername">{{ Auth::user()->username ?? '' }}</span>
+                                                <span>{{ __('Username :')}}</span>
+                                                 <span id="enteredUsername">{{ Auth::user()->username ?? '' }}</span>
                                                 <br>
-                                                {{ __('Email') . ' : ' }} <span
-                                                    id="enteredEmail">{{ Auth::user()->email ?? '' }}</span></p>
+                                                <span>{{ __('Email :')}}</span>
+                                                <span id="enteredEmail">{{ Auth::user()->email ?? '' }}</span>
+                                            </p>
                                             <h6 class="font-weight-bold">{{ __('Manager Details') }}</h6>
                                             <p class="mb-3">
-                                                {{ __('Name') . ' : ' }}
+                                                <span>{{ __('Name :')}}</span>
                                                 <span
                                                     id="enteredFirstNameAr">{{ Auth::user()->enterprise->manager->firstname_ar ?? '' }}</span>
                                                 <span
@@ -1260,81 +1259,83 @@
                                                 <span
                                                     id="enteredFirstName">{{ Auth::user()->enterprise->manager->firstname ?? '' }}</span>
                                                 <span
-                                                    id="enteredLastName">{{ Auth::user()->enterprise->manager->lastname ?? '' }}</span><br>
-                                                {{ __('Email') . ' : ' }} <span
+                                                    id="enteredLastName">{{ Auth::user()->enterprise->manager->lastname ?? '' }}</span><br>                        
+                                                    <span>{{ __('Email :')}}</span>
+                                                 <span
                                                     id="enteredManagerEmail">{{ Auth::user()->enterprise->manager->email ?? '' }}</span><br>
-                                                {{ __('Mobile') . ' : ' }} <span
-                                                    id="enteredManagerMobile">{{ Auth::user()->enterprise->manager->mobile ?? '' }}</span><br>
-                                                {{ __('Tel') . ' : ' }} <span
-                                                    id="enteredManagerTel">{{ Auth::user()->enterprise->manager->tel ?? '' }}</span><br>
-                                                {{ __('Birthday') . ' : ' }} <span
-                                                    id="enteredBirthday">{{ Auth::user()->enterprise->manager->birthday ?? '' }}</span><br>
-                                                {{ __('Gender') . ' : ' }} <span
-                                                    id="enteredGender">{{ Auth::user()->enterprise->manager->gender ?? '' }}</span><br>
-                                                {{ __('Address') . ' : ' }} <span
-                                                    id="enteredAddressAr">{{ Auth::user()->enterprise->manager->address_ar ?? '' }}</span>,
+                                                    <span>{{ __('Mobile :')}}</span>
                                                 <span
-                                                    id="enteredAddressEn">{{ Auth::user()->enterprise->manager->address ?? '' }}</span>,
+                                                    id="enteredManagerMobile">{{ Auth::user()->enterprise->manager->mobile ?? '' }}</span><br>
+                                                    <span>{{ __('Tel :')}}</span>
+                                                <span
+                                                    id="enteredManagerTel">{{ Auth::user()->enterprise->manager->tel ?? '' }}</span><br>
+                                                    <span>{{ __('Birthday :')}}</span>
+                                                <span
+                                                    id="enteredBirthday">{{ Auth::user()->enterprise->manager->birthday ?? '' }}</span><br>
+                                                    <span>{{ __('Gender :')}}</span>
+                                                <span
+                                                    id="enteredGender">{{ Auth::user()->enterprise->manager->gender ?? '' }}</span><br>
+                                                    <span>{{ __('Address :')}}</span>
+                                                 <span
+                                                    id="enteredAddressAr">{{ Auth::user()->enterprise->manager->address_ar ?? '' }}</span>
+                                                <span
+                                                    id="enteredAddressEn">{{ Auth::user()->enterprise->manager->address ?? '' }}</span>
                                                 <span
                                                     id="enteredAddressFr">{{ Auth::user()->enterprise->manager->address_fr ?? '' }}</span><br>
-                                                {{ __('City') . ' : ' }} <span
+                                                    <span>{{ __('City :')}}</span>
+                                                 <span
                                                     id="enteredCity">{{ Auth::user()->Enterprise->manager->city->commune_name ?? '' }}</span><br>
-                                                {{ __('State') . ' : ' }} <span
+                                                    <span>{{ __('State :')}}</span>
+                                                <span
                                                     id="enteredState">{{ Auth::user()->Enterprise->manager->city->daira_name ?? '' }}</span><br>
                                             </p>
                                         </div>
-                                        <div class="col-lg-6" style="float: left;">
+                                        <div class="col-lg-6">
                                             <h6 class="font-weight-bold">{{ __('Enterprise Details') }}</h6>
                                             <p class="mb-3">
-                                                {{ __('Name') . ' : ' }} <span
-                                                    id="enteredNameAr">{{ Auth::user()->enterprise->name_ar ?? '' }}</span>
-                                                ,
-                                                <span
-                                                    id="enteredName">{{ Auth::user()->enterprise->name ?? '' }}</span>
-                                                ,
-                                                <span
-                                                    id="enteredNameEn">{{ Auth::user()->enterprise->name ?? '' }}</span>
+                                                <span>{{ __('Name :')}}</span>
+                                                <span id="enteredNameAr">{{ Auth::user()->enterprise->name_ar ?? '' }}</span>
+                                                <span id="enteredNameEn">{{ Auth::user()->enterprise->name ?? '' }}</span>
+                                                <span id="enteredNameFr">{{ Auth::user()->enterprise->name_fr ?? '' }}</span>
                                                 <br>
-
-                                                {{ __('RC Number') . ' : ' }} <span
-                                                    id="enteredRCNumber">{{ Auth::user()->enterprise->rc_number ?? '' }}</span><br>
-                                                {{ __('NIS Number') . ' : ' }} <span
-                                                    id="enteredNISNumber">{{ Auth::user()->enterprise->nis_number ?? '' }}</span><br>
-                                                {{ __('NIF Number') . ' : ' }} <span
-                                                    id="enteredNIFNumber">{{ Auth::user()->enterprise->nif_number ?? '' }}</span>
+                                                <span>{{ __('RC Number :')}}</span>
+                                                <span id="enteredRCNumber">{{ Auth::user()->enterprise->rc_number ?? '' }}</span><br>
+                                                    <span>{{ __('NIS Number :')}}</span>
+                                                <span id="enteredNISNumber">{{ Auth::user()->enterprise->nis_number ?? '' }}</span><br>
+                                                    <span>{{ __('NIF Number :')}}</span>
+                                                <span id="enteredNIFNumber">{{ Auth::user()->enterprise->nif_number ?? '' }}</span>
                                                 <br>
-                                                {{ __('Activities') . ' : ' }} <span
-                                                    id="enteredActivities">{{ (Auth::check() && Auth::user()->Enterprise) ? 
-                                                    (Auth::user()->Enterprise->activities()->pluck('code')->join(',') ?? '') : '' }}</span>
+                                                <span>{{ __('Activities :')}}</span>
+                                                <span id="enteredActivities">{{ Auth::check() && Auth::user()->Enterprise ? Auth::user()->Enterprise->activities()->pluck('code')->join(',') ?? '' : '' }}</span>
                                                 <br>
-                                                {{ __('Legal Form') . ' : ' }} <span
-                                                    id="enteredLegalForm">{{ Auth::user()->enterprise->legal_form ?? '' }}</span><br>
+                                                <span>{{ __('Legal Form :')}}</span>
+                                                <span id="enteredLegalForm">{{ Auth::user()->enterprise->legal_form ?? '' }}</span><br>
+                                                    <span>{{ __('Mobile :')}}</span>
                                                 {{-- {{ __('Exporter Type') . ' : ' }} <span
                                                     id="enteredExporterType">{{ (Auth::check() && Auth::user()->Enterprise) ? (__(Auth::user()->enterprise->exporter_type) ?? '') . ' ' . (Auth::user()->enterprise->export_activity_code ?? '')):'' }}</span><br> --}}
-                                                {{ __('Mobile') . ' : ' }} <span
-                                                    id="enteredMobile">{{ Auth::user()->enterprise->mobile ?? '' }}</span><br>
-                                                {{ __('Email') . ' : ' }} <span
-                                                    id="enteredEnterpriseEmail">{{ Auth::user()->enterprise->email ?? '' }}</span><br>
-                                                {{ __('Tel') . ' : ' }} <span
-                                                    id="enteredTel">{{ Auth::user()->enterprise->tel ?? '' }}</span><br>
-                                                {{ __('Address') . ' : ' }} <span
-                                                    id="enteredAddressAr">{{ Auth::user()->enterprise->address_ar ?? '' }}</span>,
+                                                <span id="enteredMobile">{{ Auth::user()->enterprise->mobile ?? '' }}</span><br>
+                                                    <span>{{ __('Email :')}}</span>
+                                                <span id="enteredEnterpriseEmail">{{ Auth::user()->enterprise->email ?? '' }}</span><br>
+                                                    <span>{{ __('Tel :')}}</span>
+                                                <span id="enteredTel">{{ Auth::user()->enterprise->tel ?? '' }}</span><br>
+                                                    <span>{{ __('Address :')}}</span>
                                                 <span
-                                                    id="enteredAddressEn">{{ Auth::user()->enterprise->address ?? '' }}</span>,
-                                                <span
-                                                    id="enteredAddressFr">{{ Auth::user()->enterprise->address_fr ?? '' }}</span><br>
-                                                {{ __('City') . ' : ' }} <span
-                                                    id="enteredCity">{{ Auth::user()->Enterprise->city->commune_name ?? '' }}</span><br>
-                                                {{ __('State') . ' : ' }} <span
-                                                    id="enteredState">{{ Auth::user()->Enterprise->city->daira_name ?? '' }}</span><br>
-                                                {{ __('Website') . ' : ' }} <span
-                                                    id="enteredWebsite">{{ Auth::user()->Enterprise->website ?? '' }}</span><br>
+                                                    id="enteredAddressAr">{{ Auth::user()->enterprise->address_ar ?? '' }}</span>
+                                                <span id="enteredAddressEn">{{ Auth::user()->enterprise->address ?? '' }}</span>
+                                                <span id="enteredAddressFr">{{ Auth::user()->enterprise->address_fr ?? '' }}</span><br>
+                                                    <span>{{ __('City :')}}</span>
+                                                <span id="enteredCity">{{ Auth::user()->Enterprise->city->commune_name ?? '' }}</span><br>
+                                                    <span>{{ __('State :')}}</span>
+                                                <span id="enteredState">{{ Auth::user()->Enterprise->city->daira_name ?? '' }}</span><br>
+                                                    <span>{{ __('Website :')}}</span>
+                                                 <span id="enteredWebsite">{{ Auth::user()->Enterprise->website ?? '' }}</span><br>
                                             </p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <input type="button" name="next" class="next action-button" value="{{ __('Submit') }}" />
+                            <input type="button" name="next" class="next action-button"
+                                value="{{ __('Submit') }}" />
                             <input type="button" name="previous" class="previous action-button-previous"
                                 value="{{ __('Previous') }}" />
                         </fieldset>
@@ -1344,13 +1345,14 @@
                             <div class="form-card">
                                 <div class="row">
                                     <div class="col-7">
-                                        <h2 class="fs-title">{{ __('Finish') }}:</h2>
+                                        <h2 class="fs-title">{{ __('Finish') }}</h2>
                                     </div>
                                     <div class="col-5">
-                                        <h2 class="steps">{{ __('Step') }} 7/7</h2>
+                                        <h2 class="steps">
+                                            {{ __('Step') . (App()->currentLocale() == 'ar' ? ' 7\7' : ' 7/7') }} </h2>
                                     </div>
                                 </div> <br><br>
-                                <h2 class="purple-text text-center"><strong>{{ __('SUCCESS') }} !</strong></h2> <br>
+                                <h2 class="purple-text text-center"><strong>{{ __('SUCCESS !') }} </strong></h2> <br>
                                 <div class="row justify-content-center">
                                     <div class="col-3">
                                         <img src="{{ URL::asset('') }}register/img/finish.gif" class="fit-image">
@@ -1359,7 +1361,8 @@
                                 </div> <br><br>
                                 <div class="row justify-content-center">
                                     <div class="col-7 text-center">
-                                        <h5 class="purple-text text-center">{{ __('You Have Successfully Signed Up') }}</h5>
+                                        <h5 class="purple-text text-center">
+                                            {{ __('You Have Successfully Signed Up') }}</h5>
                                     </div>
                                 </div>
                             </div>
@@ -1726,7 +1729,7 @@
                         }
                     });
                     //  return true;
-                } else if (current == 6){
+                } else if (current == 6) {
                     console.log('Step 06');
 
                     $.ajax({
@@ -1771,10 +1774,10 @@
                         duration: 500
                     });
                     setProgressBar(++current);
-                    if (current == 7){
-                        setTimeout(function(){
+                    if (current == 7) {
+                        setTimeout(function() {
                             window.location.href = url;
-                        }, 5000);                        
+                        }, 5000);
                     }
                 }
                 // });

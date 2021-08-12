@@ -51,6 +51,9 @@
             max-height: 100px;
             background-color: #FF0000;
         }
+        .all-content-wrapper, .data-table-area, .basic-form-area, .single-pro-review-area {
+            height: 87%!important;
+        }
 
     </style>
 @endpush

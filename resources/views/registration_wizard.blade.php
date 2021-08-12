@@ -208,9 +208,7 @@
                                     <button id="logout" type="submit" title="{{ __('Logout') }}"
                                         class="btn btn-default">
                                         {{-- <span class="view-text">{{ __('Log In') }}</span> --}}
-                                        <span class="view-icon"><img width="30px;"
-                                                src="{{ URL::asset('') }}assets/images/login-50-white.png"
-                                                alt="" /></span>
+                                        <span class="view-icon"><img width="30px;" src="{{ URL::asset('') }}assets/images/login-50-white.png" alt="" /></span>
                                     </button>
                                 </div>
                             </form>

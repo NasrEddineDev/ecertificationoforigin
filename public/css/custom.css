@@ -167,6 +167,9 @@
     background: #D52828;
 }
 
+.all-content-wrapper, .data-table-area {
+height: 87%!important;
+}
 
 @media (min-width: 992px)  {
   .breadcome-heading{

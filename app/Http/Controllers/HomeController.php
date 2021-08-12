@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\Certificate;
 use App\Providers\RouteServiceProvider;
 use PDF;
+use Lang;
 
 class HomeController extends Controller
 {
@@ -70,7 +71,18 @@ class HomeController extends Controller
                 return redirect(RouteServiceProvider::HOME);
             }
 
-            return view('index');
+            $repeat = true;
+            $count = 1;
+            $faq = [];
+            while ($repeat){
+                if (Lang::has('FAQ'.$count.'Q', $locale) && Lang::has('FAQ'.$count.'A', $locale)){
+                    $faq[__('FAQ'.$count.'Q')] = __('FAQ'.$count.'A');
+                    $count ++;
+                }else{
+                    $repeat =false;
+                }
+            }
+            return view('index', compact('faq'));
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());
@@ -169,7 +181,7 @@ class HomeController extends Controller
                         File::makeDirectory($path, $mode = 0777, true, true);
                     }
 
-                    //   $url = 'data/'. ((Auth::User()->role->name == 'user') 
+                    //   $url = 'data/'. ((Auth::User()->role->name == 'user')
                     //     ? 'enterprises/'.$certificate->Enterprise->id : 'dri/'.Auth::User()->username).'/certificates/gzal-draft.pdf';
                     $pdf->save($path . '/gzal-draft.pdf');
                     $url = url($path . '/gzal-draft.pdf');

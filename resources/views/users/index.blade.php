@@ -63,6 +63,7 @@
                                         <th data-field="id">{{ __('ID') }}</th>
                                         <th data-field="username" data-editable="true">{{ __('Username') }}</th>
                                         <th data-field="email" data-editable="true">{{ __('Email') }}</th>
+                                        <th data-field="role" data-editable="true">{{ __('Role') }}</th>
                                         <th data-field="email_verified_at" data-editable="true">{{ __('Email Verification') }} </th>
                                         <th data-field="firstname" data-editable="true">{{ __('Firstname') }}</th>
                                         <th data-field="lastname" data-editable="true">{{ __('Lastname') }}</th>
@@ -83,6 +84,9 @@
                                         <td>{{ $user->id }}</td>
                                         <td>{{ $user->username }}</td>
                                         <td>{{ $user->email }}</td>
+                                        <td><button class="btn {{ $user->role->name == 'user' ? 'btn-warning' : ($user->role->name == 'dri_user' ? 'btn-info' : 
+                                            ($user->role->name == 'admin' ? 'btn-success' : 'btn-danger')) }}" style="font-size: 14px;padding:0px;">
+                                            {{ __($user->role->name) }}</button></td>
                                         <td>{{ $user->email_verified_at }}</td>
                                         <td>{{ $user->profile->firstname }}</td>
                                         <td>{{ $user->profile->lastname }}</td>

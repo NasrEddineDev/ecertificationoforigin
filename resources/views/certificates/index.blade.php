@@ -98,6 +98,13 @@
         }
 
     </style>
+    @if(App()->currentLocale() != 'ar')
+<style>
+#myDropdown{
+        width:215px;
+    }
+</style>
+@endif
 @endpush
 
 @section('content')
@@ -495,7 +502,7 @@
     </div> --}}
 @endsection
 
-@Push('js') // this is for internal js
+@Push('js')
     <!-- data table JS ============================================ -->
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/tableExport.js') }}"></script>

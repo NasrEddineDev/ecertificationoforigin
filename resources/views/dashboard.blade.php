@@ -317,7 +317,7 @@
                         <i class="fa fa-minus-square-o"></i>
                         <div class="social-edu-ctn">
                             <h3>{{ $rejected_certificates }} {{ __('Certificates') }}</h3>
-                            <p>{{ __('Rjected Certificates') }}</p>
+                            <p>{{ __('Rejected Certificates') }}</p>
                         </div>
                     </div>
                 </div>

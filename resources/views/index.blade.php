@@ -23,6 +23,11 @@
 
     <!--====== Bootstrap CSS ======-->
     <link rel="stylesheet" href="assets/css/bootstrap.4.5.2.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj" crossorigin="anonymous">
+    </script>
 
     <!--====== Default CSS ======-->
     <link rel="stylesheet" href="assets/css/default.css">
@@ -35,8 +40,78 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link id="theme-style" rel="stylesheet" href="assetsDoc/css/custom.css">
+
+
+    <link rel="stylesheet" href="slicebox/css/demo.css">
+    <link rel="stylesheet" href="slicebox/css/slicebox.css">
+    <link rel="stylesheet" href="slicebox/css/custom.css">
+
+    <script type="text/javascript" src="slicebox/js/modernizr.custom.46884.js"></script>
+
     @if ($locale == 'ar')
         <style>
+            .faq .accordion-collapse {
+                border: 0;
+            }
+
+            .faq .accordion-button {
+                padding: 15px 15px 20px 0;
+                font-weight: 600;
+                border: 0;
+                font-size: 18px;
+                color: #444444;
+                text-align: left;
+            }
+
+            .faq .accordion-button:focus {
+                box-shadow: none;
+            }
+
+            .faq .accordion-button:not(.collapsed) {
+                background: none;
+                color: #2C7744;
+                border-bottom: 0;
+            }
+
+            .faq .accordion-body {
+                padding: 0 0 25px 0;
+                border: 0;
+            }
+
+            .section-header p {
+                margin: 10px 0 0 0;
+                padding: 0;
+                font-size: 38px;
+                line-height: 42px;
+                font-weight: 700;
+                color: #3A424E;
+            }
+
+            .section-header {
+                text-align: center;
+            }
+
+            .accordion-button {
+                position: relative;
+                display: flex;
+                align-items: center;
+                width: 100%;
+                padding: 1rem 1.25rem;
+                font-size: 1rem;
+                color: #212529;
+                text-align: left;
+                background-color: #fff;
+                border: 0;
+                border-radius: 0;
+                overflow-anchor: none;
+                transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, border-radius .15s ease;
+            }
+
+            .accordion-button,
+            .accordion-body {
+                text-align: right;
+            }
+
             @media (min-width: 993px) {
 
                 #login-form1,
@@ -119,7 +194,9 @@
                 text-align: right !important;
             }
 
-            #recaptcha1-error, #recaptcha2-error, .rc-anchor-alert {
+            #recaptcha1-error,
+            #recaptcha2-error,
+            .rc-anchor-alert {
                 display: none;
                 text-align: right;
             }
@@ -157,6 +234,10 @@
             .disabled-element {
                 opacity: 0.65;
                 pointer-events: none;
+            }
+
+            a {
+                text-decoration: none !important;
             }
 
         </style>
@@ -276,6 +357,7 @@
 
         </style>
     @endif
+
 </head>
 
 <body>
@@ -663,11 +745,119 @@
                 </div>
             </div> <!-- row -->
         </div> <!-- container -->
-    </section>
-
+    </section> --}}
     <section id="screenshot">
 
-    </section> --}}
+        <div class="container" data-aos="fade-up">
+
+            <header class="section-header">
+                <p>{{ __('Web Application Screenshots') }}</p>
+            </header>
+
+            <div class="row mt-30">
+
+                <div class="wrapper">
+
+                    <ul id="sb-slider" class="sb-slider">
+                        <li>
+                            <a href="#"><img
+                                    src="slicebox/images/1.png" alt="image1" /></a>
+                            <div class="sb-description">
+                                <h3>{{__('Dashboard page')}}</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#"><img
+                                    src="slicebox/images/2.png" alt="image2" /></a>
+                            <div class="sb-description">
+                                <h3>{{__('Certificates Managment')}}</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#"><img src="slicebox/images/3.png" alt="image1" /></a>
+                            <div class="sb-description">
+                                <h3>Brave Astronaut</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#"><img src="slicebox/images/4.png" alt="image1" /></a>
+                            <div class="sb-description">
+                                <h3>Affectionate Decision Maker</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#"><img src="slicebox/images/5.png" alt="image1" /></a>
+                            <div class="sb-description">
+                                <h3>{{__('Mobile Version')}}</h3>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#" target="_blank"><img src="slicebox/images/6.png" alt="image1" /></a>
+                            <div class="sb-description">
+                                <h3>{{__('Registration Wizard')}}</h3>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <div id="shadow" class="shadow"></div>
+
+                    <div id="nav-arrows" class="nav-arrows">
+                        <a href="#">Next</a>
+                        <a href="#">Previous</a>
+                    </div>
+
+                </div><!-- /wrapper -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= F.A.Q Section ======= -->
+    <section id="faq" class="faq">
+
+        <div class="container" data-aos="fade-up">
+
+            <header class="section-header">
+                <p>{{ __('Frequently Asked Questions') }}</p>
+                <h2>F.A.Q</h2>
+            </header>
+
+            <div class="row mt-30">
+                <div class="col-lg-6">
+                    <!-- F.A.Q List 1-->
+                    <div class="accordion accordion-flush" id="faqlist1">
+                        @foreach ($faq as $key => $value)
+                            <div class="accordion-item">
+                                <h2 class="accordion-header">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#faq-content-{{ $loop->iteration }}">
+                                        {{ $key }}
+                                    </button>
+                                </h2>
+                                <div id="faq-content-{{ $loop->iteration }}" class="accordion-collapse collapse"
+                                    data-bs-parent="#faqlist{{ $loop->iteration * 2 >= count($faq) ? '1' : '2' }}">
+                                    <div class="accordion-body">
+                                        {{ $value }}
+                                    </div>
+                                </div>
+                            </div>
+                            @if (($faq & 1 && 1 + $loop->iteration * 2 == count($faq)) || ($faq & 0 && $loop->iteration * 2 == count($faq)))
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    <!-- F.A.Q List 2-->
+                    <div class="accordion accordion-flush" id="faqlist2">
+                        @endif
+                        @endforeach
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section><!-- End F.A.Q Section -->
 
     <!--====== PRICNG PART START ======-->
 
@@ -1189,6 +1379,15 @@
     {{-- <script src="assets/js/vendor/jquery-1.12.4.min.js"></script> --}}
 
     <script src="{{ URL::asset('wizard/js/jquery-3.3.1.min.js') }}"></script>
+
+
+    {{-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> --}}
+    {{-- <script type="text/javascript">
+      $jquery_1_12 = jQuery.noConflict();
+    </script> --}}
+
+    <script src="slicebox/js/jquery.slicebox.js"></script>
+
     <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
 
@@ -1214,10 +1413,14 @@
     {{-- <script src="assetsDoc/js/all.js"></script> --}}
     <script src="assets/js/main.js"></script>
 
+
+
     {{-- <script src="https://www.google.com/recaptcha/api.js?hl={{ App()->currentLocale() }}" async defer></script> --}}
     {{-- <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&&render=explicit&hl={{ App()->currentLocale() }}"
         async defer></script> --}}
-    <script src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit&hl={{App()->currentLocale()}}" async defer>
+    <script
+        src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit&hl={{ App()->currentLocale() }}"
+        async defer>
     </script>
     <script>
         var is_mobile = false;
@@ -1230,13 +1433,13 @@
                 console.log('recaptcha mobile is ready'); // showing
                 console.log($('.navbar > .login-link').css('display'));
                 grecaptcha.render('recaptcha1', {
-                    sitekey: '{{ env("GOOGLE_CAPTCHA_SITEKEY") }}'
+                    sitekey: '{{ env('GOOGLE_CAPTCHA_SITEKEY') }}'
                 });
             } else {
                 console.log('recaptcha desktop is ready'); // showing
                 console.log($('.navbar > .login-link').css('display'));
                 grecaptcha.render('recaptcha2', {
-                    sitekey: '{{ env("GOOGLE_CAPTCHA_SITEKEY") }}'
+                    sitekey: '{{ env('GOOGLE_CAPTCHA_SITEKEY') }}'
                 });
             }
         };
@@ -1379,7 +1582,8 @@
                     },
                     type: $(this).attr('method'),
                     url: $(this).attr('action'),
-                    data: $(this).serialize() + '&recaptchaIsChecked=' + (rcres.length ? true : false),
+                    data: $(this).serialize() + '&recaptchaIsChecked=' + (rcres.length ? true :
+                        false),
                     success: function(data) {
                         if (data.result == 'success') {
                             window.location.href = data.url;
@@ -1411,6 +1615,55 @@
 
         });
 
+        $(function() {
+
+            var Page = (function() {
+
+                var $navArrows = $('#nav-arrows').hide(),
+                    $shadow = $('#shadow').hide(),
+                    slicebox = $('#sb-slider').slicebox({
+                        onReady: function() {
+                            $navArrows.show();
+                            $shadow.show();
+                        },
+                        orientation: 'r',
+                        cuboidsRandom: true,
+                        disperseFactor: 30
+                    }),
+
+                    init = function() {
+
+                        initEvents();
+
+                    },
+                    initEvents = function() {
+
+                        // add navigation events
+                        $navArrows.children(':first').on('click', function() {
+
+                            slicebox.next();
+                            return false;
+
+                        });
+
+                        $navArrows.children(':last').on('click', function() {
+
+                            slicebox.previous();
+                            return false;
+
+                        });
+
+                    };
+
+                return {
+                    init: init
+                };
+
+            })();
+
+            Page.init();
+
+        });
     </script>
 
 </body>

@@ -419,15 +419,15 @@ class RegisterController extends Controller
                 $image_resize->resize(300, 300);
                 $image_resize->save($destinationPath . $signatureFileName);
 
-                $file = $request->file('round_stamp');
-                $roundStampFileName = Auth::User()->Enterprise->id . '_round_stamp.' . $file->clientExtension();
-                $image_resize = Image::make($signature->getRealPath());              
+                $round_stamp = $request->file('round_stamp');
+                $roundStampFileName = Auth::User()->Enterprise->id . '_round_stamp.' . $round_stamp->clientExtension();
+                $image_resize = Image::make($round_stamp->getRealPath());              
                 $image_resize->resize(300, 300);
                 $image_resize->save($destinationPath . $roundStampFileName);
                 
-                $file = $request->file('square_stamp');
-                $squareStampFileName = Auth::User()->Enterprise->id . '_square_stamp.' . $file->clientExtension();
-                $image_resize = Image::make($signature->getRealPath());              
+                $square_stamp = $request->file('square_stamp');
+                $squareStampFileName = Auth::User()->Enterprise->id . '_square_stamp.' . $square_stamp->clientExtension();
+                $image_resize = Image::make($square_stamp->getRealPath());              
                 $image_resize->resize(300, 300);
                 $image_resize->save($destinationPath . $squareStampFileName);
 
