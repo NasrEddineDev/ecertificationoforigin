@@ -29,7 +29,7 @@ class Authenticate extends Middleware
         }
 
         if ($this->auth->user()->profile && $this->auth->user()->profile->language){
-            App::setLocale($this->auth->user()->profile->language);
+            // App::setLocale($this->auth->user()->profile->language);
         }
         return $next($request);
     }

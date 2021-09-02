@@ -261,6 +261,9 @@ textarea#notes{
       z-index: 9999;
       position:fixed!important;
     }
+    .footer-copy-right {
+      z-index: 100;
+    }
 }
 
 
@@ -285,6 +288,9 @@ textarea#notes{
       z-index: 9999;
       position:fixed!important;
     }
+    .footer-copy-right {
+      z-index: 100;
+    }
 }
 
 
@@ -308,5 +314,8 @@ textarea#notes{
     .container-fluid-logo-top{
       z-index: 9999;
       position:fixed!important;
+    }
+    .footer-copy-right{
+      z-index: 100;
     }
 }

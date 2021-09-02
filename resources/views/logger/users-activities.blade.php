@@ -33,6 +33,7 @@
                         <div class="sparkline13-hd">
                             <div class="main-sparkline13-hd">
                                 <h1>{{ __('Activities List') }}</h1>
+                                <h1>{{ __('Users Activities') }}</h1>
                             </div>
                         </div>
                         <div class="sparkline13-graph">

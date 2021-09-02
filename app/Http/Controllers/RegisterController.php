@@ -391,8 +391,8 @@ class RegisterController extends Controller
                 ]);
 
                 $destinationPath = 'enterprises/' . (Auth::User()->Enterprise->id) . '/' . 'documents/';
-                if (!file_exists($destinationPath)) {
-                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                if (!file_exists('data/'.$destinationPath)) {
+                    File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
                 }
 
                 $file = $request->file('rc');

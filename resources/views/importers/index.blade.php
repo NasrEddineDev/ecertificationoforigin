@@ -117,7 +117,8 @@
                                                 <td>{{ $importer->id }}</td>
                                                 <td>{{ $importer->name }}</td>
                                                 <!-- <td>{{ $importer->legal_form }}</td> -->
-                                                <td>{{ $importer->category->name_ar }}</td>
+                                                <td>{{ App()->currentLocale() == 'ar' ? $importer->category->name_ar : (App()->currentLocale() == 'fr' ? 
+                                                $importer->category->name_fr : $importer->category->name) }}</td>
                                                 <!-- <td>{{ $importer->type }}</td> -->
                                                 <td>{{ $importer->address }}</td>
                                                 <td>{{ $importer->mobile }}</td>

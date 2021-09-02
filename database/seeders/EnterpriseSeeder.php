@@ -64,7 +64,7 @@ class EnterpriseSeeder extends Seeder
             'tel' => '023456789',
             'fax'  => '023456789',
             'website' => 'http://www.alphyt.com',
-            'user_id' => User::where('username', 'أحسن')->first()->id,
+            'user_id' => User::where('username', 'محمد 01')->first()->id,
             'manager_id' => Manager::where('firstname', 'aek')->first()->id,
             'city_id' => '15',
         ],[
@@ -88,7 +88,7 @@ class EnterpriseSeeder extends Seeder
             'tel' => '023456789',
             'fax'  => '023456789',
             'website' => 'www.algeria.gov.kw',
-            'user_id' => User::where('username', 'سيف الدين')->first()->id,
+            'user_id' => User::where('username', 'محمد 02')->first()->id,
             'manager_id' => Manager::where('firstname', 'ahmed')->first()->id,
             'city_id' => '20',
         ],[

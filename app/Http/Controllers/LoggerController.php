@@ -103,6 +103,9 @@ class LoggerController extends Controller
     {
         //
         try {
+            // ini_set('memory_limit','512M');
+            // $logs = \File::get(storage_path('logs/laravel.log'));
+            // dd($logs);
             $usersActivities = Activity::all();
             return view('logger.system-log', compact('usersActivities'));
         } catch (Throwable $e) {

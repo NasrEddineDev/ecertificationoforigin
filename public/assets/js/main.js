@@ -48,7 +48,13 @@ $(function() {
             }
         });
     });
-    
+    //
+    // var aria_expanded = $('.navbar-toggler').attr('aria-expanded');
+    // if (aria_expanded){
+    //     $('#navbarSupportedContent').attr('style', 'display: flow-root !important;');
+    // }else{
+    //     $('#navbarSupportedContent').attr('style', 'display: none !important;');
+    // }
     //===== close navbar-collapse when a  clicked
 
     $(".navbar-nav a").on('click', function () {

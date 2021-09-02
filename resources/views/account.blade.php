@@ -1264,7 +1264,7 @@
                     $.each(data.states, function(index, city) {
                         $('#enterprise #state_code').append('<option value="' + city.value +
                             '" ' + (city.value ==
-                                '{{ $user->enterprise->city->wilaya_code }}' ?
+                                '{{ $user->enterprise->city->wilaya_code ?? '' }}' ?
                                 'selected' : '') + '>' + city.text + '</option>');
                     })
 
@@ -1275,7 +1275,7 @@
                     $.each(data.states, function(index, city) {
                         $('#manager #state_code').append('<option value="' + city.value +
                             '" ' + (city.value ==
-                                '{{ $user->enterprise->manager->city->wilaya_code }}' ?
+                                '{{ $user->enterprise->manager->city->wilaya_code ?? ''}}' ?
                                 'selected' : '') + '>' + city.text + '</option>');
                         // $('#manager #state_code').append('<option value="' + city.value +
                         //     '">' + city.text + '</option>');
@@ -1310,7 +1310,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "/getalgeriancities/{{ $user->enterprise->city->wilaya_code }}",
+                url: "/getalgeriancities/{{ $user->enterprise->city->wilaya_code ?? ''}}",
                 type: "GET",
                 success: function(data) {
                     $('#enterprise_city_id').empty();
@@ -1320,7 +1320,7 @@
                     $.each(data.cities, function(index, city) {
                         $('#enterprise_city_id').append('<option value="' + city.value +
                             '" ' + (city.value ==
-                                '{{ $user->enterprise->city->id }}' ?
+                                '{{ $user->enterprise->city->id ?? '' }}' ?
                                 'selected' : '') + '>' + city.text + '</option>');
                     })
                 }
@@ -1329,7 +1329,7 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
-                url: "/getalgeriancities/{{ $user->enterprise->manager->city->wilaya_code }}",
+                url: "/getalgeriancities/{{ $user->enterprise->manager->city->wilaya_code ?? '' }}",
                 type: "GET",
                 success: function(data) {
                     $('#manager_city_id').empty();
@@ -1339,7 +1339,7 @@
                     $.each(data.cities, function(index, city) {
                         $('#manager_city_id').append('<option value="' + city.value +
                             '" ' + (city.value ==
-                                '{{ $user->enterprise->manager->city->id }}' ?
+                                '{{ $user->enterprise->manager->city->id ?? '' }}' ?
                                 'selected' : '') + '>' + city.text + '</option>');
                     })
                 }

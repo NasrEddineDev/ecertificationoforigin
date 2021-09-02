@@ -65,7 +65,8 @@
                                             <tr id="{{ $enterprise->id }}">
                                                 <td></td>
                                                 <td>{{ $enterprise->id }}</td>
-                                                <td>{{ $enterprise->name }}</td>
+                                                <td>{{ App()->currentLocale() == 'ar' ? $enterprise->name_ar : (App()->currentLocale() == 'fr' ? 
+                                                $enterprise->name_fr : $enterprise->name) }}</td>
                                                 <td>{{ $enterprise->legal_form }}</td>
                                                 <td><button class="btn {{ ($enterprise->status == "PENDING") ? 'btn-warning' :( 
                                                    ($enterprise->status == "ACTIVATED") ? 'btn-success':(

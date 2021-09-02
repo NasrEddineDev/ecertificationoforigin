@@ -75,12 +75,12 @@ class UserSeeder extends Seeder
             'role_id' => Role::where('name', 'dri_user')->first()->id,
             'profile_id' => Profile::where('firstname', 'azzouz')->first()->id,
         ],[
-            'username'  => 'أحسن',
-            'email' => 'a.meliani@caci.dz',
+            'username'  => 'محمد 01',
+            'email' => 'enterprise.01@caci.dz',
             'password' => Hash::make('password'),
             'email_verified_at'  => date('Y-m-d H:i:s'),
             'role_id' => Role::where('name', 'user')->first()->id,
-            'profile_id' => Profile::where('firstname', 'ahsan')->first()->id,
+            'profile_id' => Profile::where('firstname', 'mohamed')->first()->id,
         ],[
             'username'  => 'فؤاد',
             'email' => 'f.hasni@caci.dz',
@@ -89,12 +89,12 @@ class UserSeeder extends Seeder
             'role_id' => Role::where('name', 'user')->first()->id,
             'profile_id' => Profile::where('firstname', 'fouad')->first()->id,
         ],[
-            'username'  => 'سيف الدين',
-            'email' => 'customer.caci@gmail.com',
+            'username'  => 'محمد 02',
+            'email' => 'enterprise.02@gmail.com',
             'password' => Hash::make('password'),
             'email_verified_at'  => date('Y-m-d H:i:s'),
             'role_id' => Role::where('name', 'user')->first()->id,
-            'profile_id' => Profile::where('firstname', 'seifeddine')->first()->id,
+            'profile_id' => Profile::where('firstname', 'mohamed 1')->first()->id,
         ],[
             'username'  => 'محمد',
             'email' => 'eurl.nakhla.djamila@gmail.com',

@@ -483,6 +483,9 @@
     "SUCCESS": "نجاح",
     "SUCCESS !": "! نجاح",
     "ACCEPTED": "مقبول",
+    "REJECTED": "ملغى",
+    "Rejected": "ملغى",
+    "Details" : "التفاصيل",
     "Go To Payments List": "الذهاب إلى قائمة المدفوعات",
     "Order Status Description": "وصف حالة الطلب",
     "Payment is deposited": "تم قبو الدفع",
@@ -670,6 +673,8 @@
     "Balance using DHAHABIA" : "تعبئة الرصيد بإستعمال البطاقة الذهبية",
     "Profile page" : "صفحة البروفايل",
     "Mobile Version" : "نسخة الموبال",
-    "Registration Wizard" : "مراحل التسجيل"
-
+    "Registration Wizard" : "مراحل التسجيل",
+    "About This System" : "حول هذا النظام",
+    "Sub-Categories List" : "قائمة الفئات الفرعية",
+    "Roles List" : "قائمة اﻷدوار"
 }

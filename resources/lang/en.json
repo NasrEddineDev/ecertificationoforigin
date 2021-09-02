@@ -491,6 +491,8 @@
     "SUCCESS": "Success",
     "SUCCESS !": "Success !",
     "ACCEPTED": "ACCEPTED",
+    "REJECTED": "REJECTED",
+    "Rejected": "Rejected",
     "Go To Payments List": "Go To Payments List",
     "Order Status Description": "Order Status Description",
     "Payment is deposited": "Payment is deposited",
@@ -667,6 +669,7 @@
     "NIS" : "NIS",
     "NIF" : "NIF",
     "Resume" : "Resume",
+    "Details" : "Details",
     "Review your Information" : "Review your Information",
     "Account Details" : "Account Details",
     "Manager Details" : "Manager Details",
@@ -712,5 +715,8 @@
     "Balance using DHAHABIA" : "Balance using DHAHABIA",
     "Profile page" : "Profile page",
     "Mobile Version" : "Mobile Version",
-    "Registration Wizard" : "Registration Wizard"
+    "Registration Wizard" : "Registration Wizard",
+    "About This System" : "About This System",
+    "Sub-Categories List" : "Sub-Categories List",
+    "Roles List" : "Roles List"
 }

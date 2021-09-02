@@ -12,6 +12,13 @@
             background-color: gray !important;
         }
 
+        table .datatable-ct {
+            width: 155px;
+            overflow: hidden;
+            display: inline-block;
+            white-space: nowrap;
+        }
+
     </style>
 
 @endpush
@@ -37,12 +44,12 @@
                                         style="{{ App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : '' }}">{{ __('Add New Manager') }}</a>
                                 </div>
                                 <!-- <div id="toolbar">
-                                    <select class="form-control dt-tb">
-                                        <option value="">Export Basic</option>
-                                        <option value="all">Export All</option>
-                                        <option value="selected">Export Selected</option>
-                                    </select>
-                                </div> -->
+                                        <select class="form-control dt-tb">
+                                            <option value="">Export Basic</option>
+                                            <option value="all">Export All</option>
+                                            <option value="selected">Export Selected</option>
+                                        </select>
+                                    </div> -->
                                 <table id="table" data-toggle="table" data-pagination="true" data-search="true"
                                     data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
                                     data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
@@ -75,10 +82,11 @@
                                                 <td>{{ $manager->id }}</td>
                                                 <td>{{ $manager->firstname }}</td>
                                                 <td>{{ $manager->lastname }}</td>
-                                                <td>{{ $manager->Enterprise->name ?? '' }}</td>
+                                                <td>{{ App()->currentLocale() == 'ar' ? ($manager->Enterprise->name_ar ?? 
+                                                GoogleTranslate::unlessLanguageIs('ar', $manager->Enterprise->name ?? '')) : (App()->currentLocale() == 'fr' ? 
+                                                    $manager->Enterprise->name_fr : $manager->Enterprise->name) }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($manager->birthday)) }}</td>
                                                 <td>{{ __($manager->gender) }}</td>
-                                                {{-- <td>{{ $manager->address }}</td> --}}
                                                 <td>{{ $manager->email }}</td>
                                                 <td>{{ $manager->mobile }}</td>
                                                 <td>{{ $manager->tel }}</td>

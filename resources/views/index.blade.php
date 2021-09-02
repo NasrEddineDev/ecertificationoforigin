@@ -48,6 +48,36 @@
 
     <script type="text/javascript" src="slicebox/js/modernizr.custom.46884.js"></script>
 
+    <style>
+        .error {
+            color: #FF0000;
+        }
+
+        .warning {
+            color: red;
+        }
+
+        input.error {
+            border: 1px solid red !important;
+        }
+
+        a {
+                text-decoration: none !important;
+            }
+
+.section-header p {
+    margin: 10px 0 0 0;
+    padding: 0;
+    font-size: 38px;
+    line-height: 42px;
+    font-weight: 700;
+    color: #3A424E;
+}
+
+.section-header {
+    text-align: center;
+}
+    </style>
     @if ($locale == 'ar')
         <style>
             .faq .accordion-collapse {
@@ -76,19 +106,6 @@
             .faq .accordion-body {
                 padding: 0 0 25px 0;
                 border: 0;
-            }
-
-            .section-header p {
-                margin: 10px 0 0 0;
-                padding: 0;
-                font-size: 38px;
-                line-height: 42px;
-                font-weight: 700;
-                color: #3A424E;
-            }
-
-            .section-header {
-                text-align: center;
             }
 
             .accordion-button {
@@ -127,6 +144,10 @@
                 #recaptcha2 div {
                     transform: scale(1.01);
                     transform-origin: 0 0;
+                }
+
+                .navbar-expand-lg .navbar-collapse {
+                    display: flow-root !important;
                 }
             }
 
@@ -205,10 +226,6 @@
                 visibility: hidden;
             }
 
-            .navbar-expand-lg .navbar-collapse {
-                display: flow-root !important;
-            }
-
             .forgot-password {
                 float: left;
                 text-align: left;
@@ -236,10 +253,6 @@
                 pointer-events: none;
             }
 
-            a {
-                text-decoration: none !important;
-            }
-
         </style>
     @else
         <style>
@@ -258,6 +271,10 @@
                 .g-recaptcha div {
                     transform: scale(1.01);
                     transform-origin: 0 0;
+                }
+
+                .navbar-expand-lg .navbar-collapse {
+                    display: flow-root !important;
                 }
             }
 
@@ -322,10 +339,6 @@
 
             input.error {
                 border: 1px solid red;
-            }
-
-            .navbar-expand-lg .navbar-collapse {
-                display: flow-root !important;
             }
 
             .forgot-password {
@@ -400,9 +413,6 @@
                                     src="{{ URL::asset('') }}img/logo/logo1.png" alt="" />
                                 <img class="second-logo" style="width:50px"
                                     src="{{ URL::asset('') }}img/logo/caci.png" alt="CACI E-Certification" />
-                                <!-- <img src="assets/images/logo.svg" alt="Logo"> -->
-                                {{-- <h4 style="color:#fff" alt="Logo">CACI E-Certification
-                                </h4> --}}
                             </a>
 
                             {{-- Mobile language selector --}}
@@ -504,13 +514,10 @@
                                 <span class="toggler-icon"></span>
                                 <span class="toggler-icon"></span>
                             </button>
-                            {{-- </li>
-                            </ul>
-                        </div> --}}
 
-                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                                 <ul id="nav"
-                                    class="navbar-nav {{ App()->currentLocale() == 'ar' ? 'navbar-nav-rtl' : '' }}"
+                                    class="nav navbar-nav {{ App()->currentLocale() == 'ar' ? 'navbar-nav-rtl' : '' }}"
                                     style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}">
                                     <li class="nav-item active">
                                         <a class="page-scroll" href="#home">{{ __('Home') }}</a>
@@ -518,9 +525,10 @@
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#features">{{ __('Features') }}</a>
                                     </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="page-scroll" href="#user_guide">{{ __('User Guide') }}</a>
-                                    </li> --}}
+                                    <li class="nav-item">
+                                        <a class="page-scroll"
+                                            href="#screenshot">{{ __('About This System') }}</a>
+                                    </li>
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#about">{{ __('About') }}</a>
                                     </li>
@@ -546,7 +554,8 @@
                                                         id="password" placeholder="{{ __('Password') }}">
                                                 </div>
                                                 <div id="recaptcha2"></div>
-                                                <label id="recaptcha2-error" class="error" for="recaptcha2"></label>
+                                                <label id="recaptcha2-error" class="error"
+                                                    for="recaptcha2"></label>
                                                 <button type="submit" class="wow fadeInUp btn btn-primary col-lg-12"
                                                     style="margin-bottom:10px;">{{ __('Log In') }}</button>
                                                 <div class="form-check col-lg-5 col-md-3 col-sm-2 remember">
@@ -746,7 +755,7 @@
             </div> <!-- row -->
         </div> <!-- container -->
     </section> --}}
-    <section id="screenshot">
+    <section id="screenshot" class="pt-40 pb-40">
 
         <div class="container" data-aos="fade-up">
 
@@ -760,41 +769,40 @@
 
                     <ul id="sb-slider" class="sb-slider">
                         <li>
-                            <a href="#"><img
-                                    src="slicebox/images/1.png" alt="image1" /></a>
+                            <a href="#"><img src="slicebox/images/1.png" alt="image1" /></a>
                             <div class="sb-description">
-                                <h3>{{__('Dashboard page')}}</h3>
+                                <h3>{{ __('Dashboard page') }}</h3>
                             </div>
                         </li>
                         <li>
-                            <a href="#"><img
-                                    src="slicebox/images/2.png" alt="image2" /></a>
+                            <a href="#"><img src="slicebox/images/2.png" alt="image2" /></a>
                             <div class="sb-description">
-                                <h3>{{__('Certificates Managment')}}</h3>
+                                <h3>{{ __('Certificates Managment') }}</h3>
                             </div>
                         </li>
                         <li>
                             <a href="#"><img src="slicebox/images/3.png" alt="image1" /></a>
                             <div class="sb-description">
-                                <h3>Brave Astronaut</h3>
+                                <h3>{{ __('Balance using DHAHABIA') }}</h3>
                             </div>
                         </li>
                         <li>
                             <a href="#"><img src="slicebox/images/4.png" alt="image1" /></a>
                             <div class="sb-description">
-                                <h3>Affectionate Decision Maker</h3>
+                                <h3>{{ __('Profile page') }}</h3>
                             </div>
                         </li>
                         <li>
-                            <a href="#"><img src="slicebox/images/5.png" alt="image1" /></a>
+                            <a href="#" style="  display: block;margin: 0 auto;"><img src="slicebox/images/5.png"
+                                    alt="image1" style="display: block;margin: 0 auto;" /></a>
                             <div class="sb-description">
-                                <h3>{{__('Mobile Version')}}</h3>
+                                <h3>{{ __('Mobile Version') }}</h3>
                             </div>
                         </li>
                         <li>
                             <a href="#" target="_blank"><img src="slicebox/images/6.png" alt="image1" /></a>
                             <div class="sb-description">
-                                <h3>{{__('Registration Wizard')}}</h3>
+                                <h3>{{ __('Registration Wizard') }}</h3>
                             </div>
                         </li>
                     </ul>
@@ -810,6 +818,32 @@
             </div>
         </div>
     </section>
+
+        <!-- ======= Verify Section ======= -->
+        <section id="verify" class="verify">
+
+            <div class="container" data-aos="fade-up">
+    
+                <header class="section-header">
+                    <p>{{ __('Verify your Certificate') }}</p>
+                </header>
+    
+                <div class="row mt-30">
+                    <form  class="form-inline" id="searching" method="POST"
+                    action="{{ route('verifiy-certificate-home') }}">
+                    @csrf
+                    {{-- <form class="form-inline" id="searching" action="{{ route('verifiy-certificate') }}"> --}}
+                        <input class="form-control mr-sm-2" type="search" placeholder="الرجاء إدخال رقم شهادت المنشأ"
+                            aria-label="Search" id="certificate_id" name="certificate_id">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">التحقق</button>
+                    </form>
+                </div>
+    
+            </div>
+    
+        </section><!-- End Verify Section -->
+    
+
 
     <!-- ======= F.A.Q Section ======= -->
     <section id="faq" class="faq">
@@ -1266,28 +1300,25 @@
                         <h4 class="contact-title  pt-15 pb-10"
                             style="color:#fff;{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"><i
                                 class="lni lni-envelope"></i>{{ __('Leave A Message') }}</h4>
-                        <form method="POST" action="{{ route('register') }}" id="leavMessageForm">
+                        <form method="POST" action="{{ route('leave-message') }}" id="leaveMessageForm">
                             @csrf
                             <div class="row">
                                 <div class="subscribe_form col-lg-12">
-                                    <input type="text"
+                                    <input type="text" id="name" name="name"
                                         style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"
                                         placeholder="{{ __('Your Name...') }}" required>
-                                    <button
-                                        style="{{ App()->currentLocale() == 'ar' ? 'text-align:right;left: 20px;' : 'margin-right:15px;' }}"
-                                        class="main-btn pull-left">{{ __('Send') }}</button>
+                                    <button type="submit" class="main-btn pull-left"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'text-align:right;left: 20px;' : 'margin-right:15px;' }}">{{ __('Send') }}</button>
                                 </div>
                                 <div class="subscribe_form form-group col-lg-12">
                                     <!-- <label style="color:white">Password</label> -->
-                                    <textarea rows="7" class="col-lg-12" name="massage"
-                                        placeholder="{{ __('Type Your Message...') }}"
-                                        style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"
-                                        required></textarea>
+                                    <textarea id="message" name="message" rows="7" class="col-lg-12" placeholder="{{ __('Type Your Message...') }}"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}" required></textarea>
                                 </div>
                                 <div class="subscribe_form form-group col-lg-12">
                                     <!-- <label style="color:white">Email Address</label> -->
                                     <input class="form-control" placeholder="{{ __('Your Email Address...') }}"
-                                        required
+                                        required id="anonymous_email" name="anonymous_email"
                                         style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}">
                                 </div>
                             </div>
@@ -1358,7 +1389,7 @@
     <!--====== PART START ======-->
 
     <!--
-    <section class="">
+    <section class="___class_+?250___">
         <div class="container">
             <div class="row">
                 <div class="col-lg-">
@@ -1380,7 +1411,6 @@
 
     <script src="{{ URL::asset('wizard/js/jquery-3.3.1.min.js') }}"></script>
 
-
     {{-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> --}}
     {{-- <script type="text/javascript">
       $jquery_1_12 = jQuery.noConflict();
@@ -1390,6 +1420,9 @@
 
     <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
+    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}">
+    </script>
+    <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
 
     <script src="assetsDoc/plugins/jquery.scrollTo.min.js"></script>
     <script src="assets/js/vendor/modernizr-3.7.1.min.js"></script>
@@ -1446,7 +1479,6 @@
 
         $(document).ready(function() {
             $(".rc-anchor-light.rc-anchor-normal").attr("style", "width:99%");
-
             $(".nav .nav-link").on("click", function() {
                 $(".nav").find(".active").removeClass("active");
                 $(this).addClass("active");
@@ -1613,6 +1645,65 @@
                 });
             });
 
+
+            // {{-- leave message form --}}
+            $('#leaveMessageForm').submit(function(e) {
+                e.preventDefault();
+                // $("#loginForm1 #g-recaptcha").addClass("disabled-element");
+
+                var leave_message_validator = $("#leaveMessageForm").validate({
+                    rules: {
+                        name: {
+                            required: true,
+                        },
+                        anonymous_email: {
+                            required: true,
+                            email: true,
+                            emailcheck: /^\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i,
+                        },
+                        message: {
+                            required: true,
+                        },
+                    },
+                    messages: {
+                        name: {
+                            required: "{{ __('Field is required') }}",
+                        },
+                        anonymous_email: {
+                            required: "{{ __('Email Address is required') }}",
+                            emailcheck: "{{ __('Email Address is invalid') }}",
+                        },
+                        message: {
+                            required: "{{ __('Message is required') }}",
+                        },
+                    },
+                });
+
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    type: $(this).attr('method'),
+                    url: $(this).attr('action'),
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        if (data.result) {
+                            $("#name").val("");
+                            $("#anonymous_email").val("");
+                            $("#message").val("");
+                        } else {
+
+                        }
+                    },
+                    error: function(data) {
+                    }
+                });
+            });
+
+            $('#anonymous_email').inputmask({
+                alias: "email",
+                rightAlign: false
+            });
         });
 
         $(function() {

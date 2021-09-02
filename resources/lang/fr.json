@@ -489,6 +489,9 @@
     "SUCCESS": "Succès",
     "SUCCESS !": "Succès !",
     "ACCEPTED": "Accepté",
+    "REJECTED": "REJETÉ",
+    "Rejected": "Rejeté",
+    "Details" : "Détails",
     "Go To Payments List": "Aller à la liste des paiements",
     "Order Status Description": "Description de statut de la commande",
     "Payment is deposited": "Le paiement est déposé",
@@ -709,5 +712,8 @@
     "Balance using DHAHABIA" : "Charger votre solde en utilisant la carte DHAHABIA",
     "Profile page" : "Page du Profile",
     "Mobile Version" : "Version Mobile",
-    "Registration Wizard" : "Wizard d'inscriptino"
+    "Registration Wizard" : "Wizard d'inscriptino",
+    "About This System" : "À Propos Ce System",
+    "Sub-Categories List" : "Liste des sous-catégories",
+    "Roles List" : "Liste des Rôles"
 }

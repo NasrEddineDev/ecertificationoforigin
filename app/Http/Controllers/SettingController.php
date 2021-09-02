@@ -590,8 +590,8 @@ class SettingController extends Controller
     {
         try {
             $destinationPath = 'settings/certificates_images/'.$template.'/'.$type.'/';
-            if (!file_exists($destinationPath)) {
-                File::makeDirectory($destinationPath, $mode = 0777, true, true);
+            if (!file_exists('data/'.$destinationPath)) {
+                File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
             }
             if ( 0 < $template && $template < 3){
                 $i=0;

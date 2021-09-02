@@ -107,8 +107,8 @@ class UserController extends Controller
                 $user->save();
 
                 $destinationPath = 'dri/' . $user->id . '/';
-                if (!file_exists($destinationPath)) {
-                    File::makeDirectory($destinationPath, $mode = 0777, true, true);
+                if (!file_exists('data/'.$destinationPath)) {
+                    File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
                 }
 
                 $signatureFileName = $profile->firstname . '_' . $profile->lastname . '_signature.' . $signature->clientExtension();
@@ -194,8 +194,8 @@ class UserController extends Controller
             $user->profile->address = $request->address;
 
             $destinationPath = 'dri/' . $user->id . '/';
-            if (!file_exists($destinationPath)) {
-                File::makeDirectory($destinationPath, $mode = 0777, true, true);
+            if (!file_exists('data/'.$destinationPath)) {
+                File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
             }
 
             $signature = $request->file('signature');

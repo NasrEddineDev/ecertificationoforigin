@@ -93,91 +93,93 @@
     <div class="analytics-sparkle-area">
         <div class="container-fluid">
             <div class="row">
-                @if (Auth::user()->Role->name == "user")
-                <div
-                    class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
-                    <div class="analytics-sparkle-line reso-mg-b-30">
-                        <div class="analytics-content">
-                            <h5>{{ __('Current Balance') }}</h5>
-                            <h2><span class="counter">{{ $current_balance }}</span>{{ ' ' . __('Points') }}<span
-                                    class="tuition-fees">{{ __('Remained') }}</span></h2>
-                            <span class="text-success">{{ $current_balance_rate }}</span>
-                            <div class="progress m-b-0">
-                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50"
-                                    aria-valuemin="0" aria-valuemax="100" style="width:{{ $current_balance_rate }};">
-                                    <span class="sr-only"></span>
+                @if (Auth::user()->Role->name == 'user' || Auth::user()->Role->name == 'admin')
+                    <div
+                        class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                        <div class="analytics-sparkle-line reso-mg-b-30">
+                            <div class="analytics-content">
+                                <h5>{{ __('Current Balance') }}</h5>
+                                <h2><span class="counter">{{ $current_balance }}</span>{{ ' ' . __('Points') }}<span
+                                        class="tuition-fees">{{ __('Remained') }}</span></h2>
+                                <span class="text-success">{{ $current_balance_rate }}</span>
+                                <div class="progress m-b-0">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="50"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{ $current_balance_rate }};">
+                                        <span class="sr-only"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div
-                    class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
-                    <div class="analytics-sparkle-line reso-mg-b-30">
-                        <div class="analytics-content">
-                            <h5>{{ __('Consumed Balance') }}</h5>
-                            <h2><span class="counter">{{ $consumed_balance }}</span>{{ ' ' . __('Points') }}<span
-                                    class="tuition-fees">{{ __('Consumed') }}</span></h2>
-                            <span class="text-danger">{{ $consumed_balance_rate }}</span>
-                            <div class="progress m-b-0">
-                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50"
-                                    aria-valuemin="0" aria-valuemax="100" style="width:{{ $consumed_balance_rate }};">
-                                    <span class="sr-only"></span>
+                    <div
+                        class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                        <div class="analytics-sparkle-line reso-mg-b-30">
+                            <div class="analytics-content">
+                                <h5>{{ __('Consumed Balance') }}</h5>
+                                <h2><span class="counter">{{ $consumed_balance }}</span>{{ ' ' . __('Points') }}<span
+                                        class="tuition-fees">{{ __('Consumed') }}</span></h2>
+                                <span class="text-danger">{{ $consumed_balance_rate }}</span>
+                                <div class="progress m-b-0">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50"
+                                        aria-valuemin="0" aria-valuemax="100"
+                                        style="width:{{ $consumed_balance_rate }};">
+                                        <span class="sr-only"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div
-                    class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
-                    <div class="analytics-sparkle-line reso-mg-b-30 table-mg-t-pro dk-res-t-pro-30">
-                        <div class="analytics-content">
-                            <h5>{{ __('Total Balance') }}</h5>
-                            <h2><span class="counter">{{ $total_balance }}</span>{{ ' ' . __('Points') }} <span
-                                    class="tuition-fees">{{ __('Full Balance') }}</span></h2>
-                            <span class="text-info">100%</span>
-                            <div class="progress m-b-0">
-                                <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
-                                    aria-valuemin="0" aria-valuemax="100" style="width:100%;"> <span class="sr-only"></span>
+                    <div
+                        class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                        <div class="analytics-sparkle-line reso-mg-b-30 table-mg-t-pro dk-res-t-pro-30">
+                            <div class="analytics-content">
+                                <h5>{{ __('Total Balance') }}</h5>
+                                <h2><span class="counter">{{ $total_balance }}</span>{{ ' ' . __('Points') }} <span
+                                        class="tuition-fees">{{ __('Full Balance') }}</span></h2>
+                                <span class="text-info">100%</span>
+                                <div class="progress m-b-0">
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="50"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:100%;"> <span
+                                            class="sr-only"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div
-                    class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
-                    <div class="analytics-sparkle-line table-mg-t-pro dk-res-t-pro-30">
-                        <div class="analytics-content">
-                            <h5>{{ __('Payment Operations') }}</h5>
-                            <h2>
-                                @if (App()->currentLocale() != 'ar')
-                                    <span class="tuition-fees"
-                                        style="margin-left: 10px;margin-right:10px;">{{ __('Operations') }}</span>
-                                @endif
-                                <span
-                                    class="counter">{{ isset(Auth::user()->Enterprise->payments) ? Auth::user()->Enterprise->payments->count() : '' }}</span>
+                    <div
+                        class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                        <div class="analytics-sparkle-line table-mg-t-pro dk-res-t-pro-30">
+                            <div class="analytics-content">
+                                <h5>{{ __('Payment Operations') }}</h5>
+                                <h2>
+                                    @if (App()->currentLocale() != 'ar')
+                                        <span class="tuition-fees"
+                                            style="margin-left: 10px;margin-right:10px;">{{ __('Operations') }}</span>
+                                    @endif
+                                    <span
+                                        class="counter">{{ isset(Auth::user()->Enterprise->payments) ? Auth::user()->Enterprise->payments->count() : '' }}</span>
 
-                                @if (App()->currentLocale() == 'ar')
-                                    <span class="tuition-fees"
-                                        style="margin-left: 10px;margin-right:10px;">{{ __('Operations') }}</span>
-                                @endif
-                            </h2>
-                            <span
-                                class="text-inverse">{{ isset(Auth::user()->Enterprise->payments) && App\Models\Payment::all()->count() != 0 ? Auth::user()->Enterprise->payments->count() / App\Models\Payment::all()->count() . '%' : '0%' }}</span>
-                            <div class="progress m-b-0">
-                                <div class="progress-bar progress-bar-inverse" role="progressbar" aria-valuenow="20"
-                                    aria-valuemin="0" aria-valuemax="100"
-                                    style="width:{{ isset(Auth::user()->Enterprise->payments) && App\Models\Payment::all()->count() != 0 ? Auth::user()->Enterprise->payments->count() / App\Models\Payment::all()->count() . '%' : '0%' }};">
-                                    <span class="sr-only"></span>
+                                    @if (App()->currentLocale() == 'ar')
+                                        <span class="tuition-fees"
+                                            style="margin-left: 10px;margin-right:10px;">{{ __('Operations') }}</span>
+                                    @endif
+                                </h2>
+                                <span
+                                    class="text-inverse">{{ isset(Auth::user()->Enterprise->payments) && App\Models\Payment::all()->count() != 0 ? Auth::user()->Enterprise->payments->count() / App\Models\Payment::all()->count() . '%' : '0%' }}</span>
+                                <div class="progress m-b-0">
+                                    <div class="progress-bar progress-bar-inverse" role="progressbar" aria-valuenow="20"
+                                        aria-valuemin="0" aria-valuemax="100"
+                                        style="width:{{ isset(Auth::user()->Enterprise->payments) && App\Models\Payment::all()->count() != 0 ? Auth::user()->Enterprise->payments->count() / App\Models\Payment::all()->count() . '%' : '0%' }};">
+                                        <span class="sr-only"></span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
                 @elseif (Auth::user()->Role->name == "dri_user")
 
                 @else
-                    
+
                 @endif
             </div>
         </div>
@@ -185,106 +187,111 @@
     <div class="product-sales-area mg-tb-15">
         <div class="container-fluid">
             <div class="row">
-                <div
-                    class="col-lg-6 col-md-9 col-sm-12 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
-                    <div class="product-sales-chart">
-                        <div class="portlet-title">
-                            <div class="row">
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <div class="caption pro-sl-hd">
-                                        <span class="caption-subject"><b>{{ __('Certifications Statistics') }}</b></span>
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div
+                        class="col-lg-6 col-md-9 col-sm-12 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                        <div class="product-sales-chart">
+                            <div class="portlet-title">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="caption pro-sl-hd">
+                                            <span
+                                                class="caption-subject"><b>{{ __('Certifications Statistics') }}</b></span>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                    <div class="actions graph-rp graph-rp-dl">
-                                        <p>{{ __('All Certificate Statistics') }}</p>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="actions graph-rp graph-rp-dl">
+                                            <p>{{ __('All Certificate Statistics') }}</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
+                            <ul class="list-inline cus-product-sl-rp">
+                                <li>
+                                    <h5><i class="fa fa-circle" style="color: #006DF0;"></i>{{ __('GZALE') }}</h5>
+                                </li>
+                                <li>
+                                    <h5><i class="fa fa-circle" style="color: #933EC5;"></i>{{ __('ACP-TUNISIE') }}
+                                    </h5>
+                                </li>
+                                <li>
+                                    <h5><i class="fa fa-circle" style="color: #65b12d;"></i>{{ __('FORM-A-EN') }}</h5>
+                                </li>
+                                <li>
+                                    <h5><i class="fa fa-circle" style="color: #EEF116;"></i>{{ __('FORMULE-A-FR') }}</h5>
+                                </li>
+                            </ul>
+                            <div id="extra-area-chart" style="height: 356px;"></div>
                         </div>
-                        <ul class="list-inline cus-product-sl-rp">
-                            <li>
-                                <h5><i class="fa fa-circle" style="color: #006DF0;"></i>{{ __('GZALE') }}</h5>
-                            </li>
-                            <li>
-                                <h5><i class="fa fa-circle" style="color: #933EC5;"></i>{{ __('ACP-TUNISIE') }}
-                                </h5>
-                            </li>
-                            <li>
-                                <h5><i class="fa fa-circle" style="color: #65b12d;"></i>{{ __('FORM-A-EN') }}</h5>
-                            </li>
-                            <li>
-                                <h5><i class="fa fa-circle" style="color: #EEF116;"></i>{{ __('FORMULE-A-FR') }}</h5>
-                            </li>
-                        </ul>
-                        <div id="extra-area-chart" style="height: 356px;"></div>
-                    </div>
-                </div>
-                <div
-                    class="col-lg-3 col-md-6 col-sm-12 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
-                    <div class="charts-single-pro responsive-mg-b-30">
-                        <div class="alert-title">
-                            <h2>{{ __('Balance Statistics') }}</h2>
-                            <p>{{ __('All balance transactions') }}</p>
-                        </div>
-                        <div id="pie-chart">
-                            <canvas id="piechart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                @if (Auth::user()->Role->name == "user")
-                <div
-                    class="col-lg-3 col-md-3 col-sm-3 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
-                    <div class="white-box analytics-info-cs mg-b-10 res-mg-b-15 tb-sm-res-d-n dk-res-t-d-n">
-                        <h3 class="box-title">{{ __('Total Requests') }}</h3>
-                        <ul class="list-inline two-part-sp">
-                            <li>
-                                <div id="sparklinedash2"></div>
-                            </li>
-                            <li class="text-right graph-two-ctn"><i class="fa fa-level-up" aria-hidden="true"></i> <span
-                                    class="counter text-purple">{{ $total_requests }}</span></li>
-                        </ul>
-                    </div>
-                    <div class="white-box analytics-info-cs mg-b-10 res-mg-b-15 tb-sm-res-d-n dk-res-t-d-n">
-                        <h3 class="box-title">{{ __('Total Products') }}</h3>
-                        <ul class="list-inline two-part-sp">
-                            <li>
-                                <div id="sparklinedash3"></div>
-                            </li>
-                            <li class="text-right graph-three-ctn"><i class="fa fa-level-up" aria-hidden="true"></i> <span
-                                    class="counter text-info">{{ $total_products }}</span></li>
-                        </ul>
                     </div>
                     <div
-                        class="white-box analytics-info-cs mg-b-10 res-mg-b-15 res-mg-t-15 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n">
-                        <h3 class="box-title">{{ __('Total weight of products') }}</h3>
-                        <ul class="list-inline two-part-sp">
-                            <li>
-                                <div id="sparklinedash"></div>
-                            </li>
-                            <li class="text-right sp-cn-r"><i class="fa fa-level-up" aria-hidden="true"></i> <span
-                                    class="counter text-success">{{ $total_products_weight }}</span> {{ __('Kg') }}
-                            </li>
-                        </ul>
+                        class="col-lg-3 col-md-6 col-sm-12 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                        <div class="charts-single-pro responsive-mg-b-30">
+                            <div class="alert-title">
+                                <h2>{{ __('Balance Statistics') }}</h2>
+                                <p>{{ __('All balance transactions') }}</p>
+                            </div>
+                            <div id="pie-chart">
+                                <canvas id="piechart"></canvas>
+                            </div>
+                        </div>
                     </div>
-                    <div class="white-box analytics-info-cs table-dis-n-pro tb-sm-res-d-n dk-res-t-d-n">
-                        <h3 class="box-title">{{ __('Total Importers') }}</h3>
-                        <ul class="list-inline two-part-sp">
-                            <li>
-                                <div id="sparklinedash4"></div>
-                            </li>
-                            <li class="text-right graph-four-ctn"><i class="fa fa-level-down" aria-hidden="true"></i> <span
-                                    class="text-danger"><span class="counter">{{ $total_importers }}</span></span>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                @elseif (Auth::user()->Role->name == "dri_user")
 
-                @else
-                    
-                @endif
+                    @if (Auth::user()->Role->name == 'user' || Auth::user()->Role->name == 'admin')
+                        <div
+                            class="col-lg-3 col-md-3 col-sm-3 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                            <div class="white-box analytics-info-cs mg-b-10 res-mg-b-15 tb-sm-res-d-n dk-res-t-d-n">
+                                <h3 class="box-title">{{ __('Total Requests') }}</h3>
+                                <ul class="list-inline two-part-sp">
+                                    <li>
+                                        <div id="sparklinedash2"></div>
+                                    </li>
+                                    <li class="text-right graph-two-ctn"><i class="fa fa-level-up" aria-hidden="true"></i>
+                                        <span class="counter text-purple">{{ $total_requests }}</span></li>
+                                </ul>
+                            </div>
+                            <div class="white-box analytics-info-cs mg-b-10 res-mg-b-15 tb-sm-res-d-n dk-res-t-d-n">
+                                <h3 class="box-title">{{ __('Total Products') }}</h3>
+                                <ul class="list-inline two-part-sp">
+                                    <li>
+                                        <div id="sparklinedash3"></div>
+                                    </li>
+                                    <li class="text-right graph-three-ctn"><i class="fa fa-level-up" aria-hidden="true"></i>
+                                        <span class="counter text-info">{{ $total_products }}</span></li>
+                                </ul>
+                            </div>
+                            <div
+                                class="white-box analytics-info-cs mg-b-10 res-mg-b-15 res-mg-t-15 table-mg-t-pro-n tb-sm-res-d-n dk-res-t-d-n">
+                                <h3 class="box-title">{{ __('Total weight of products') }}</h3>
+                                <ul class="list-inline two-part-sp">
+                                    <li>
+                                        <div id="sparklinedash"></div>
+                                    </li>
+                                    <li class="text-right sp-cn-r"><i class="fa fa-level-up" aria-hidden="true"></i> <span
+                                            class="counter text-success">{{ $total_products_weight }}</span>
+                                        {{ __('Kg') }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="white-box analytics-info-cs table-dis-n-pro tb-sm-res-d-n dk-res-t-d-n">
+                                <h3 class="box-title">{{ __('Total Importers') }}</h3>
+                                <ul class="list-inline two-part-sp">
+                                    <li>
+                                        <div id="sparklinedash4"></div>
+                                    </li>
+                                    <li class="text-right graph-four-ctn"><i class="fa fa-level-down"
+                                            aria-hidden="true"></i> <span class="text-danger"><span
+                                                class="counter">{{ $total_importers }}</span></span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    @elseif (Auth::user()->Role->name == "dri_user")
+
+                    @else
+
+                    @endif
+                </div>
             </div>
         </div>
     </div>
@@ -321,33 +328,33 @@
                         </div>
                     </div>
                 </div>
-                @if (Auth::user()->Role->name == "user")
-                <div
-                    class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
-                    <div class="white-box analytics-info-cs table-dis-n-pro tb-sm-res-d-n dk-res-t-d-n">
-                        <h3 class="box-title">{{ __('Total Countries') }}</h3>
-                        <ul class="list-inline two-part-sp">
-                            <li>
-                                <div id="sparklinedash5"></div>
-                            </li>
-                            <li class="text-right graph-three-ctn"><i class="fa fa-level-down" aria-hidden="true"></i> <span
-                                    class="text-info"><span
-                                        class="counter text-info">{{ $total_countries }}</span></span>
-                            </li>
-                        </ul>
-                    </div>
-                    {{-- <div class="social-media-edu youtube-cl res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30">
+                @if (Auth::user()->Role->name == 'user' || Auth::user()->Role->name == 'admin')
+                    <div
+                        class="col-lg-3 col-md-6 col-sm-6 col-xs-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
+                        <div class="white-box analytics-info-cs table-dis-n-pro tb-sm-res-d-n dk-res-t-d-n">
+                            <h3 class="box-title">{{ __('Total Countries') }}</h3>
+                            <ul class="list-inline two-part-sp">
+                                <li>
+                                    <div id="sparklinedash5"></div>
+                                </li>
+                                <li class="text-right graph-three-ctn"><i class="fa fa-level-down" aria-hidden="true"></i>
+                                    <span class="text-info"><span
+                                            class="counter text-info">{{ $total_countries }}</span></span>
+                                </li>
+                            </ul>
+                        </div>
+                        {{-- <div class="social-media-edu youtube-cl res-mg-t-30 res-tablet-mg-t-30 dk-res-t-pro-30">
                             <i class="fa fa-youtube"></i>
                             <div class="social-edu-ctn">
                                 <h3>50k Subscribers</h3>
                                 <p>You main list growing</p>
                             </div>
                         </div> --}}
-                </div>
+                    </div>
                 @elseif (Auth::user()->Role->name == "dri_user")
 
                 @else
-                    
+
                 @endif
             </div>
         </div>
@@ -768,7 +775,7 @@
     </script>
 
     <!-- Charts JS
-            ============================================ -->
+                ============================================ -->
     <script src="js/charts/Chart.js"></script>
     <script src="js/charts/rounded-chart.js"></script>
 @endpush

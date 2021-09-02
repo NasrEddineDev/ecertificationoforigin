@@ -21,8 +21,10 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::post('/leave-message', [HomeController::class, 'leaveMessage'])->name('leave-message');
 Route::get('/hakim', [HomeController::class, 'indexHakim'])->name('hakim');
 Route::get('/verifiycertificate/{id}', [HomeController::class, 'verifiyCertificate'])->name('verifiy-certificate');
+Route::post('/verifiycertificate', [HomeController::class, 'verifiyCertificateHome'])->name('verifiy-certificate-home');
 Route::get('/account', [\App\Http\Controllers\AccountController::class, 'edit'])->name('account.edit');
 Route::get('/users-settings', [\App\Http\Controllers\UserController::class, 'settings'])->name('users.settings');
 Route::post('/users-settings-post', [\App\Http\Controllers\UserController::class, 'settings'])->name('users.settings.post');

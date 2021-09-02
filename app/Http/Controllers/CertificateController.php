@@ -1112,10 +1112,11 @@ class CertificateController extends Controller
         $template = Setting::where('name', 'Default Certificate Template')->first()->value;
         $page1 = '';$page2 = '';$page3 = '';
         
+        $certificateName = strtolower($certificate->type);
+        
         if ($template != 0){
         
 
-        $certificateName = strtolower($certificate->type);
         $page1 = ($certificate->status == "DRAFT") ? 'data/settings/certificates_images/'.$template.'/' . $certificateName . '/' . $certificateName . '1.jpg'
             : (($certificate->status == "PENDING"
                 || $certificate->status == "REJECTED") ? 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/'. $template. '/'

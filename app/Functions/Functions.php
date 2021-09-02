@@ -36,4 +36,16 @@ trait Functions
             $message->from('certificateoforigin.caci@gmail.com','CACI E-Certification');
         });
     }
+
+
+    protected function SendEmailMessageTo($name, $email, $message)
+    {
+        $data = array('name'=>$name, 
+                      'body' => $message);
+        Mail::send('emails.leave-message', $data, 
+        function($message) use ($name, $email) {
+            $message->to('certification.caci@gmail.com', $name)->subject('New Message');
+            $message->from($email,'CACI E-Certification');
+        });
+    }
 }

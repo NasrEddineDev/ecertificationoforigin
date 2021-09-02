@@ -137,7 +137,7 @@ class ProfileSeeder extends Seeder
             'language' => 'ar',
             'theme' => 'default',
         ],[
-            'firstname'  => 'ahsan',
+            'firstname'  => 'mohamed',
             'lastname'  => '',
             'birthday' => null,
             'gender'  => null,
@@ -167,7 +167,7 @@ class ProfileSeeder extends Seeder
             'language' => 'ar',
             'theme' => 'default',
         ],[
-            'firstname'  => 'seifeddine',
+            'firstname'  => 'mohamed 1',
             'lastname'  => '',
             'birthday' => null,
             'gender'  => null,
