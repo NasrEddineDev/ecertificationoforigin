@@ -331,6 +331,7 @@
                                                                 </div>
                                                             </div>
 
+                                                            @if (Auth::user()->Role->name == "dri_user")
                                                             <div class="form-group row">
                                                                 <label
                                                                     class="col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('AGCE User Id') }}</label>
@@ -342,6 +343,7 @@
                                                                         class="form-control" />
                                                                 </div>
                                                             </div>
+                                                            @endif
                                                             <div class="form-group row">
                                                                 <label
                                                                     class="col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('State') }}</label>

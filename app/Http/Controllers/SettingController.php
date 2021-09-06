@@ -106,48 +106,43 @@ class SettingController extends Controller
                 $order_status_url_poste = $settings->where('name', 'Order Status Url Poste')->first();
                 $order_status_url_poste->update(['value' => $request->order_status_url_poste]);
 
-                $offers_list = $settings->where('name', 'Offers List')->first();
-                $new_offers_list = $request->offers_list;
-                sort($new_offers_list, SORT_NUMERIC);
-                $offers_list->update(['value' => implode(",", $new_offers_list)]);
-                $destinationPath = 'data/settings/offers/';
-                $img = imagecreatetruecolor(100, 40);
-                // Create some colors
-                $lightsky = imagecolorallocate($img, 135, 206, 250);
-                $blue = imagecolorallocate($img, 25, 25, 112);
-                foreach ($new_offers_list as $offer) {
-                    imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                    // The text to draw
-                    imagestring($img, 5, 8, 12, $offer . ' Points', $blue);
-                    imagesetthickness($img, 14);
-                    // Using imagepng() results in clearer text compared with imagejpeg() 
-                    imagepng($img, $destinationPath . $offer . '.png');
+                // // To Create offers
+                // $offers_list = $settings->where('name', 'Offers List')->first();
+                // $new_offers_list = $request->offers_list;
+                // sort($new_offers_list, SORT_NUMERIC);
+                // $offers_list->update(['value' => implode(",", $new_offers_list)]);
+                // $destinationPath = 'data/settings/offers/';
+                // $img = imagecreatetruecolor(100, 40);
+                // $lightsky = imagecolorallocate($img, 135, 206, 250);
+                // $blue = imagecolorallocate($img, 25, 25, 112);
+                // foreach ($new_offers_list as $offer) {
+                //     imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
+                //     imagestring($img, 5, 8, 12, $offer . ' Points', $blue);
+                //     imagesetthickness($img, 14);
+                //     imagepng($img, $destinationPath . $offer . '.png');
 
-                    imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                    // The text to draw
-                    imagestring($img, 5, 48, 12, utf8_encode('نقطة') . $offer, $blue);
-                    imagesetthickness($img, 14);
-                    // Using imagepng() results in clearer text compared with imagejpeg() 
-                    imagepng($img, $destinationPath . $offer . '_ar.png');
-                }
+                //     imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
+                //     imagestring($img, 5, 48, 12, utf8_encode('نقطة') . $offer, $blue);
+                //     imagesetthickness($img, 14);
+                //     imagepng($img, $destinationPath . $offer . '_ar.png');
+                // }
 
-                imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                imagestring($img, 5, 12, 12, 'Others', $blue);
-                imagesetthickness($img, 14);
-                imagepng($img, $destinationPath . 'others_en.png');
+                // imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
+                // imagestring($img, 5, 12, 12, 'Others', $blue);
+                // imagesetthickness($img, 14);
+                // imagepng($img, $destinationPath . 'others_en.png');
 
-                imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                imagestring($img, 5, 12, 12, 'Autres', $blue);
-                imagesetthickness($img, 14);
-                imagepng($img, $destinationPath . 'others_fr.png');
+                // imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
+                // imagestring($img, 5, 12, 12, 'Autres', $blue);
+                // imagesetthickness($img, 14);
+                // imagepng($img, $destinationPath . 'others_fr.png');
 
-                imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                imagestring($img, 5, 48, 12, utf8_encode('نقطة'), $blue);
-                imagesetthickness($img, 14);
-                // Using imagepng() results in clearer text compared with imagejpeg() 
-                imagepng($img, $destinationPath . 'others_ar.png');
+                // imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
+                // imagestring($img, 5, 48, 12, utf8_encode('نقطة'), $blue);
+                // imagesetthickness($img, 14);
+                // imagepng($img, $destinationPath . 'others_ar.png');
+                // imagedestroy($img);
 
-                imagedestroy($img);
             } else if ($section == 'stamps') {
 
                 $roundStampAr = $request->file('round_stamp_ar');

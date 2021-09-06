@@ -217,11 +217,10 @@
                                                             placeholder="{{ __('Number') }}" type="text"
                                                             class="form-control" required />
                                                     </div>
-                                                    <div class="col-md-6"
-                                                        style="padding-right: 0px!important;padding-left: 0px!important;">
+                                                    <div class="col-md-6" style="padding-right: 0px!important;padding-left: 0px!important;">
                                                         <input name="invoice_date" id="invoice_date"
                                                             placeholder="{{ __('Date') }}" type="text"
-                                                            class="form-control" required />
+                                                            class="form-control" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -471,23 +470,20 @@
                 days: ["الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعة", "السبت"],
                 daysShort: ["الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعة", "السبت"],
                 daysMin: ["الاحد", "الاثنين", "الثلاثاء", "الاربعاء", "الخميس", "الجمعة", "السبت"],
-                months: ["جانفي", "فيفري", "مارس", "أفريل", "ماي", "جوان", "جويلية", "أوت", "سبتمبر", "أكتوبر",
-                    "نوفمبر", "ديسمبر"
-                ],
-                monthsShort: ["جانفي", "فيفري", "مارس", "أفريل", "ماي", "جوان", "جويلية", "أوت", "سبتمبر",
-                    "أكتوبر", "نوفمبر", "ديسمبر"
-                ],
+                months: ["جانفي", "فيفري", "مارس", "أفريل", "ماي", "جوان", "جويلية", "أوت", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر" ],
+                monthsShort: ["جانفي", "فيفري", "مارس", "أفريل", "ماي", "جوان", "جويلية", "أوت", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
                 today: "اليوم",
                 clear: "مسح",
                 format: "dd/mm/yyyy",
                 titleFormat: "MM yyyy",
                 weekStart: 0
             };
+            var lang = "{{ App()->currentLocale() }}";
             $('#invoice_date').datepicker({
-                rtl: true,
+                rtl: (lang == 'ar') ? true : false,
                 format: 'dd-mm-yyyy',
                 autoclose: true,
-                language: 'ar'
+                language: '{{ App()->currentLocale()}}'
             });
 
             $.validator.addMethod("productcountcheck", function(value) {
@@ -508,6 +504,9 @@
                         required: true,
                         extension: "jpg|jpeg|gif|png"
                     },
+                    invoice_date: {
+                        required: true,
+                    },
                     table: {
                         productcountcheck: $('#table tr').length
                     },
@@ -517,6 +516,9 @@
                     invoice: {
                         required: "{{ __('This field is required.') }}",
                         extension: "select valid input file format"
+                    },
+                    invoice_date: {
+                        required: "{{ __('This field is required.') }}",
                     },
                     table: {
                         productcountcheck: "{{ __('Add one product at least') }}"
@@ -764,14 +766,16 @@
             // <input data-inputmask="'mask': '99-9999999'" />
             // $('#invoice_date').inputmask({"mask": "99/99/9999"}); //specifying options
             // $('#integrity_rate').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy"});
+
             $('#invoice_date').inputmask({
                 alias: "datetime",
                 inputFormat: "dd/mm/yyyy",
-                placeholder: String.fromCharCode(parseInt('FEF1', 16), parseInt('FEF1', 16)) + '/' +
+                placeholder: (lang == 'en') ? 'dd/mm/yyyy' : (lang == 'fr' ? 'jj/mm/aaaa' : String.fromCharCode(parseInt('FEF1', 16), parseInt('FEF1', 16)) + '/' +
                     String.fromCharCode(parseInt('FEB5', 16), parseInt('FEB5', 16)) + '/' +
                     String.fromCharCode(parseInt('FEC9', 16), parseInt('FEC9', 16), parseInt('FEC9', 16),
-                        parseInt('FEC9', 16))
+                        parseInt('FEC9', 16)))
             });
+
             // $('#integrity_rate').inputmask("% ^[1-9][0-9]?$|^100$"); //specifying options
             $('#integrity_rate').inputmask({ regex: "^% [0-9][0-9]?$|^% 100$", placeholder: "" });
             //             $("#invoice-error").each(function() {

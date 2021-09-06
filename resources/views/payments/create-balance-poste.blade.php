@@ -49,7 +49,7 @@
         .image_picker_image {
             max-width: 140px;
             max-height: 100px;
-            background-color: #FF0000;
+            /* background-color: #FF0000; */
         }
         .all-content-wrapper, .data-table-area, .basic-form-area, .single-pro-review-area {
             height: 87%!important;
@@ -86,17 +86,17 @@
                                             <select id="offer" name="offer" class="image-picker">
                                                 @foreach (explode(',', $settings->where('name', 'Offers List')->first()->value) as $offer)
                                                     <option
-                                                        data-img-src='{{ URL::asset('') . 'data/settings/offers/' . $offer . '.png' }}'
+                                                        data-img-src='{{ URL::asset('') . 'data/settings/offers/red/'. App()->currentLocale().'/' . $offer . '.png' }}'
                                                         value="{{ $offer }}"></option>
                                                 @endforeach
                                                 <option
-                                                    data-img-src='{{ URL::asset('') . 'data/settings/offers/others_en.png' }}'
+                                                    data-img-src='{{ URL::asset('') . 'data/settings/offers/red/'.App()->currentLocale().'/Other.png' }}'
                                                     value="0"></option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="row others">
-                                        <div class="col-md-1" style="float: none;margin: 0 auto;">
+                                        <div class="col-md-2" style="float: none;margin: 0 auto;">
                                             <input name="other_offer" id="other_offer" type="text"
                                                 class="form-control text-center"
                                                 placeholder="{{ __('Number Of Points') }}" />

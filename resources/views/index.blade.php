@@ -62,21 +62,22 @@
         }
 
         a {
-                text-decoration: none !important;
-            }
+            text-decoration: none !important;
+        }
 
-.section-header p {
-    margin: 10px 0 0 0;
-    padding: 0;
-    font-size: 38px;
-    line-height: 42px;
-    font-weight: 700;
-    color: #3A424E;
-}
+        .section-header p {
+            margin: 10px 0 0 0;
+            padding: 0;
+            font-size: 38px;
+            line-height: 42px;
+            font-weight: 700;
+            color: #3A424E;
+        }
 
-.section-header {
-    text-align: center;
-}
+        .section-header {
+            text-align: center;
+        }
+
     </style>
     @if ($locale == 'ar')
         <style>
@@ -819,30 +820,30 @@
         </div>
     </section>
 
-        <!-- ======= Verify Section ======= -->
-        <section id="verify" class="verify">
+    <!-- ======= Verify Section ======= -->
+    <section id="verify" class="verify">
 
-            <div class="container" data-aos="fade-up">
-    
-                <header class="section-header">
-                    <p>{{ __('Verify your Certificate') }}</p>
-                </header>
-    
-                <div class="row mt-30">
-                    <form  class="form-inline" id="searching" method="POST"
+        <div class="container" data-aos="fade-up">
+
+            <header class="section-header">
+                <p>{{ __('Verify your Certificate') }}</p>
+            </header>
+
+            <div class="row mt-30">
+                <form class="form-inline" id="searching" method="POST"
                     action="{{ route('verifiy-certificate-home') }}">
                     @csrf
                     {{-- <form class="form-inline" id="searching" action="{{ route('verifiy-certificate') }}"> --}}
-                        <input class="form-control mr-sm-2" type="search" placeholder="الرجاء إدخال رقم شهادت المنشأ"
-                            aria-label="Search" id="certificate_id" name="certificate_id">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">التحقق</button>
-                    </form>
-                </div>
-    
+                    <input class="form-control mr-sm-2" type="search" placeholder="الرجاء إدخال رقم شهادت المنشأ"
+                        aria-label="Search" id="certificate_id" name="certificate_id">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">التحقق</button>
+                </form>
             </div>
-    
-        </section><!-- End Verify Section -->
-    
+
+        </div>
+
+    </section><!-- End Verify Section -->
+
 
 
     <!-- ======= F.A.Q Section ======= -->
@@ -1312,8 +1313,10 @@
                                 </div>
                                 <div class="subscribe_form form-group col-lg-12">
                                     <!-- <label style="color:white">Password</label> -->
-                                    <textarea id="message" name="message" rows="7" class="col-lg-12" placeholder="{{ __('Type Your Message...') }}"
-                                        style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}" required></textarea>
+                                    <textarea id="message" name="message" rows="7" class="col-lg-12"
+                                        placeholder="{{ __('Type Your Message...') }}"
+                                        style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"
+                                        required></textarea>
                                 </div>
                                 <div class="subscribe_form form-group col-lg-12">
                                     <!-- <label style="color:white">Email Address</label> -->
@@ -1695,8 +1698,7 @@
 
                         }
                     },
-                    error: function(data) {
-                    }
+                    error: function(data) {}
                 });
             });
 
