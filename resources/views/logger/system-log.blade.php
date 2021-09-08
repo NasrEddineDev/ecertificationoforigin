@@ -11,14 +11,41 @@
             text-decoration: none;
             background-color: gray !important;
         }
-      tr td:last-child{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 50%; /* Extend the cell as much as possible */
-  max-width: 0; /* Avoid resizing beyond table width */
-}
 
+        tr td:last-child {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 50%;
+            /* Extend the cell as much as possible */
+            max-width: 0;
+            /* Avoid resizing beyond table width */
+        }
+        
+        .sparkline13-graph{
+            height:500px;
+        }
+        .sparkline13-graph object {
+            width: 90%;
+            margin: 5px;
+            height:500px;
+            background-color: rgba(167, 167, 167, 0.685) !important;
+        }
+        pre {
+            color:#26bd00 !important;
+        }
+
+        .sparkline13-graph object {
+            height: 90%;
+        }
+
+        #log-viewer{
+            overflow:scroll;
+            height:500px;
+            color:#26bd00;
+            font-weight: 700;
+            background-color: black;
+        }
     </style>
 @endpush
 
@@ -37,48 +64,9 @@
                             </div>
                         </div>
                         <div class="sparkline13-graph">
-                            <div class="datatable-dashv1-list custom-datatable-overright">
-                                <table id="table" data-toggle="table" data-pagination="true" data-search="true"
-                                    data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
-                                    data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
-                                    data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
-                                    data-buttons-align="{{ App()->currentLocale() == 'ar' ? 'left' : 'right' }}"
-                                    data-search-align="{{ App()->currentLocale() == 'ar' ? 'left' : 'right' }}"
-                                    data-toolbar-align="{{ App()->currentLocale() == 'ar' ? 'right' : 'left' }}"
-                                    data-toolbar="#toolbar"
-                                    data-locale="{{ App()->currentLocale() == 'en' ? 'en-US' : (App()->currentLocale() == 'ar' ? 'ar-SA' : 'fr-FR') }}">
-                                    <thead>
-                                        <tr>
-                                            <th data-field="id">{{ __('ID') }}</th>
-                                            <th data-field="date" data-editable="true">{{ __('Date') }}</th>
-                                            <th data-field="model" data-editable="true">{{ __('Model') }}</th>
-                                            <th data-field="user_id" data-editable="true">{{ __('User Id') }}</th>
-                                            <th data-field="user" data-editable="true">{{ __('User') }}</th>
-                                            <th data-field="type" data-editable="true">{{ __('Type') }}</th>
-                                            <th data-field="subject" data-editable="true">{{ __('Subject') }}</th>
-                                            <th data-field="properties" data-editable="true">{{ __('Properties') }}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($usersActivities as $userActivity)
-                                            <tr id="{{ $userActivity->id }}">
-                                                <td>{{ $userActivity->id }}</td>
-                                                <td>{{ $userActivity->created_at }}</td>
-                                                <td>{{ str_replace("App\Models\\","",$userActivity->subject_type) }}</td>
-                                                <td>{{ $userActivity->causer_id }}</td>
-                                                <td><a class="btn btn-success" style="font-size: 14px;padding-top:0px;padding-bottom:0px;"
-                                                    href="{{ route('users.show', $userActivity->causer_id ?? '') }}">
-                                                    {{ __($userActivity->causer->username ?? '') }}</a></td>
-                                                <td>{{ __($userActivity->description) }}</td>
-                                                <td><a class="btn btn-info" style="font-size: 14px;padding-top:0px;padding-bottom:0px;"
-                                                    href="{{ route('certificates.show', $userActivity->subject_id) }}">
-                                                    {{ __($userActivity->subject_id) }}</a></td>
-                                                    <td>{{ $userActivity->properties }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                            <object style="width:100%;" id="object" data="{{ $url }}" type="text/plain">
+                            </object>
+                            {{-- <div id="log-viewer">{{$content}}</div> --}}
                         </div>
                     </div>
                 </div>
@@ -108,7 +96,7 @@
             </div>
         </div>
     </div>
-
+    
 @endsection
 
 @Push('js')
@@ -155,15 +143,37 @@
                 });
             });
 
-            $('tr td:last-child').bind('mouseenter', function(){
-    var $this = $(this);
+            $('tr td:last-child').bind('mouseenter', function() {
+                var $this = $(this);
 
-    if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
-        $this.attr('title', $this.text());
-    }
-});
+                if (this.offsetWidth < this.scrollWidth && !$this.attr('title')) {
+                    $this.attr('title', $this.text());
+                }
+            });
 
+            var w = window,
+                d = document,
+                e = d.documentElement,
+                g = d.getElementsByTagName('body')[0],
+                y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+            var object = document.getElementById("log-viewer");
+            object.height = y * 8 / 10;
+            console.log(y * 8 / 10);
+            $("#log-viewer").height = y * 8 / 10;
+
+            $(".sparkline13-graph object pre")attr('style', 'color:#26bd00 !important');
+
+            // $.ajax("/system-log").done(displayText).fail(showError);
+
+            // function displayText(data){
+            //     $("#reply-from-server").append(data);
+            // }
+
+            // function showError(data){
+            // var mess = "An error occured!";
+            // $("#reply-from-server").text(mess);
+            // }
         });
-
     </script>
 @endpush

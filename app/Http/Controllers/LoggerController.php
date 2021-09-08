@@ -106,8 +106,17 @@ class LoggerController extends Controller
             // ini_set('memory_limit','512M');
             // $logs = \File::get(storage_path('logs/laravel.log'));
             // dd($logs);
+            // $i = 99/0;
+
+            // return response()->json([
+            //     'message' => 'Product deleted successfully',
+            //     'url' => url('/storage/logs/laravel.log')
+            // ], 200);
+
+            $url = url('storage/logs/laravel.log');
+            $content = file_get_contents('storage/logs/users-activities.log');
             $usersActivities = Activity::all();
-            return view('logger.system-log', compact('usersActivities'));
+            return view('logger.system-log', compact('usersActivities', 'url', 'content'));
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());

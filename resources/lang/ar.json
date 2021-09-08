@@ -560,6 +560,7 @@
     "Join thousands of users who believe this is the one app." : "انضم إلى الآلاف من المستخدمين الذين يعتقدون أن هذا هو التطبيق الواحد.",
     "Enter Your Email..." : "... أدخل بريدك الإلكتروني",
     "Subscribe" : "اشترك",
+    "Algerian Chamber of Commerce and Industry" : "الغرفة الجزائرية للتجارة والصناعة",
     "CACI - Algerian Chamber of Commerce and Industry In Facebook" : "الغرفة الجزائرية للتجارة والصناعة على الفيسبوك",
     "CACI - Algerian Chamber of Commerce and Industry In Twitter" : "الغرفة الجزائرية للتجارة والصناعة على التويتر",
     "CACI - Algerian Chamber of Commerce and Industry In LinkedIn" : "الغرفة الجزائرية للتجارة والصناعة على لينكدإن",
@@ -676,5 +677,11 @@
     "Registration Wizard" : "مراحل التسجيل",
     "About This System" : "حول هذا النظام",
     "Sub-Categories List" : "قائمة الفئات الفرعية",
-    "Roles List" : "قائمة اﻷدوار"
+    "Roles List" : "قائمة اﻷدوار",
+    "Verify your Certificate" : "التحقق من الشهادة",
+    "Please type your code of certificate" : "الرجاء إدخال رقم شهادة المنشأ",
+    "Verify" : "التحقق",
+    "About1" : ".تمثل المصالح العامة لقطاعات التجارة والصناعة والخدمات مع الحكومات، حيث أنها تقوم بأنشطة تعليمية وتكوينية وتطويرية وإعادة تدريب للأعمال التجارية",
+    "About2" : ".(EPIC) أسست بموجب المرسوم التنفيذي 94-96 الصادر في 03/03/1996 المعدل والمكمل بالمرسوم التنفيذي 2000-312 ، وهي مؤسسة صناعية وتجارية عامة",
+    "Videos" : "فيديوهات"
 }

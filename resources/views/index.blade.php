@@ -46,6 +46,9 @@
     <link rel="stylesheet" href="slicebox/css/slicebox.css">
     <link rel="stylesheet" href="slicebox/css/custom.css">
 
+    {{-- <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" /> --}}
+    <link href="https://vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
+
     <script type="text/javascript" src="slicebox/js/modernizr.custom.46884.js"></script>
 
     <style>
@@ -741,21 +744,57 @@
 
     <!--====== VIDEO PART START ======-->
 
-    {{-- <section id="video" class="video_area pt-80 pb-80">
+    <section id="video" class="video_area pb-30">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-lg-8">
                     <div class="section_title text-center">
-                        <h4 class="title">You are using free lite version</h4>
-                        <p>Please, purchase full version of the template to get all sections, features and permission to
-                            remove footer credits.</p></br>
+                        <h4 class="title">{{ __('User Guide') }}</h4>
+                        <h4 class="title">{{ __('Videos') }}</h4>
+                        {{-- <p>Please, purchase full version of the template to get all sections, features and permission to
+                            remove footer credits.</p></br> --}}
 
-                        <a href="https://rebrand.ly/advanced-ud" rel="nofollow" class="main-btn">Purchase Now</a>
                     </div> <!-- section title -->
+                    <video
+                        id="my-video"
+                        class="video-js"
+                        controls
+                        preload="auto"
+                        width="850"
+                        height="600"
+                        poster="slicebox/images/1.png"
+                        data-setup="{}">
+                        <source src="data/videos/003 إدارة الشهادات (إنشاء، حذف، تعديل، إمضاء) من قبل المصدر.mp4" type="video/mp4" />
+                  <source src="data/videos/001 استكشاف الواجهة الرئيسية.mp4" type="video/mp4" />
+                  <source src="data/videos/002 إدارة الحساب من قبل المصدر.mp4" type="video/mp4" />
+                  <source src="data/videos/004 إدارة المنتوجات (إنشاء، حذف، تعديل) من قبل المصدر.mp4" type="video/mp4" />
+                  <source src="data/videos/005 إدارة المستوردين (إنشاء، حذف، تعديل) من قبل المصدر.mp4" type="video/mp4" />
+                  <source src="data/videos/006 إدارة المنتجين (إنشاء، حذف، تعديل) من قبل المصدر.mp4" type="video/mp4" />
+                  </video>
                 </div>
+
+                {{-- <video
+    id="my-player"
+    class="video-js"
+    controls
+    preload="auto"
+    poster="//vjs.zencdn.net/v/oceans.png"
+    data-setup='{}'>
+  <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
+  <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
+  <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source>
+  <p class="vjs-no-js">
+    To view this video please enable JavaScript, and consider upgrading to a
+    web browser that
+    <a href="https://videojs.com/html5-video-support/" target="_blank">
+      supports HTML5 video
+    </a>
+  </p>
+</video> --}}
             </div> <!-- row -->
         </div> <!-- container -->
-    </section> --}}
+    </section>
+
     <section id="screenshot" class="pt-40 pb-40">
 
         <div class="container" data-aos="fade-up">
@@ -834,9 +873,9 @@
                     action="{{ route('verifiy-certificate-home') }}">
                     @csrf
                     {{-- <form class="form-inline" id="searching" action="{{ route('verifiy-certificate') }}"> --}}
-                    <input class="form-control mr-sm-2" type="search" placeholder="الرجاء إدخال رقم شهادت المنشأ"
+                    <input class="form-control mr-sm-2" type="search" placeholder="{{ __('Please type your code of certificate') }}"
                         aria-label="Search" id="certificate_id" name="certificate_id">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">التحقق</button>
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{ __('Verify') }}</button>
                 </form>
             </div>
 
@@ -1196,21 +1235,19 @@
                             <div class="inlogo">
                                 <a href="https://caci.dz"><img id="lg" style="width: 120px;margin-inline: 50px;"
                                         src="assetsHakim/images/caci.png" alt=""></a>
-                                <a href="https://agce.dz"><img id="lg" style="width: 120px;margin-inline: 50px;"
-                                        src="assetsHakim/images/agce.png" alt=""></a>
+                                {{-- <a href="https://agce.dz"><img id="lg" style="width: 120px;margin-inline: 50px;"
+                                        src="assetsHakim/images/agce.png" alt=""></a> --}}
                             </div>
                             <div class="infocaci pt-20">
-                                <h4>الغرفة الجزائرية للتجارة والصناعة</h4>
+                                <h4>{{ __('Algerian Chamber of Commerce and Industry') }}</h4>
                                 <ul class="pcaci">
 
-                                    <li> تمثل المصالح العامة لقطاعات التجارة والصناعة والخدمات مع الحكومات، بينما تضطلع
-                                        بأنشطة تعليمية وتكوينية وتطويرية وإعادة تدريب للأعمال التجارية.</li>
-                                    <li>تأسست بموجب المرسوم التنفيذي 94-96 الصادر في 03/03/1996 المعدل والمكمل بالمرسوم
-                                        التنفيذي 2000-312 ، وهي مؤسسة صناعية وتجارية عامة (EPIC).</li>
+                                    <li>{{ __('About1') }}</li>
+                                    <li>{{ __('About2') }}</li>
 
                                 </ul>
 
-                                <h4>السلطة الحكومية للتصديق الالكتروني</h4>
+                                {{-- <h4>السلطة الحكومية للتصديق الالكتروني</h4>
                                 <ul class="pcaci">
                                     <li> تم إنشاؤه بموجب القانون رقم 15-04 المؤرخ في 11 ربيع الإيثاني 1436 الموافق 1
                                         فبراير 2015 الذي يحدد القواعد العامة المتعلقة بالتوقيع الإلكتروني والتصديق.</li>
@@ -1219,7 +1256,7 @@
                                     <li>الموافقة على سياسات الشهادات الصادرة عن جهات خارجية موثوق بها والتأكد من
                                         تطبيقاتها.</li>
 
-                                </ul>
+                                </ul> --}}
                             </div>
                         </div>
 
@@ -1409,15 +1446,9 @@
 
 
 
-    <!--====== Jquery js ======-->
-    {{-- <script src="assets/js/vendor/jquery-1.12.4.min.js"></script> --}}
+   <!--====== Jquery js ======-->
 
     <script src="{{ URL::asset('wizard/js/jquery-3.3.1.min.js') }}"></script>
-
-    {{-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script> --}}
-    {{-- <script type="text/javascript">
-      $jquery_1_12 = jQuery.noConflict();
-    </script> --}}
 
     <script src="slicebox/js/jquery.slicebox.js"></script>
 
@@ -1449,16 +1480,14 @@
     {{-- <script src="assetsDoc/js/all.js"></script> --}}
     <script src="assets/js/main.js"></script>
 
+  {{-- <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script> --}}
+<script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 
-
-    {{-- <script src="https://www.google.com/recaptcha/api.js?hl={{ App()->currentLocale() }}" async defer></script> --}}
-    {{-- <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&&render=explicit&hl={{ App()->currentLocale() }}"
-        async defer></script> --}}
     <script
         src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit&hl={{ App()->currentLocale() }}"
         async defer>
     </script>
-    <script>
+ <script>
         var is_mobile = false;
         if ($('.navbar > .login-link').css('display') == 'block!important' ||
             $('.navbar > .login-link').css('display') == 'block') {
@@ -1698,7 +1727,8 @@
 
                         }
                     },
-                    error: function(data) {}
+                    error: function(data) {
+                    }
                 });
             });
 

@@ -68,7 +68,7 @@
                                                 <div class="col-sm-6">
                                                     <label class="switch switch-lg">
                                                         <input type="checkbox" name="activity_logger_enabled" id="activity_logger_enabled" 
-                                                        {{ ($enabled ?? '') ? 'checked' : ''}}>
+                                                        {{ ($enabled ?? '') == true ? 'checked' : ''}}>
                                                         <span class="slider slider-lg round"></span>
                                                       </label>
                                                 </div>

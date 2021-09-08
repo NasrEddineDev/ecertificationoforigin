@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'daily'),
+    'default' => env('LOG_CHANNEL', 'single'),
 
     /*
     |--------------------------------------------------------------------------
@@ -49,7 +49,7 @@ return [
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/'),
+            'path' => storage_path('logs/laravel.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
         ],
@@ -104,11 +104,11 @@ return [
             'path' => storage_path('logs/users-activities.log'),
             'level' => env('LOG_LEVEL', 'debug'),
         ],
-        'system_log' => [
-            'driver' => 'single',
-            'path' => storage_path('logs/system-log.log'),
-            'level' => env('LOG_LEVEL', 'debug'),
-        ],
+        // 'system_log' => [
+        //     'driver' => 'single',
+        //     'path' => storage_path('logs/system-log.log'),
+        //     'level' => env('LOG_LEVEL', 'debug'),
+        // ],
     ],
 
 ];
