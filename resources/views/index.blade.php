@@ -49,8 +49,13 @@
     {{-- <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" /> --}}
     <link href="https://vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
 
-    <script type="text/javascript" src="slicebox/js/modernizr.custom.46884.js"></script>
+    <link rel='stylesheet' href='unitegallery/css/unite-gallery.css' type='text/css' />
+    {{-- <link rel='stylesheet' href='unitegallery/themes/default/ug-theme-default.css' type='text/css' /> --}}
+    <link  href='unitegallery/themes/video/skin-right-no-thumb.css' rel='stylesheet' type='text/css' />
+    <link  href='unitegallery/themes/video/skin-right-thumb.css' rel='stylesheet' type='text/css' />
+    <link  href='unitegallery/themes/video/skin-right-title-only.css' rel='stylesheet' type='text/css' />
 
+    <script type="text/javascript" src="slicebox/js/modernizr.custom.46884.js"></script>
     <style>
         .error {
             color: #FF0000;
@@ -80,7 +85,9 @@
         .section-header {
             text-align: center;
         }
-
+        .ug-strip-panel{
+            width:20%!important;
+        }
     </style>
     @if ($locale == 'ar')
         <style>
@@ -531,7 +538,7 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="page-scroll"
-                                            href="#screenshot">{{ __('About This System') }}</a>
+                                            href="#video">{{ __('About This System') }}</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="page-scroll" href="#about">{{ __('About') }}</a>
@@ -747,50 +754,101 @@
     <section id="video" class="video_area pb-30">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-lg-8">
+                <div class="col-lg-12">
                     <div class="section_title text-center">
                         <h4 class="title">{{ __('User Guide') }}</h4>
                         <h4 class="title">{{ __('Videos') }}</h4>
                         {{-- <p>Please, purchase full version of the template to get all sections, features and permission to
                             remove footer credits.</p></br> --}}
 
-                    </div> <!-- section title -->
-                    <video
-                        id="my-video"
-                        class="video-js"
-                        controls
-                        preload="auto"
-                        width="850"
-                        height="600"
-                        poster="slicebox/images/1.png"
-                        data-setup="{}">
-                        <source src="data/videos/003 إدارة الشهادات (إنشاء، حذف، تعديل، إمضاء) من قبل المصدر.mp4" type="video/mp4" />
-                  <source src="data/videos/001 استكشاف الواجهة الرئيسية.mp4" type="video/mp4" />
-                  <source src="data/videos/002 إدارة الحساب من قبل المصدر.mp4" type="video/mp4" />
-                  <source src="data/videos/004 إدارة المنتوجات (إنشاء، حذف، تعديل) من قبل المصدر.mp4" type="video/mp4" />
-                  <source src="data/videos/005 إدارة المستوردين (إنشاء، حذف، تعديل) من قبل المصدر.mp4" type="video/mp4" />
-                  <source src="data/videos/006 إدارة المنتجين (إنشاء، حذف، تعديل) من قبل المصدر.mp4" type="video/mp4" />
-                  </video>
+                    </div> <!-- section title --> 
+
+                    <div id="gallery" style="display:none;">
+
+                        <img alt="{{ __('Home Page') }}" src="slicebox/images/1.png" data-type="html5video"
+                            data-image="slicebox/images/1.png" data-videomp4="data/videos/001 استكشاف الواجهة الرئيسية.mp4"
+                            data-description="{{ __('Home Page') }}">
+        
+                        <img alt="{{ __('Registration Wizard') }}" src="slicebox/images/6.png" data-type="html5video"
+                            data-image="slicebox/images/6.png" data-videomp4="data/videos/001 استكشاف الواجهة الرئيسية.mp4"
+                            data-description="{{ __('Registration Wizard') }}">
+        
+                        <img alt="{{ __('Dashboard') }}" src="slicebox/images/1.png" data-type="html5video"
+                            data-image="slicebox/images/1.png" data-videomp4="data/videos/001 استكشاف الواجهة الرئيسية.mp4"
+                            data-title="{{ __('Dashboard') }}" data-description="{{ __('Dashboard') }}">
+        
+                        <img alt="{{ __('Certificates Managment') }}" src="slicebox/images/2.png" data-type="html5video"
+                            data-image="slicebox/images/2.png"
+                            data-videomp4="data/videos/003 إدارة الشهادات (إنشاء، حذف، تعديل، إمضاء) من قبل المصدر.mp4"
+                            data-description="{{ __('Certificates Managment') }}">
+        
+                        <img alt="{{ __('Payments Managment') }}" src="slicebox/images/3.png" data-type="html5video"
+                            data-image="slicebox/images/3.png" data-videomp4="data/videos/002 إدارة الحساب من قبل المصدر.mp4"
+                            data-description="{{ __('Payments Managment') }}">
+        
+                        <img alt="{{ __('Importers Managment') }}" src="slicebox/images/1.png" data-type="html5video"
+                            data-image="slicebox/images/1.png"
+                            data-videomp4="data/videos/005 إدارة المستوردين (إنشاء، حذف، تعديل) من قبل المصدر.mp4"
+                            data-description="{{ __('Importers Managment') }}">
+        
+                        <img alt="{{ __('Products Managment') }}" src="slicebox/images/5.png" data-type="html5video"
+                            data-image="slicebox/images/5.png"
+                            data-videomp4="data/videos/004 إدارة المنتوجات (إنشاء، حذف، تعديل) من قبل المصدر.mp4"
+                            data-description="{{ __('Products Managment') }}">
+    
+                        <img alt="{{ __('Producers Managment') }}" src="slicebox/images/1.png" data-type="html5video"
+                            data-image="slicebox/images/1.png"
+                            data-videomp4="data/videos/006 إدارة المنتجين (إنشاء، حذف، تعديل) من قبل المصدر.mp4"
+                            data-description="{{ __('Producers Managment') }}">
+        
+                        <img alt="{{ __('Profile Managment') }}" src="slicebox/images/4.png" data-type="html5video"
+                            data-image="slicebox/images/4.png" data-videomp4="data/videos/002 إدارة الحساب من قبل المصدر.mp4"
+                            data-description="{{ __('Profile Managment') }}">
+        
+                            <img alt="{{ __('Settings') }}" src="slicebox/images/4.png" data-type="html5video"
+                            data-image="slicebox/images/4.png" data-videomp4="data/videos/002 إدارة الحساب من قبل المصدر.mp4"
+                            data-description="{{ __('Settings') }}">
+
+                        <img alt="{{ __('Mobile Version') }}" src="slicebox/images/1.png" data-type="html5video"
+                            data-image="slicebox/images/1.png"
+                            data-videomp4="data/videos/004 إدارة المنتوجات (إنشاء، حذف، تعديل) من قبل المصدر.mp4"
+                            data-description="{{ __('Mobile Version') }}">
+
+                    </div> 
+                    {{-- <video id="my-video" class="video-js" controls preload="auto" width="850" height="600"
+                        poster="slicebox/images/1.png" data-setup="{}">
+                        <source src="data/videos/003 إدارة الشهادات (إنشاء، حذف، تعديل، إمضاء) من قبل المصدر.mp4"
+                            type="video/mp4" />
+                        <source src="data/videos/001 استكشاف الواجهة الرئيسية.mp4" type="video/mp4" />
+                        <source src="data/videos/002 إدارة الحساب من قبل المصدر.mp4" type="video/mp4" />
+                        <source src="data/videos/004 إدارة المنتوجات (إنشاء، حذف، تعديل) من قبل المصدر.mp4"
+                            type="video/mp4" />
+                        <source src="data/videos/005 إدارة المستوردين (إنشاء، حذف، تعديل) من قبل المصدر.mp4"
+                            type="video/mp4" />
+                        <source src="data/videos/006 إدارة المنتجين (إنشاء، حذف، تعديل) من قبل المصدر.mp4"
+                            type="video/mp4" />
+                    </video> --}}
                 </div>
 
                 {{-- <video
-    id="my-player"
-    class="video-js"
-    controls
-    preload="auto"
-    poster="//vjs.zencdn.net/v/oceans.png"
-    data-setup='{}'>
-  <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
-  <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
-  <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source>
-  <p class="vjs-no-js">
-    To view this video please enable JavaScript, and consider upgrading to a
-    web browser that
-    <a href="https://videojs.com/html5-video-support/" target="_blank">
-      supports HTML5 video
-    </a>
-  </p>
-</video> --}}
+                        id="my-player"
+                        class="video-js"
+                        controls
+                        preload="auto"
+                        poster="//vjs.zencdn.net/v/oceans.png"
+                        data-setup='{}'>
+                        <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
+                        <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
+                        <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source>
+                        <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to a
+                            web browser that
+                            <a href="https://videojs.com/html5-video-support/" target="_blank">
+                            supports HTML5 video
+                            </a>
+                        </p>
+                    </video> --}}
+
             </div> <!-- row -->
         </div> <!-- container -->
     </section>
@@ -873,8 +931,9 @@
                     action="{{ route('verifiy-certificate-home') }}">
                     @csrf
                     {{-- <form class="form-inline" id="searching" action="{{ route('verifiy-certificate') }}"> --}}
-                    <input class="form-control mr-sm-2" type="search" placeholder="{{ __('Please type your code of certificate') }}"
-                        aria-label="Search" id="certificate_id" name="certificate_id">
+                    <input class="form-control mr-sm-2" type="search"
+                        placeholder="{{ __('Please type your code of certificate') }}" aria-label="Search"
+                        id="certificate_id" name="certificate_id">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">{{ __('Verify') }}</button>
                 </form>
             </div>
@@ -1446,7 +1505,7 @@
 
 
 
-   <!--====== Jquery js ======-->
+    <!--====== Jquery js ======-->
 
     <script src="{{ URL::asset('wizard/js/jquery-3.3.1.min.js') }}"></script>
 
@@ -1480,14 +1539,18 @@
     {{-- <script src="assetsDoc/js/all.js"></script> --}}
     <script src="assets/js/main.js"></script>
 
-  {{-- <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script> --}}
-<script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+    {{-- <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script> --}}
+    <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
+
+    <script type='text/javascript' src='unitegallery/js/unitegallery.min.js'></script>
+	<script type='text/javascript' src='unitegallery/themes/video/ug-theme-video.js'></script>
+    {{-- <script type='text/javascript' src='unitegallery/themes/default/ug-theme-default.js'></script> --}}
 
     <script
         src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit&hl={{ App()->currentLocale() }}"
         async defer>
     </script>
- <script>
+    <script>
         var is_mobile = false;
         if ($('.navbar > .login-link').css('display') == 'block!important' ||
             $('.navbar > .login-link').css('display') == 'block') {
@@ -1727,14 +1790,20 @@
 
                         }
                     },
-                    error: function(data) {
-                    }
+                    error: function(data) {}
                 });
             });
 
             $('#anonymous_email').inputmask({
                 alias: "email",
                 rightAlign: false
+            });
+
+            jQuery("#gallery").unitegallery({
+                gallery_theme: "video",
+                gallery_width:1600,
+	            gallery_height:700,
+                theme_skin: "right-thumb",	 
             });
         });
 

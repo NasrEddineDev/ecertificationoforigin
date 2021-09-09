@@ -1,11 +1,9 @@
 @extends('layouts.mainlayout')
 
 @Push('css')
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css"
-        crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ URL::asset('css/data-table/bootstrap-table.css') }}" />
-    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css"
-        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet" />
     <style>
         .slow .toggle-group {
             transition: left 0.7s;
@@ -156,7 +154,7 @@
                 }
                 // console.log(permissions_ids);
             });
-            
+
             $("#save").click(function(e) {
                 $.ajax({
                     headers: {

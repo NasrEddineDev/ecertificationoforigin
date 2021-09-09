@@ -457,8 +457,7 @@
                 <div class="card px-0 pt-4 pb-0 mt-3 mb-3">
                     <h2 id="heading">{{ __('Sign Up Your User Account') }}</h2>
                     <p>{{ __('Fill all form field to go to next step') }}</p>
-                    @if (Auth::check())
-                        <div class="form-holder" style="width: 100%;">
+                        <div class="form-holder hide" style="width: 100%;" id="login-section">
                             <form method="POST" action="{{ route('logout') }}" id="loginForm">
                                 @csrf
                                 <div style="right:5px;top:20px; margin:10px;position:absolute">
@@ -472,7 +471,6 @@
                                 </div>
                             </form>
                         </div>
-                    @endif
                     <div id="msform">
                         <!-- progressbar -->
                         <ul id="progressbar">
@@ -1429,6 +1427,7 @@
     <script type="text/javascript" src="{{ URL::asset('js/datapicker/bootstrap-datepicker.js') }}"></script>
     <script>
         var $loading = $('#loadingDiv').hide();
+        
         $(document).ajaxStart(function() {
             var curr = $('body').height()
             $('.spinner-border').height(curr);
@@ -1501,6 +1500,8 @@
                                 $('.email-verified').addClass('hide');
                                 $('#resend').removeClass('hide');
                             }
+                                $('#login-section').removeClass('hide');
+
                             return true;
                         },
                         error: function(data) {
@@ -1708,6 +1709,7 @@
                         //     return myXhr;
                         // },
                         success: function(data) {
+                            $('#enteredFirstNameAr').text("{{ Auth::user()->enterprise->manager->firstname_ar ?? '' }}");
                             return true;
                         },
                         error: function(data) {
@@ -2135,6 +2137,12 @@
 
             $('#mobile_manager').inputmask("((+213|0)(5|6|7)) 99-99-99-99");
             $('#tel_manager').inputmask("(+213|0)99-99-99-99");
+
+            $('#login-section').addClass('hide');
+            if ('{{Auth::check()}}' == '1'){
+            $('#login-section').removeClass('hide');
+            }
+
         });
     </script>
 

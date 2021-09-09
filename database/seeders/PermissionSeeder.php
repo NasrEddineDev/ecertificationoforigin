@@ -460,25 +460,25 @@ class PermissionSeeder extends Seeder
             ],
             // logger permissions
             [
-                'name' => 'create-city',
+                'name' => 'create-logger',
                 'description' => '',
-                'group' => 'city',
+                'group' => 'logger',
             ], [
-                'name' => 'view-city',
+                'name' => 'view-logger',
                 'description' => '',
-                'group' => 'city',
+                'group' => 'logger',
             ], [
-                'name' => 'list-cities',
+                'name' => 'list-loggers',
                 'description' => '',
-                'group' => 'city',
+                'group' => 'logger',
             ], [
-                'name' => 'update-city',
+                'name' => 'update-logger',
                 'description' => '',
-                'group' => 'city',
+                'group' => 'logger',
             ], [
-                'name' => 'delete-city',
+                'name' => 'delete-logger',
                 'description' => '',
-                'group' => 'city',
+                'group' => 'logger',
             ],
             // dashboard permissions
             [
