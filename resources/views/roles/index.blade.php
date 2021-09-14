@@ -36,11 +36,11 @@
                     <div class="sparkline13-graph">
                         <div class="datatable-dashv1-list custom-datatable-overright">
                             <div class="toolbar add-product dt-tb">
-                                @if(Auth::User()->role->name == 'dri_admin')
+                                @can('create',  App\Models\Role::class)
                                 <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
                                 "PENDING") ? 'not-active' : '' }}" href="{{ route('roles.create') }}"
                                 style="{{App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : ''}}">{{ __('Add New Role') }}</a>
-                                @endif
+                                @endcan
                             </div>
                             <!-- <div id="toolbar">
                                 <select class="form-control dt-tb">

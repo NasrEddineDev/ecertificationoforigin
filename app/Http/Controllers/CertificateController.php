@@ -10,6 +10,7 @@ use App\Models\Product;
 use App\Models\Producer;
 use App\Models\Importer;
 use App\Models\Setting;
+use App\Models\User;
 use App\Models\Request as ModelsRequest;
 use PDF;
 use File;
@@ -19,6 +20,12 @@ use Image;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
+use App\Providers\CertificatePendingEvent;
+use App\Providers\CertificateSignedEvent;
+use App\Providers\CertificateRejectedEvent;
+
+
 
 class CertificateController extends Controller
 {
@@ -570,6 +577,12 @@ class CertificateController extends Controller
                 $data['page1'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' .$template . '/' . $certificateName . '/' . $certificateName . '1.jpg';
                 $data['page3'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' .$template . '/'. $certificateName . '/' . $certificateName . '3.jpg';
 
+                //notify
+                // $users = User::all()->where('id', 3);
+                // Notification::send($users, new CertificatePending($certificate));
+                event(new CertificatePendingEvent($certificate));
+
+
                 if (!file_exists('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' .$template . '/'. $certificateName . '/')) {
                     File::makeDirectory('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' .$template . '/'. $certificateName . '/', $mode = 0777, true, true);
                 }
@@ -617,6 +630,9 @@ class CertificateController extends Controller
             } else if (Auth::User()->role->name != 'user' && $certificate->status == 'PENDING') {
                 // DRI Agent Signature                
                 $certificate->status = 'SIGNED';
+                
+                event(new CertificateSignedEvent($certificate));
+
                 if ($certificate->copy_type == "NONE") $certificate->notes = $notes;
                 $certificate->dri_signature_date = date('Y-m-d H:m:s');
                 $certificate->signed_document = $certificate->id . '-gzal-dri-signed.pdf';
@@ -812,6 +828,9 @@ class CertificateController extends Controller
         if ($certificate) {
             if (Auth::User()->role->name != 'user' && $certificate->status == 'PENDING') {
                 $certificate->status = 'REJECTED';
+                
+                event(new CertificateRejectedEvent($certificate));
+
                 $certificate->rejection_reason = 'I don\'t know';
                 $certificate->dri_signature_date = date('Y-m-d H:m:s');
                 $certificate->update();

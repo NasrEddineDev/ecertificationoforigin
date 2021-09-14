@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Notifications\NewRegistration;
+use Illuminate\Support\Facades\Notification;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +23,17 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/notify', function(){
+
+    $user = User::find(10);
+    $users = User::all()->where('role_id', '==', 3);
+    Notification::send($users, new NewRegistration($user));
+    $user = User::find(7);
+    dd($user->notifications); 
+    return $user->notifications;
+});
+
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::post('/leave-message', [HomeController::class, 'leaveMessage'])->name('leave-message');
 Route::get('/hakim', [HomeController::class, 'indexHakim'])->name('hakim');

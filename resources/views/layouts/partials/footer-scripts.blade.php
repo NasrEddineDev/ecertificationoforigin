@@ -46,7 +46,11 @@
     <!-- notification JS ============================================ -->
     <script src="js/notifications/Lobibox.js"></script>
 
+    {{-- <script src="{{ URL::asset('../resources/js/app.js') }}"></script> --}}
+    
     <script type="text/javascript" href="{{ URL::asset('js/vendor/modernizr-2.8.3.min.js') }}"></script>
+    
+    
     <script type="text/javascript">
         var $loading = $('#loadingDiv').hide();
         $(document)
@@ -83,8 +87,24 @@
         //         // e.preventDefault();
         //     });
         // });
-        // var route = '{{Route::currentRouteName()}}';
+        // var route = '{{ Route::currentRouteName() }}';
         // if (route.lastIndexOf('.') != -1) route = route.substr(0, route.lastIndexOf('.'));
         // console.log(route);
-        $('.bread-blod').text('{{__(ucwords(preg_replace("/\.[^.]+$/", "", Route::currentRouteName())))}}');
+        $('.bread-blod').text('{{ __(ucwords(preg_replace("/\.[^.]+$/", '', Route::currentRouteName()))) }}');
+
+        $(document).ready(function() {
+            // Echo.join(`dri_notification`)
+            //     .here((notifications) => {
+            //         //
+            //     })
+            //     .joining((notifications) => {
+            //         console.log(notifications);
+            //     })
+            //     .leaving((notifications) => {
+            //         console.log(notifications);
+            //     })
+            //     .error((error) => {
+            //         console.error(error);
+            //     });
+        });
     </script>

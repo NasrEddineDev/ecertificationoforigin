@@ -103,4 +103,10 @@ class ImporterPolicy
         //
         return $user->role->hasPermissionByName('filter-country-importer');
     }
+
+    public function viewEnterprises(User $user)
+    {
+        //
+        return $user->role->hasPermissionByName('enterprise-importer');
+    }
 }

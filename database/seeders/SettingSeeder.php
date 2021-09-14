@@ -54,6 +54,9 @@ class SettingSeeder extends Seeder
         ],[
             'name' => 'Activate Digital Signature',
             'value' => 'No',
+        ],[
+            'name' => 'Default Certificate Template',
+            'value' => '2',
         ]]);
     }
 }

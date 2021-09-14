@@ -770,11 +770,11 @@
                             data-description="{{ __('Home Page') }}">
         
                         <img alt="{{ __('Registration Wizard') }}" src="slicebox/images/6.png" data-type="html5video"
-                            data-image="slicebox/images/6.png" data-videomp4="data/videos/001 استكشاف الواجهة الرئيسية.mp4"
+                            data-image="slicebox/images/6.png" data-videomp4="data/videos/002 مراحل التسجيل.mp4"
                             data-description="{{ __('Registration Wizard') }}">
         
                         <img alt="{{ __('Dashboard') }}" src="slicebox/images/1.png" data-type="html5video"
-                            data-image="slicebox/images/1.png" data-videomp4="data/videos/001 استكشاف الواجهة الرئيسية.mp4"
+                            data-image="slicebox/images/1.png" data-videomp4="data/videos/003 لوحة التحكم.mp4"
                             data-title="{{ __('Dashboard') }}" data-description="{{ __('Dashboard') }}">
         
                         <img alt="{{ __('Certificates Managment') }}" src="slicebox/images/2.png" data-type="html5video"
@@ -815,19 +815,7 @@
                             data-description="{{ __('Mobile Version') }}">
 
                     </div> 
-                    {{-- <video id="my-video" class="video-js" controls preload="auto" width="850" height="600"
-                        poster="slicebox/images/1.png" data-setup="{}">
-                        <source src="data/videos/003 إدارة الشهادات (إنشاء، حذف، تعديل، إمضاء) من قبل المصدر.mp4"
-                            type="video/mp4" />
-                        <source src="data/videos/001 استكشاف الواجهة الرئيسية.mp4" type="video/mp4" />
-                        <source src="data/videos/002 إدارة الحساب من قبل المصدر.mp4" type="video/mp4" />
-                        <source src="data/videos/004 إدارة المنتوجات (إنشاء، حذف، تعديل) من قبل المصدر.mp4"
-                            type="video/mp4" />
-                        <source src="data/videos/005 إدارة المستوردين (إنشاء، حذف، تعديل) من قبل المصدر.mp4"
-                            type="video/mp4" />
-                        <source src="data/videos/006 إدارة المنتجين (إنشاء، حذف، تعديل) من قبل المصدر.mp4"
-                            type="video/mp4" />
-                    </video> --}}
+
                 </div>
 
                 {{-- <video

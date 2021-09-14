@@ -52,27 +52,32 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Enterprise::class);
     }
+    
     public function role()
     {
         return $this->belongsTo(Role::class);
     }
+    
     public function profile()
     {
         return $this->belongsTo(Profile::class);
     }
 
-    public function notifications()
-    {
-        return $this->belongsToMany(Notification::class, 'users_notifications', 'user_id', 'notification_id')
-        ->using(UserNotification::class)
-        ->withTimestamps();
-    }
+    // public function notifications()
+    // {
+    //     return Notification::all()->where('notifiable_id', 10);
+    //     // return $this->belongsToMany(Notification::class, 'users_notifications', 'user_id', 'notification_id')
+    //     // ->using(UserNotification::class)
+    //     // ->withTimestamps();
+    // }
+    
     public function messages()
     {
         return $this->belongsToMany(Message::class, 'users_messages', 'user_id', 'message_id')
         ->using(UserMessage::class)
         ->withTimestamps();
-    } 
+    }
+
     public function requests()
     {
         return $this->hasMany(Request::class);

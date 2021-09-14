@@ -104,4 +104,10 @@ class ProducerPolicy
         //
         return $user->role->hasPermissionByName('filter-country-producer');
     }
+
+    public function viewEnterprises(User $user)
+    {
+        //
+        return $user->role->hasPermissionByName('enterprise-producer');
+    }
 }

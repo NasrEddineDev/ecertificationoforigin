@@ -689,5 +689,7 @@
     "Importers Managment" : "إدارة المستوردين",
     "Products Managment" : "إدارة المنتوجات",
     "Producers Managment" : "إدارة المنتجين",
-    "Profile Managment" : "إدارة البروفايل"
+    "Profile Managment" : "إدارة البروفايل",
+    "App\\Notifications\\NewRegistration" : "تم إنشاء شركة جديدة",
+    "All Your Notifications" : "كل التنبيهات الخاصة بك"
 }

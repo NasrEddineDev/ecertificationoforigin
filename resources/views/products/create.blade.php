@@ -131,24 +131,23 @@
                                         </div>
                                     </div>
                                     <div class="row">
+                                        @can('view-enterprises',  App\Models\Product::class)
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
-                                                <label
-                                                    class="required col-md-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Enterprise') }}</label>
+                                                <label class="required col-md-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                                    {{ __('Enterprise') }}</label>
                                                 <div class="col-md-9">
                                                     <select name="enterprise_id" id="enterprise_id" class="form-control"
                                                         required>
-                                                        <option selected disabled>{{ __('Select The Enterprise') }}
-                                                        </option>
+                                                        <option selected disabled>{{ __('Select The Enterprise') }}</option>
                                                         @foreach ($enterprises as $enterprise){
-                                                            <option value="{{ $enterprise->id }}">
-                                                                {{ __($enterprise->name) }}
-                                                            </option>
+                                                            <option value="{{ $enterprise->id }}">{{ __($enterprise->name) }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
                                             </div>
                                         </div>
+                                        @endcan
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label

@@ -17,10 +17,10 @@ class Notification extends Model
         'data',
     ];
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'users_notifications', 'user_id', 'notification_id')
-        ->using(UserNotification::class)
-        ->withTimestamps();
-    }
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class, 'users_notifications', 'user_id', 'notification_id')
+    //     ->using(UserNotification::class)
+    //     ->withTimestamps();
+    // }
 }

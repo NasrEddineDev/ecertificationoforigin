@@ -81,6 +81,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
+                                            @can('view-enterprises',  App\Models\Importer::class)
                                             <div class="form-group row">
                                                 <label
                                                     class="required col-md-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Enterprise') }}</label>
@@ -97,6 +98,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            @endcan
                                         </div>
                                     </div>
                                     <div class="row">

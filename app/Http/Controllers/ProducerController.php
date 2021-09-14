@@ -6,6 +6,7 @@ use App\Models\Producer;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\Category;
+use App\Models\Enterprise;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -45,7 +46,8 @@ class ProducerController extends Controller
         try {
             $countries = Country::all();
             $categories = Category::all();
-            return view('producers.create', compact('countries', 'categories'));
+            $enterprises = Enterprise::all();
+            return view('producers.create', compact('countries', 'categories', 'enterprises'));
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());

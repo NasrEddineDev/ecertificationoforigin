@@ -12,6 +12,7 @@ use PDF;
 use File;
 use Storage;
 use GuzzleHttp\Client;
+use App\Providers\NewPaymentEvent;
 
 class PaymentController extends Controller
 {
@@ -80,6 +81,8 @@ class PaymentController extends Controller
             ]);
 
             $payment->save();
+
+            event(new EnterprisePendingEvent($enterprise));
 
             if ($payment->mode == 'CREDIT')
                 $payment->Enterprise->update(['balance' => $payment->Enterprise->balance + $payment->amount]);
@@ -316,6 +319,8 @@ class PaymentController extends Controller
             ]);
 
             $payment->save();
+
+            event(new NewPaymentEvent($payment));
 
             $client = new Client(['base_uri' => $order_registration_url_poste->value]);
             $params['form_params'] = [

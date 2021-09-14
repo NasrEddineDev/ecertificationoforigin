@@ -32,7 +32,7 @@ class ProfileSeeder extends Seeder
             'language' => 'ar',
             'theme' => 'default',
         ],[
-            'firstname'  => 'amine',
+            'firstname'  => 'kamel',
             'lastname'  => '',
             'birthday' => null,
             'gender'  => null,
@@ -41,7 +41,7 @@ class ProfileSeeder extends Seeder
             'signature' => '2_signature.png',
             'square_stamp' => '2_square_stamp.png',
             'round_stamp' => '2_stamp.png',
-            'agce_user_id' => 'ouennadi.amine',
+            'agce_user_id' => 'meskine.kamel',
             'city_id' => '110',
             'picture' => '',
             'language' => 'ar',

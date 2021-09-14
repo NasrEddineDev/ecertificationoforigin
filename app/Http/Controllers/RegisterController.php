@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\App;
 use File;
 use Storage;
 use Image;
+use App\Providers\RegisteredNewAccount;
 
 class RegisterController extends Controller
 {
@@ -463,6 +464,8 @@ class RegisterController extends Controller
                 ], 200);
             } else if ($step == Steps::CONFIRMATION) {
                 Auth::user()->enterprise->update(['status' => 'PENDING']);
+
+                event(new RegisteredNewAccount(Auth::user()));
 
                 return response()->json([
                     'message' => '',

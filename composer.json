@@ -11,6 +11,7 @@
         "php": "^7.3|^8.0",
         "arcanedev/log-viewer": "^8.1",
         "barryvdh/laravel-dompdf": "^0.9.0",
+        "beyondcode/laravel-websockets": "^1.12",
         "carlos-meneses/laravel-mpdf": "^2.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -22,6 +23,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",
         "maatwebsite/excel": "^3.1",
+        "pusher/pusher-php-server": "~4.0",
         "spatie/laravel-activitylog": "^3.17",
         "werneckbh/laravel-qr-code": "^0.1.3"
     },

@@ -1361,6 +1361,9 @@
                                     <div class="col-7 text-center">
                                         <h5 class="purple-text text-center">
                                             {{ __('You Have Successfully Signed Up') }}</h5>
+                                            <p class="purple-text text-center">
+                                                {{ __('Please wait until we check your submitted information that are correct and activate your account') }}</p>
+                                            
                                     </div>
                                 </div>
                             </div>

@@ -731,5 +731,7 @@
     "Importers Managment" : "Importers Managment",
     "Products Managment" : "Products Managment",
     "Producers Managment" : "Producers Managment",
-    "Profile Managment" : "Profile Managment"
+    "Profile Managment" : "Profile Managment",
+    "App\\Notifications\\NewRegistration" : "New Enterprise Was created",
+    "All Your Notifications" : "All Your Notifications"
 }

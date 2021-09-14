@@ -728,5 +728,7 @@
     "Importers Managment" : "Gestion des Importateurs",
     "Products Managment" : "Gestion des Produits",
     "Producers Managment" : "Gestion des Producteurs",
-    "Profile Managment" : "Gestion du profil"
+    "Profile Managment" : "Gestion du profil",
+    "App\\Notifications\\NewRegistration" : "Nouvelle Entreprise à été crée",
+    "All Your Notifications" : "Toutes Vos Notifications"
 }

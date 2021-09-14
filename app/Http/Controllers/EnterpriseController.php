@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use File;
 use Storage;
+use App\Providers\EnterprisePendingEvent;
+use App\Providers\EnterpriseActivatedEvent;
+use App\Providers\EnterpriseSuspendedEvent;
+use App\Providers\EnterpriseStoppedEvent;
 
 class EnterpriseController extends Controller
 {
@@ -194,6 +198,15 @@ class EnterpriseController extends Controller
             $enterprise->city_id = ($request->city_id) ? $request->city_id : $enterprise->city_id;
             if (Auth::User()->role->name != 'user') {
                 // $enterprise->balance = $request->balance;
+                if ($request->status == "PENDING")
+                            event(new EnterprisePendingEvent($enterprise));
+                else if ($request->status == "ACTIVATED")
+                            event(new EnterpriseActivatedEvent($enterprise));
+                else if ($request->status == "SUSPENDED")
+                            event(new EnterpriseSuspendedEvent($enterprise));
+                else if ($request->status == "STOPPED")
+                            event(new EnterpriseStoppedEvent($enterprise));
+                            
                 $enterprise->status = $request->status;
             }
 

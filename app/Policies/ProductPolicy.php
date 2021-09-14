@@ -103,4 +103,10 @@ class ProductPolicy
         //
         return $user->role->hasPermissionByName('filter-country-product');
     }
+
+    public function viewEnterprises(User $user)
+    {
+        //
+        return $user->role->hasPermissionByName('enterprise-product');
+    }
 }

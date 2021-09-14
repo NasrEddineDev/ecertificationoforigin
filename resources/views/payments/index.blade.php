@@ -31,8 +31,8 @@
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <div class="toolbar add-product dt-tb {{ App()->currentLocale() == 'ar' ? 'pull-right' : 'pull-left' }}">
                                     @can('create',  App\Models\Payment::class)
-                                        <a href="{{ route('payments.create') }}"
-                                            style="{{ App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : '' }}">
+                                        <a href="{{ route('payments.create') }}" class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status ==
+                                            "PENDING") ? 'not-active' : '' }}" style="{{ App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : '' }}">
                                             {{ __('Add New Payment') }}
                                         </a>
                                         @endcan
@@ -46,13 +46,6 @@
                                             <span style="{{ App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : '' }}">{{ __('Current Balance') . ' : ' . $current_balance . ' ' . __('Points') }} </span>
                                             @endcan
                                 </div>
-                                <!-- <div id="toolbar">
-                                    <select class="form-control dt-tb">
-                                        <option value="">Export Basic</option>
-                                        <option value="all">Export All</option>
-                                        <option value="selected">Export Selected</option>
-                                    </select>
-                                </div> -->
                                 <table id="table" data-toggle="table" data-pagination="true" data-search="true"
                                     data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
                                     data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"

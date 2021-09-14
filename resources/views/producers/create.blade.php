@@ -77,14 +77,32 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group row activity_type_name">
+                                            @can('view-enterprises',  App\Models\Producer::class)
+                                            <div class="form-group row">
+                                                <label
+                                                    class="required col-md-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Enterprise') }}</label>
+                                                <div class="col-md-9">
+                                                    <select name="enterprise_id" id="enterprise_id" class="form-control"
+                                                        required>
+                                                        <option selected disabled>{{ __('Select The Enterprise') }}
+                                                        </option>
+                                                        @foreach ($enterprises as $enterprise){
+                                                            <option value="{{ $enterprise->id }}">
+                                                                {{ __($enterprise->name) }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            @endcan
+                                            {{-- <div class="form-group row activity_type_name">
                                                 <label
                                                     class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Activity') }}</label>
                                                 <div class="col-sm-9">
                                                     <input type="text" name="activity_type_name" id="activity_type_name"
                                                         class="form-control" required />
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </div>
 
