@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RegistrationWizardController;
 use App\Http\Controllers\RegisterController;
+use App\Models\Certificate;
 // use App\Http\Controllers\CertificateController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Notifications\NewRegistration;
+use App\Notifications\CertificatePendingNotification;
 use Illuminate\Support\Facades\Notification;
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +30,11 @@ Route::get('/notify', function(){
 
     $user = User::find(10);
     $users = User::all()->where('role_id', '==', 3);
-    Notification::send($users, new NewRegistration($user));
+
+    $certificate = Certificate::find(2);
+
+    Notification::send($users, new CertificatePendingNotification($certificate));
+    // Notification::send($users, new NewRegistration($user));
     $user = User::find(7);
     dd($user->notifications); 
     return $user->notifications;

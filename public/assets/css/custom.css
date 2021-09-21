@@ -4,12 +4,12 @@
   } */
   .lang > ul > li > a > .view-text{
     font-size: 16px;
-color: #3A424E;
--webkit-transition: all 0.3s ease-out 0s;
-transition: all 0.3s ease-out 0s;
-padding: 4px 10px;
-position: relative;
-  } 
+    color: #3A424E;
+    -webkit-transition: all 0.3s ease-out 0s;
+    transition: all 0.3s ease-out 0s;
+    padding: 4px 10px;
+    position: relative;
+  }
   .lang img  {
       width: 26px;
     }
@@ -175,6 +175,11 @@ RIGHT SIDEBAR TOGGLE SECTION
 
   .navbar > .lang, .navbar > .login-link{
     display: none!important;
+}
+
+.header_hero {
+  padding-top: 153px!important;
+  height: 696px!important;
 }
   }
 

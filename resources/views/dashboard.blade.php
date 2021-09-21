@@ -747,7 +747,7 @@
             var monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
             var morris_area = $('#morris_area').data('morris-area');
             //json_decode(json_encode((array) $certificates_morris_area !!}), TRUE);
-            console.log(morris_area);
+            // console.log(morris_area);
             Morris.Area({
                 element: 'extra-area-chart',
                 data: morris_area,

@@ -13,10 +13,18 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
+Broadcast::channel('pending-certificate-channel', function ($notification) {
+    return $notification;
+});
+
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
 Broadcast::channel('dri_notification', function ($notification) {
+    return $notification;
+});
+
+Broadcast::channel('new-account-channel', function ($notification) {
     return $notification;
 });

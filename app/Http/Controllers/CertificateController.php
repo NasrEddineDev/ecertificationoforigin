@@ -103,8 +103,8 @@ class CertificateController extends Controller
             'created_pdf' => "",
             'signed_document' => "",
             'description' => $request->notes ? $request->notes : '',
-            'integrity_rate' => $request->integrity_rate ? (str_contains($request->integrity_rate, '%')  ? 
-                                    $request->integrity_rate : $request->integrity_rate . '%') : '',
+            'integrity_rate' => $request->integrity_rate ? (str_contains($request->integrity_rate, '%')  ?
+                $request->integrity_rate : $request->integrity_rate . '%') : '',
             "importer_id" => $request->importer_id,
             "producer_id" => $request->producer_id,
             "enterprise_id" => Auth::User()->Enterprise->id,
@@ -113,7 +113,7 @@ class CertificateController extends Controller
         ]);
 
         $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;
-        $certificate->code = str_repeat("0", 7 - strlen($lastId+1)) . ($lastId+1);
+        $certificate->code = str_repeat("0", 7 - strlen($lastId + 1)) . ($lastId + 1);
 
         // $file = $request->file('invoice');
         // if ($file && $file->getClientOriginalExtension()) {
@@ -131,7 +131,7 @@ class CertificateController extends Controller
         }
         $certificate->save();
 
-        Log::channel('users_activities')->info('New Certificate',[
+        Log::channel('users_activities')->info('New Certificate', [
             'user_id' => Auth::user()->id,
             'certificate_id' => $certificate->id,
         ]);
@@ -440,7 +440,7 @@ class CertificateController extends Controller
             }
 
             $data = $this->certificateToPDF($certificate);
-            
+
             $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
                 'title' => 'Another Title',
                 'margin_left' => 0,
@@ -488,17 +488,19 @@ class CertificateController extends Controller
 
         $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;
         $template = Setting::where('name', 'Default Certificate Template')->first()->value;
-        $page1 = '';$page2 = '';$page3 = '';
-        
-        if ($template != 0){
-            $page1 = 'data/settings/certificates_images/'.$template.'/' . $request->type . '/' . $request->type . '1.jpg';
-            $page2 = 'data/settings/certificates_images/'.$template.'/' . $request->type . '/' . $request->type . '2.jpg';
-            $page3 = 'data/settings/certificates_images/'.$template.'/' . $request->type . '/' . $request->type . '3.jpg';
+        $page1 = '';
+        $page2 = '';
+        $page3 = '';
+
+        if ($template != 0) {
+            $page1 = 'data/settings/certificates_images/' . $template . '/' . $request->type . '/' . $request->type . '1.jpg';
+            $page2 = 'data/settings/certificates_images/' . $template . '/' . $request->type . '/' . $request->type . '2.jpg';
+            $page3 = 'data/settings/certificates_images/' . $template . '/' . $request->type . '/' . $request->type . '3.jpg';
         }
 
         $data = [
             'rtl' => (strtolower($request->type) == 'gzale' || strtolower($request->type) == 'acp-tunisie') ? true : false,
-            'code' => str_repeat("0", 7 - strlen($lastId+1)) . ($lastId+1),//$request->is_retrospective ? $request->code . '-R' : "E-" . date("Y") . "0001",
+            'code' => str_repeat("0", 7 - strlen($lastId + 1)) . ($lastId + 1), //$request->is_retrospective ? $request->code . '-R' : "E-" . date("Y") . "0001",
             'exporter_name' => Auth::User()->Enterprise->name,
             'exporter_address' => Auth::User()->Enterprise->address,
             'producer_name' => Producer::find($request->producer_id) ? Producer::find($request->producer_id)->name : '',
@@ -517,8 +519,8 @@ class CertificateController extends Controller
             'invoice_date' => $request->invoice_date,
             'invoice_number' => $request->invoice_number,
             // 'integrity_rate' => $request->integrity_rate,
-            'integrity_rate' => $request->integrity_rate ? (str_contains($request->integrity_rate, '%')  ? 
-                                    $request->integrity_rate : $request->integrity_rate . '%') : '',
+            'integrity_rate' => $request->integrity_rate ? (str_contains($request->integrity_rate, '%')  ?
+                $request->integrity_rate : $request->integrity_rate . '%') : '',
             'products' => (array)json_decode($request->products),
             'signature_date' => '',
             'dri_signature_date' => '',
@@ -574,8 +576,8 @@ class CertificateController extends Controller
                 $certificate->update();
                 $data['status'] = 'PENDING';
                 $data['signature_date'] = date('d-m-Y', strtotime($certificate->signature_date));
-                $data['page1'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' .$template . '/' . $certificateName . '/' . $certificateName . '1.jpg';
-                $data['page3'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' .$template . '/'. $certificateName . '/' . $certificateName . '3.jpg';
+                $data['page1'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '1.jpg';
+                $data['page3'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg';
 
                 //notify
                 // $users = User::all()->where('id', 3);
@@ -583,11 +585,11 @@ class CertificateController extends Controller
                 event(new CertificatePendingEvent($certificate));
 
 
-                if (!file_exists('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' .$template . '/'. $certificateName . '/')) {
-                    File::makeDirectory('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' .$template . '/'. $certificateName . '/', $mode = 0777, true, true);
+                if (!file_exists('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/')) {
+                    File::makeDirectory('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/', $mode = 0777, true, true);
                 }
 
-                $source_image = 'data/settings/certificates_images/'.$template.'/' . $certificateName . '/' . $certificateName . '1.jpg';
+                $source_image = 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '1.jpg';
                 $round_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->round_stamp;
                 $square_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->square_stamp;
                 $signature = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->signature;
@@ -597,7 +599,7 @@ class CertificateController extends Controller
                 $this->addQRCode($destination_image, $url, $destination_image, $certificateName);
 
                 if ($certificateName == 'gzale' || $certificateName == 'acp-tunisie') {
-                    $source_image = 'data/settings/certificates_images/'.$template.'/' . $certificateName . '/' . $certificateName . '3.jpg';
+                    $source_image = 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg';
                     $round_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->round_stamp;
                     $square_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->square_stamp;
                     $signature = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->signature;
@@ -630,7 +632,7 @@ class CertificateController extends Controller
             } else if (Auth::User()->role->name != 'user' && $certificate->status == 'PENDING') {
                 // DRI Agent Signature                
                 $certificate->status = 'SIGNED';
-                
+
                 event(new CertificateSignedEvent($certificate));
 
                 if ($certificate->copy_type == "NONE") $certificate->notes = $notes;
@@ -644,11 +646,11 @@ class CertificateController extends Controller
                 $data['dri_signature_date'] = date('d-m-Y', strtotime($certificate->dri_signature_date));
                 // $data['gzale1'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents/gzal1-dri-signed.png';
                 // $data['gzale3'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents/gzal3.png';
-                $data['page1'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' .$template . '/'. $certificateName . '/' . $certificateName . '1-dri-signed.jpg';
-                $data['page3'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' .$template . '/'. $certificateName . '/' . $certificateName . '3.jpg';
+                $data['page1'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '1-dri-signed.jpg';
+                $data['page3'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg';
 
                 // $source_image = 'data/documents/'.$certificateName.'/'.$certificateName.'1.jpg';
-                $source_image = 'data/enterprises/' . $certificate->Enterprise->id . '/documents'. '/' .$template . '/' . $certificateName . '/' . $certificateName . '1.jpg';
+                $source_image = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '1.jpg';
                 $round_stamp = config('settings.ROUND_STAMP_AR_FILE_PATH');
                 $square_stamp = 'data/dri/' . Auth::User()->id . '/' . Auth::User()->Profile->square_stamp;
                 $signature = 'data/dri/' . Auth::User()->id . '/' . Auth::User()->Profile->signature;
@@ -828,7 +830,7 @@ class CertificateController extends Controller
         if ($certificate) {
             if (Auth::User()->role->name != 'user' && $certificate->status == 'PENDING') {
                 $certificate->status = 'REJECTED';
-                
+
                 event(new CertificateRejectedEvent($certificate));
 
                 $certificate->rejection_reason = 'I don\'t know';
@@ -1129,23 +1131,22 @@ class CertificateController extends Controller
         });
         $settings = Setting::all();
         $template = Setting::where('name', 'Default Certificate Template')->first()->value;
-        $page1 = '';$page2 = '';$page3 = '';
-        
+        $page1 = '';
+        $page2 = '';
+        $page3 = '';
+
         $certificateName = strtolower($certificate->type);
-        
-        if ($template != 0){
-        
 
-        $page1 = ($certificate->status == "DRAFT") ? 'data/settings/certificates_images/'.$template.'/' . $certificateName . '/' . $certificateName . '1.jpg'
-            : (($certificate->status == "PENDING"
-                || $certificate->status == "REJECTED") ? 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/'. $template. '/'
-                . $certificateName . '/' . $certificateName . '1.jpg'
-                : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/'. $template. '/' . $certificateName . '/'
-                . $certificateName . '1-dri-signed.jpg');
-        $page2 = 'data/settings/certificates_images/'.$template .'/'. $certificateName . '/' . $certificateName . '2.jpg';
-        $page3 = ($certificate->status == "DRAFT") ? 'data/settings/certificates_images/'.$template .'/' . $certificateName . '/' . $certificateName . '3.jpg'
-            : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/'. $template. '/' . $certificateName . '/' . $certificateName . '3.jpg';
-
+        if ($template != 0) {
+            $page1 = ($certificate->status == "DRAFT") ? 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '1.jpg'
+                : (($certificate->status == "PENDING"
+                    || $certificate->status == "REJECTED") ? 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/'
+                    . $certificateName . '/' . $certificateName . '1.jpg'
+                    : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/'
+                    . $certificateName . '1-dri-signed.jpg');
+            $page2 = 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '2.jpg';
+            $page3 = ($certificate->status == "DRAFT") ? 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg'
+                : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg';
         }
 
         $data = [

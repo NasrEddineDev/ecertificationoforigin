@@ -49,9 +49,27 @@
     {{-- <script src="{{ URL::asset('../resources/js/app.js') }}"></script> --}}
     
     <script type="text/javascript" href="{{ URL::asset('js/vendor/modernizr-2.8.3.min.js') }}"></script>
-    
+
+    <script src="{{ asset('pusher-js/dist/web/pusher.js') }}"></script>
+
+    <script src="{{ asset('laravel-echo/dist/echo.iife.js') }}"></script>
+    <script type="module" src="{{ asset('laravel-echo/dist/echo.js') }}"></script>
     
     <script type="text/javascript">
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    // key: process.env.MIX_PUSHER_APP_KEY,
+    key: 'exampleKey',
+    // cluster: 'mt1',
+    // cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    wsHost: window.location.hostname,
+    wsPort: 6001,
+    forceTLS: false,
+    // disableStats: true,
+});
+
+
         var $loading = $('#loadingDiv').hide();
         $(document)
             .ajaxStart(function() {
@@ -78,7 +96,6 @@
                 msg: '{{ __('Please wait until we check your submitted information that are correct and activate your account') }}'
             });
         });
-
         // $(document).ready(function() {
         //     $('.sidebar-nav .metismenu li a').click(function(e) {
         //         $('.sidebar-nav .metismenu li.active').removeClass('active');
@@ -90,21 +107,49 @@
         // var route = '{{ Route::currentRouteName() }}';
         // if (route.lastIndexOf('.') != -1) route = route.substr(0, route.lastIndexOf('.'));
         // console.log(route);
-        $('.bread-blod').text('{{ __(ucwords(preg_replace("/\.[^.]+$/", '', Route::currentRouteName()))) }}');
-
+        // $('.bread-blod').text('{{ __(ucwords(preg_replace("/\.[^.]+$/", '', Route::currentRouteName()))) }}');
+        // window.Echo = new Echo({
+        //     broadcaster: 'pusher',
+        //     key: 'exampleKey',
+        //     cluster: 'mt1',
+        //     forceTLS: false
+        // });
+        
         $(document).ready(function() {
-            // Echo.join(`dri_notification`)
+
+            // Pusher.log = function(msg) {
+            //     // console.log('msg');
+            //     // alert('msg');
+            // };
+            // Echo.channel('pending-certificate-channel').listen('CertificatePendingEvent', (e) => {
+            //     console.log(e);
+            // })
+            // Echo.join(`pending-certificate-channel`)
+            //     .listen('CertificatePendingEvent', (notifications) => {
+            //         console.log('hi echo listen');
+            //         console.log(notifications);
+            //     })
             //     .here((notifications) => {
-            //         //
+            //         console.log('hi echo here');
+            //         console.log(notifications);
             //     })
             //     .joining((notifications) => {
+            //         console.log('hi echo joining');
             //         console.log(notifications);
             //     })
             //     .leaving((notifications) => {
+            //         console.log('hi echo leaving');
             //         console.log(notifications);
             //     })
             //     .error((error) => {
+            //         console.log('hi echo error');
             //         console.error(error);
             //     });
+
+            window.Echo.private(`pending-certificate-channel`)
+                    .listen('CertificatePendingEvent', (e) => {
+                        console.log('success');
+                        console.log(e);
+                });
         });
     </script>

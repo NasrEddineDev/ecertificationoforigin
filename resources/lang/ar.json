@@ -564,8 +564,9 @@
     "CACI - Algerian Chamber of Commerce and Industry In Facebook" : "الغرفة الجزائرية للتجارة والصناعة على الفيسبوك",
     "CACI - Algerian Chamber of Commerce and Industry In Twitter" : "الغرفة الجزائرية للتجارة والصناعة على التويتر",
     "CACI - Algerian Chamber of Commerce and Industry In LinkedIn" : "الغرفة الجزائرية للتجارة والصناعة على لينكدإن",
-    "Your web browser doesn't have a PDF plugin. Instead you can" : "لا يحتوي متصفح الويب الخاص بك على البرنامج مساعد PDF. بدلا من ذلك يمكنك ",
-    "click here to download the PDF file." : "انقر هنا لتنزيل ملف PDF.",
+    "Your web browser doesn't have a PDF plugin." : "لا يحتوي متصفح الويب الخاص بك على البرنامج مساعد PDF.",
+    "Instead you can" : "بدلا من ذلك يمكنك",
+    "click here to download the PDF file." : "النقر هنا لتنزيل ملف PDF.",
     "Bad username or password" : "اسم المستخدم أو كلمة المرور غير صحيحة",
     "Credentials are incorrect" : "البيانات المدخلة غير صحيحة",
     "The :attribute field is required." : "ضروري :attribute المجال",
@@ -691,5 +692,6 @@
     "Producers Managment" : "إدارة المنتجين",
     "Profile Managment" : "إدارة البروفايل",
     "App\\Notifications\\NewRegistration" : "تم إنشاء شركة جديدة",
+    "App\\Notifications\\CertificatePendingNotification" : "شهادة جديدة في اﻹنتظار",
     "All Your Notifications" : "كل التنبيهات الخاصة بك"
 }

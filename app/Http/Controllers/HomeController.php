@@ -124,16 +124,33 @@ class HomeController extends Controller
                         return $data;
                     });
 
-                    // if ($certificateName == 'gzale' || $certificateName == 'acp-tunisie')
-                    $page1 = ($certificate->status == "DRAFT") ? 'data/documents/' . $certificateName . '/' . $certificateName . '1.jpg'
-                        : (($certificate->status == "PENDING"
-                            || $certificate->status == "REJECTED") ? 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/'
-                            . $certificateName . '/' . $certificateName . '1.jpg'
-                            : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $certificateName . '/'
-                            . $certificateName . '1-dri-signed.jpg');
-                    $page2 = 'data/documents/' . $certificateName . '/' . $certificateName . '2.jpg';
-                    $page3 = ($certificate->status == "DRAFT") ? 'data/documents/' . $certificateName . '/' . $certificateName . '3.jpg'
-                        : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $certificateName . '/' . $certificateName . '3.jpg';
+                    // $page1 = ($certificate->status == "DRAFT") ? 'data/documents/' . $certificateName . '/' . $certificateName . '1.jpg'
+                    //     : (($certificate->status == "PENDING"
+                    //         || $certificate->status == "REJECTED") ? 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/'
+                    //         . $certificateName . '/' . $certificateName . '1.jpg'
+                    //         : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $certificateName . '/'
+                    //         . $certificateName . '1-dri-signed.jpg');
+                    // $page2 = 'data/documents/' . $certificateName . '/' . $certificateName . '2.jpg';
+                    // $page3 = ($certificate->status == "DRAFT") ? 'data/documents/' . $certificateName . '/' . $certificateName . '3.jpg'
+                    //     : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $certificateName . '/' . $certificateName . '3.jpg';
+
+                    $settings = Setting::all();
+                    $template = Setting::where('name', 'Default Certificate Template')->first()->value;
+                    $page1 = '';
+                    $page2 = '';
+                    $page3 = '';
+            
+                    if ($template != 0) {
+                        $page1 = ($certificate->status == "DRAFT") ? 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '1.jpg'
+                            : (($certificate->status == "PENDING"
+                                || $certificate->status == "REJECTED") ? 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/'
+                                . $certificateName . '/' . $certificateName . '1.jpg'
+                                : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/'
+                                . $certificateName . '1-dri-signed.jpg');
+                        $page2 = 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '2.jpg';
+                        $page3 = ($certificate->status == "DRAFT") ? 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg'
+                            : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg';
+                    }
 
                     $data = [
                         'rtl' => ($certificateName == 'gzale' || $certificateName == 'acp-tunisie') ? true : false,
@@ -165,6 +182,8 @@ class HomeController extends Controller
                         'original_code' => ($certificate->copy_type != "NONE") ? $certificate->certificate->code : '',
                         'signature_date' => $certificate->signature_date,
                         'dri_signature_date' => $certificate->dri_signature_date,
+                        'is_digitally_signed' => ($settings->where('name', 'Activate Digital Signature')->first()->value == 'Yes'),
+                        'template' => $template,
                         'page1' => $page1,
                         'page2' => $page2,
                         'page3' => $page3,

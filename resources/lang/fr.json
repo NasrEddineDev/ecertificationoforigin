@@ -603,7 +603,8 @@
     "CACI - Algerian Chamber of Commerce and Industry In Facebook" : "CACI - Chambre de commerce algérienne et d'industrie sur Facebook",
     "CACI - Algerian Chamber of Commerce and Industry In Twitter" : "Caci - Chambre de commerce et d'industrie algérienne à Twitter",
     "CACI - Algerian Chamber of Commerce and Industry In LinkedIn" : "CACI - Chambre de commerce et d'industrie algérienne à LinkedIn",
-    "Your web browser doesn't have a PDF plugin. Instead you can" : "Votre navigateur Web n'a pas de plug-in PDF. Au lieu de cela, vous pouvez",
+    "Your web browser doesn't have a PDF plugin." : "Votre navigateur Web n'a pas de plug-in PDF.",
+    "Instead you can" : "Au lieu de cela, vous pouvez",
     "click here to download the PDF file." : "Cliquez ici pour télécharger le fichier PDF.",
     "Bad username or password" : "Mauvais nom d'utilisateur ou mot de passe",
     "Credentials are incorrect" : "Les informations d'identification sont incorrectes",
@@ -730,5 +731,6 @@
     "Producers Managment" : "Gestion des Producteurs",
     "Profile Managment" : "Gestion du profil",
     "App\\Notifications\\NewRegistration" : "Nouvelle Entreprise à été crée",
+    "App\\Notifications\\CertificatePendingNotification" : "Un nouveau certificat est en attente",
     "All Your Notifications" : "Toutes Vos Notifications"
 }

@@ -46,7 +46,11 @@
                 margin-top: 56px !important;
                 text-align: center;
             }
+        .logo-pro{
+            margin-top: -40px;
         }
+        }
+
 
     </style>
 </head>
@@ -118,7 +122,9 @@
             </object>
         </div>
         <div id="pdfDownloader">
-            <p>{{__("Your web browser doesn't have a PDF plugin. Instead you can")}} <a href="{{ $url }}">
+            <p>{{__("Your web browser doesn't have a PDF plugin.")}}<br /> 
+                {{__("Instead you can")}} 
+                <a href="{{ $url }}">
                 {{__("click here to download the PDF file.")}}</a></p>
         </div>
         @include('layouts.partials.footer')

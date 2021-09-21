@@ -31,6 +31,6 @@ class RegisteredNewAccount
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new PrivateChannel('new-account-channel');
     }
 }

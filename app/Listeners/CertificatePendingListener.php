@@ -32,7 +32,6 @@ class CertificatePendingListener
     {
         //
         $users = User::all()->where('role_id', '==', 3);
-        // $users->first()->notify(new NewRegistration($event->user));
         Notification::send($users, new CertificatePendingNotification($event->certificate));
     }
 }

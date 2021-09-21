@@ -219,14 +219,22 @@
                                                     <li>
                                                         <a href="#">
                                                             <div class="notification-icon">
+                                                                @if($notification->type == "App\\Notifications\\CertificatePendingNotification")
+                                                                <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
+                                                                    class="fa fa-wpforms" style="font-size:19px;"></i></span>
+                                                                @elseif($notification->type == "App\\Notifications\\NewRegistration")
+                                                                <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
+                                                                        class="fa fa-building" style="font-size:19px;"></i></span>
+                                                                @else
                                                                 <i class="educate-icon educate-checked edu-checked-pro admin-check-pro" aria-hidden="true"></i>
+                                                                @endif
                                                             </div>
                                                             <div class="notification-content">
                                                                 <span class="notification-date">{{date('d-M', strtotime($notification->created_at))}}</span>
                                                                 <h2>{{__($notification->type)}}</h2>
-                                                                <p>{{App()->currentLocale() == 'ar' ? json_decode($notification->data)->enterprise_name_ar 
-                                                                    : (App()->currentLocale() == 'en' ? json_decode($notification->data)->enterprise_name 
-                                                                    : json_decode($notification->data)->enterprise_name_fr)}}</p>
+                                                                <p>{{App()->currentLocale() == 'ar' ? ($notification->data["enterprise_name_ar"] ?? '') 
+                                                                    : (App()->currentLocale() == 'en' ? ($notification->data["enterprise_name"] ?? '')
+                                                                    : ($notification->data["enterprise_name_fr"] ?? ''))}}</p>
                                                             </div>
                                                         </a>
                                                     </li>

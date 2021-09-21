@@ -3,6 +3,7 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
@@ -30,21 +31,7 @@ class CertificatePendingNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
-    }
-
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
-    public function toMail($notifiable)
-    {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -56,13 +43,34 @@ class CertificatePendingNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'certificate_id' => $this->certificate->id,
-            'status' => $this->certificate->status,
-            'name' => $this->certificate->user->username,
-            'email' => $this->certificate->user->email,
-            'enterprise_name_ar' => $this->certificate->enterprise->name_ar,
-            'enterprise_name' => $this->certificate->enterprise->name,
-            'enterprise_name_fr' => $this->certificate->enterprise->name_fr
+            'certificate_id' => '$this->certificate->id',
+            // 'certificate_id' => $this->certificate->id,
+            // 'status' => $this->certificate->status,
+            // 'name' => $this->certificate->enterprise->user->username,
+            // 'email' => $this->certificate->enterprise->user->email,
+            // 'enterprise_name_ar' => $this->certificate->enterprise->name_ar,
+            // 'enterprise_name' => $this->certificate->enterprise->name,
+            // 'enterprise_name_fr' => $this->certificate->enterprise->name_fr
         ];
+    }
+
+    /**
+     * Get the mail representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return \Illuminate\Notifications\Messages\MailMessage
+     */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'certificate_id' => '$this->certificate->id',
+            // 'certificate_id' => $this->certificate->id,
+            // 'status' => $this->certificate->status,
+            // 'name' => $this->certificate->enterprise->user->username,
+            // 'email' => $this->certificate->enterprise->user->email,
+            // 'enterprise_name_ar' => $this->certificate->enterprise->name_ar,
+            // 'enterprise_name' => $this->certificate->enterprise->name,
+            // 'enterprise_name_fr' => $this->certificate->enterprise->name_fr
+        ]);
     }
 }

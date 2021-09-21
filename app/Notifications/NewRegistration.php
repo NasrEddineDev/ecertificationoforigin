@@ -56,7 +56,7 @@ class NewRegistration extends Notification
      */
     public function toArray($notifiable)
     {
-        return json_encode([
+        return [
             //
             'id' => $this->user->id,
             'name' => $this->user->username,
@@ -64,13 +64,13 @@ class NewRegistration extends Notification
             'enterprise_name_ar' => $this->user->enterprise->name_ar,
             'enterprise_name' => $this->user->enterprise->name,
             'enterprise_name_fr' => $this->user->enterprise->name_fr
-        ]);
+        ];
     }
 
 
     public function toBroadcast($notifiable)
     {
-        return BroadcastMessage([
+        return new BroadcastMessage([
             'id' => $this->user->id,
             'name' => $this->user->username,
             'email' => $this->user->email,

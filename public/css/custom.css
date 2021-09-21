@@ -192,6 +192,12 @@ right: -10px;
 .header-right-info ul.header-right-menu .notification-menu li {
   display: block;
 }
+
+ul.notification-menu li .notification-icon {
+  width: 40px;
+  height: 40px;
+  line-height: 43px;
+}
 @media (min-width: 992px)  {
   .breadcome-heading{
     margin-left:20px!important;
