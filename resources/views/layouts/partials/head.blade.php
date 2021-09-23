@@ -3,6 +3,9 @@
     <title>CACI E-Certification</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+
     <!-- favicon ============================================ -->
     <!-- <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico"> -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('') }}img/logo/caci-logo.ico" />

@@ -7,10 +7,11 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CertificatePendingEvent implements ShouldBroadcast
+class CertificatePendingEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -31,7 +32,14 @@ class CertificatePendingEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('pending-certificate-channel');
+        return new Channel('ch1');//PrivateChannel('pending-certificate-channel');
+    }
+    public function broadcastWith()
+    {
+        return [
+            'hi' => 'hi',
+            'from' => $this->certificate->enterprise->user->email
+                ];
     }
     
 }

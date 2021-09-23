@@ -582,7 +582,7 @@ class CertificateController extends Controller
                 //notify
                 // $users = User::all()->where('id', 3);
                 // Notification::send($users, new CertificatePending($certificate));
-                event(new CertificatePendingEvent($certificate));
+                broadcast(new CertificatePendingEvent($certificate));
 
 
                 if (!file_exists('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/')) {

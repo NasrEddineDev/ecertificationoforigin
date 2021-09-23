@@ -12,9 +12,12 @@ use Illuminate\Support\Facades\Broadcast;
 | used to check if an authenticated user can listen to the channel.
 |
 */
+Broadcast::channel('ch1', function ($notification) {
+    return true; //$notification;
+});
 
 Broadcast::channel('pending-certificate-channel', function ($notification) {
-    return $notification;
+    return true; //$notification;
 });
 
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {

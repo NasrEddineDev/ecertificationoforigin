@@ -1,4 +1,6 @@
-    <!-- jquery ============================================ -->
+   
+    <script src="{{ asset('js/app.js') }}"></script>
+   <!-- jquery ============================================ -->
     <script type="text/javascript" src="{{ URL::asset('js/vendor/jquery-1.12.4.min.js') }}"></script>
     <!-- bootstrap JS ============================================ -->
     <script type="text/javascript" src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
@@ -50,24 +52,26 @@
     
     <script type="text/javascript" href="{{ URL::asset('js/vendor/modernizr-2.8.3.min.js') }}"></script>
 
+    {{-- <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    
     <script src="{{ asset('pusher-js/dist/web/pusher.js') }}"></script>
 
     <script src="{{ asset('laravel-echo/dist/echo.iife.js') }}"></script>
-    <script type="module" src="{{ asset('laravel-echo/dist/echo.js') }}"></script>
+    <script type="module" src="{{ asset('laravel-echo/dist/echo.js') }}"></script> --}}
     
     <script type="text/javascript">
 
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    // key: process.env.MIX_PUSHER_APP_KEY,
-    key: 'exampleKey',
-    // cluster: 'mt1',
-    // cluster: process.env.MIX_PUSHER_APP_CLUSTER,
-    wsHost: window.location.hostname,
-    wsPort: 6001,
-    forceTLS: false,
-    // disableStats: true,
-});
+    // window.Echo = new Echo({
+    //     broadcaster: 'pusher',
+    //     // key: process.env.MIX_PUSHER_APP_KEY,
+    //     key: 'exampleKey',
+    //     // cluster: 'mt1',
+    //     // cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    //     wsHost: window.location.hostname,
+    //     wsPort: 6001,
+    //     forceTLS: false,
+    //     // disableStats: true,
+    // });
 
 
         var $loading = $('#loadingDiv').hide();
@@ -117,6 +121,10 @@ window.Echo = new Echo({
         
         $(document).ready(function() {
 
+            Echo.channel('ch1')
+            .listen('CertificatePendingEvent', (e) => {
+                console.log('success');
+            }); 
             // Pusher.log = function(msg) {
             //     // console.log('msg');
             //     // alert('msg');
@@ -145,11 +153,13 @@ window.Echo = new Echo({
             //         console.log('hi echo error');
             //         console.error(error);
             //     });
-
-            window.Echo.private(`pending-certificate-channel`)
-                    .listen('CertificatePendingEvent', (e) => {
-                        console.log('success');
-                        console.log(e);
-                });
+            Echo.private(`pending-certificate-channel`)
+            .listen('CertificatePendingEvent', (e) => {
+                console.log('success');
+            });     
+                //     .listen('CertificatePendingEvent', e => {
+                //         console.log('success');
+                //         console.log(e);
+                // });
         });
     </script>

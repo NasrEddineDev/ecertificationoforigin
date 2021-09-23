@@ -27,6 +27,7 @@
         "sass-loader": "^7.1.0",
         "tailwindcss": "^2.2.15",
         "vue": "^2.5.17",
+        "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
@@ -37,9 +38,10 @@
         "@tailwindcss/aspect-ratio": "^0.2.1",
         "@tailwindcss/typography": "^0.4.1",
         "bootstrap-fileinput": "^5.2.3",
-        "node-sass": "^6.0.1",
+        "node-sass": "^4.14.1",
         "tailwind": "^4.0.0",
         "video.js": "^7.14.3",
-        "videojs-playlist": "^4.3.1"
+        "videojs-playlist": "^4.3.1",
+        "webpack": "^5.53.0"
     }
 }

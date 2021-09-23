@@ -6,7 +6,7 @@ use App\Providers\CertificatePendingEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class CertificatePendingNotification
+class CertificatePendingNotification1
 {
     /**
      * Create the event listener.
