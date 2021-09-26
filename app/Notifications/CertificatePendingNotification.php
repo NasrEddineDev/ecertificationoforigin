@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 
 class CertificatePendingNotification extends Notification
 {
-    // use Queueable;
+    use Queueable;
 
     /**
      * Create a new notification instance.
@@ -63,14 +63,14 @@ class CertificatePendingNotification extends Notification
     public function toBroadcast($notifiable)
     {
         return new BroadcastMessage([
-            // 'certificate_id' => '$this->certificate->id',
-            'certificate_id' => $this->certificate->id,
-            'status' => $this->certificate->status,
-            'name' => $this->certificate->enterprise->user->username,
-            'email' => $this->certificate->enterprise->user->email,
-            'enterprise_name_ar' => $this->certificate->enterprise->name_ar,
-            'enterprise_name' => $this->certificate->enterprise->name,
-            'enterprise_name_fr' => $this->certificate->enterprise->name_fr
+            'notifications' => $this->certificate->enterprise->user->notifications,
+            // 'certificate_id' => $this->certificate->id,
+            // 'status' => $this->certificate->status,
+            // 'name' => $this->certificate->enterprise->user->username,
+            // 'email' => $this->certificate->enterprise->user->email,
+            // 'enterprise_name_ar' => $this->certificate->enterprise->name_ar,
+            // 'enterprise_name' => $this->certificate->enterprise->name,
+            // 'enterprise_name_fr' => $this->certificate->enterprise->name_fr
         ]);
     }
 }

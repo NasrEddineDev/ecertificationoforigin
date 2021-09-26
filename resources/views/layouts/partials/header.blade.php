@@ -558,7 +558,7 @@
                                 <ul class="breadcome-menu">
                                     <li><a href="#">{{ __('Home') }}</a> <span class="bread-slash">/</span>
                                     </li>
-                                    <li><span class="bread-blod">{{ __('Dashboard') }}</span>
+                                    <li><span class="bread-blod">{{ __(ucfirst(explode('.', \Request::route()->getName())[0])) }}</span>
                                     </li>
                                 </ul>
                             </div>

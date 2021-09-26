@@ -67,7 +67,6 @@
     @include('layouts.partials.footer-scripts')
 
     @stack('js')
-
  </body>
 
 </html>

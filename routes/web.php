@@ -32,8 +32,9 @@ Route::get('/notify', function(){
     $users = User::all()->where('role_id', '==', 3);
 
     $certificate = Certificate::find(2);
-
-    Notification::send($users, new CertificatePendingNotification($certificate));
+    
+    event(new \App\Events\CertificatePendingEvent($certificate));
+    // Notification::send($users, new CertificatePendingNotification($certificate));
     // Notification::send($users, new NewRegistration($user));
     $user = User::find(7);
     dd($user->notifications); 

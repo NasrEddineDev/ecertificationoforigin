@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Providers\CertificatePendingEvent;
+use App\Events\CertificatePendingEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 

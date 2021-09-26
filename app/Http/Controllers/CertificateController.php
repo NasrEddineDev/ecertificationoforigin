@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Notification;
-use App\Providers\CertificatePendingEvent;
-use App\Providers\CertificateSignedEvent;
-use App\Providers\CertificateRejectedEvent;
+use App\Events\CertificatePendingEvent;
+use App\Events\CertificateSignedEvent;
+use App\Events\CertificateRejectedEvent;
 
 
 
@@ -582,7 +582,6 @@ class CertificateController extends Controller
                 //notify
                 // $users = User::all()->where('id', 3);
                 // Notification::send($users, new CertificatePending($certificate));
-                broadcast(new CertificatePendingEvent($certificate));
 
 
                 if (!file_exists('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/')) {
@@ -623,6 +622,8 @@ class CertificateController extends Controller
                 }
                 $pdf->save($destinationPath . '/gzal-draft.pdf');
 
+                event(new CertificatePendingEvent($certificate));
+                
                 return response()->json([
                     'message' => 'Certificate signed',
                     'certificate_id' => $certificate->id,

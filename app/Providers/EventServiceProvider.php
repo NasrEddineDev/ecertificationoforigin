@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\Listeners\CertificatePendingListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Listeners\RegisteredNewAccountListener;
 use App\Providers\RegisteredNewAccount;
-use App\Providers\CertificatePendingEvent;
+use App\Listeners\CertificatePendingListener;
+use App\Events\CertificatePendingEvent;
 
 class EventServiceProvider extends ServiceProvider
 {

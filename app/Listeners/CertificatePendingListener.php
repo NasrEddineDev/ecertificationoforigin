@@ -8,9 +8,9 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\CertificatePendingNotification;
 use App\Models\User;
-use App\Providers\CertificatePendingEvent;
+use App\Events\CertificatePendingEvent;
 
-class CertificatePendingListener
+class CertificatePendingListener implements ShouldQueue
 {
     /**
      * Create the event listener.
