@@ -203,11 +203,10 @@
                                                 </div>
                                             </div>
                                         </li> --}}
-                                        <li class="nav-item {{ $locale == 'ar' ? 'pull-right' : 'pull-left' }}"><a href="#" data-toggle="dropdown" role="button" 
-                                            aria-expanded="false" class="nav-link dropdown-toggle">
-                                            <i class="educate-icon educate-bell" aria-hidden="true"></i>
-                                            <span class="indicator-nt">{{Auth::Check() ? Auth::user()->notifications->count() : ''}}</span>
-                                            {{-- <span class="label-count">7</span> --}}
+                                        <li class="nav-item {{ $locale == 'ar' ? 'pull-right' : 'pull-left' }}">
+                                            <a href="#" data-toggle="dropdown" role="button" id="markAsReadNotifications" aria-expanded="false" 
+                                                class="nav-link dropdown-toggle"><i class="educate-icon educate-bell" aria-hidden="true"></i>
+                                            <span class="indicator-nt">{{Auth::Check() ? Auth::user()->unreadNotifications->count() : ''}}</span>
                                             </a>
                                             <div role="menu" class="notification-author dropdown-menu animated zoomIn">
                                                 <div class="notification-single-top">
@@ -295,8 +294,7 @@
                                             </div>
                                         </li>
                                         <li class="nav-item {{ $locale == 'ar' ? 'pull-right' : '' }}">
-                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                                class="nav-link dropdown-toggle">
+                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                                 <img class="flag-icon"
                                                     src="{{ URL::asset('') }}img/flag/{{ $locale == 'en' ? 'united-states' : ($locale == 'ar' ? 'algeria' : 'france') }}.png"
                                                     alt="" />

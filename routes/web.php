@@ -113,6 +113,7 @@ Route::get('/activity-log', [\App\Http\Controllers\LoggerController::class, 'use
 Route::get('/settings-log', [\App\Http\Controllers\LoggerController::class, 'settings'])->name('logger.settings');
 Route::post('/update-log-settings', [\App\Http\Controllers\LoggerController::class, 'update'])->name('logger.update.settings');
 
+Route::get('/mark-as-read-notifications', [\App\Http\Controllers\NotificationController::class, 'markAsReadNotifications'])->name('notifications.mark-as-read');
 //-----------------------------------//
 //------ email verification ---------//
 //-----------------------------------//

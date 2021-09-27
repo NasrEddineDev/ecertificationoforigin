@@ -98,13 +98,14 @@
         }
 
     </style>
-    @if(App()->currentLocale() != 'ar')
-<style>
-#myDropdown{
-        width:215px;
-    }
-</style>
-@endif
+    @if (App()->currentLocale() != 'ar')
+        <style>
+            #myDropdown {
+                width: 215px;
+            }
+
+        </style>
+    @endif
 @endpush
 
 @section('content')
@@ -127,24 +128,23 @@
                                         {{-- <button id="new" class="btn btn-success" style="background-color: #2C7744;" title="{{ __('Preview') }}" disabled>
                                             <img style="height:20px" src="{{ URL::asset('') }}img/icons/icons8-add-file-64.png"/>
                                         </button> --}}
-                                        @can('create',  App\Models\Certificate::class)
-                                        {{-- @if (Auth::User()->role->name == 'user') --}}
+                                        @can('create', App\Models\Certificate::class)
+                                            {{-- @if (Auth::User()->role->name == 'user') --}}
                                             <div class="dropdown">
-                                                <button onclick="myFunction()" type="button"
-                                                    style="background-color: #2C7744;"
+                                                <button onclick="myFunction()" type="button" style="background-color: #2C7744;"
                                                     class="dropbtn btn btn-danger dropdown-toggle" data-toggle="dropdown"
                                                     aria-haspopup="true" aria-expanded="false">
                                                     <img style="height:20px"
                                                         src="{{ URL::asset('') }}img/icons/icons8-add-file-64.png" />
                                                 </button>
                                                 <div id="myDropdown" class="dropdown-content">
-                                                    <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == "PENDING") ? 'not-active' : '' }}"
+                                                    <a class="{{ Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 'PENDING' ? 'not-active' : '' }}"
                                                         href="{{ route('certificates.create-type', 'gzale') }}">{{ __('Arab Certificate of Origin') }}</a>
-                                                    <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == "PENDING") ? 'not-active' : '' }}"
+                                                    <a class="{{ Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 'PENDING' ? 'not-active' : '' }}"
                                                         href="{{ route('certificates.create-type', 'acp-tunisie') }}">{{ __('Tunisia Certificate of Origin') }}</a>
-                                                    <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == "PENDING") ? 'not-active' : '' }}"
+                                                    <a class="{{ Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 'PENDING' ? 'not-active' : '' }}"
                                                         href="{{ route('certificates.create-type', 'form-a-en') }}">{{ __('English Certificate of Origin') }}</a>
-                                                    <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == "PENDING") ? 'not-active' : '' }}"
+                                                    <a class="{{ Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 'PENDING' ? 'not-active' : '' }}"
                                                         href="{{ route('certificates.create-type', 'formule-a-fr') }}">{{ __('French Certificate of Origin') }}</a>
                                                     {{-- <a href="#">{{ __('ZLECAF') }}</a>
                                                     <a href="#">{{ __('PAN-EUROMED') }}</a>
@@ -152,35 +152,36 @@
                                                 </div>
                                             </div>
                                         @endcan
-                                        @can('view',  App\Models\Certificate::class)
-                                        <button id="preview" class="btn btn-info" title="{{ __('Preview') }}" disabled>
-                                            <i class="fa fa-eye"></i>
-                                        </button>
+                                        @can('view', App\Models\Certificate::class)
+                                            <button id="preview" class="btn btn-info" title="{{ __('Preview') }}" disabled>
+                                                <i class="fa fa-eye"></i>
+                                            </button>
                                         @endcan
-                                        @can('update',  App\Models\Certificate::class)
-                                        <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
-                                            disabled>
-                                            <i class="fa fa-pencil-square-o"></i>
-                                        </button>
+                                        @can('update', App\Models\Certificate::class)
+                                            <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
+                                                disabled>
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </button>
                                         @endcan
-                                        @can('duplicate',  App\Models\Certificate::class)
-                                        <button id="duplicate" class="btn btn-warning" title="{{ __('Duplicate') }}"
-                                            data-toggle="modal" data-target="#DuplicateModalhdbgcl" disabled>
-                                            <i class="fa fa-clone"></i>
-                                        </button>
+                                        @can('duplicate', App\Models\Certificate::class)
+                                            <button id="duplicate" class="btn btn-warning" title="{{ __('Duplicate') }}"
+                                                data-toggle="modal" data-target="#DuplicateModalhdbgcl" disabled>
+                                                <i class="fa fa-clone"></i>
+                                            </button>
                                         @endcan
-                                        @can('retrospective',  App\Models\Certificate::class)
-                                        <button id="retrospective" class="btn btn-info" title="{{ __('Retrospective') }}"
-                                            data-toggle="modal" data-target="#RetrospectiveModalhdbgcl" disabled>
-                                            <i class="fa fa-exchange"></i>
-                                        </button>
+                                        @can('retrospective', App\Models\Certificate::class)
+                                            <button id="retrospective" class="btn btn-info"
+                                                title="{{ __('Retrospective') }}" data-toggle="modal"
+                                                data-target="#RetrospectiveModalhdbgcl" disabled>
+                                                <i class="fa fa-exchange"></i>
+                                            </button>
                                         @endcan
-                                        @can('delete',  App\Models\Certificate::class)
-                                        <button id="remove" class="btn btn-danger" title="{{ __('Delete') }}"
-                                            data-toggle="modal" data-target="#DangerModalhdbgcl"
-                                            style="background-color: #d80027!important;" disabled>
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        @can('delete', App\Models\Certificate::class)
+                                            <button id="remove" class="btn btn-danger" title="{{ __('Delete') }}"
+                                                data-toggle="modal" data-target="#DangerModalhdbgcl"
+                                                style="background-color: #d80027!important;" disabled>
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         @endcan
                                     </div>
                                     {{-- <button id="remove" class="btn btn-danger" disabled>
@@ -426,6 +427,7 @@
             </div>
         </div>
     </div>
+
     <div id="InformationproModalhdbgcl" class="modal modal-edu-general Customwidth-popup-WarningModal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -463,6 +465,7 @@
             </div>
         </div>
     </div>
+
     {{-- <div id="loadingDiv" class="spinner-border text-success" role="status"
         style="width: 100%; height: 100%;position: absolute">
         <div class="inner" style="width: 200px; height: 200px;text-align:center"><svg xmlns="http://www.w3.org/2000/svg"
@@ -500,6 +503,7 @@
             <span class="sr-only">{{ __('Loading...') }}</span>
         </div>
     </div> --}}
+
 @endsection
 
 @Push('js')
@@ -597,7 +601,8 @@
             $('#RetrospectiveModalhdbgcl').on('shown.bs.modal', function(e) {
                 e.preventDefault();
                 selections = getIdSelections()
-                var url = "{{ route('certificates.create-retrospective-copy', ['id', '']) }}".replace('id',
+                var url = "{{ route('certificates.create-retrospective-copy', ['id', '']) }}".replace(
+                    'id',
                     selections[0]);
                 $("#Retrospective").attr("href", url);
                 var text = $("#RetrospectiveModalhdbgcl p").text();
@@ -680,14 +685,9 @@
                 window.location.href = url;
             });
             $(document).on("click", "#preview", function(e) {
-                // $("#preview").click(function(e) {
                 e.preventDefault();
                 selections = getIdSelections()
                 var url = "{{ route('certificates.preview', 'id') }}".replace('id', selections[0]);
-                // //
-                // $("#SignGZAL").attr("href", $(this).attr("data-url"));
-                // $("#RejectGZAL").attr("href", $(this).attr("data-reject-gzal-url"));
-                // var id = url.substring(url.lastIndexOf('/') + 1);
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -749,7 +749,6 @@
                 e.preventDefault();
                 var url = $("#SignGZAL").attr("href") + '/' + ($("#notes").val() == '' ? 'null' : $(
                     "#notes").val());
-                // alert('hire hi : '+url);
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -757,7 +756,6 @@
                     url: url,
                     type: 'GET',
                     success: function(response) {
-                        
 
                         var w = window,
                             d = document,
@@ -773,11 +771,11 @@
 
                         if (response.status == "PENDING") {
                             $("#" + response.certificate_id + " td:nth-child(4)").html(
-                                '<button class="btn btn-info" style="font-size: 14px;padding:0px;">{{__('PENDING')}}</button>'
+                                '<button class="btn btn-info" style="font-size: 14px;padding:0px;">{{ __('PENDING') }}</button>'
                             );
                         } else if (response.status == "SIGNED") {
                             $("#" + response.certificate_id + " td:nth-child(4)").html(
-                                '<button class="btn btn-success" style="font-size: 14px;padding:0px;">{{__('SIGNED')}}</button>'
+                                '<button class="btn btn-success" style="font-size: 14px;padding:0px;">{{ __('SIGNED') }}</button>'
                             );
                         }
                         $("#SignGZAL").hide();
@@ -861,6 +859,5 @@
                 }
             }
         }
-
     </script>
 @endpush

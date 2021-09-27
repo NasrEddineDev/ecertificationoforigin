@@ -674,6 +674,7 @@
                             <div class="image wow fadeInRightBig" data-wow-duration="1.3s" data-wow-delay="1.8s">
                                 {{-- <img src="assets/images/header_app1.png" alt="header App"> --}}
                                 <img src="assets/images/dots.svg" alt="dots" class="dots">
+                                <img src="assets/images/dashboard-managers.png" alt="dots" class="" style="bottom:10%;animation: dots 20s ease-out infinite;">
                             </div> <!-- image -->
                         </div> <!-- header image -->
                     </div>
