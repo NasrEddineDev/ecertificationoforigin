@@ -771,12 +771,11 @@
 
                         if (response.status == "PENDING") {
                             $("#" + response.certificate_id + " td:nth-child(4)").html(
-                                '<button class="btn btn-info" style="font-size: 14px;padding:0px;">{{ __('PENDING') }}</button>'
+                                '<button class="btn btn-info" style="font-size: 14px;padding:0px;">{{ __("PENDING") }}</button>'
                             );
                         } else if (response.status == "SIGNED") {
                             $("#" + response.certificate_id + " td:nth-child(4)").html(
-                                '<button class="btn btn-success" style="font-size: 14px;padding:0px;">{{ __('SIGNED') }}</button>'
-                            );
+                                '<button class="btn btn-success" style="font-size: 14px;padding:0px;">{{ __("SIGNED") }}</button>');
                         }
                         $("#SignGZAL").hide();
                         $("#RejectGZAL").hide();

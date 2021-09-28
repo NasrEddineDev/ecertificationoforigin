@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Wizard-v3</title>
+    <title>{{__('Registration Wizard')}}</title>
 
     <!--====== Favicon Icon ======-->
     {{-- <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png"> --}}
@@ -576,7 +576,8 @@
                                             {{ __('Step') . (App()->currentLocale() == 'ar' ? ' 2\7' : ' 2/7') }} </h2>
                                     </div>
                                 </div>
-                                <form class="activation-form" action="#" method="post">
+                                <form class="activation-form" action="{{ route('verification.send') }}" method="post">
+                                    @csrf
                                     <div class="row"
                                         style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
                                         <div class="col-md-7">

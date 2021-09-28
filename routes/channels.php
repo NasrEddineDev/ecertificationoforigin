@@ -20,6 +20,10 @@ Broadcast::channel('pending-certificate-channel', function ($notification) {
     return true; //$notification;
 });
 
+Broadcast::channel('user.{userId}', function ($notification) {
+    return true; //$notification;
+});
+
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Providers;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -9,20 +9,19 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
 
-class CertificatePendingEvent implements ShouldBroadcast
+class CertificateSignedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $certificate;
+
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($certificate)
+    public function __construct()
     {
-        $this->certificate = $certificate;
+        //
     }
 
     /**
@@ -32,7 +31,7 @@ class CertificatePendingEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('pending-certificate-channel');
+        return new PrivateChannel('signed-certificate-channel');
     }
     public function broadcastWith()
     {
@@ -42,12 +41,9 @@ class CertificatePendingEvent implements ShouldBroadcast
             'type' => __($this->certificate->type) ?? '',
             'name' => $this->certificate->enterprise->user->username ?? '',
             'email' => $this->certificate->enterprise->user->email ?? '',
-            // 'enterprise_name_ar' => $this->certificate->enterprise->name_ar ?? '',
             'enterprise_name' => App()->currentLocale() == 'ar' ? ($this->certificate->enterprise->name_ar ?? '') 
                                 : (App()->currentLocale() == 'en' ? ($this->certificate->enterprise->name ?? '')
                                 : ($this->certificate->enterprise->name_fr ?? ''))
-            // 'enterprise_name_fr' => $this->certificate->enterprise->name_fr ?? ''
         ];
     }
-    
 }

@@ -216,7 +216,7 @@
                                                     @if (Auth::Check())
                                                     @foreach (Auth::user()->notifications as $notification)
                                                     <li>
-                                                        <a href="#">
+                                                        <a href="{{ route('certificates.index')}}">
                                                             <div class="notification-icon">
                                                                 @if($notification->type == "App\\Notifications\\CertificatePendingNotification")
                                                                 <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i

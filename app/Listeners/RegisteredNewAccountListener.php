@@ -10,7 +10,7 @@ use App\Notifications\NewRegistration;
 use App\Models\User;
 use App\Providers\RegisteredNewAccount;
 
-class RegisteredNewAccountListener
+class RegisteredNewAccountListener implements ShouldQueue
 {
     /**
      * Create the event listener.

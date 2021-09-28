@@ -634,8 +634,6 @@ class CertificateController extends Controller
                 // DRI Agent Signature                
                 $certificate->status = 'SIGNED';
 
-                event(new CertificateSignedEvent($certificate));
-
                 if ($certificate->copy_type == "NONE") $certificate->notes = $notes;
                 $certificate->dri_signature_date = date('Y-m-d H:m:s');
                 $certificate->signed_document = $certificate->id . '-gzal-dri-signed.pdf';
@@ -657,7 +655,6 @@ class CertificateController extends Controller
                 $signature = 'data/dri/' . Auth::User()->id . '/' . Auth::User()->Profile->signature;
                 $destination_image = $data['page1'];
                 $this->addDriSignatureAndStamp($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $certificateName);
-
 
                 $source_image_path = $data['page1'];
                 $img = Image::make($source_image_path);
@@ -749,6 +746,7 @@ class CertificateController extends Controller
                     }
                 }
 
+                event(new CertificateSignedEvent($certificate));
 
                 return response()->json([
                     'message' => 'Certificate signed',

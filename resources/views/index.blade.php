@@ -6,7 +6,7 @@
     <meta charset="utf-8">
 
     <!--====== Title ======-->
-    <title>CACI E-Certification</title>
+    <title>{{config('app.name')}}</title>
 
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">

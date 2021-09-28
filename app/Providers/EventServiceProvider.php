@@ -7,8 +7,14 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 use App\Listeners\RegisteredNewAccountListener;
-use App\Providers\RegisteredNewAccount;
+use App\Listeners\EnterprisePendingListener;
+use App\Listeners\EnterpriseActivatedListener;
+use App\Listeners\EnterpriseSuspendedListener;
+use App\Listeners\EnterpriseStoppedListener;
 use App\Listeners\CertificatePendingListener;
+use App\Listeners\CertificateSignedListener;
+use App\Listeners\CertificateRejectedListener;
+use App\Providers\RegisteredNewAccount;
 use App\Events\CertificatePendingEvent;
 
 class EventServiceProvider extends ServiceProvider
@@ -26,28 +32,28 @@ class EventServiceProvider extends ServiceProvider
             RegisteredNewAccountListener::class,
         ],
         EnterprisePendingEvent::class => [
-            EnterprisePendingNotification::class,
+            EnterprisePendingListener::class,
         ],
         EnterpriseActivatedEvent::class => [
-            EnterpriseActivatedNotification::class,
+            EnterpriseActivatedListener::class,
         ],
         EnterpriseSuspendedEvent::class => [
-            EnterpriseSuspendedNotification::class,
+            EnterpriseSuspendedListener::class,
         ],
         EnterpriseStoppedEvent::class => [
-            EnterpriseStoppedNotification::class,
+            EnterpriseStoppedListener::class,
         ],
         CertificatePendingEvent::class => [
             CertificatePendingListener::class,
         ],
         CertificateSignedEvent::class => [
-            CertificateSignedNotification::class,
+            CertificateSignedListener::class,
         ],
         CertificateRejectedEvent::class => [
-            CertificateRejectedNotification::class,
+            CertificateRejectedListener::class,
         ],
         NewPaymentEvent::class => [
-            NewPaymentNotification::class,
+            NewPaymentListener::class,
         ],
         'Illuminate\Auth\Events\Verified' => [
             'App\Listeners\LogVerifiedUser',
