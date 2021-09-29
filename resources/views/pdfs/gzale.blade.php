@@ -104,6 +104,7 @@
         #products {
             border-collapse: collapse;
         }
+
         #code {
             font-weight: bold;
             position: absolute;
@@ -115,78 +116,80 @@
     </style>
     @if ($template == 0)
         <style>
-        #page1 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            z-index: -1;
-        }
+            #page1 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+            }
 
-        #page2 {
-            page-break-before: always;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            z-index: -1;
-        }
+            #page2 {
+                page-break-before: always;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+            }
 
-        #page3 {
-            page-break-before: always;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            z-index: -1;
-        }
-    </style>
+            #page3 {
+                page-break-before: always;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+            }
+
+        </style>
     @else
         <style>
-        #page1 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-image: url({{ $page1 }});
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        }
+            #page1 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-image: url({{ $page1 }});
+                background-position: center top;
+                background-repeat: no-repeat;
+                background-size: 100%;
+                z-index: -1;
+            }
 
-        #page2 {
-            page-break-before: always;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-image: url({{ $page2 }});
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        }
+            #page2 {
+                page-break-before: always;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-image: url({{ $page2 }});
+                background-position: center top;
+                background-repeat: no-repeat;
+                background-size: 100%;
+                z-index: -1;
+            }
 
-        #page3 {
-            page-break-before: always;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-image: url({{ $page3 }});
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        }
-    </style>
+            #page3 {
+                page-break-before: always;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                background-image: url({{ $page3 }});
+                background-position: center top;
+                background-repeat: no-repeat;
+                background-size: 100%;
+                z-index: -1;
+            }
+
+        </style>
     @endif
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
@@ -195,15 +198,16 @@
     <div id="page-body">
         <div id="page1">
             <div id="code">
-                <label>{{$code}}</label>
+                <label>{{ $code }}</label>
                 @if ($status == 'SIGNED' && !$is_digitally_signed)
-                    <br /> <label>{{$dri_signature_date}}</label>
+                    <br /> <label>{{ $dri_signature_date }}</label>
                 @endif
             </div>
             <div id="tables">
                 <table style="width:100%;padding-top:200px!important;">
                     <tr>
-                        <td width="50%" style="margin-left:5px!important;margin-right:5px!important;height: 60px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
+                        <td width="50%"
+                            style="margin-left:5px!important;margin-right:5px!important;height: 60px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
                             {{ $producer_name }}<br />
                             {{ $producer_address }}
                         </td>
@@ -265,21 +269,25 @@
                 </table>
                 <table style="width:100%;margin-top:13px;">
                     <tr>
-                        <td width="55.5%" style="height: 77px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
-                            {{ $copy_type == "NONE" ? $notes : ($rtl ? $original_code . $notes : $notes . $original_code) }}
+                        <td width="55.5%"
+                            style="height: 77px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
+                            {{ $copy_type == 'NONE' ? $notes : ($rtl ? $original_code . $notes : $notes . $original_code) }}
                         </td>
-                        <td width="44.5%" style="{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">{{ __($shipment_type) }}</td>
+                        <td width="44.5%" style="{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
+                            {{ __($shipment_type) }}</td>
                     </tr>
                 </table>
                 <table style="width:100%;margin-top:16px;">
                     <tr>
-                        <td width="10.4%" style="font-size:11px;height: 389px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
+                        <td width="10.4%"
+                            style="font-size:11px;height: 389px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
                             {{ $rtl ? 'رقم الفاتورة' : 'Invoice Number' }}<br />
                             {{ $invoice_number }}<br />
                             {{ $rtl ? 'تاريخ الفاتورة' : 'Invoice Date' }}<br />
                             {{ $invoice_date }}
                         </td>
-                        <td width="13.6%" style="font-size:11px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
+                        <td width="13.6%"
+                            style="font-size:11px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
                             {{ $rtl ? 'الوزن الصافي' : 'Net Weight' }}<br />
                             {{ $rtl ? $net_weight . 'كغ' : $net_weight . 'KG' }}<br />
                             {{ $rtl ? 'الوزن القائم' : 'Real Weight' }}<br />
@@ -291,27 +299,27 @@
                                 <tr>
                                     <th>{{ __('Number') }}</th>
                                     <th>{{ __('Product Name') }}</th>
-                                        {{-- <td colspan="3">
+                                    {{-- <td colspan="3">
                                             {{ __('Packages') }}
                                         </td> --}}
-                                        <th>{{ __('Package Type') }}</th>
-                                        <th>{{ __('Package Weight (KG)') }}</th>
-                                        <th>{{ __('Package Count') }}</th>
+                                    <th>{{ __('Package Type') }}</th>
+                                    <th>{{ __('Package Weight (KG)') }}</th>
+                                    <th>{{ __('Package Count') }}</th>
                                     <th>{{ __('Description') }}</th>
+                                </tr>
+                                @foreach ($products as $product)
+                                    <tr>
+                                        <td>{{ $product->number }}</td>
+                                        <td>{{ $product->product_name }}</td>
+                                        <td>{{ __($product->package_type_name) }}</td>
+                                        <td>{{ $product->package_quantity }}</td>
+                                        <td>{{ $product->package_count }}</td>
+                                        <td>{{ $product->description }}</td>
+                                    </tr>
+                                @endforeach
+                            </table>
+                        </td>
                     </tr>
-                    @foreach ($products as $product)
-                        <tr>
-                            <td>{{ $product->number }}</td>
-                            <td>{{ $product->product_name }}</td>
-                            <td>{{ __($product->package_type_name) }}</td>
-                            <td>{{ $product->package_quantity }}</td>
-                            <td>{{ $product->package_count }}</td>
-                            <td>{{ $product->description }}</td>
-                        </tr>
-                    @endforeach
-                </table>
-                </td>
-                </tr>
                 </table>
                 <table style="width:100%;margin-top:20px;">
                     <tr>
@@ -331,11 +339,12 @@
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
                                     <tr>
-                                        <td width="70%" style="text-align:right;vertical-align:top;height: 10px;padding-top:10px;">
+                                        <td width="70%"
+                                            style="text-align:right;vertical-align:top;height: 10px;padding-top:10px;">
 
                                             @if (!$is_digitally_signed)
-                                            <br /> <strong>{{$dri_signature_date}}</strong>
-                                        @endif
+                                                <br /> <strong>{{ $dri_signature_date }}</strong>
+                                            @endif
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
@@ -378,7 +387,7 @@
                         <td width="5%"></td>
                         <td width="90%"
                             style="padding-left:15px!important;padding-right:15px!important;height: 100px;{{ $rtl ? 'text-align:right;' : '' }}">
-                            {{ $integrity_rate . ' ' .($rtl ? 'منتوج جزائري' : 'Algerian product') }}<br />
+                            {{ $integrity_rate . ' ' . ($rtl ? 'منتوج جزائري' : 'Algerian product') }}<br />
                         </td>
                         <td width="5%"></td>
                     </tr>
@@ -425,7 +434,7 @@
                         </td>
                         <td width="48%"
                             style="margin-left:5px!important;margin-right:5px!important;height: 70px;text-align:center;">
-                            
+
                         </td>
                         <td width="5%"
                             style="margin-left:5px!important;margin-right:5px!important;height: 70px;{{ $rtl ? 'text-align:right;' : '' }}">

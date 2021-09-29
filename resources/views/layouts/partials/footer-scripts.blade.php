@@ -158,92 +158,75 @@
            //     });
 
            // console.log('result'+'{{ Auth::check() && Auth::user()->role->name == 'dri_user' }}');
-           if ('{{ Auth::check() && Auth::user()->role->name == 'dri_user' }}' == '1') {
-               Echo.private(`pending-certificate-channel`)
-                   .listen('CertificatePendingEvent', (e) => {
-                       $('.indicator-nt').text('{{ Auth::user()->unreadNotifications->count() + 1 }}');
-                       //    console.log(e);
-                       var newNotification =
-                           '<li><a href="#"><div class="notification-icon"><span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true">' +
-                           '<i class="fa fa-wpforms" style="font-size:19px;"></i></span></div><div class="notification-content"><span class="notification-date">' +
-                           '{{ date('d-M', strtotime(now())) }}</span><h2>' +
-                           '{{ __('App\\Notifications\\CertificatePendingNotification') }}' + '</h2><p>' + e
-                           .enterprise_name + '</p></div></a></li>'
-                       $("ul.notification-menu #mCSB_2_container").append(newNotification);
-                       if ('{{ explode('.', \Request::route()->getName())[0] }}' == 'certificates') {
-                           $table.bootstrapTable('insertRow', {
-                               index: 0,
-                               row: {
-                                   state: false,
-                                   id: e.certificate.code,
-                                   importer: e.certificate.importer.name,
-                                   status: '<button class="btn ' + (e.certificate.status == 'DRAFT' ?
-                                           'btn-warning' : (e.certificate.status == 'PENDING' ?
-                                               'btn-info' : (e.certificate.status == 'SIGNED' ?
-                                                   'btn-success' : 'btn-danger'))) +
-                                       '"style="font-size: 14px;padding:0px;">' + e.status +
-                                       '</button>',
-                                   type: '<button class="btn btn-warning" style="font-size: 14px;padding:0px;">' +
-                                       e.certificate.type + '</button>',
-                                   type_hidden: e.certificate.type,
-                                   signature_date: e.certificate.signature_date,
-                                   dri_signature_date: e.certificate.dri_signature_date,
-                                   net_weight: e.certificate.net_weight,
-                                   real_weight: e.certificate.real_weight,
-                                   invoice: e.certificate.invoice
-                               }
-                           });
-
-                           //    var newRowContent = '<tr id="' + e.certificate.id + '" data-index="' + $(
-                           //            "#table tbody").length + '"><td class="bs-checkbox "><input data-index="' +
-                           //        $("#table tbody").length + '" name="btSelectItem" type="checkbox"></td><td>' + e
-                           //        .certificate.code + '</td><td>' + e.certificate.importer.name +
-                           //        '</td><td><button' +
-                           //        ' class="btn ' + (e.certificate.status == 'DRAFT' ? 'btn-warning' : (e
-                           //            .certificate.status == 'PENDING' ? 'btn-info' :
-                           //            (e.certificate.status == 'SIGNED' ? 'btn-success' : 'btn-danger'))) +
-                           //        '"style="font-size: 14px;padding:0px;">' + e.status + '</button></td>' +
-                           //        '<td><button class="btn btn-warning" style="font-size: 14px;padding:0px;">' + e
-                           //        .certificate.type + '</button></td><td>' +
-                           //        e.certificate.signature_date + '</td><td></td><td>' + e.certificate.net_weight +
-                           //        '</td><td>' + e.certificate.real_weight + '</td><td>' + e.certificate.invoice +
-                           //        '</td></tr>';
-                           //    $("#table > tbody > tr:first").before(newRowContent);
-                       }
-                   });
-           } else if ('{{ Auth::check() && Auth::user()->role->name == "user" }}' == '1') {
-
-               Echo.private('user.{{ Auth::user()->id }}').listen('CertificateSignedEvent', (e) => {
-                   $('.indicator-nt').text('{{ Auth::user()->unreadNotifications->count() + 1 }}');
-                   var newNotification =
-                       '<li><a href="#"><div class="notification-icon"><span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true">' +
-                       '<i class="fa fa-wpforms" style="font-size:19px;"></i></span></div><div class="notification-content"><span class="notification-date">' +
-                       '{{ date('d-M', strtotime(now())) }}</span><h2>' +
-                       '{{ __('App\\Notifications\\CertificateSignedNotification') }}' + '</h2><p>' + e
-                       .enterprise_name + '</p></div></a></li>'
-                   $("ul.notification-menu #mCSB_2_container").append(newNotification);
-                   if ('{{ explode('.', \Request::route()->getName())[0] }}' == 'certificates') {
-                       $table.bootstrapTable('removeByUniqueId', e.certificate.code);
-                        $table.bootstrapTable('updateByUniqueId', {
-                            id: e.certificate.code,
-                            row: {
-                                   state: false,
-                                   id: e.certificate.code,
-                                   importer: e.certificate.importer.name,
-                                   status: '<button class="btn btn-success" style="font-size: 14px;padding:0px;">' + e.status +'</button>',
-                                   type: '<button class="btn btn-warning" style="font-size: 14px;padding:0px;">' +
-                                       e.certificate.type + '</button>',
-                                   type_hidden: e.certificate.type,
-                                   signature_date: e.certificate.signature_date,
-                                   dri_signature_date: e.dri_signature_date,
-                                   net_weight: e.certificate.net_weight,
-                                   real_weight: e.certificate.real_weight,
-                                   invoice: e.certificate.invoice
-                            }
-                        })
-                   }
-               });
-           }
+        // //    if ('{{ Auth::check() && Auth::user()->role->name == 'dri_user' }}' == '1') {
+        // //        Echo.private(`pending-certificate-channel`)
+        // //            .listen('CertificatePendingEvent', (e) => {
+        // //                $('.indicator-nt').text('{{ Auth::user()->unreadNotifications->count() + 1 }}');
+        // //                //    console.log(e);
+        // //                var newNotification =
+        // //                    '<li><a href="#"><div class="notification-icon"><span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true">' +
+        // //                    '<i class="fa fa-wpforms" style="font-size:19px;"></i></span></div><div class="notification-content"><span class="notification-date">' +
+        // //                    '{{ date('d-M', strtotime(now())) }}</span><h2>' +
+        // //                    '{{ __('App\\Notifications\\CertificatePendingNotification') }}' + '</h2><p>' + e
+        // //                    .enterprise_name + '</p></div></a></li>'
+        // //                $("ul.notification-menu #mCSB_2_container").append(newNotification);
+        // //                if ('{{ explode('.', \Request::route()->getName())[0] }}' == 'certificates') {
+        // //                    $table.bootstrapTable('insertRow', {
+        // //                        index: 0,
+        // //                        row: {
+        // //                            state: false,
+        // //                            id: e.certificate.code,
+        // //                            importer: e.certificate.importer.name,
+        // //                            status: '<button class="btn ' + (e.certificate.status == 'DRAFT' ?
+        // //                                    'btn-warning' : (e.certificate.status == 'PENDING' ?
+        // //                                        'btn-info' : (e.certificate.status == 'SIGNED' ?
+        // //                                            'btn-success' : 'btn-danger'))) +
+        // //                                '"style="font-size: 14px;padding:0px;">' + e.status +
+        // //                                '</button>',
+        // //                            type: '<button class="btn btn-warning" style="font-size: 14px;padding:0px;">' +
+        // //                                e.certificate.type + '</button>',
+        // //                            type_hidden: e.certificate.type,
+        // //                            signature_date: e.certificate.signature_date,
+        // //                            dri_signature_date: e.certificate.dri_signature_date,
+        // //                            net_weight: e.certificate.net_weight,
+        // //                            real_weight: e.certificate.real_weight,
+        // //                            invoice: e.certificate.invoice
+        // //                        }
+        // //                    });
+        // //                }
+        // //            });
+        // //    } else if ('{{ Auth::check() && Auth::user()->role->name == "user" }}' == '1') {
+        // //        Echo.private('user.{{ Auth::user()->id }}').listen('CertificateSignedEvent', (e) => {
+        // //            $('.indicator-nt').text('{{ Auth::user()->unreadNotifications->count() + 1 }}');
+        // //            var newNotification =
+        // //                '<li><a href="#"><div class="notification-icon"><span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true">' +
+        // //                '<i class="fa fa-wpforms" style="font-size:19px;"></i></span></div><div class="notification-content"><span class="notification-date">' +
+        // //                '{{ date('d-M', strtotime(now())) }}</span><h2>' +
+        // //                '{{ __('App\\Notifications\\CertificateSignedNotification') }}' + '</h2><p>' + e
+        // //                .enterprise_name + '</p></div></a></li>'
+        // //            $("ul.notification-menu #mCSB_2_container").append(newNotification);
+        // //            if ('{{ explode('.', \Request::route()->getName())[0] }}' == 'certificates') {
+        // //                $table.bootstrapTable('removeByUniqueId', e.certificate.code);
+        // //                 $table.bootstrapTable('updateByUniqueId', {
+        // //                     id: e.certificate.code,
+        // //                     row: {
+        // //                            state: false,
+        // //                            id: e.certificate.code,
+        // //                            importer: e.certificate.importer.name,
+        // //                            status: '<button class="btn btn-success" style="font-size: 14px;padding:0px;">' + e.status +'</button>',
+        // //                            type: '<button class="btn btn-warning" style="font-size: 14px;padding:0px;">' +
+        // //                                e.certificate.type + '</button>',
+        // //                            type_hidden: e.certificate.type,
+        // //                            signature_date: e.certificate.signature_date,
+        // //                            dri_signature_date: e.dri_signature_date,
+        // //                            net_weight: e.certificate.net_weight,
+        // //                            real_weight: e.certificate.real_weight,
+        // //                            invoice: e.certificate.invoice
+        // //                     }
+        // //                 })
+        // //            }
+        // //        });
+        // //    }
            $("#markAsReadNotifications").click(function(e) {
                $.ajax({
                    headers: {

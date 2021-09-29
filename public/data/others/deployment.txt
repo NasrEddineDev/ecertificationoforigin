@@ -1,0 +1,41 @@
+deployment:
+
+1) db
+local
+DB_DATABASE=ecertification
+DB_USERNAME=root
+DB_PASSWORD=root
+server
+DB_DATABASE=e-certification
+DB_USERNAME=root
+DB_PASSWORD=caciAm@ni0520
+
+2) captcha
+local (test key)
+sitekey: '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+server (production key)
+sitekey: '6LcJ4O0aAAAAADBM-zKAAzIDWSIxR4lXuEO0QByN'
+
+3) Create sysmbolic link: data, css, ....
+
+4) git:
+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
+
+5) pusher
+APP_URL=http://127.0.0.1:8000--> http://e-certification.caci.dz
+PUSHER_APP_HOST http://127.0.0.1--> http://e-certification.caci.dz
+'useTLS' => false, --> true
+
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: process.env.MIX_PUSHER_APP_KEY,
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
+    wsHost: 'example.com', // Your domain
+    encrypted: true,
+    wssPort: 443, // Https port
+    disableStats: true, // Change this to your liking this disables statistics
+    forceTLS: true,
+    enabledTransports: ['ws', 'wss'],
+    disabledTransports: ['sockjs', 'xhr_polling', 'xhr_streaming'] // Can be removed
+});

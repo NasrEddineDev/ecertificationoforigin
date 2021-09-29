@@ -588,6 +588,7 @@ class CertificateController extends Controller
                     File::makeDirectory('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/', $mode = 0777, true, true);
                 }
 
+                if ($template != 0){
                 $source_image = 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '1.jpg';
                 $round_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->round_stamp;
                 $square_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->square_stamp;
@@ -605,7 +606,7 @@ class CertificateController extends Controller
                     $destination_image = $data['page3'];
                     $this->addEnterpriseSignatureAndStampPage3($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $certificateName);
                 }
-
+            }
                 $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
                     // $pdf = PDF::loadView('pdfs.gzale', $data, [], [
                     'title' => 'Another Title',
