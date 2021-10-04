@@ -198,7 +198,9 @@
     <div id="page-body">
         <div id="page1">
             <div id="code">
-                <label>{{ $code }}</label>
+                @if($template != '0')
+                <label>{{ '№ '. $code }}</label>
+                @endif
                 @if ($status == 'SIGNED' && !$is_digitally_signed)
                     <br /> <label>{{ $dri_signature_date }}</label>
                 @endif

@@ -87,10 +87,10 @@
 
         #postal-address {
             /* margin: 0cm;
-      margin-left: 1cm;
-      margin-top: 0.00cm;
-      margin-bottom: 1.00cm;
-      font-size: 10pt; */
+            margin-left: 1cm;
+            margin-top: 0.00cm;
+            margin-bottom: 1.00cm;
+            font-size: 10pt; */
         }
 
         #date {
@@ -137,7 +137,57 @@
             padding-top: 52px;
             padding-left: 120px;
         }
+        .parent {
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+        .file-image-round-stamp {
+            position: absolute;
+            /* left: 30px;  */
+            /* border: 1px green solid; */
+            height: 160px;
+            margin-top: -150px;
+        }
+        .file-image-signature   {
+            position: absolute;
+            height: 180px;
+            margin-top: -150px;
+        }
+        .file-image-square-stamp {
+            position: absolute;
+            height: 90px;
+            margin-top: -50px;
+        }
+        .file-image-qrcode {
+            position: absolute;
+            margin-top: -151px;
+            margin-bottom: 89px;
+            margin-right: -320px;
+            height: 63px;
+            width: 63px;
+        }
 
+        .sign-page3 {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .file-image-round-stamp1 {
+            position: absolute;
+            height: 160px;
+            margin-top: 150px;
+        }
+        .file-image-signature1   {
+            position: absolute;
+            height: 180px;
+            margin-top: -150px;
+        }
+        .file-image-square-stamp1 {
+            position: absolute;
+            height: 90px;
+            margin-top: -50px;
+        }
     </style>
 
     @if ($template == 0)
@@ -229,7 +279,9 @@
                     <tr>
                         <td width="50%"
                             style="height: 38px;margin-left:5px!important;margin-right:5px!important;text-align:center;font-weight: bold;">
-                            {{ $code }}
+                            @if($template != '0')
+                            {{ '№ '. $code }}
+                            @endif
                         </td>
                         <td rowspan="2" width="50%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
                             {{ $exporter_name }}<br />
@@ -238,6 +290,9 @@
                     </tr>
                     <tr>
                         <td width="50%" style="height: 38px;font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
+                            @if($template == '0' && ($status == 'PENDING' || $status == 'SIGNED'))
+                            <img class="file-image-qrcode" src="{{ $qrcode_url }}" alt="your image" />
+                            @endif
                         </td>
                     </tr>
                 </table>
@@ -254,15 +309,11 @@
                     </tr>
                     <tr>
                         <td width="24%" style="height: 38px;font-weight: bold;text-align:left;padding-right:10px;">
-                            <strong>
-                                {{ $original_country }}
-                            </strong>
+                            <strong>{{ Lang::get($original_country, [], 'ar') }}</strong>
                         </td>
                         <td width="26%"
                             style="margin-left:10px;height: 38px;font-weight: bold;text-align:left;padding-right:10px;">
-                            <strong>
-                                {{ $original_country }}
-                            </strong>
+                            <strong>{{ Lang::get($destination_country, [], 'ar') }}</strong>
                         </td>
                     </tr>
                 </table>
@@ -396,15 +447,20 @@
                                     </tr>
                                     <tr>
                                         <td width="100%" colspan="2" style="text-align:center;height: 20px;">
-                                            <img class="file-upload-image-signature" src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . 
-                                            Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . 
-                                            Auth::user()->Profile->signature }}" alt="your image"  style="text-align:center;height: 200px;" />
-                                            <img class="file-upload-image-square-stamp" src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . 
-                                            Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . 
-                                            Auth::user()->Profile->square_stamp }}" alt="your image"  style="text-align:center;height: 50px;" />
-                                                                                        {{-- <strong
-                                                style="background-image: url('{{ asset('data/enterprises/' . (Auth::User()->role->name == 'user' ? Auth::User()->Enterprise->id : Auth::User()->username) . 'stamp-signatures/stamp.jpg') }}');background-position: center top;background-repeat: no-repeat;background-size: 100%;">إمضاء
-                                                المعني</strong> --}}
+                                            <div class="parent">
+                                                <img class="file-image-round-stamp" src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . 
+                                                Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . 
+                                                Auth::user()->Profile->round_stamp }}" alt="your image" />
+                                                <img class="file-image-square-stamp" src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . 
+                                                Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . 
+                                                Auth::user()->Profile->square_stamp }}" alt="your image" />
+                                                <img class="file-image-signature" src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . 
+                                                Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . 
+                                                Auth::user()->Profile->signature }}" alt="your image"/>
+                                              </div>
+                                            {{-- <strong style="background-image: url('{{ asset('data/enterprises/' . (Auth::User()->role->name == 'user' ? 
+                                                Auth::User()->Enterprise->id : Auth::User()->username) . 'stamp-signatures/stamp.jpg') }}');background-position: 
+                                                center top;background-repeat: no-repeat;background-size: 100%;">إمضاءالمعني</strong> --}}
                                             {{-- <div id="stamp" style="height:42px;width:42px;position: absolute;background-image: {{ URL::asset('') }}img/logo/caci-logosn.png;"> --}}
                                             {{-- <img style="height: 100%;width: 100%;"src="{{ asset('data/enterprises/'. ((Auth::User()->role->name == 'user') 
                                             ? Auth::User()->Enterprise->id : Auth::User()->username).'stamp-signatures/stamp.jpg') }}"> --}}
@@ -427,7 +483,9 @@
         </div>
         <div id="page3">
             <div id="code">
-                <label>{{ $code }}</label>
+                @if($template != '0')
+                <label>{{ '№ '. $code }}</label>
+                @endif
             </div>
             <div id="tables1">
                 <table style="width:88%;padding-bottom:100px!important;margin-left:auto;margin-right:auto;">
@@ -461,7 +519,19 @@
                     <tr>
                         <td width="25%"
                             style="margin-left:5px!important;margin-right:5px!important;height: 30px;{{ $rtl ? 'text-align:right;' : '' }}">
-
+                            @if ($template == 0 && ($status == 'PENDING' || $status == 'SIGNED'))
+                            <div class="sign-page3">
+                                <img class="file-image-round-stamp1" src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . 
+                                Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . 
+                                Auth::user()->Profile->round_stamp }}" alt="your image" />
+                                <img class="file-image-square-stamp1" src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . 
+                                Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . 
+                                Auth::user()->Profile->square_stamp }}" alt="your image" />
+                                <img class="file-image-signature1" src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . 
+                                Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . 
+                                Auth::user()->Profile->signature }}" alt="your image"/>
+                              </div>
+                            @endif
                         </td>
                         <td width="27%" style="margin-left:5px!important;margin-right:5px!important;text-align:center;">
 

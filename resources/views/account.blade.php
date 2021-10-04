@@ -780,7 +780,7 @@
                                             <div class="review-content-section">
                                                 <form method="post" action="{{ route('account.update', 'manager') }}"
                                                     class="dropzone dropzone-custom needsclick add-professors"
-                                                    id="signature_stamp" enctype="multipart/form-data">
+                                                    id="signature_stamp1" enctype="multipart/form-data">
                                                     @csrf
                                                     <div class="row">
                                                         <div

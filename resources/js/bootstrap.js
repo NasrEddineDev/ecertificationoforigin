@@ -46,17 +46,17 @@ window._ = require('lodash');
 //     disableStats: true,
 // });
 
-import Echo from 'laravel-echo';
+// // import Echo from 'laravel-echo';
 
-window.Pusher = require('pusher-js');
+// // window.Pusher = require('pusher-js');
 
-window.Echo = new Echo({
-    broadcaster: 'pusher',
-    key: 'exampleKey',
-    cluster: 'mt1',
-    wsHost: window.location.hostname,
-    wsPort: 6001,
-    forceTLS: false,
-    disableStats: true,
-    // enabledTransports: ['ws', 'wss'], // <-- only use ws and wss as valid transports
-});
+// // window.Echo = new Echo({
+// //     broadcaster: 'pusher',
+// //     key: 'exampleKey',
+// //     cluster: 'mt1',
+// //     wsHost: window.location.hostname,
+// //     wsPort: 6001,
+// //     forceTLS: false,
+// //     disableStats: true,
+// //     // enabledTransports: ['ws', 'wss'], // <-- only use ws and wss as valid transports
+// // });

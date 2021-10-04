@@ -221,7 +221,9 @@
                         </td>
                         <td width="51.5%"
                             style="font-weight: bold;text-align:center">
-                            <label>{{ $code }}</label>
+                            @if($template != '0')
+                            <label>{{'№ '.  $code }}</label>
+                            @endif
                         </td>
                     </tr>
                     <tr>
@@ -310,7 +312,7 @@
                         <td width="2%" ></td>
                         <td width="48.5%" style="height: 10px;"></td>
                         <td width="49.5%" style="height: 10px;text-align: center"><strong>
-                            {{ $original_country }}</strong></td>
+                            {{ Lang::get($original_country, [], 'en') }}</strong></td>
                     </tr>
                     <tr>
                         <td></td>

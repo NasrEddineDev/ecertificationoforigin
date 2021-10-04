@@ -110,4 +110,10 @@ class CertificatePolicy
         //
         return $user->role->hasPermissionByName('retrospective-certificate');
     }
+
+    public function print(User $user)
+    {
+        //
+        return $user->role->hasPermissionByName('print-certificate');
+    }
 }

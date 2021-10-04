@@ -157,6 +157,11 @@
                                                 <i class="fa fa-eye"></i>
                                             </button>
                                         @endcan
+                                        @can('print', App\Models\Certificate::class)
+                                            <button id="print" class="btn btn-default" title="{{ __('Print') }}" disabled>
+                                                <i class="fa fa-print"></i>
+                                            </button>
+                                        @endcan
                                         @can('update', App\Models\Certificate::class)
                                             <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
                                                 disabled>
@@ -432,7 +437,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header header-color-modal bg-color-6">
-                    <h4 class="modal-title">CACI E-Certification</h4>
+                    <h4 class="modal-title">{{ __('CACI E-Certification')}}</h4>
                     <div class="modal-close-area modal-close-df">
                         <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                     </div>
@@ -538,6 +543,7 @@
         var $table = $('#table')
         var $new = $('#new')
         var $preview = $('#preview')
+        var $print = $('#print')
         var $duplicate = $('#duplicate')
         var $retrospective = $('#retrospective')
         var $details = $('#details')
@@ -548,6 +554,7 @@
         $new.prop('disabled', false)
         $remove.prop('disabled', true)
         $preview.prop('disabled', true)
+        $print.prop('disabled', true)
         $duplicate.prop('disabled', true)
         $retrospective.prop('disabled', true)
         $details.prop('disabled', true)
@@ -563,6 +570,7 @@
             function() {
                 $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
                 $preview.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
+                $print.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 $duplicate.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 $retrospective.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 $details.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
@@ -684,6 +692,7 @@
                 var url = "{{ route('certificates.edit', 'id') }}".replace('id', selections[0]);
                 window.location.href = url;
             });
+
             $(document).on("click", "#preview", function(e) {
                 e.preventDefault();
                 selections = getIdSelections()
@@ -740,6 +749,72 @@
                             }
                         }
                         if (response.copy_type != "NONE") $(".notes").hide();
+                    }
+                });
+
+            });
+
+            $(document).on("click", "#print", function(e) {
+                e.preventDefault();
+                selections = getIdSelections()
+                var url = "{{ route('certificates.print', 'id') }}".replace('id', selections[0]);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        var w = window,
+                            d = document,
+                            e = d.documentElement,
+                            g = d.getElementsByTagName('body')[0],
+                            y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+                        var object = document.getElementById("object");
+                        object.height = y * 8 / 10;
+                        object.data = response.url;
+                        var embed = document.getElementById("embed");
+                        embed.src = response.url;
+                        $('#InformationproModalhdbgcl').modal('show');
+
+                        $("#SignGZAL").hide();
+                        $("#RejectGZAL").hide();
+                        $(".notes").hide();
+
+                        // role = '{{ Auth::User()->role->name }}';
+                        // if (role == 'user') {
+                        //     if (response.status == 'DRAFT') {
+                        //         $("#RejectGZAL").hide();
+                        //         $("#SignGZAL").show();
+                        //     } else if (response.status == 'PENDING') {
+                        //         $("#SignGZAL").hide();
+                        //         $("#RejectGZAL").hide();
+                        //     } else if (response.status == 'SIGNED') {
+                        //         $("#RejectGZAL").hide();
+                        //         $("#SignGZAL").hide();
+                        //         $(".notes").hide();
+                        //     } else if (response.status == 'REJECTED') {
+                        //         $("#RejectGZAL").hide();
+                        //         $("#SignGZAL").hide();
+                        //         $(".notes").hide();
+                        //     }
+                        // } else { //if (role == 'dri_user') {
+                        //     if (response.status == 'PENDING') {
+                        //         $("#SignGZAL").show();
+                        //         $("#RejectGZAL").show();
+                        //     } else if (response.status == 'SIGNED') {
+                        //         $("#RejectGZAL").hide();
+                        //         $("#SignGZAL").hide();
+                        //         $(".notes").hide();
+                        //     } else if (response.status == 'REJECTED') {
+                        //         $("#RejectGZAL").hide();
+                        //         $("#SignGZAL").hide();
+                        //         $(".notes").hide();
+                        //     }
+                        // }
+                        // if (response.copy_type != "NONE") $(".notes").hide();
+                        
                     }
                 });
 

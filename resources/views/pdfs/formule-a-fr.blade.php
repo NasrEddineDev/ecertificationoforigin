@@ -88,10 +88,10 @@
 
         #postal-address {
             /* margin: 0cm;
-      margin-left: 1cm;
-      margin-top: 0.00cm;
-      margin-bottom: 1.00cm;
-      font-size: 10pt; */
+            margin-left: 1cm;
+            margin-top: 0.00cm;
+            margin-bottom: 1.00cm;
+            font-size: 10pt; */
         }
 
         #date {
@@ -101,7 +101,7 @@
         #tables {
             padding-left: 41px;
             padding-right: 31px;
-            padding-top: 65px !important;
+            padding-top: 20px !important;
         }
 
         #tables1 {
@@ -137,6 +137,36 @@
             position: absolute;
             padding-top: 42px;
             padding-left: 90px;
+        }
+        .parent {
+            position: relative;
+            top: 0;
+            left: 0;
+        }
+        .file-image-round-stamp {
+            position: absolute;
+            height: 160px;
+            margin-top: -500px;
+            margin-bottom: 300px;
+        }
+        .file-image-signature   {
+            position: absolute;
+            height: 180px;
+            margin-top: -500px;
+            margin-bottom: 300px;
+        }
+        .file-image-square-stamp {
+            position: absolute;
+            height: 90px;
+            margin-top: -500px;
+            margin-bottom: 300px;
+        }
+        .file-image-qrcode {
+            position: absolute;
+            margin-left: 260px;
+            margin-top: 100px;
+            height: 63px;
+            width: 63px;
         }
 
     </style>
@@ -233,7 +263,9 @@
                             style="height: 23px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
                         </td>
                         <td width="51.5%" style="font-weight: bold;text-align:center">
-                            <label>{{ $code }}</label>
+                            @if ($template != '0')
+                                <label>{{ '№ ' . $code }}</label>
+                            @endif
                         </td>
                     </tr>
                     <tr>
@@ -242,7 +274,10 @@
                             {{ $exporter_name }}<br />
                             {{ $exporter_address }}
                         </td>
-                        <td width="51.5%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
+                        <td width="51.5%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}" class="parent">
+                            @if ($template == '0' && ($status == 'PENDING' || $status == 'SIGNED'))
+                                <img class="file-image-qrcode" src="{{ $qrcode_url }}" alt="your image" />
+                            @endif
                         </td>
                     </tr>
                 </table>
@@ -330,13 +365,27 @@
                         <td width="2%"></td>
                         <td width="48.5%" style="height: 10px;"></td>
                         <td width="49.5%" style="height: 10px;text-align: center"><strong>
-                                {{ 'Chine' }}</strong></td>
+                            {{ Lang::get($destination_country, [], 'fr') }}</strong></td>
                         {{-- destination_country --}}
                     </tr>
                     <tr>
                         <td></td>
                         <td style="height: 18px;"></td>
-                        <td style="height: 18px;"></td>
+                        <td style="height: 18px;">
+                            @if ($template == 0 && ($status == 'PENDING' || $status == 'SIGNED'))
+                            <div class="parent">
+                                <img class="file-image-round-stamp" src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . 
+                                Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . 
+                                Auth::user()->Profile->round_stamp }}" alt="your image" />
+                                <img class="file-image-square-stamp" src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . 
+                                Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . 
+                                Auth::user()->Profile->square_stamp }}" alt="your image" />
+                                <img class="file-image-signature" src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . 
+                                Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . 
+                                Auth::user()->Profile->signature }}" alt="your image"/>
+                              </div>
+                            @endif
+                        </td>
                     </tr>
                     <tr>
                         <td width="2%"></td>

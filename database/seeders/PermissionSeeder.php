@@ -117,6 +117,10 @@ class PermissionSeeder extends Seeder
                 'name' => 'enterprise-certificate',
                 'description' => '',
                 'group' => 'certificate',
+            ], [
+                'name' => 'print-certificate',
+                'description' => '',
+                'group' => 'certificate',
             ],
             // producer permissions
             [

@@ -29,10 +29,12 @@ use App\Events\CertificateRejectedEvent;
 
 class CertificateController extends Controller
 {
+    
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -71,6 +73,7 @@ class CertificateController extends Controller
         $countries = Country::all();
         return view('certificates.create', compact(['type', 'importers', 'producers', 'products', 'countries']));
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -81,7 +84,7 @@ class CertificateController extends Controller
     {
         //
         $certificate = new Certificate([
-            'code' => '',
+            'code' => $request->certificate_number,
             'original_country' => "Algeria",
             'accumulation' => $request->accumulation,
             'accumulation_country' => ($request->accumulation == 'Yes') ? $request->accumulation_country : '',
@@ -112,11 +115,9 @@ class CertificateController extends Controller
             "certificate_id" => null
         ]);
 
-        $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;
-        $certificate->code = str_repeat("0", 7 - strlen($lastId + 1)) . ($lastId + 1);
+        // $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;
+        // $certificate->code = str_repeat("0", 7 - strlen($lastId + 1)) . ($lastId + 1);
 
-        // $file = $request->file('invoice');
-        // if ($file && $file->getClientOriginalExtension()) {
         $file = $request->invoice;
         if ($file  && $file != 'undefined') {
             $destinationPath = 'enterprises/' . Auth::User()->Enterprise->id . '/' . 'invoices/';
@@ -136,7 +137,6 @@ class CertificateController extends Controller
             'certificate_id' => $certificate->id,
         ]);
 
-        // $certificate->save();
         $products = (array)json_decode($request->products);
         foreach ($products as $product) {
             $certificate->products()->attach($product->product_id, [
@@ -195,7 +195,7 @@ class CertificateController extends Controller
         $certificate = Certificate::find($id);
         if ($certificate) {
             $duplicatedCertificate = $certificate->replicate();
-            $duplicatedCertificate->code = str_repeat("0", 7 - strlen($duplicatedCertificate->id)) . ($duplicatedCertificate->id);
+            $duplicatedCertificate->code = $request->code;
             $duplicatedCertificate->status = 'PENDING';
             $duplicatedCertificate->signature_date = date('Y-m-d H:m:s');
             $duplicatedCertificate->notes = __('Retrospective Copy from certificcate No');
@@ -430,16 +430,80 @@ class CertificateController extends Controller
 
             $certificateName = strtolower($certificate->type);
 
-            if ($certificate->status == "SINGED") {
-                return response()->json([
-                    'message' => 'Certificate generated',
-                    'url' => url('data/enterprises/' . $certificate->Enterprise->id
-                        . '/certificates' . '/' . $certificateName . '/' . $certificate->signed_document),
-                    'status' => $certificate->status
-                ], 200);
-            }
+            // uncomment this when using agce signing
+            // if ($certificate->status == "SINGED") {
+            //     return response()->json([
+            //         'message' => 'Certificate generated',
+            //         'url' => url('data/enterprises/' . $certificate->Enterprise->id
+            //             . '/certificates' . '/' . $certificateName . '/' . $certificate->signed_document),
+            //         'status' => $certificate->status
+            //     ], 200);
+            // }
 
-            $data = $this->certificateToPDF($certificate);
+            $data = $this->certificateToPDF($certificate, 2);
+
+            // return response()->json([
+            //     'message' => 'Certificate generated',
+            //     'data' => $data,
+            //     'copy_type' => $certificate->copy_type
+            // ], 200);
+
+            $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
+                'title' => 'Another Title',
+                'margin_left' => 0,
+                'margin_right' => 0,
+                'margin_top' => 0,
+                'margin_bottom' => 0,
+                'display_mode' => 'fullpage',
+            ]);
+            $pdf->showImageErrors = true;
+
+            $path =  'data/enterprises/' . $certificate->Enterprise->id . '/certificates' . '/' . $certificateName . '/';
+            if (!file_exists($path)) {
+                File::makeDirectory($path, $mode = 0777, true, true);
+            }
+            
+            //   $url = 'data/'. ((Auth::User()->role->name == 'user') 
+            //     ? 'enterprises/'.$certificate->Enterprise->id : 'dri/'.Auth::User()->username).'/certificates/gzal-draft.pdf';
+            $pdf->save($path . '/gzal-certificate.pdf');
+
+            return response()->json([
+                'message' => 'Certificate generated',
+                'url' => url($path . '/gzal-certificate.pdf'),
+                // 'products' => $products,
+                'status' => $certificate->status,
+                'copy_type' => $certificate->copy_type
+            ], 200);
+        }
+    }
+
+    public function print($id)
+    {
+        //
+        $certificate = Certificate::where('code', '=', $id)->first();
+        $certificate = $certificate ? $certificate : Certificate::find($id);
+        if ($certificate) {
+
+            $certificateName = strtolower($certificate->type);
+
+            // if ($certificate->status == "SINGED") {
+            //     return response()->json([
+            //         'message' => 'Certificate generated',
+            //         'url' => url('data/enterprises/' . $certificate->Enterprise->id
+            //             . '/certificates' . '/' . $certificateName . '/' . $certificate->signed_document),
+            //         'status' => $certificate->status
+            //     ], 200);
+            // }
+                
+            $data = $this->certificateToPDF($certificate, 0);
+            
+            $data['qrcode_url'] = 'data/enterprises/' . $certificate->enterprise->id . '/documents/qrcode.png';
+            $url = route('verifiy-certificate', $certificate->code);
+            QRCode::url($url)
+                ->setOutfile($data['qrcode_url'])
+                ->setSize(4)
+                ->setMargin(2)
+                ->png();
 
             $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
                 'title' => 'Another Title',
@@ -470,7 +534,6 @@ class CertificateController extends Controller
         }
     }
 
-
     public function generateGZAL(Request $request)
     {
         $invoice = "";
@@ -487,7 +550,7 @@ class CertificateController extends Controller
         }
 
         $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;
-        $template = Setting::where('name', 'Default Certificate Template')->first()->value;
+        $template = 2;//Setting::where('name', 'Default Certificate Template')->first()->value;
         $page1 = '';
         $page2 = '';
         $page3 = '';
@@ -498,16 +561,22 @@ class CertificateController extends Controller
             $page3 = 'data/settings/certificates_images/' . $template . '/' . $request->type . '/' . $request->type . '3.jpg';
         }
 
+        $importer = Importer::find($request->importer_id);
+        $producer = Producer::find($request->producer_id);
+
         $data = [
             'rtl' => (strtolower($request->type) == 'gzale' || strtolower($request->type) == 'acp-tunisie') ? true : false,
-            'code' => str_repeat("0", 7 - strlen($lastId + 1)) . ($lastId + 1), //$request->is_retrospective ? $request->code . '-R' : "E-" . date("Y") . "0001",
+            'code' => $request->certificate_number,
+            //str_repeat("0", 7 - strlen($lastId + 1)) . ($lastId + 1), 
+            //$request->is_retrospective ? $request->code . '-R' : "E-" . date("Y") . "0001",
             'exporter_name' => Auth::User()->Enterprise->name,
             'exporter_address' => Auth::User()->Enterprise->address,
-            'producer_name' => Producer::find($request->producer_id) ? Producer::find($request->producer_id)->name : '',
-            'producer_address' => Producer::find($request->producer_id) ? Producer::find($request->producer_id)->address : '',
-            'importer_name' => Importer::find($request->importer_id) ? Importer::find($request->importer_id)->name : "",
-            'importer_address' => Importer::find($request->importer_id) ? Importer::find($request->importer_id)->address : "",
-            'original_country' => "الجزائر",
+            'producer_name' => $producer ? $producer->name : '',
+            'producer_address' => $producer ? $producer->address : '',
+            'original_country' =>$producer ? $producer->state->country->name : "Algeria" ,
+            'importer_name' =>  $importer ? $importer->name : "" ,
+            'importer_address' => $importer ? $importer->address : "",
+            'destination_country' =>$importer ? $importer->state->country->name : "" ,
             'accumulation' => $request->accumulation,
             'accumulation_country' => ($request->accumulation == 'Yes') ? $request->accumulation_country : null,
             'shipment_type' => $request->shipment_type,
@@ -566,9 +635,9 @@ class CertificateController extends Controller
 
             $certificateName = strtolower($certificate->type);
 
-            $data = $this->certificateToPDF($certificate);
+            $data = $this->certificateToPDF($certificate, 2);
 
-            $template = Setting::where('name', 'Default Certificate Template')->first()->value;
+            $template = 2;//Setting::where('name', 'Default Certificate Template')->first()->value;
 
             if (Auth::User()->role->name == 'user' && $certificate->status == 'DRAFT') {
                 $certificate->status = 'PENDING';
@@ -588,25 +657,25 @@ class CertificateController extends Controller
                     File::makeDirectory('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/', $mode = 0777, true, true);
                 }
 
-                if ($template != 0){
-                $source_image = 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '1.jpg';
-                $round_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->round_stamp;
-                $square_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->square_stamp;
-                $signature = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->signature;
-                $destination_image = $data['page1'];
-                $this->addEnterpriseSignatureAndStampPage1($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $certificateName);
-                $url = route('verifiy-certificate', $certificate->code);
-                $this->addQRCode($destination_image, $url, $destination_image, $certificateName);
-
-                if ($certificateName == 'gzale' || $certificateName == 'acp-tunisie') {
-                    $source_image = 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg';
+                if ($template != 0) {
+                    $source_image = 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '1.jpg';
                     $round_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->round_stamp;
                     $square_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->square_stamp;
                     $signature = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->signature;
-                    $destination_image = $data['page3'];
-                    $this->addEnterpriseSignatureAndStampPage3($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $certificateName);
+                    $destination_image = $data['page1'];
+                    $this->addEnterpriseSignatureAndStampPage1($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $certificateName);
+                    $url = route('verifiy-certificate', $certificate->code);
+                    $this->addQRCode($destination_image, $url, $destination_image, $certificateName);
+
+                    if ($certificateName == 'gzale' || $certificateName == 'acp-tunisie') {
+                        $source_image = 'data/settings/certificates_images/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg';
+                        $round_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->round_stamp;
+                        $square_stamp = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->square_stamp;
+                        $signature = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . Auth::User()->Profile->signature;
+                        $destination_image = $data['page3'];
+                        $this->addEnterpriseSignatureAndStampPage3($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $certificateName);
+                    }
                 }
-            }
                 $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
                     // $pdf = PDF::loadView('pdfs.gzale', $data, [], [
                     'title' => 'Another Title',
@@ -624,7 +693,7 @@ class CertificateController extends Controller
                 $pdf->save($destinationPath . '/gzal-draft.pdf');
 
                 event(new CertificatePendingEvent($certificate));
-                
+
                 return response()->json([
                     'message' => 'Certificate signed',
                     'certificate_id' => $certificate->id,
@@ -845,6 +914,7 @@ class CertificateController extends Controller
             ], 200);
         }
     }
+
     public function  SignDocument($originator_id, $user_id, $document_path, $ssl_cert_file_path, $ssl_key_file_path)
     {
         // Get User Certificate Alias
@@ -1114,7 +1184,7 @@ class CertificateController extends Controller
         return $headers;
     }
 
-    public function certificateToPDF($certificate)
+    public function certificateToPDF($certificate, $template)
     {
         $products = $certificate->products->map(function ($items, $count = 1) {
             $count++;
@@ -1130,7 +1200,7 @@ class CertificateController extends Controller
             return $data;
         });
         $settings = Setting::all();
-        $template = Setting::where('name', 'Default Certificate Template')->first()->value;
+        // $template = Setting::where('name', 'Default Certificate Template')->first()->value;
         $page1 = '';
         $page2 = '';
         $page3 = '';
@@ -1187,16 +1257,18 @@ class CertificateController extends Controller
         ];
         return $data;
     }
+
     public function addQRCode($source_image, $url, $destination_image, $type)
     {
         $enterprise_id = Auth::User()->Enterprise->id;
         $qrcode_url = 'data/enterprises/' . $enterprise_id . '/documents/qrcode.png';
-        // QRCode::text('QR Code Generator for Laravel!')->setOutfile('data/enterprises/' . Auth::User()->Enterprise->id . '/qrcode.png')->png();
         QRCode::url($url)
             ->setOutfile($qrcode_url)
             ->setSize(4)
             ->setMargin(2)
             ->png();
+
+        // QRCode::text('QR Code Generator for Laravel!')->setOutfile('data/enterprises/' . Auth::User()->Enterprise->id . '/qrcode.png')->png();
 
         $img = Image::make($source_image);
         // now you are able to resize the instance
@@ -1207,13 +1279,14 @@ class CertificateController extends Controller
         } else if ($type == 'acp-tunisie') {
             $img->insert($qrcode_url, 'top-right', 150, 230);
         } else if ($type == 'form-a-en') {
-            $img->insert($qrcode_url, 'top-right', 100, 300);
+            $img->insert($qrcode_url, 'top-right', 80, 300);
         } else if ($type == 'formule-a-fr') {
             $img->insert($qrcode_url, 'top-right', 100, 300);
         }
         // finally we save the image as a new file
         $img->save($destination_image);
     }
+
     public function addEnterpriseSignatureAndStampPage1($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $type)
     {
         $img = Image::make($source_image);
@@ -1255,6 +1328,7 @@ class CertificateController extends Controller
         // imagedestroy($dest);
         // imagedestroy($src);
     }
+
     public function addEnterpriseSignatureAndStampPage3($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $type)
     {
         $img = Image::make($source_image);
@@ -1269,6 +1343,7 @@ class CertificateController extends Controller
         }
         $img->save($destination_image);
     }
+
     public function addDriSignatureAndStamp($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $type)
     {
         $img = Image::make($source_image);
@@ -1293,4 +1368,5 @@ class CertificateController extends Controller
 
         $img->save($destination_image);
     }
+
 }

@@ -320,7 +320,7 @@ class PaymentController extends Controller
 
             $payment->save();
 
-            event(new NewPaymentEvent($payment));
+            // event(new NewPaymentEvent($payment));
 
             $client = new Client(['base_uri' => $order_registration_url_poste->value]);
             $params['form_params'] = [

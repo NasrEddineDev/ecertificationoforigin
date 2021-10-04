@@ -8,6 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('CustomFileInputs/css/normalize.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('CustomFileInputs/css/component.css') }}" />
     <link rel="stylesheet" href="{{ URL::asset('wizard/css/custom.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/datapicker/datepicker3.css') }}" />
     <style>
         .pdfobject-container {
             height: 30rem;
@@ -105,6 +106,19 @@
                                     @csrf
                                     <input type="hidden" name="type" id="type" value="{{ $type }}">
                                     <p class="card-description"> {{ __('General Information') }} </p>
+                                    <div class="row">
+                                        <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                            <div class="form-group row">
+                                                <label
+                                                    class="required col-lg-4 col-md-4 col-sm-4 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Certificate Number') }}</label>
+                                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                                    <input type="text" name="certificate_number"
+                                                        placeholder="{{ __('Certificate Number') }}" id="certificate_number"
+                                                        class="form-control" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
@@ -220,7 +234,7 @@
                                                     <div class="col-md-6" style="padding-right: 0px!important;padding-left: 0px!important;">
                                                         <input name="invoice_date" id="invoice_date"
                                                             placeholder="{{ __('Date') }}" type="text"
-                                                            class="form-control" />
+                                                            class="form-control"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -445,11 +459,11 @@
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-resizable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/colResizable-1.5.source.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/datapicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}">
+        <script type="text/javascript" src="{{ URL::asset('js/datapicker/bootstrap-datepicker.js') }}"></script>
     </script>
     {{-- <script type="text/javascript" src="{{ URL::asset('js/pdfobject.min.js') }}"></script> --}}
     {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-export.js') }}"></script> --}}
@@ -496,9 +510,9 @@
 
 
             var validator = $(".form-sample").validate({
-                onfocusout: function(e) {
-                    this.element(e);
-                },
+                // onfocusout: function(e) {
+                //     this.element(e);
+                // },
                 rules: {
                     invoice: {
                         required: true,
@@ -548,9 +562,7 @@
                 var invoice = document.getElementById("invoice").files[0],
                     formdata = false;
                 formdata = new FormData();
-                // formdata.append("producer_id", $('#producer_id').val());
-                // formdata.append("producer_address", $('#producer_address').val());
-                // formdata.append("importer_id", $('#importer_id').val());
+                formdata.append("certificate_number", $('#certificate_number').val());
                 formdata.append("importer_id", $('#importer_id').find(":selected").val());
                 formdata.append("producer_id", $('#producer_id').find(":selected").val());
                 formdata.append("accumulation", $('#accumulation').find(":selected").val());
@@ -603,6 +615,7 @@
                 var invoice = document.getElementById("invoice").files[0],
                     formdata = false;
                 formdata = new FormData();
+                formdata.append("certificate_number", $('#certificate_number').val());
                 formdata.append("importer_id", $('#importer_id').find(":selected").val());
                 formdata.append("producer_id", $('#producer_id').find(":selected").val());
                 formdata.append("accumulation", $('#accumulation').find(":selected").val());
@@ -787,6 +800,11 @@
             //     //or this:
             //     item.insertBefore(item.next());
             // });
+            $(document).on('DOMNodeInserted', function(e) {
+                if (e.target.id == 'invoice-error') {
+                    $('#invoice-error').insertAfter($('#invoice-error').next());
+                }
+            });
         });
     </script>
 @endpush
