@@ -29,7 +29,7 @@ use App\Events\CertificateRejectedEvent;
 
 class CertificateController extends Controller
 {
-    
+
     public function __construct()
     {
         $this->middleware(['auth', 'verified']);
@@ -462,14 +462,14 @@ class CertificateController extends Controller
             if (!file_exists($path)) {
                 File::makeDirectory($path, $mode = 0777, true, true);
             }
-            
+
             //   $url = 'data/'. ((Auth::User()->role->name == 'user') 
             //     ? 'enterprises/'.$certificate->Enterprise->id : 'dri/'.Auth::User()->username).'/certificates/gzal-draft.pdf';
-            $pdf->save($path . '/gzal-certificate.pdf');
+            $pdf->save($path . '/' . $certificateName . '-certificate.pdf');
 
             return response()->json([
                 'message' => 'Certificate generated',
-                'url' => url($path . '/gzal-certificate.pdf'),
+                'url' => url($path . '/' . $certificateName . '-certificate.pdf'),
                 // 'products' => $products,
                 'status' => $certificate->status,
                 'copy_type' => $certificate->copy_type
@@ -486,17 +486,8 @@ class CertificateController extends Controller
 
             $certificateName = strtolower($certificate->type);
 
-            // if ($certificate->status == "SINGED") {
-            //     return response()->json([
-            //         'message' => 'Certificate generated',
-            //         'url' => url('data/enterprises/' . $certificate->Enterprise->id
-            //             . '/certificates' . '/' . $certificateName . '/' . $certificate->signed_document),
-            //         'status' => $certificate->status
-            //     ], 200);
-            // }
-                
             $data = $this->certificateToPDF($certificate, 0);
-            
+
             $data['qrcode_url'] = 'data/enterprises/' . $certificate->enterprise->id . '/documents/qrcode.png';
             $url = route('verifiy-certificate', $certificate->code);
             QRCode::url($url)
@@ -505,7 +496,18 @@ class CertificateController extends Controller
                 ->setMargin(2)
                 ->png();
 
-            $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
+            $data['round_stamp'] = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . $certificate->Enterprise->User->Profile->round_stamp;
+            $data['square_stamp'] = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . $certificate->Enterprise->User->Profile->square_stamp;
+            $data['signature'] = 'data/enterprises/' . $certificate->Enterprise->id . '/' . 'documents/' . $certificate->Enterprise->User->Profile->signature;
+            if ($certificate->status == "SIGNED") { 
+                $data['dri_round_stamp'] = config('settings.ROUND_STAMP_AR_FILE_PATH');
+                $data['dri_square_stamp'] = 'data/dri/3/3_square_stamp.png';
+                $data['dri_signature'] = 'data/dri/3/3_signature.png';
+                // $data['dri_square_stamp'] = 'data/dri/' . $certificate->signedBy->id . '/' . $certificate->signedBy->Profile->square_stamp;
+                // $data['dri_signature'] = 'data/dri/' . $certificate->signedBy->id . '/' . $certificate->signedBy->Profile->signature;
+            }
+
+            $pdf = PDF::loadView('pdfs.' . $certificateName . '-trans', $data, [], [
                 'title' => 'Another Title',
                 'margin_left' => 0,
                 'margin_right' => 0,
@@ -522,11 +524,11 @@ class CertificateController extends Controller
 
             //   $url = 'data/'. ((Auth::User()->role->name == 'user') 
             //     ? 'enterprises/'.$certificate->Enterprise->id : 'dri/'.Auth::User()->username).'/certificates/gzal-draft.pdf';
-            $pdf->save($path . '/gzal-draft.pdf');
+            $pdf->save($path . '/' . $certificateName . '-certificate.pdf');
 
             return response()->json([
                 'message' => 'Certificate generated',
-                'url' => url($path . '/gzal-draft.pdf'),
+                'url' => url($path . '/' . $certificateName . '-certificate.pdf'),
                 // 'products' => $products,
                 'status' => $certificate->status,
                 'copy_type' => $certificate->copy_type
@@ -550,7 +552,7 @@ class CertificateController extends Controller
         }
 
         $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;
-        $template = 2;//Setting::where('name', 'Default Certificate Template')->first()->value;
+        $template = 2; //Setting::where('name', 'Default Certificate Template')->first()->value;
         $page1 = '';
         $page2 = '';
         $page3 = '';
@@ -573,10 +575,10 @@ class CertificateController extends Controller
             'exporter_address' => Auth::User()->Enterprise->address,
             'producer_name' => $producer ? $producer->name : '',
             'producer_address' => $producer ? $producer->address : '',
-            'original_country' =>$producer ? $producer->state->country->name : "Algeria" ,
-            'importer_name' =>  $importer ? $importer->name : "" ,
+            'original_country' => $producer ? $producer->state->country->name : "Algeria",
+            'importer_name' =>  $importer ? $importer->name : "",
             'importer_address' => $importer ? $importer->address : "",
-            'destination_country' =>$importer ? $importer->state->country->name : "" ,
+            'destination_country' => $importer ? $importer->state->country->name : "",
             'accumulation' => $request->accumulation,
             'accumulation_country' => ($request->accumulation == 'Yes') ? $request->accumulation_country : null,
             'shipment_type' => $request->shipment_type,
@@ -637,7 +639,7 @@ class CertificateController extends Controller
 
             $data = $this->certificateToPDF($certificate, 2);
 
-            $template = 2;//Setting::where('name', 'Default Certificate Template')->first()->value;
+            $template = 2; //Setting::where('name', 'Default Certificate Template')->first()->value;
 
             if (Auth::User()->role->name == 'user' && $certificate->status == 'DRAFT') {
                 $certificate->status = 'PENDING';
@@ -706,6 +708,7 @@ class CertificateController extends Controller
 
                 if ($certificate->copy_type == "NONE") $certificate->notes = $notes;
                 $certificate->dri_signature_date = date('Y-m-d H:m:s');
+                // $certificate->signer_id = Auth::User()->id;
                 $certificate->signed_document = $certificate->id . '-gzal-dri-signed.pdf';
                 $certificate->Enterprise->balance = $certificate->Enterprise->balance - 1;
                 $certificate->Enterprise->update();
@@ -1368,5 +1371,4 @@ class CertificateController extends Controller
 
         $img->save($destination_image);
     }
-
 }

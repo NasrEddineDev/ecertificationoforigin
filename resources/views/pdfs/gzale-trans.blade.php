@@ -80,8 +80,9 @@
         #tables1 {
             padding-left: 62px;
             padding-right: 62px;
-            padding-top: 190px !important;
+            padding-top: 280px !important;
         }
+
         #tables2 {
             padding-left: 62px;
             padding-right: 62px;
@@ -104,7 +105,6 @@
             border-collapse: collapse;
         }
 
-
         #code {
             font-weight: bold;
             position: absolute;
@@ -112,91 +112,119 @@
             padding-left: 90px;
             height: 35px;
         }
-        #code3 {
-            font-weight: bold;
+
+        #page1 {
             position: absolute;
-            padding-top: 54px;
-            padding-left: 120px;
-            height: 35px;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+        }
+
+        #page2 {
+            page-break-before: always;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+        }
+
+        #page3 {
+            page-break-before: always;
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: -1;
+        }
+
+        .parent {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .file-image-round-stamp {
+            position: absolute;
+            /* left: 30px;  */
+            /* border: 1px green solid; */
+            height: 160px;
+            margin-top: -50px;
+            padding-right: -100px;
+        }
+
+        .file-image-signature {
+            position: absolute;
+            height: 180px;
+            margin-top: -150px;
+        }
+
+        .file-image-square-stamp {
+            position: absolute;
+            height: 90px;
+            margin-top: -50px;
+        }
+        .file-image-qrcode {
+            position: absolute;
+            margin-top: -150px;
+            margin-bottom: 100px;
+            height: 63px;
+            width: 63px;
+        }
+
+        .parent1 {
+                position: relative;
+                top: 0;
+                left: 0;
+            }
+
+            .file-image-round-stamp1 {
+            position: absolute;
+            height: 160px;
+            margin-top: -150px;
+        }
+
+        .file-image-signature1 {
+            position: absolute;
+            height: 180px;
+            margin-top: -150px;
+        }
+
+        .file-image-square-stamp1 {
+            position: absolute;
+            height: 90px;
+            margin-top: -50px;
+        }
+
+.sign-page3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+        
+.file-image-round-stamp3 {
+            position: absolute;
+            height: 160px;
+            margin-top: -5px;
+        }
+
+        .file-image-signature3 {
+            position: absolute;
+            height: 180px;
+            margin-top: -150px;
+        }
+
+        .file-image-square-stamp3 {
+            position: absolute;
+            height: 90px;
+            margin-top: -50px;
         }
     </style>
-    @if ($template == 0)
-        <style>
-            #page1 {
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                z-index: -1;
-            }
 
-            #page2 {
-                page-break-before: always;
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                z-index: -1;
-            }
-
-            #page3 {
-                page-break-before: always;
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                z-index: -1;
-            }
-
-        </style>
-    @else
-        <style>
-            #page1 {
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                background-image: url({{ $page1 }});
-                background-position: center top;
-                background-repeat: no-repeat;
-                background-size: 100%;
-                z-index: -1;
-            }
-
-            #page2 {
-                page-break-before: always;
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                background-image: url({{ $page2 }});
-                background-position: center top;
-                background-repeat: no-repeat;
-                background-size: 100%;
-                z-index: -1;
-            }
-
-            #page3 {
-                page-break-before: always;
-                position: absolute;
-                top: 0;
-                left: 0;
-                height: 100%;
-                width: 100%;
-                background-image: url({{ $page3 }});
-                background-position: center top;
-                background-repeat: no-repeat;
-                background-size: 100%;
-                z-index: -1;
-            }
-
-        </style>
-    @endif
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
@@ -204,7 +232,6 @@
     <div id="page-body">
         <div id="page1">
             <div id="code">
-                <label>{{ '№ '. $code }}</label>
                 @if ($status == 'SIGNED' && !$is_digitally_signed)
                     <br /> <label>{{ $dri_signature_date }}</label>
                 @endif
@@ -219,7 +246,9 @@
                         </td>
                         <td width="50%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
                             {{ $exporter_name }}<br />
-                            {{ $exporter_address }}
+                            {{ $exporter_address }}                            @if ($status == 'PENDING' || $status == 'SIGNED')
+                            <img class="file-image-qrcode" src="{{ $qrcode_url }}" alt="your image" />
+                        @endif
                         </td>
                     </tr>
                 </table>
@@ -332,7 +361,7 @@
                         <td width="33.5%" style="text-align:right;height: 205px;"></td>
                         <td width="34.5%" style="text-align:right;">
                             @if ($status == 'SIGNED')
-                                <table style="width:100%;margin-top:4px;">
+                                <table style="width:100%;margin-top:70px;">
                                     <tr>
                                         <td width="70%" style="height: 60px;text-align:center">
                                         </td>
@@ -340,13 +369,17 @@
                                     </tr>
                                     <tr>
                                         <td width="70%" style="height: 65px;">
-                                            {{-- <strong>خاتم المعني</strong> --}}
+                                            <div class="parent1">
+                                                <img class="file-image-round-stamp1" src="{{ $dri_round_stamp }}" alt="your image" />
+                                                <img class="file-image-square-stamp1" src="{{ $dri_square_stamp }}" alt="your image" />
+                                                <img class="file-image-signature1" src="{{ $dri_signature }}" alt="your image" />
+                                            </div>
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
                                     <tr>
                                         <td width="70%"
-                                            style="text-align:right;vertical-align:top;height: 10px;padding-top:10px;">
+                                            style="text-align:right;vertical-align:top;height: 10px;padding-top:-70px;">
 
                                             @if (!$is_digitally_signed)
                                                 <br /> <strong>{{ $dri_signature_date }}</strong>
@@ -361,21 +394,33 @@
                             @if ($status == 'PENDING' || $status == 'SIGNED')
                                 <table style="width:100%;margin-top:14px;">
                                     <tr>
-                                        <td width="70%" style="height: 58px;padding-top:30px;text-align:center">
+                                        <td width="70%" style="height: 38px;text-align:center">
+                                            <div class="parent">
+                                                <img class="file-image-round-stamp"
+                                                    src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . Auth::user()->Profile->round_stamp }}"
+                                                    alt="your image" />
+                                                <img class="file-image-square-stamp"
+                                                    src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . Auth::user()->Profile->square_stamp }}"
+                                                    alt="your image" />
+                                                <img class="file-image-signature"
+                                                    src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . Auth::user()->Profile->signature }}"
+                                                    alt="your image" />
+                                            </div>
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
                                     <tr>
-                                        <td width="70%" style="height: 19px;font-weight: bold;">
+                                        <td width="70%" style="height: 25px;font-weight: bold;padding-top:-200px;">
                                             <strong>{{ __('Algeria') }} </strong>
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
                                     <tr>
-                                        <td width="70%" style="text-align:right;vertical-align:top;height: 58px;">
+                                        <td width="70%" style="text-align:right;vertical-align:top;height: 25px;padding-top:-100px;">
                                             <strong> {{ $signature_date }}</strong>
                                         </td>
-                                        <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
+                                        <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}">
+                                        </td>
                                     </tr>
                                 </table>
                             @endif
@@ -387,9 +432,6 @@
         <div id="page2">
         </div>
         <div id="page3">
-            <div id="code3">
-                <label>{{ '№ '. $code }}</label>
-            </div>
             <div id="tables1">
                 <table style="width:88%;padding-bottom:100px!important;margin-left:auto;margin-right:auto;">
                     <tr>
@@ -443,7 +485,13 @@
                         </td>
                         <td width="48%"
                             style="margin-left:5px!important;margin-right:5px!important;height: 70px;text-align:center;">
-
+                            @if ($status == 'PENDING' || $status == 'SIGNED')
+                                <div class="sign-page3">
+                                    <img class="file-image-round-stamp3" src="{{ $round_stamp }}" alt="your image" />
+                                    <img class="file-image-square-stamp3" src="{{ $square_stamp }}" alt="your image" />
+                                    <img class="file-image-signature3" src="{{ $signature }}" alt="your image" />
+                                </div>
+                            @endif
                         </td>
                         <td width="5%"
                             style="margin-left:5px!important;margin-right:5px!important;height: 70px;{{ $rtl ? 'text-align:right;' : '' }}">

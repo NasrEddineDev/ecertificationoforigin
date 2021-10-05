@@ -46,8 +46,10 @@ class CreateCertificatesTable extends Migration
             $table->integer('importer_id')->unsigned();
             $table->integer('producer_id')->unsigned()->nullable();
             $table->integer('certificate_id')->unsigned()->nullable();
+            $table->integer('signer_id')->unsigned()->nullable();
             $table->timestamps();
             $table->softDeletes();
+            $table->foreign('signer_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('enterprise_id')->references('id')->on('enterprises')->onDelete('cascade');
             $table->foreign('importer_id')->references('id')->on('importers')->onDelete('cascade');
             $table->foreign('producer_id')->references('id')->on('producers')->onDelete('cascade');

@@ -139,48 +139,105 @@
             padding-left: 90px;
         }
 
-        #page1 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-image: url({{ $page1 }});
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        }
+            #page1 {
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+            }
 
-        #page2 {
-            page-break-before: always;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-image: url({{ $page2 }});
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        }
+            #page2 {
+                page-break-before: always;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+            }
 
-        #page3 {
-            page-break-before: always;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-image: url({{ $page3 }});
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        }
+            #page3 {
+                page-break-before: always;
+                position: absolute;
+                top: 0;
+                left: 0;
+                height: 100%;
+                width: 100%;
+                z-index: -1;
+            }
 
-    </style>
+            #tables {
+                padding-left: 41px;
+                padding-right: 31px;
+                padding-top: 20px !important;
+            }
+
+            .parent {
+                position: relative;
+                top: 0;
+                left: 0;
+            }
+
+            .file-image-round-stamp {
+                position: absolute;
+                height: 150px;
+                margin-left: 58px;
+                margin-right: -10px;
+            }
+
+            .file-image-signature {
+                position: absolute;
+                height: 170px;
+                padding-top: -150px;
+            }
+
+            .file-image-square-stamp {
+                position: absolute;
+                height: 70px;
+                padding-top: -100px;
+                padding-bottom: 50px;
+            }
+
+            .file-image-qrcode {
+                position: absolute;
+                margin-left: 260px;
+                margin-top: 100px;
+                height: 63px;
+                width: 63px;
+            }
+
+            .importer-table {
+                width: 100%;
+                margin-top: -50px !important;
+            }
+
+
+            .parent1 {
+                position: relative;
+                top: 0;
+                left: 0;
+            }
+
+            .file-image-round-stamp1 {
+                position: absolute;
+                height: 150px;
+            }
+
+            .file-image-signature1 {
+                position: absolute;
+                height: 170px;
+                padding-top: -150px;
+            }
+
+            .file-image-square-stamp1 {
+                position: absolute;
+                height: 70px;
+                padding-top: -100px;
+                padding-bottom: 50px;
+            }
+        </style>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
@@ -197,7 +254,6 @@
                             style="height: 23px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
                         </td>
                         <td width="51.5%" style="font-weight: bold;text-align:center">
-                            <label>{{ '№ ' . $code }}</label>
                         </td>
                     </tr>
                     <tr>
@@ -206,7 +262,10 @@
                             {{ $exporter_name }}<br />
                             {{ $exporter_address }}
                         </td>
-                        <td width="51.5%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
+                        <td width="51.5%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}" class="parent">
+                            @if ($status == 'PENDING' || $status == 'SIGNED')
+                                <img class="file-image-qrcode" src="{{ $qrcode_url }}" alt="your image" />
+                            @endif
                         </td>
                     </tr>
                 </table>
@@ -273,7 +332,59 @@
                         </td>
                     </tr>
                 </table>
-                <table style="width:100%;margin-top:12px;">
+
+                <table style="width:100%;margin-bottom:-400px;" class="images-table">
+                    <tr>
+                        <td></td>
+                        <td style="height: 55px;"></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td width="2%"></td>
+                        <td width="48.5%" style="height: 10px;"></td>
+                        <td width="49.5%" style="height: 10px;text-align: center"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="height: 75px;">
+                            @if ($status == 'SIGNED')
+                                <div class="parent1">
+                                    <img class="file-image-square-stamp1" src="{{ $dri_square_stamp }}" alt="your image" />
+                                    <img class="file-image-round-stamp1" src="{{ $dri_round_stamp }}" alt="your image" />
+                                    <img class="file-image-signature1" src="{{ $dri_signature }}" alt="your image" />
+                                </div>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($status == 'PENDING' || $status == 'SIGNED')
+                                <div class="parent">
+                                    <img class="file-image-square-stamp" src="{{ $square_stamp }}" alt="your image" />
+                                    <img class="file-image-round-stamp" src="{{ $round_stamp }}" alt="your image" />
+                                    <img class="file-image-signature" src="{{ $signature }}" alt="your image" />
+                                </div>
+                            @endif
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="2%"></td>
+                        <td width="48.5%" style="height: 10px;"></td>
+                        <td width="49.5%" style="height: 10px;text-align: center"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td style="height: 18px;"></td>
+                        <td style="height: 18px;">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="2%"></td>
+                        <td width="48.5%" style="height: 10px;">
+                        </td>
+                        <td width="49.5%" style="height: 10px;">
+                        </td>
+                    </tr>
+                </table>
+                <table style="width:100%;margin-top:16px;">
                     <tr>
                         <td></td>
                         <td style="height: 55px;"></td>
@@ -288,7 +399,8 @@
                     <tr>
                         <td></td>
                         <td style="height: 75px;"></td>
-                        <td></td>
+                        <td>
+                        </td>
                     </tr>
                     <tr>
                         <td width="2%"></td>
@@ -300,7 +412,8 @@
                     <tr>
                         <td></td>
                         <td style="height: 18px;"></td>
-                        <td style="height: 18px;"></td>
+                        <td style="height: 18px;">
+                        </td>
                     </tr>
                     <tr>
                         <td width="2%"></td>
