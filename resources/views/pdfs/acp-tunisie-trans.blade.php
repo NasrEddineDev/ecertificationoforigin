@@ -251,7 +251,7 @@
             .file-image-round-stamp3 {
             position: absolute;
             height: 160px;
-            margin-top: 200px;
+            margin-top: 150px;
         }
 
         .file-image-signature3 {
@@ -498,7 +498,7 @@
                                 </div>
                             @endif
                         </td>
-                        <td width="27%" style="margin-left:5px!important;margin-right:5px!important;text-align:center;">
+                        <td width="27%" style="margin-left:5px!important;margin-right:5px!important;text-align:center;padding-top:-350px;">
 
                             @if ($status == 'PENDING' || $status == 'SIGNED')
                                 <strong>{{ $signature_date }}</strong>
@@ -509,7 +509,7 @@
 
                         </td>
                         <td width="40%"
-                            style="margin-left:5px!important;margin-right:5px!important;height: 30px;{{ $rtl ? 'text-align:center;' : '' }}">
+                            style="margin-left:5px!important;margin-right:5px!important;height: 30px;{{ $rtl ? 'text-align:center;' : '' }}padding-top:-350px;">
                             <strong>{{ 'الجزائر' }}</strong>
                         </td>
                     </tr>

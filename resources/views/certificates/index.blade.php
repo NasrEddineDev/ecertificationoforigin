@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="{{ URL::asset('css/modals.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('select2/css/select2.min.css') }}">
     <style>
+
+        #InformationproModalhdbgcl {
+            z-index: 9999 !important;
+        }
+
         #InformationproModalhdbgcl .modal-dialog {
             width: 90% !important;
             height: 90% !important;
@@ -157,8 +162,13 @@
                                                 <i class="fa fa-eye"></i>
                                             </button>
                                         @endcan
+                                        @can('view-white', App\Models\Certificate::class)
+                                            <button id="previewWhite" class="btn btn-default" title="{{ __('Preview White') }}" disabled>
+                                                <i class="fa fa-sticky-note-o"></i>
+                                            </button>
+                                        @endcan
                                         @can('print', App\Models\Certificate::class)
-                                            <button id="print" class="btn btn-default" title="{{ __('Print') }}" disabled>
+                                            <button id="print" class="btn btn-success" title="{{ __('Print') }}" disabled>
                                                 <i class="fa fa-print"></i>
                                             </button>
                                         @endcan
@@ -543,6 +553,7 @@
         var $table = $('#table')
         var $new = $('#new')
         var $preview = $('#preview')
+        var $previewWhite = $('#previewWhite')
         var $print = $('#print')
         var $duplicate = $('#duplicate')
         var $retrospective = $('#retrospective')
@@ -554,6 +565,7 @@
         $new.prop('disabled', false)
         $remove.prop('disabled', true)
         $preview.prop('disabled', true)
+        $previewWhite.prop('disabled', true)
         $print.prop('disabled', true)
         $duplicate.prop('disabled', true)
         $retrospective.prop('disabled', true)
@@ -570,6 +582,7 @@
             function() {
                 $remove.prop('disabled', !$table.bootstrapTable('getSelections').length)
                 $preview.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
+                $previewWhite.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 $print.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 $duplicate.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 $retrospective.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
@@ -754,6 +767,67 @@
 
             });
 
+            $(document).on("click", "#previewWhite", function(e) {
+                e.preventDefault();
+                selections = getIdSelections()
+                var url = "{{ route('certificates.preview-white', 'id') }}".replace('id', selections[0]);
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: url,
+                    type: 'GET',
+                    success: function(response) {
+                        var w = window,
+                            d = document,
+                            e = d.documentElement,
+                            g = d.getElementsByTagName('body')[0],
+                            y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+                        var object = document.getElementById("object");
+                        object.height = y * 8 / 10;
+                        object.data = response.url;
+                        var embed = document.getElementById("embed");
+                        embed.src = response.url;
+                        $('#InformationproModalhdbgcl').modal('show');
+
+                        role = '{{ Auth::User()->role->name }}';
+                        if (role == 'user') {
+                            if (response.status == 'DRAFT') {
+                                $("#RejectGZAL").hide();
+                                $("#SignGZAL").show();
+                            } else if (response.status == 'PENDING') {
+                                $("#SignGZAL").hide();
+                                $("#RejectGZAL").hide();
+                            } else if (response.status == 'SIGNED') {
+                                $("#RejectGZAL").hide();
+                                $("#SignGZAL").hide();
+                                $(".notes").hide();
+                            } else if (response.status == 'REJECTED') {
+                                $("#RejectGZAL").hide();
+                                $("#SignGZAL").hide();
+                                $(".notes").hide();
+                            }
+                        } else { //if (role == 'dri_user') {
+                            if (response.status == 'PENDING') {
+                                $("#SignGZAL").show();
+                                $("#RejectGZAL").show();
+                            } else if (response.status == 'SIGNED') {
+                                $("#RejectGZAL").hide();
+                                $("#SignGZAL").hide();
+                                $(".notes").hide();
+                            } else if (response.status == 'REJECTED') {
+                                $("#RejectGZAL").hide();
+                                $("#SignGZAL").hide();
+                                $(".notes").hide();
+                            }
+                        }
+                        if (response.copy_type != "NONE") $(".notes").hide();
+                    }
+                });
+
+            });
+
             $(document).on("click", "#print", function(e) {
                 e.preventDefault();
                 selections = getIdSelections()
@@ -822,8 +896,7 @@
 
             $("#SignGZAL").click(function(e) {
                 e.preventDefault();
-                var url = $("#SignGZAL").attr("href") + '/' + ($("#notes").val() == '' ? 'null' : $(
-                    "#notes").val());
+                var url = $("#SignGZAL").attr("href") + '/' + ($("#notes").val() == '' ? 'null' : $("#notes").val());
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

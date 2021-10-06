@@ -35,6 +35,11 @@ class CertificatePolicy
         return $user->role->hasPermissionByName('view-certificate');
     }
 
+    public function viewWhite(User $user)
+    {
+        //
+        return $user->role->hasPermissionByName('showwhite-certificate');
+    }
     /**
      * Determine whether the user can create models.
      *

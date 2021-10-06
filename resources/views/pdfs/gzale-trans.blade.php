@@ -160,7 +160,7 @@
         .file-image-signature {
             position: absolute;
             height: 180px;
-            margin-top: -150px;
+            margin-top: -130px;
         }
 
         .file-image-square-stamp {
@@ -233,7 +233,7 @@
         <div id="page1">
             <div id="code">
                 @if ($status == 'SIGNED' && !$is_digitally_signed)
-                    <br /> <label>{{ $dri_signature_date }}</label>
+                <br /> <br /><br /><br /> <label>{{ $dri_signature_date }}</label>
                 @endif
             </div>
             <div id="tables">

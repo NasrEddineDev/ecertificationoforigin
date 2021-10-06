@@ -21,6 +21,8 @@ class EnterpriseSeeder extends Seeder
         //
         DB::table('enterprises')->insert([[
             'name' => 'AADL / Agence Nationale de l\'Amélioration et du Dévelopement du Logement ',
+            'name_ar' => 'عدل، الوكالة الوطنية لتحسين السكن وتطويره',
+            'name_fr' => 'AADL / Agence Nationale de l\'Amélioration et du Dévelopement du Logement ',
             'status' => 'ACTIVATED',
             'balance' => '100',
             // 'activity_type' => '05',
@@ -33,8 +35,9 @@ class EnterpriseSeeder extends Seeder
             'nif_number' => '54546784',
             'nis' => '1_nif.png',
             'nis_number' => '54546784',
-            // 'export_activity_code' => '07',
-            'address' => 'Said hamdin Alger',
+            'address_ar' => 'سعيد حمدين، العاصمة',
+            'address' => 'Said hamdin Algiers',
+            'address_fr' => 'Said hamdin Alger',
             'email' => 'customer.caci@gmail.com',
             'mobile' => '065482474785',
             'tel' => '021 56 14 95',
@@ -45,6 +48,8 @@ class EnterpriseSeeder extends Seeder
             'city_id' => '10',
         ],[
             'name' => 'ALPHYT',
+            'name_ar' => 'ألفيت',
+            'name_fr' => 'ALPHYT',
             'status' => '1',
             'balance' => '100',
             // 'activity_type' => '06',
@@ -68,7 +73,9 @@ class EnterpriseSeeder extends Seeder
             'manager_id' => Manager::where('firstname', 'aek')->first()->id,
             'city_id' => '15',
         ],[
-            'name' => 'Ambassade de l\'Etat du Koweit ',
+            'name' => 'Ambassade de l\'Etat du Koweit',
+            'name_ar' => 'سفارة دولة الكويت',
+            'name_fr' => 'Embassy of Kuwait State',
             'status' => '0',
             'balance' => '100',
             // 'activity_type' => '05',
@@ -93,6 +100,8 @@ class EnterpriseSeeder extends Seeder
             'city_id' => '20',
         ],[
             'name' => 'ش و ذ م م النخلة الجميلة للإستيراد والتصدير',
+            'name_ar' => 'ش و ذ م م النخلة الجميلة للإستيراد والتصدير',
+            'name_fr' => 'ش و ذ م م النخلة الجميلة للإستيراد والتصدير',
             'status' => '2',
             'balance' => '1000',
             // 'activity_type' => '05',

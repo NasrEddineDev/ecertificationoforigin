@@ -264,7 +264,7 @@
                         </td>
                         <td width="22%" style="{{ $rtl ? 'text-align:right;' : '' }}">
                             <strong style="{{ $accumulation == 'Yes' ? 'top:10' : 'right:10' }}">
-                                {{ $original_country }}
+                                {{ Lang::get($original_country, [], 'ar') }}
                             </strong>
                         </td>
                         <td width="50%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">

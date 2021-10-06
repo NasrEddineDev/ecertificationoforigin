@@ -54,6 +54,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('setlocale/{lang}', [HomeController::class, 'setlocale'])->name('lang');
 Route::get('setlocale1/{lang}', [DashboardController::class, 'setlocale'])->name('lang1');
 Route::get('certificates/preview/{id}', [\App\Http\Controllers\CertificateController::class, 'preview'])->name('certificates.preview');
+Route::get('certificates/preview-white/{id}', [\App\Http\Controllers\CertificateController::class, 'previewWhite'])->name('certificates.preview-white');
 Route::get('certificates/print/{id}', [\App\Http\Controllers\CertificateController::class, 'print'])->name('certificates.print');
 Route::post('generate-gzal', [\App\Http\Controllers\CertificateController::class, 'generateGZAL'])->name('certificates.generate-gzal');
 Route::get('/sign/{id}/{notes}', [\App\Http\Controllers\CertificateController::class, 'sign'])->name('certificates.sign');

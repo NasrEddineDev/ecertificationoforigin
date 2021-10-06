@@ -477,6 +477,62 @@ class CertificateController extends Controller
         }
     }
 
+    public function previewWhite($id)
+    {
+        //
+        $certificate = Certificate::where('code', '=', $id)->first();
+        $certificate = $certificate ? $certificate : Certificate::find($id);
+        if ($certificate) {
+
+            $certificateName = strtolower($certificate->type);
+
+            // uncomment this when using agce signing
+            // if ($certificate->status == "SINGED") {
+            //     return response()->json([
+            //         'message' => 'Certificate generated',
+            //         'url' => url('data/enterprises/' . $certificate->Enterprise->id
+            //             . '/certificates' . '/' . $certificateName . '/' . $certificate->signed_document),
+            //         'status' => $certificate->status
+            //     ], 200);
+            // }
+
+            $data = $this->certificateToPDF($certificate, 1);
+
+            // return response()->json([
+            //     'message' => 'Certificate generated',
+            //     'data' => $data,
+            //     'copy_type' => $certificate->copy_type
+            // ], 200);
+
+            $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
+                'title' => 'Another Title',
+                'margin_left' => 0,
+                'margin_right' => 0,
+                'margin_top' => 0,
+                'margin_bottom' => 0,
+                'display_mode' => 'fullpage',
+            ]);
+            $pdf->showImageErrors = true;
+
+            $path =  'data/enterprises/' . $certificate->Enterprise->id . '/certificates' . '/' . $certificateName . '/';
+            if (!file_exists($path)) {
+                File::makeDirectory($path, $mode = 0777, true, true);
+            }
+
+            //   $url = 'data/'. ((Auth::User()->role->name == 'user') 
+            //     ? 'enterprises/'.$certificate->Enterprise->id : 'dri/'.Auth::User()->username).'/certificates/gzal-draft.pdf';
+            $pdf->save($path . '/' . $certificateName . '-certificate.pdf');
+
+            return response()->json([
+                'message' => 'Certificate generated',
+                'url' => url($path . '/' . $certificateName . '-certificate.pdf'),
+                // 'products' => $products,
+                'status' => $certificate->status,
+                'copy_type' => $certificate->copy_type
+            ], 200);
+        }
+    }
+
     public function print($id)
     {
         //
@@ -1222,18 +1278,21 @@ class CertificateController extends Controller
                 : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg';
         }
 
+        $importer = Importer::find($certificate->importer_id);
+        $producer = Producer::find($certificate->producer_id);
+
         $data = [
             'rtl' => ($certificateName == 'gzale' || $certificateName == 'acp-tunisie') ? true : false,
             //'rtl' => true, //(preg_match("/[a-zA-Z]/i", $certificate->producer_name)) ? false : true,
             'code' => $certificate->code,
-            'exporter_name' => $certificate->Enterprise->name,
-            'exporter_address' => $certificate->Enterprise->address,
-            'producer_name' => $certificate->producer_id ? $certificate->producer->name : '',
-            'producer_address' => $certificate->producer_id ? $certificate->producer->address : '',
-            'importer_name' => $certificate->importer->name,
-            'importer_address' => $certificate->importer->address,
-            'original_country' => ($certificateName == 'gzale' || $certificateName == 'acp-tunisie') ? "الجزائر" : "Algeria",
-            'destination_country' => $certificate->importer->state->country->name,
+            'exporter_name' => $certificate->Enterprise->name_ar,
+            'exporter_address' => $certificate->Enterprise->address_ar,
+            'producer_name' => $producer ? $producer->name : '',
+            'producer_address' => $producer ? $producer->address : '',
+            'original_country' => $producer ? $producer->state->country->native : "Algeria",
+            'importer_name' =>  $importer ? $importer->name : "",
+            'importer_address' => $importer ? $importer->address : "",
+            'destination_country' => $importer ? $importer->state->country->name : "",
             'accumulation' => $certificate->accumulation,
             'accumulation_country' => ($certificate->accumulation == 'Yes') ? $certificate->accumulation_country : null,
             'shipment_type' => $certificate->shipment_type,
