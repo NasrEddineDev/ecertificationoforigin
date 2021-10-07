@@ -210,7 +210,7 @@
                 @endif
             </div>
             <div id="tables">
-                <table style="width:100%;padding-top:200px!important;">
+                <table style="width:100%;padding-top:200px!important;background-color: rgba(255,0,0,0.5);">
                     <tr>
                         <td width="50%"
                             style="margin-left:5px!important;margin-right:5px!important;height: 60px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
@@ -283,7 +283,7 @@
                             {{ __($shipment_type) }}</td>
                     </tr>
                 </table>
-                <table style="width:100%;margin-top:16px;">
+                <table style="width:100%;margin-top:16px;background-color: rgba(0,255,0,0.5);">
                     <tr>
                         <td width="10.4%"
                             style="font-size:11px;height: 389px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
@@ -327,7 +327,7 @@
                         </td>
                     </tr>
                 </table>
-                <table style="width:100%;margin-top:20px;">
+                <table style="width:100%;margin-top:20px;background-color: rgba(0,255,255,0.5);">
                     <tr>
                         <td width="33.5%" style="text-align:right;height: 205px;"></td>
                         <td width="34.5%" style="text-align:right;">
@@ -359,14 +359,14 @@
                         </td>
                         <td width="32%" style="text-align:right;">
                             @if ($status == 'PENDING' || $status == 'SIGNED')
-                                <table style="width:100%;margin-top:14px;">
+                                <table style="width:100%;margin-top:14px;background-color: rgba(255,0,0,0.5);">
                                     <tr>
                                         <td width="70%" style="height: 58px;padding-top:30px;text-align:center">
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
                                     <tr>
-                                        <td width="70%" style="height: 19px;font-weight: bold;">
+                                        <td width="70%" style="height: 19px;font-weight: bold;background-color: rgba(0,0,255,0.5);">
                                             <strong>{{ __('Algeria') }} </strong>
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>

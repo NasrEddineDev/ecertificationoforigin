@@ -198,6 +198,10 @@ ul.notification-menu li .notification-icon {
   height: 40px;
   line-height: 43px;
 }
+.logo-pro{
+background:none!important;
+}
+
 @media (min-width: 992px)  {
   .breadcome-heading{
     margin-left:20px!important;

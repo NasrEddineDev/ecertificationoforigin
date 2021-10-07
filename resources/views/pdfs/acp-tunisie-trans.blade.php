@@ -420,15 +420,9 @@
                                     <tr>
                                         <td width="100%" colspan="2" style="text-align:center;height: 20px;">
                                             <div class="parent">
-                                                <img class="file-image-round-stamp"
-                                                    src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . Auth::user()->Profile->round_stamp }}"
-                                                    alt="your image" />
-                                                <img class="file-image-square-stamp"
-                                                    src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . Auth::user()->Profile->square_stamp }}"
-                                                    alt="your image" />
-                                                <img class="file-image-signature"
-                                                    src="{{ (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . Auth::user()->Profile->signature }}"
-                                                    alt="your image" />
+                                                <img class="file-image-round-stamp" src="{{ $round_stamp }}" alt="your image" />
+                                                <img class="file-image-square-stamp" src="{{ $square_stamp }}" alt="your image" />
+                                                <img class="file-image-signature" src="{{ $signature }}" alt="your image" />
                                             </div>
                                             {{-- <strong style="background-image: url('{{ asset('data/enterprises/' . (Auth::User()->role->name == 'user' ? 
                                                 Auth::User()->Enterprise->id : Auth::User()->username) . 'stamp-signatures/stamp.jpg') }}');background-position: 
