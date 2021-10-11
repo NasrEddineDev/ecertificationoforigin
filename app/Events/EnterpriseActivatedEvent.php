@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -13,15 +13,16 @@ use Illuminate\Queue\SerializesModels;
 class EnterpriseActivatedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+    public $enterprise;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($enterprise)
     {
-        //
+        $this->enterprise = $enterprise;
     }
 
     /**
@@ -32,5 +33,16 @@ class EnterpriseActivatedEvent
     public function broadcastOn()
     {
         return new PrivateChannel('channel-name');
+    }
+    public function broadcastWith()
+    {
+        return [            
+            'status' => __($this->enterprise->status) ?? '',
+            'type' => __($this->certificate->type) ?? '',
+            'enterprise' => $this->enterprise,
+            'enterprise_name' => App()->currentLocale() == 'ar' ? ($this->certificate->enterprise->name_ar ?? '') 
+                                : (App()->currentLocale() == 'en' ? ($this->certificate->enterprise->name ?? '')
+                                : ($this->certificate->enterprise->name_fr ?? ''))
+        ];
     }
 }

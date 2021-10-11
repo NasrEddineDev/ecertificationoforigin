@@ -210,14 +210,14 @@
                 @endif
             </div>
             <div id="tables">
-                <table style="width:100%;padding-top:200px!important;background-color: rgba(255,0,0,0.5);">
+                <table style="width:100%;padding-top:200px!important;">
                     <tr>
                         <td width="50%"
-                            style="margin-left:5px!important;margin-right:5px!important;height: 60px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
+                            style="margin-left:5px!important;margin-right:5px!important;height: 60px;text-align:center;font-weight: bold;">
                             {{ $producer_name }}<br />
                             {{ $producer_address }}
                         </td>
-                        <td width="50%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
+                        <td width="50%" style="font-weight: bold;text-align:center;">
                             {{ $exporter_name }}<br />
                             {{ $exporter_address }}
                         </td>
@@ -267,7 +267,7 @@
                                 {{ Lang::get($original_country, [], 'ar') }}
                             </strong>
                         </td>
-                        <td width="50%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
+                        <td width="50%" style="font-weight: bold;text-align:center;">
                             {{ $importer_name }}<br />
                             {{ $importer_address }}
                         </td>
@@ -283,7 +283,7 @@
                             {{ __($shipment_type) }}</td>
                     </tr>
                 </table>
-                <table style="width:100%;margin-top:16px;background-color: rgba(0,255,0,0.5);">
+                <table style="width:100%;margin-top:16px;">
                     <tr>
                         <td width="10.4%"
                             style="font-size:11px;height: 389px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
@@ -327,7 +327,7 @@
                         </td>
                     </tr>
                 </table>
-                <table style="width:100%;margin-top:20px;background-color: rgba(0,255,255,0.5);">
+                <table style="width:100%;margin-top:20px;">
                     <tr>
                         <td width="33.5%" style="text-align:right;height: 205px;"></td>
                         <td width="34.5%" style="text-align:right;">
@@ -359,14 +359,14 @@
                         </td>
                         <td width="32%" style="text-align:right;">
                             @if ($status == 'PENDING' || $status == 'SIGNED')
-                                <table style="width:100%;margin-top:14px;background-color: rgba(255,0,0,0.5);">
+                                <table style="width:100%;margin-top:14px;">
                                     <tr>
                                         <td width="70%" style="height: 58px;padding-top:30px;text-align:center">
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>
                                     </tr>
                                     <tr>
-                                        <td width="70%" style="height: 19px;font-weight: bold;background-color: rgba(0,0,255,0.5);">
+                                        <td width="70%" style="height: 19px;font-weight: bold;">
                                             <strong>{{ __('Algeria') }} </strong>
                                         </td>
                                         <td width="30%" style="{{ $rtl ? 'text-align:right;' : '' }}"></td>

@@ -2,9 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Providers\EnterpriseActivatedEvent;
+use App\Events\EnterpriseActivatedEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use App\Notifications\EnterpriseActivatedNotification;
+use Illuminate\Support\Facades\Notification;
 
 class EnterpriseActivatedListener implements ShouldQueue
 {
@@ -27,5 +29,6 @@ class EnterpriseActivatedListener implements ShouldQueue
     public function handle(EnterpriseActivatedEvent $event)
     {
         //
+        Notification::send($event->enterprise->user, new EnterpriseActivatedNotification($event->enterprise));
     }
 }

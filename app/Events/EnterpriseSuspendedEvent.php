@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace App\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -13,15 +13,16 @@ use Illuminate\Queue\SerializesModels;
 class EnterpriseSuspendedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+    public $enterprise;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($enterprise)
     {
-        //
+        $this->enterprise = $enterprise;
     }
 
     /**

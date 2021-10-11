@@ -247,11 +247,11 @@
                 <table style="width:100%;padding-top:150px!important;">
                     <tr>
                         <td width="50%"
-                            style="margin-left:5px!important;margin-right:5px!important;height: 60px;{{ $rtl ? 'text-align:right;' : '' }}font-weight: bold;">
+                            style="margin-left:5px!important;margin-right:5px!important;height: 60px;text-align:center;font-weight: bold;">
                             {{ $producer_name }}<br />
                             {{ $producer_address }}
                         </td>
-                        <td width="50%" style="font-weight: bold;text-align:right;">
+                        <td width="50%" style="font-weight: bold;text-align:center;">
                             {{ $exporter_name }}<br />
                             {{ $exporter_address }} @if ($status == 'PENDING' || $status == 'SIGNED')
                                 <img class="file-image-qrcode" src="{{ $qrcode_url }}" alt="your image" />

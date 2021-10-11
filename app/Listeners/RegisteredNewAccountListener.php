@@ -6,9 +6,9 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Notification;
-use App\Notifications\NewRegistration;
+use App\Notifications\NewRegistrationNotification;
 use App\Models\User;
-use App\Providers\RegisteredNewAccount;
+use App\Events\RegisteredNewAccountEvent;
 
 class RegisteredNewAccountListener implements ShouldQueue
 {
@@ -28,11 +28,11 @@ class RegisteredNewAccountListener implements ShouldQueue
      * @param  Registered  $event
      * @return void
      */
-    public function handle(RegisteredNewAccount $event)
+    public function handle(RegisteredNewAccountEvent $event)
     {
         //
         $users = User::all()->where('role_id', '==', 3);
-        // $users->first()->notify(new NewRegistration($event->user));
-        Notification::send($users, new NewRegistration($event->user));
+        // $users->first()->notify(new NewRegistrationNotificationNotification($event->user));
+        Notification::send($users, new NewRegistrationNotification($event->user));
     }
 }

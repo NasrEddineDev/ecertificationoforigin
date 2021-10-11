@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\App;
 use File;
 use Storage;
 use Image;
-use App\Providers\RegisteredNewAccount;
+use App\Events\RegisteredNewAccountEvent;
 
 class RegisterController extends Controller
 {
@@ -75,8 +75,10 @@ class RegisterController extends Controller
                     // $cities = City::all()->where('state_code', '==', $state_code);
                     $step = Steps::MANAGER;
                     return view('register', compact('step'));
-                } else if (!Auth::user()->enterprise->rc || !Auth::user()->enterprise->nis || !Auth::user()->enterprise->nif 
-                            || !Auth::user()->enterprise->rc) {
+                } else if (
+                    !Auth::user()->enterprise->rc || !Auth::user()->enterprise->nis || !Auth::user()->enterprise->nif
+                    || !Auth::user()->enterprise->rc
+                ) {
                     // $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
                     // $cities = City::all()->where('country_code', '==', 'DZ');
                     // $cities = City::all()->where('state_code', '==', $state_code);
@@ -392,8 +394,8 @@ class RegisterController extends Controller
                 ]);
 
                 $destinationPath = 'enterprises/' . (Auth::User()->Enterprise->id) . '/' . 'documents/';
-                if (!file_exists('data/'.$destinationPath)) {
-                    File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
+                if (!file_exists('data/' . $destinationPath)) {
+                    File::makeDirectory('data/' . $destinationPath, $mode = 0777, true, true);
                 }
 
                 $file = $request->file('rc');
@@ -412,27 +414,27 @@ class RegisterController extends Controller
                 Auth::user()->Enterprise->nif = $fileName;
                 Auth::user()->Enterprise->update();
 
-                $destinationPath = "data/".$destinationPath;
-                
+                $destinationPath = "data/" . $destinationPath;
+
                 $signature = $request->file('signature');
                 $signatureFileName = Auth::User()->Enterprise->id . '_signature.' . $signature->clientExtension();
-                $image_resize = Image::make($signature->getRealPath());              
+                $image_resize = Image::make($signature->getRealPath());
                 $image_resize->resize(300, 300);
                 $image_resize->save($destinationPath . $signatureFileName);
 
                 $round_stamp = $request->file('round_stamp');
                 $roundStampFileName = Auth::User()->Enterprise->id . '_round_stamp.' . $round_stamp->clientExtension();
-                $image_resize = Image::make($round_stamp->getRealPath());              
+                $image_resize = Image::make($round_stamp->getRealPath());
                 $image_resize->resize(300, 300);
                 $image_resize->save($destinationPath . $roundStampFileName);
-                
+
                 $square_stamp = $request->file('square_stamp');
                 $squareStampFileName = Auth::User()->Enterprise->id . '_square_stamp.' . $square_stamp->clientExtension();
-                $image_resize = Image::make($square_stamp->getRealPath());              
+                $image_resize = Image::make($square_stamp->getRealPath());
                 $image_resize->resize(300, 300);
                 $image_resize->save($destinationPath . $squareStampFileName);
 
-                if (!Auth::user()->profile_id){
+                if (!Auth::user()->profile_id) {
                     $profile = new Profile([
                         'firstname'  => '',
                         'lastname'  => '',
@@ -450,8 +452,7 @@ class RegisterController extends Controller
                     ]);
                     $profile->save();
                     Auth::user()->update(['profile_id' => $profile->id]);
-                }
-                else{
+                } else {
                     Auth::user()->profile->signature = $signatureFileName;
                     Auth::user()->profile->round_stamp = $roundStampFileName;
                     Auth::user()->profile->square_stamp = $squareStampFileName;
@@ -459,19 +460,18 @@ class RegisterController extends Controller
                 }
 
                 return response()->json([
-                    'message' => $request->hasfile('files'),
+                    'message' => true,//$request->hasfile('files'),
                     'step' => Steps::CONFIRMATION
                 ], 200);
             } else if ($step == Steps::CONFIRMATION) {
                 Auth::user()->enterprise->update(['status' => 'PENDING']);
 
-                event(new RegisteredNewAccount(Auth::user()));
+                event(new RegisteredNewAccountEvent(Auth::user()));
 
                 return response()->json([
                     'message' => '',
                     'url' => RouteServiceProvider::HOME
                 ], 200);
-
             } else {
                 $step = $this->wizard->getBySlug($step);
             }

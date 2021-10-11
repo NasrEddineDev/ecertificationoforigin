@@ -14,8 +14,13 @@ use App\Listeners\EnterpriseStoppedListener;
 use App\Listeners\CertificatePendingListener;
 use App\Listeners\CertificateSignedListener;
 use App\Listeners\CertificateRejectedListener;
-use App\Providers\RegisteredNewAccount;
+use App\Events\RegisteredNewAccountEvent;
 use App\Events\CertificatePendingEvent;
+use App\Events\CertificateSignedEvent;
+use App\Events\CertificateRejectedEvent;
+use App\Events\EnterpriseActivatedEvent;
+use App\Events\EnterpriseStoppedEvent;
+use App\Events\EnterpriseSuspendedEvent;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -28,7 +33,7 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        RegisteredNewAccount::class => [
+        RegisteredNewAccountEvent::class => [
             RegisteredNewAccountListener::class,
         ],
         EnterprisePendingEvent::class => [

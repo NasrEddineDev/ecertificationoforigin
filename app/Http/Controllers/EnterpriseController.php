@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use File;
 use Storage;
-use App\Providers\EnterprisePendingEvent;
-use App\Providers\EnterpriseActivatedEvent;
-use App\Providers\EnterpriseSuspendedEvent;
-use App\Providers\EnterpriseStoppedEvent;
+use App\Events\EnterprisePendingEvent;
+use App\Events\EnterpriseActivatedEvent;
+use App\Events\EnterpriseSuspendedEvent;
+use App\Events\EnterpriseStoppedEvent;
 
 class EnterpriseController extends Controller
 {

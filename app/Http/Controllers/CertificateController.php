@@ -764,7 +764,7 @@ class CertificateController extends Controller
 
                 if ($certificate->copy_type == "NONE") $certificate->notes = $notes;
                 $certificate->dri_signature_date = date('Y-m-d H:m:s');
-                // $certificate->signer_id = Auth::User()->id;
+                $certificate->signer_id = Auth::User()->id;
                 $certificate->signed_document = $certificate->id . '-gzal-dri-signed.pdf';
                 $certificate->Enterprise->balance = $certificate->Enterprise->balance - 1;
                 $certificate->Enterprise->update();
@@ -783,6 +783,7 @@ class CertificateController extends Controller
                 $square_stamp = 'data/dri/' . Auth::User()->id . '/' . Auth::User()->Profile->square_stamp;
                 $signature = 'data/dri/' . Auth::User()->id . '/' . Auth::User()->Profile->signature;
                 $destination_image = $data['page1'];
+
                 $this->addDriSignatureAndStamp($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $certificateName);
 
                 $source_image_path = $data['page1'];

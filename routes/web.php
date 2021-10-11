@@ -28,17 +28,18 @@ use Illuminate\Support\Facades\Notification;
 
 Route::get('/notify', function(){
 
-    $user = User::find(10);
-    $users = User::all()->where('role_id', '==', 3);
+    // $user = User::find(20);
+    // $users = User::all()->where('role_id', '==', 3);
 
-    $certificate = Certificate::find(2);
-    
-    event(new \App\Events\CertificatePendingEvent($certificate));
+    $certificate = Certificate::find(17);
+    // event(new \App\Events\EnterpriseActivatedEvent($user->enterprise));
+
+    event(new \App\Events\CertificateSignedEvent($certificate));
     // Notification::send($users, new CertificatePendingNotification($certificate));
     // Notification::send($users, new NewRegistration($user));
-    $user = User::find(7);
-    dd($user->notifications); 
-    return $user->notifications;
+    // $user = User::find(7);
+    // dd($user->notifications); 
+    // return $user->notifications;
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');

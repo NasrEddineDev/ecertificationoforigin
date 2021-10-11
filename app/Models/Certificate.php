@@ -84,7 +84,7 @@ class Certificate extends Model
     {
         return $this->hasMany(Request::class);
     }
-    public function signedBy()
+    public function signer()
     {
         return $this->belongsTo(User::class);
     } 

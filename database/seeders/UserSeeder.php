@@ -26,12 +26,19 @@ class UserSeeder extends Seeder
             'role_id' => Role::where('name', 'admin')->first()->id,
             'profile_id' => Profile::where('firstname', 'nasr eddine')->first()->id,
         ],[
-            'username'  => 'أمين',
+            'username'  => 'كمال',
             'email' => 'k.meskine@caci.dz',
             'password' => Hash::make('password'),
             'email_verified_at'  => date('Y-m-d H:i:s'),
             'role_id' => Role::where('name', 'admin')->first()->id,
             'profile_id' => Profile::where('firstname', 'kamel')->first()->id,
+        ],[
+            'username'  => 'عمر',
+            'email' => 'o.talhi@caci.dz',
+            'password' => Hash::make('password'),
+            'email_verified_at'  => date('Y-m-d H:i:s'),
+            'role_id' => Role::where('name', 'admin')->first()->id,
+            'profile_id' => Profile::where('firstname', 'omar')->first()->id,
         ],[
             'username'  => 'كريم',
             'email' => 'k.toudert@caci.dz',

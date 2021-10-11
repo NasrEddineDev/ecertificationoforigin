@@ -1713,7 +1713,39 @@
                         //     return myXhr;
                         // },
                         success: function(data) {
+                            $("#enteredUsername").text("{{ Auth::user()->username ?? '' }}");
+                            $("#enteredEmail").text("{{ Auth::user()->email ?? '' }}");
                             $('#enteredFirstNameAr').text("{{ Auth::user()->enterprise->manager->firstname_ar ?? '' }}");
+                            $('#enteredLastNameAr').text("{{ Auth::user()->enterprise->manager->lastname_ar ?? '' }}");
+                            $('#enteredFirstName').text("{{ Auth::user()->enterprise->manager->firstname ?? '' }}");
+                            $('#enteredLastName').text("{{ Auth::user()->enterprise->manager->lastname ?? '' }}");
+                            $('#enteredManagerEmail').text("{{ Auth::user()->enterprise->manager->email ?? '' }}");
+                            $('#enteredManagerMobile').text("{{ Auth::user()->enterprise->manager->mobile ?? '' }}");
+                            $('#enteredManagerTel').text("{{ Auth::user()->enterprise->manager->tel ?? '' }}");
+                            $('#enteredBirthday').text("{{ Auth::user()->enterprise->manager->birthday ?? '' }}");
+                            $('#enteredGender').text("{{ Auth::user()->enterprise->manager->gender ?? '' }}");
+                            $('#enteredAddressAr').text("{{ Auth::user()->enterprise->manager->address_ar ?? '' }}");
+                            $('#enteredAddressEn').text("{{ Auth::user()->enterprise->manager->address ?? '' }}");
+                            $('#enteredAddressFr').text("{{ Auth::user()->enterprise->manager->address_fr ?? '' }}");
+                            $('#enteredCity').text("{{ Auth::user()->enterprise->manager->city->commune_name ?? '' }}");
+                            $('#enteredState').text("{{ Auth::user()->enterprise->manager->city->daira_name ?? '' }}");
+                            $('#enteredNameAr').text("{{ Auth::user()->enterprise->name_ar ?? '' }}");
+                            $('#enteredNameEn').text("{{ Auth::user()->enterprise->name ?? '' }}");
+                            $('#enteredNameFr').text("{{ Auth::user()->enterprise->name_fr ?? '' }}");
+                            $('#enteredRCNumber').text("{{ Auth::user()->enterprise->rc_number ?? '' }}");
+                            $('#enteredNISNumber').text("{{ Auth::user()->enterprise->nis_number ?? '' }}");
+                            $('#enteredNIFNumber').text("{{ Auth::user()->enterprise->nif_number ?? '' }}");
+                            $('#enteredActivities').text("{{ Auth::check() && Auth::user()->Enterprise ? Auth::user()->Enterprise->activities()->pluck('code')->join(',') ?? '' : '' }}");
+                            $('#enteredLegalForm').text("{{ Auth::user()->enterprise->legal_form ?? '' }}");
+                            $('#enteredMobile').text("{{ Auth::user()->enterprise->mobile ?? '' }}");
+                            $('#enteredEnterpriseEmail').text("{{ Auth::user()->enterprise->email ?? '' }}");
+                            $('#enteredTel').text("{{ Auth::user()->enterprise->tel ?? '' }}");
+                            $('#enteredAddressAr').text("{{ Auth::user()->enterprise->address_ar ?? '' }}");
+                            $('#enteredAddressEn').text("{{ Auth::user()->enterprise->address ?? '' }}");
+                            $('#enteredAddressFr').text("{{ Auth::user()->enterprise->address_fr ?? '' }}");
+                            $('#enteredCity').text("{{ Auth::user()->enterprise->commune_name ?? '' }}");
+                            $('#enteredState').text("{{ Auth::user()->enterprise->daira_name ?? '' }}");
+                            $('#enteredWebsite').text("{{ Auth::user()->enterprise->website ?? '' }}");
                             return true;
                         },
                         error: function(data) {

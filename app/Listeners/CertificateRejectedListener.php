@@ -2,9 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Providers\CertificateRejectedEvent;
+use App\Events\CertificateRejectedEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\CertificateRejectedNotification;
 
 class CertificateRejectedListener implements ShouldQueue
 {
@@ -27,5 +29,6 @@ class CertificateRejectedListener implements ShouldQueue
     public function handle(CertificateRejectedEvent $event)
     {
         //
+        Notification::send($event->certificate->enterprise->user, new CertificateRejectedNotification($event->certificate));
     }
 }

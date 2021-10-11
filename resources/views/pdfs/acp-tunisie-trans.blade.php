@@ -118,7 +118,7 @@
         #tables3 {
             padding-left: 55px;
             padding-right: 55px;
-            padding-top: 130px !important;
+            padding-top: 150px !important;
         }
 
         #products td,
@@ -162,6 +162,7 @@
             position: absolute;
             height: 90px;
             margin-top: -50px;
+            margin-right: 50px;
         }
 
         .file-image-qrcode {
@@ -282,7 +283,7 @@
                                 {{ '№ ' . $code }}
                             @endif
                         </td>
-                        <td rowspan="2" width="50%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
+                        <td rowspan="2" width="50%" style="font-weight: bold;text-align:center;">
                             {{ $exporter_name }}<br />
                             {{ $exporter_address }}
                         </td>
@@ -301,7 +302,7 @@
                         </td>
                         <td width="26%" style="{{ $rtl ? 'text-align:right;' : '' }}">
                         </td>
-                        <td rowspan="2" width="50%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
+                        <td rowspan="2" width="50%" style="font-weight: bold;text-align:center;">
                             {{ $importer_name }}<br />
                             {{ $importer_address }}
                         </td>
@@ -406,10 +407,10 @@
                             @if ($status == 'PENDING' || $status == 'SIGNED')
                                 <table style="width:100%;">
                                     <tr>
-                                        <td width="35%" style="height: 75px;text-align:center;padding-top:70px;">
+                                        <td width="35%" style="height: 75px;text-align:center;padding-top:40px;">
                                             <strong>{{ $signature_date }}</strong>
                                         </td>
-                                        <td width="65%" style="{{ $rtl ? 'text-align:center;' : '' }}padding-top:70px;">
+                                        <td width="65%" style="text-align:center;padding-top:40px;padding-right:20px;">
                                             <strong>{{ 'الجزائر' }}</strong>
                                         </td>
                                     </tr>

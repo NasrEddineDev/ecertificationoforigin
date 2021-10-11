@@ -283,7 +283,7 @@
                             {{ '№ '. $code }}
                             @endif
                         </td>
-                        <td rowspan="2" width="50%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
+                        <td rowspan="2" width="50%" style="font-weight: bold;text-align:center;">
                             {{ $exporter_name }}<br />
                             {{ $exporter_address }}
                         </td>
@@ -302,7 +302,7 @@
                         </td>
                         <td width="26%" style="{{ $rtl ? 'text-align:right;' : '' }}">
                         </td>
-                        <td rowspan="2" width="50%" style="font-weight: bold;{{ $rtl ? 'text-align:right;' : '' }}">
+                        <td rowspan="2" width="50%" style="font-weight: bold;text-align:center;">
                             {{ $importer_name }}<br />
                             {{ $importer_address }}
                         </td>

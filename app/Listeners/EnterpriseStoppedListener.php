@@ -2,9 +2,11 @@
 
 namespace App\Listeners;
 
-use App\Providers\EnterpriseStoppedEvent;
+use App\Events\EnterpriseStoppedEvent;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\EnterpriseStoppedNotification;
 
 class EnterpriseStoppedListener implements ShouldQueue
 {
@@ -27,5 +29,6 @@ class EnterpriseStoppedListener implements ShouldQueue
     public function handle(EnterpriseStoppedEvent $event)
     {
         //
+        Notification::send($event->certificate->enterprise->user, new EnterpriseStoppedNotification($event->certificate));
     }
 }
