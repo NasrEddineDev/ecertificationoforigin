@@ -18,6 +18,11 @@ sitekey: '6LcJ4O0aAAAAADBM-zKAAzIDWSIxR4lXuEO0QByN'
 
 3) Create sysmbolic link: data, css, ....
 
+4) disable debug mode
+
+APP_DEBUG=true ==> false
+
+
 4) git:
 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
 

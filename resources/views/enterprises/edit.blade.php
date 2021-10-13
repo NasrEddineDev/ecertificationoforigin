@@ -71,12 +71,20 @@
         .select2-drop-active {
             margin-top: -25px;
         }
-        .error{
-   color: #FF0000; 
-  }
-  .error + span > span>span{
-   border: 1px solid #FF0000!important; 
-  }
+
+        .error {
+            color: #FF0000;
+        }
+
+        .error+span>span>span {
+            border: 1px solid #FF0000 !important;
+        }
+
+        #mobile,
+        #tel {
+            direction: ltr;
+        }
+
     </style>
 @endpush
 
@@ -143,7 +151,8 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-6 col-md-6 col-sm-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                        <div
+                                            class="col-lg-6 col-md-6 col-sm-12 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
                                                 <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Exporter') }}</label>
@@ -220,8 +229,12 @@
                                     <div class="row">
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
-                                                <label
-                                                    class="col-lg-3 col-md-5 col-sm-12 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Export Activity Code') }}</label>
+                                                <label class="col-lg-3 col-md-5 col-sm-12 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
+                                                    {{ __('Export Activity Code') }}
+                                                    <span class="" data-toggle="tooltip" data-placement="top" title="{{ __('You can find it in activities part of Trade Register')}}">
+                                                        <i class="fa fa-info-circle fa-lg"></i>
+                                                    </span></label>
+
                                                 <div class="col-lg-9 col-md-7 col-sm-12">
                                                     <select id="activities" class="activities select2 form-control"
                                                         name="activities[]" multiple="multiple" required>
@@ -282,7 +295,7 @@
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                                     {{ __('Tax Identification') }}</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" value="{{ $enterprise->rc_number }}"
+                                                    <input type="text" value="{{ $enterprise->nif_number }}"
                                                         placeholder="{{ __('NIF Number') }}" name="nif_number"
                                                         id="nif_number" class="form-control" />
                                                 </div>
@@ -317,7 +330,7 @@
                                                 <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Statistical Identification') }}</label>
                                                 <div class="col-sm-4">
-                                                    <input type="text" value="{{ $enterprise->rc_number }}"
+                                                    <input type="text" value="{{ $enterprise->nis_number }}"
                                                         placeholder="{{ __('NIS Number') }}" name="nis_number"
                                                         id="nis_number" class="form-control" />
                                                 </div>
@@ -465,7 +478,7 @@
                                                 <div class="col-lg-9">
                                                     <div class="login-horizental cancel-wp pull-left form-bc-ele">
                                                         <button type="submit" class="btn btn-white">
-                                                            <a href="{{ route('products.index') }}"
+                                                            <a href="{{ route('enterprises.index') }}"
                                                                 style="color: inherit;">{{ __('Cancel') }}</a>
                                                         </button>
                                                         <button type="submit"
@@ -510,8 +523,8 @@
 
     <div id="loadingDiv" class="spinner-border text-success" role="status"
         style="width: 100%; height: 100%;position: absolute">
-        <div class="inner" style="width: 200px; height: 200px;text-align:center"><svg xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
+        <div class="inner" style="width: 200px; height: 200px;text-align:center"><svg
+                xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
                 style="margin: auto; display: block; /*! shape-rendering: auto; */" width="200px" height="200px"
                 viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
                 <g transform="translate(50,50)">
@@ -549,21 +562,22 @@
 @endsection
 
 @Push('js')
-    <script src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}"></script>
-    <script src="{{ URL::asset('select2/js/select2.min.js') }}"></script>
-    <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
+    <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('js/jquery.validate.min.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}" type="text/javascript">
+    </script>
+    <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}" type="text/javascript"></script>
+    <script src="{{ URL::asset('select2/js/select2.min.js') }}" type="text/javascript"></script>
     <script type="text/javascript">
         var $loading = $('#loadingDiv').hide();
-        $(document)
-            .ajaxStart(function() {
-                var curr = $('body').height()
-                $('.spinner-border').height(curr);
-                $loading.show();
-            })
-            .ajaxStop(function() {
-                $loading.hide();
-            });
+        $(document).ajaxStart(function() {
+            var curr = $('body').height()
+            $('.spinner-border').height(curr);
+            $loading.show();
+        }).ajaxStop(function() {
+            $loading.hide();
+        });
 
         $(document).ready(function() {
             var lang = "{{ App()->currentLocale() }}";
@@ -707,6 +721,10 @@
                 var embed = document.getElementById("embed");
                 embed.src =
                     "{{ url('data/enterprises/' . $enterprise->id . '/' . 'documents/' . $enterprise->rc) }}";
+
+                object.data = object.data;
+                embed.src = embed.src;
+
                 $('#InformationproModalhdbgcl').modal('show');
             });
 
@@ -724,6 +742,10 @@
                 var embed = document.getElementById("embed");
                 embed.src =
                     "{{ url('data/enterprises/' . $enterprise->id . '/' . 'documents/' . $enterprise->nif) }}";
+
+                object.data = object.data;
+                embed.src = embed.src;
+
                 $('#InformationproModalhdbgcl').modal('show');
             });
 
@@ -741,12 +763,18 @@
                 var embed = document.getElementById("embed");
                 embed.src =
                     "{{ url('data/enterprises/' . $enterprise->id . '/' . 'documents/' . $enterprise->nis) }}";
+
+                object.data = object.data;
+                embed.src = embed.src;
+
                 $('#InformationproModalhdbgcl').modal('show');
             });
 
             var validator = $(".form-sample").validate({});
 
-        });
 
+            $('#mobile').inputmask("((+213|0)(5|6|7)) 99-99-99-99");
+            $('#tel').inputmask("(+213|0)99-99-99-99");
+        });
     </script>
 @endpush

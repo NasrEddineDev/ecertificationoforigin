@@ -59,22 +59,14 @@
                                                 <label
                                                     class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Measure Unit') }}</label>
                                                 <div class="col-sm-9">
-                                                    <select name="measure_unit" id="measure_unit" class="form-control"
-                                                        required>
-                                                        <option value="" selected disabled>
-                                                            {{ __('Select The Measure Unit') }}</option>
-                                                        <option value="KG">{{ __('Kilogram (kg), for mass (weight)') }}
-                                                        </option>
-                                                        <option value="T">{{ __('Tonne (T), for mass (weight)') }}
-                                                        </option>
-                                                        <option value="U">{{ __('Unit (u), for number of units') }}
-                                                        </option>
-                                                        <option value="L">{{ __('Litre (L), for capacity (volume)') }}
-                                                        </option>
-                                                        <option value="M">{{ __('Metre (M), for length (distance)') }}
-                                                        </option>
-                                                        <option value="M²">{{ __('Square Metre (M²), for area') }}
-                                                        </option>
+                                                    <select name="measure_unit" id="measure_unit" class="form-control" required>
+                                                        <option value="" selected disabled>{{ __('Select The Measure Unit') }}</option>
+                                                        <option value="KG">{{ __('Kilogram (kg), for mass (weight)') }}</option>
+                                                        <option value="T">{{ __('Tonne (T), for mass (weight)') }}</option>
+                                                        <option value="U">{{ __('Unit (u), for number of units') }}</option>
+                                                        <option value="L">{{ __('Litre (L), for capacity (volume)') }}</option>
+                                                        <option value="M">{{ __('Metre (M), for length (distance)') }}</option>
+                                                        <option value="M²">{{ __('Square Metre (M²), for area') }}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -90,8 +82,7 @@
                                                 <label
                                                     class="required col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Brand') }}</label>
                                                 <div class="col-sm-9">
-                                                    <input type="text" name="brand" id="brand" class="form-control"
-                                                        required />
+                                                    <input type="text" name="brand" id="brand" class="form-control" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -107,7 +98,6 @@
                                                         <option value="0" disabled selected>
                                                             {{ __('Select The Category') }}</option>
                                                         @foreach ($categories as $category)
-                                                            {
                                                             <option value="{{ $category->id }}">
                                                                 {{ $category->number . ' ' . (App()->currentLocale() == 'ar' ? $category->name_ar : (App()->currentLocale() == 'en' ? $category->name : $category->name_fr)) }}
                                                             </option>

@@ -195,16 +195,14 @@ class DashboardController extends Controller
                 $certificates = DB::table('certificates')->get();
                 $enterprises = DB::table('enterprises')->get();
                 $products = DB::table('products')->get();
+                $total_balance = $enterprises->sum('balance') + $certificates->where('status', '==', 'SIGNED')->count();
                 $data = [
                     'current_balance' => $enterprises->sum('balance'),
-                    'current_balance_rate' => number_format((float)(100 * $enterprises->sum('balance') / ($enterprises->sum('balance') +
-                        $certificates->where('status', '==', 'SIGNED')->count())), 2, '.', '') . '%',
+                    'current_balance_rate' => $total_balance == 0 ? '0%' : number_format((float)(100 * $enterprises->sum('balance') / $total_balance), 2, '.', '') . '%',
                     'consumed_balance' => $certificates->where('status', '==', 'SIGNED')->count(),
-                    'consumed_balance_rate' => number_format((float)(100 * $certificates->where('status', '==', 'SIGNED')
-                        ->count() / ($enterprises->sum('balance') +
-                            $certificates->where('status', '==', 'SIGNED')->count())), 2, '.', '') . '%',
-                    'total_balance' => $enterprises->sum('balance') +
-                        $certificates->where('status', '==', 'SIGNED')->count(),
+                    'consumed_balance_rate' => $total_balance == 0 ? '0%' : number_format((float)(100 * $certificates->where('status', '==', 'SIGNED')
+                        ->count() / $total_balance), 2, '.', '') . '%',
+                    'total_balance' => $total_balance,
                     'total_certificates' => $certificates->count(),
                     'signed_certificates' => $certificates->where('status', '==', 'SIGNED')->count(),
                     'rejected_certificates' => $certificates->where('status', '==', 'REJECTED')->count(),

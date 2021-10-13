@@ -82,8 +82,7 @@
                                                 <td>{{ $manager->id }}</td>
                                                 <td>{{ $manager->firstname }}</td>
                                                 <td>{{ $manager->lastname }}</td>
-                                                <td>{{ App()->currentLocale() == 'ar' ? ($manager->Enterprise->name_ar ?? 
-                                                GoogleTranslate::unlessLanguageIs('ar', $manager->Enterprise->name ?? '')) : (App()->currentLocale() == 'fr' ? 
+                                                <td>{{ App()->currentLocale() == 'ar' ? ($manager->Enterprise->name_ar ?? '') : (App()->currentLocale() == 'fr' ? 
                                                     $manager->Enterprise->name_fr : $manager->Enterprise->name) }}</td>
                                                 <td>{{ date('d-m-Y', strtotime($manager->birthday)) }}</td>
                                                 <td>{{ __($manager->gender) }}</td>

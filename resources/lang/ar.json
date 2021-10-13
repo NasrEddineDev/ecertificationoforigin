@@ -698,12 +698,13 @@
     "All Your Notifications" : "كل التنبيهات الخاصة بك",
     "Verify Email Address" : "التحقق من عنوان البريد الإلكتروني",
     "Please click the button below to verify your email address." : "الرجاء النقر فوق الزر أدناه للتحقق من عنوان بريدك الإلكتروني.",
-    "If you did not create an account, no further action is required." : "إذا لم تنشئ حسابا، فلا يلزم القيام مزيد من الإجراءات.",
+    "If you did not create an account, no further action is required." : "إذا لم تنشئ حسابا، فلا يلزم القيام بمزيد من الإجراءات.",
     "Regards" : "شكرا",
     "If you're having trouble clicking the \":actionText\" button, copy and paste the URL below\ninto your web browser:" : "إذا كنت تواجه مشكلة في النقر فوق زر \":actionText\", إنسخ وألصق الرابط أدناه\nفي متصفح الويب الخاص بك:",
     "" : "",
     "Hello!" : "أهلا!",
     "Whoops!" : "واو!",
     "Certificate Number" : "رقم الشهادة",
-    "Showwhite" : "نسحة بيضاء"
+    "Showwhite" : "نسحة بيضاء",
+    "You can find it in activities part of Trade Register" : "يمكنك العثور عليها في جزء الأنشطة من السجل التجاري"
 }

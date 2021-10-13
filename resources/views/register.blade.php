@@ -1263,8 +1263,7 @@
                                                  <span
                                                     id="enteredManagerEmail">{{ Auth::user()->enterprise->manager->email ?? '' }}</span><br>
                                                     <span>{{ __('Mobile :')}}</span>
-                                                <span
-                                                    id="enteredManagerMobile">{{ Auth::user()->enterprise->manager->mobile ?? '' }}</span><br>
+                                                <span id="enteredManagerMobile">{{ Auth::user()->enterprise->manager->mobile ?? '' }}</span><br>
                                                     <span>{{ __('Tel :')}}</span>
                                                 <span
                                                     id="enteredManagerTel">{{ Auth::user()->enterprise->manager->tel ?? '' }}</span><br>

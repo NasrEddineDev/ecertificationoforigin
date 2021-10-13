@@ -206,7 +206,7 @@
                                         <li class="nav-item {{ $locale == 'ar' ? 'pull-right' : 'pull-left' }}">
                                             <a href="#" data-toggle="dropdown" role="button" id="markAsReadNotifications" aria-expanded="false" 
                                                 class="nav-link dropdown-toggle"><i class="educate-icon educate-bell" aria-hidden="true"></i>
-                                            <span class="indicator-nt">{{Auth::Check() ? Auth::user()->unreadNotifications->count() : ''}}</span>
+                                            <span class="indicator-nt">{{ Auth::Check() ? Auth::user()->unreadNotifications->count() : '' }}</span>
                                             </a>
                                             <div role="menu" class="notification-author dropdown-menu animated zoomIn">
                                                 <div class="notification-single-top">
@@ -216,15 +216,19 @@
                                                     @if (Auth::Check())
                                                     @foreach (Auth::user()->notifications as $notification)
                                                     <li>
-                                                        <a href="{{ route('certificates.index')}}">
-                                                            <div class="notification-icon">
                                                                 @if($notification->type == "App\\Notifications\\CertificatePendingNotification")
+                                                                <a href="{{ route('certificates.index')}}">
+                                                                    <div class="notification-icon">
                                                                 <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
                                                                     class="fa fa-wpforms" style="font-size:19px;"></i></span>
-                                                                @elseif($notification->type == "App\\Notifications\\NewRegistration")
+                                                                @elseif($notification->type == "App\\Notifications\\NewRegistrationNotification")
+                                                                <a href="{{ route('enterprises.index')}}">
+                                                                    <div class="notification-icon">
                                                                 <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
                                                                         class="fa fa-building" style="font-size:19px;"></i></span>
                                                                 @else
+                                                                <a href="{{ route('certificates.index')}}">
+                                                                    <div class="notification-icon">
                                                                 <i class="educate-icon educate-checked edu-checked-pro admin-check-pro" aria-hidden="true"></i>
                                                                 @endif
                                                             </div>
