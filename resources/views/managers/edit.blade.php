@@ -110,26 +110,6 @@
                   </div>
                 </div>
 
-                {{-- <p class="card-description"> {{ __('Package') }} </p>
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">{{ __('Package Type') }}</label>
-                      <div class="col-sm-9">
-                        <input name="package_type" id="package_type" value="{{ $product->package_type }}" type="text" class="form-control" />
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group row">
-                      <label class="col-sm-3 col-form-label">{{ __('Package Count') }}</label>
-                      <div class="col-sm-9">
-                        <input name="package_count" id="package_count" value="{{ $product->package_count }}" type="text" class="form-control" />
-                      </div>
-                    </div>
-                  </div>
-                </div> --}}
-
                 <div class="form-group-inner">
                   <div class="login-btn-inner">
                     <div class="row">

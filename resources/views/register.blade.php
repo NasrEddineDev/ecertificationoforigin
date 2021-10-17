@@ -6,7 +6,6 @@
     <title>{{__('Registration Wizard')}}</title>
 
     <!--====== Favicon Icon ======-->
-    {{-- <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png"> --}}
     <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('') }}img/logo/caci-logo.ico" />
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.min.css"
@@ -190,7 +189,6 @@
         #progressbar #enterprise:before {
             font-family: FontAwesome;
             content: "\f0f7"
-                /* content: "\f007" */
         }
 
         #progressbar #manager:before {
@@ -201,10 +199,8 @@
         #progressbar #attachments:before {
             font-family: FontAwesome;
             content: "\f093"
-                /* f0c6 */
         }
 
-        /* content: "\f030" */
         #progressbar #summary:before {
             font-family: FontAwesome;
             content: "\f03a"
@@ -257,24 +253,18 @@
             object-fit: cover
         }
 
-
-
         .select2-selection.select2-selection--multiple {
             height: 38px;
         }
 
         .select2-search {
-            /* width: 80%!important; */
         }
 
         .select2-search__field {
             background-color: rgba(0, 0, 0, 0) !important;
             padding: 0 !important;
-            /* background: rgba(0,0,0,0.5); */
             border: 0px solid #fff !important;
             height: 30px !important;
-            /* width: 80%!important; */
-
         }
 
         .select2-search__field:focus {
@@ -288,11 +278,6 @@
         .select2 {
             width: 100% !important;
         }
-
-        /*
-                    .select2-container--default .select2-search--inline .select2-search__field{
-                width:initial!important;
-            } */
 
         .dropdown {
             text-align: left;
@@ -366,7 +351,6 @@
             justify-content: center;
             align-items: center;
             background: #e83124;
-            /* margin-left: 30%; */
         }
 
         #logout img {
@@ -463,7 +447,6 @@
                                 <div style="right:5px;top:20px; margin:10px;position:absolute">
                                     <button id="logout" type="submit" title="{{ __('Logout') }}"
                                         class="btn btn-default">
-                                        {{-- <span class="view-text">{{ __('Log In') }}</span> --}}
                                         <span class="view-icon"><img width="30px;"
                                                 src="{{ URL::asset('') }}assets/images/login-50-white.png"
                                                 alt="" /></span>
@@ -651,8 +634,6 @@
                                         <div class="col-md-3">
                                             <div class="row"
                                                 style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
-                                                {{-- <label
-                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="name" id="name"
                                                         placeholder="{{ __('Enterprise Name In English') }}"
@@ -664,8 +645,6 @@
                                         <div class="col-md-3">
                                             <div class="row"
                                                 style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
-                                                {{-- <label
-                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="name_fr" id="name_fr"
                                                         placeholder="{{ __('Enterprise Name In French') }}"
@@ -692,8 +671,6 @@
                                         <div class="col-md-3">
                                             <div class="row"
                                                 style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
-                                                {{-- <label
-                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="nis_number" id="nis_number"
                                                         placeholder="{{ __('NIS Number') }}" class="form-control"
@@ -704,8 +681,6 @@
                                         <div class="col-md-3">
                                             <div class="row"
                                                 style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
-                                                {{-- <label
-                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="nif_number" id="nif_number"
                                                         placeholder="{{ __('NIF Number') }}" class="form-control"
@@ -865,8 +840,6 @@
                                         <div class="col-md-3">
                                             <div class="row"
                                                 style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
-                                                {{-- <label
-                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="email_enterprise" id="email_enterprise"
                                                         placeholder="{{ __('Email') }}" class="form-control"
@@ -877,8 +850,6 @@
                                         <div class="col-md-3">
                                             <div class="row"
                                                 style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
-                                                {{-- <label
-                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="tel" id="tel"
                                                         placeholder="{{ __('Tel') }}" class="form-control"
@@ -905,8 +876,6 @@
                                         <div class="col-md-3">
                                             <div class="row"
                                                 style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
-                                                {{-- <label
-                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="address" id="address"
                                                         placeholder="{{ __('Address In English') }}"
@@ -918,8 +887,6 @@
                                         <div class="col-md-3">
                                             <div class="row"
                                                 style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
-                                                {{-- <label
-                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="address_fr" id="address_fr"
                                                         placeholder="{{ __('Address In French') }}"
@@ -952,8 +919,6 @@
                                         <div class="col-md-3">
                                             <div class="row"
                                                 style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
-                                                {{-- <label
-                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <select name="city_id" id="city_id" class="form-control"
                                                         style="margin-top: 0;"
@@ -966,8 +931,6 @@
                                         <div class="col-md-3">
                                             <div class="row"
                                                 style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;' : '' }}">
-                                                {{-- <label
-                                                                        class="col-sm-3 col-form-label">{{ __('User Name') }}</label> --}}
                                                 <div class="col-sm-12">
                                                     <input type="text" name="website" id="website"
                                                         placeholder="{{ __('Website') }}" class="form-control"
@@ -1128,8 +1091,6 @@
                                                         value="{{ Auth::user()->enterprise->manager->birthday ?? '' }}">
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    {{-- <input type="text" name="address" id="address"
-                                                                            placeholder="Address In English/French" class="form-control" /> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -1211,8 +1172,6 @@
                             </div>
 
                             <form class="attachments-form" action="#" method="post" enctype="multipart/form-data">
-                                {{-- <input type="file" id="attachedFiles" name="attachedFiles[]"
-                                    data-browse-on-zone-click="false" multiple="multiple" /> --}}
                                 <input type="file" id="rc" name="rc" />
                                 <input type="file" id="nis" name="nis" />
                                 <input type="file" id="nif" name="nif" />
@@ -1354,7 +1313,6 @@
                                 <div class="row justify-content-center">
                                     <div class="col-3">
                                         <img src="{{ URL::asset('') }}register/img/finish.gif" class="fit-image">
-                                        {{-- <img src="{{ URL::asset('') }}register/img/GwStPmg.png" class="fit-image"> --}}
                                     </div>
                                 </div> <br><br>
                                 <div class="row justify-content-center">
@@ -1362,8 +1320,7 @@
                                         <h5 class="purple-text text-center">
                                             {{ __('You Have Successfully Signed Up') }}</h5>
                                             <p class="purple-text text-center">
-                                                {{ __('Please wait until we check your submitted information that are correct and activate your account') }}</p>
-                                            
+                                                {{ __('Please wait until we check your submitted information that are correct and activate your account') }}</p>   
                                     </div>
                                 </div>
                             </div>
@@ -1373,7 +1330,6 @@
             </div>
         </div>
     </div>
-
 
     <div id="loadingDiv" class="spinner-border text-success" role="status"
         style="width: 100%; height: 100%;position: absolute">
@@ -1412,7 +1368,6 @@
         </div>
     </div>
 
-    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> --}}
     <script src="{{ URL::asset('wizard/js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
@@ -1459,7 +1414,6 @@
 
             var current_fs, next_fs, previous_fs; //fieldsets
             var opacity;
-            // var files = {};
             var current = '{{ $step ? $step + 1 : 1 }}';
             var steps = $("fieldset").length;
 
@@ -1478,9 +1432,6 @@
                 url = "";
                 if (current == 1) {
                     console.log('Step 01');
-                    // if (!account_validator.form()) {
-                    //     move = false;
-                    // } else {
                     $.ajax({
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -1514,7 +1465,6 @@
                             return true;
                         }
                     });
-                    // }
                 } else if (current == 2) {
                     console.log('Step 02');
 
@@ -1639,17 +1589,6 @@
                             gender: $('#gender').find(":selected").val()
                         },
                         success: function(data) {
-                            // if (data.hasVerifiedEmail) {
-                            //     $('.email-verified').removeClass('hide');
-                            //     $('#resend').addClass('hide');
-                            // } else {
-                            //     $('.email-verified').addClass('hide');
-                            //     $('#resend').removeClass('hide');
-                            // }
-
-                            // $('#legal_form-error').addClass('hide');
-                            // $('.select2-selection').removeClass('error');
-                            // $('#activities-error').addClass('hide');
                             return true;
                         },
                         error: function(data) {
@@ -1660,9 +1599,6 @@
                                     "{{ __('This field is required.') }}"
                                 ];
                             }
-                            // if (!$("#city_id_manager").val()) {
-                            //     errors.city_id_manager = ["{{ __('This field is required.') }}"];
-                            // }
                             manager_validator.showErrors(errors);
                             return true;
                         }
@@ -1707,10 +1643,6 @@
                         cache: false,
                         contentType: false,
                         processData: false,
-                        // xhr: function() {
-                        //     var myXhr = $.ajaxSettings.xhr();
-                        //     return myXhr;
-                        // },
                         success: function(data) {
                             $("#enteredUsername").text("{{ Auth::user()->username ?? '' }}");
                             $("#enteredEmail").text("{{ Auth::user()->email ?? '' }}");
@@ -1750,22 +1682,11 @@
                         error: function(data) {
                             move = false;
                             errors = data.responseJSON.errors;
-                            // if (!$("#state_code").val()) {
-                            //     errors.state_code = ["{{ __('This field is required.') }}"];
-                            // }
-                            // if (!$("#legal_form").val()) {
-                            //     errors.legal_form = ["{{ __('This field is required.') }}"];
-                            //     $('#legal_form-error').removeClass('hide');
-                            // }
-                            // if ($("#activities").val() == "") {
                             $('#dropdownMenuButton').addClass('error');
                             $('#attachments-error').removeClass('hide');
-                            // }
-                            // enterprise_validator.showErrors(errors);
                             return true;
                         }
                     });
-                    //  return true;
                 } else if (current == 6) {
                     console.log('Step 06');
 
@@ -1790,7 +1711,6 @@
                         }
                     });
                 }
-                // $(document).ajaxStop(function() {
                 if (move) {
                     $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
                     next_fs.show();
@@ -1817,7 +1737,6 @@
                         }, 5000);
                     }
                 }
-                // });
             });
 
             $(".previous").click(function() {
@@ -1856,7 +1775,6 @@
 
             var width = parseInt($('.col-md-6').width()) * (parseInt($('.activities-size').css('max-width')) / 100);
 
-            // select
             var data = [{
                     id: 0,
                     text: 'enhancement'
@@ -1883,13 +1801,11 @@
                 width: width,
                 placeholder: '{{ __('Type Activities Codes') }}',
                 allowClear: true,
-                // data: data,
                 ajax: {
                     url: '/getactivities',
                     dataType: 'json',
                     delay: 250,
                     processResults: function(data) {
-                        // console.log(data);
                         return {
                             results: $.map(data, function(item) {
                                 return {
@@ -1903,7 +1819,6 @@
                     cache: true
                 },
                 templateSelection: function(data, container) {
-                    // Add custom attributes to the <option> tag for the selected option
                     $(data.element).attr('data-custom-attribute', data.code);
                     return data.text.substr(0, data.text.indexOf(' '));
                 },
@@ -1917,24 +1832,16 @@
                 }
             });
             $(document).on('change', '#activities', function() {
-                // console.log('Activities : ');
-                // console.log($('#attachedFiles').val());
             });
-            // activities.val(["CA", "AL"]).trigger("change");
-            // var defaultData = [{id:1, text:'Item1'},{id:2,text:'Item2'},{id:3,text:'Item3'}];
-            // $('#activities').data().select2.updateSelection(defaultData);
 
             // export activity
             $('.export-activity-select').show();
             $('.export-activity-code').hide();
             $(document).on('change', '#exporter_type', function() {
-                // console.log(this.value);
                 if (this.value == 'TRADER') {
                     $('.export-activity-select').hide();
                     $('.export-activity-code').show();
-                    // $('#exporter_type option[value="TRADER"]')
                     $('.export-activity-code #exporter_type option:eq(1)').prop('selected', true);
-                    // console.log($('.export-activity-code #exporter_type').find(":selected").val());
                 } else {
                     $('.export-activity-select').show();
                     $('.export-activity-code').hide();
@@ -1942,7 +1849,6 @@
                         'selected', true);
                 }
             });
-
 
             // states cities
             $.ajax({
@@ -1963,7 +1869,6 @@
                                 'selected' : '') + '>' + state.text + '</option>');
 
                     })
-
 
                     $('#state_code_manager').empty();
                     $('#state_code_manager').append(
@@ -2021,7 +1926,6 @@
                     }
                 })
             }
-
 
             $(document).on('change', '#state_code', function() {
                 var selectedState = $('#state_code').find(":selected").val().split(" ")[0];
@@ -2095,11 +1999,8 @@
                 rtl: true,
                 previewFileType: 'any',
                 allowedFileTypes: ["image", "pdf"],
-                // allowedFileExtensions: ["txt", "md", "ini", "text"],
-                // showDrag: false,
                 dropZoneEnabled: false,
                 overwriteInitial: false,
-                // autoReplace: false,
                 uploadExtraData: function() {
                     return {
                         _token: $("input[name='_token']").val(),
@@ -2122,38 +2023,16 @@
                 uploadAsync: false,
                 minFileCount: 1,
                 maxFileCount: 1,
-                // initialPreview: [
-                //     "{{ URL::asset('') }}register/img/GwStPmg.png"
-                // ],
-                // initialPreviewAsData: true,
-                // initialPreviewFileType: 'image',
-                // initialPreviewConfig: [{
-                //     caption: "GwStPmg.png",
-                //     size: 827000,
-                //     width: "120px",
-                //     url: "/file-upload-batch/2",
-                //     key: 1
-                // }, ]
             });
 
             $(".file-caption").hide();
 
-            // var currentFile;
             $(document).on('click', '#dropdown-menu a', function() {
                 currentFile = $(this).attr("data-id");
-                //$(this).text().replace(/ /g, '_').toLowerCase();
-                // console.log(currentFile);
-                // alert(currentFile);
-                // files.push(fileName);
                 $('#' + currentFile).click();
             });
 
             $(document).on('change', '#attachedFiles', function() {
-                //get the file name
-                // var filePath = $(this).val();
-                // var fileNameIndex = filePath.lastIndexOf("\\") + 1;
-                // var fileName = filePath.substr(fileNameIndex);
-                // files[currentFile] = fileName;
             })
 
             $('#email_enterprise').inputmask({

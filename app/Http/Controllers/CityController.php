@@ -95,7 +95,6 @@ class CityController extends Controller
             $data['text'] = App()->currentLocale() == 'ar' ? $items->commune_name : $items->commune_name_ascii;
             return $data;
             });
-
         return response()->json([ 'cities' => $cities]);
     } catch (Throwable $e) {
         report($e);
@@ -107,7 +106,6 @@ class CityController extends Controller
 
     public function getAlgerianCities($state_code)
     {
-        //        
         try {
         $data = [];
         $cities = AlgeriaCity::all()->where('wilaya_code', '=', $state_code);
@@ -116,7 +114,6 @@ class CityController extends Controller
             $data['text'] = App()->currentLocale() == 'ar' ? $items->commune_name : $items->commune_name_ascii;
             return $data;
             });
-
         return response()->json([ 'cities' => $cities]);
     } catch (Throwable $e) {
         report($e);

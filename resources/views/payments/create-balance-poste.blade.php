@@ -148,12 +148,9 @@
 
             $('.others').hide();
             $("#offer").imagepicker({
-                // hide_select: true,
-                // show_label: true
             });
 
             $(document).on('change', '#offer', function() {
-                // alert($('#offer').find(":selected").val());
                 if ($('#offer').find(":selected").val() == '0') {
                     $('.others').show();
                 } else {

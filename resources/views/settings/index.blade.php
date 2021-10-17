@@ -65,8 +65,6 @@
                                                 <label
                                                     class="col-sm-2 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Offers List') }}</label>
                                                 <div class="col-sm-10">
-                                                    {{-- <select id="activitiesTest" class="activitiesTest select2 form-control"
-                                                    name="activitiesTest[]" multiple="multiple"> --}}
                                                     <select id="offers_list" name="offers_list[]"
                                                         class="form-control select2" multiple="multiple">
                                                         @foreach (explode(',', $settings->where('name', 'Offers List')->first()->value) as $offer)
@@ -358,15 +356,13 @@
     <script src="{{ URL::asset('select2/js/select2.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-            roundStampArIsExist = $('#roundStampArIsExist')
-        .val(); //"{{ empty(Auth::User()->profile()->square_stamp) }}"
+            roundStampArIsExist = $('#roundStampArIsExist').val(); 
             if (roundStampArIsExist) {
                 $('.file-upload-content-round-stamp').show();
                 $('.image-upload-wrap-round-stamp').hide();
             }
 
-            roundStampEnIsExist = $('#roundStampEnIsExist')
-        .val(); //"{{ empty(Auth::User()->profile()->square_stamp) }}"
+            roundStampEnIsExist = $('#roundStampEnIsExist').val(); 
             if (roundStampEnIsExist) {
                 $('.file-upload-content-square-stamp').show();
                 $('.image-upload-wrap-square-stamp').hide();
@@ -379,38 +375,12 @@
             else dir = 'ltr';
             
             $('#offers_list').select2({
-                // width: 'resolve',
                 dir: dir,
                 placeholder: 'Select an option',
                 allowClear: true,
                 tokenSeparators: [","],
                 tags: true
-                // ajax: {
-                //     url: 'getactivities',
-                //     dataType: 'json',
-                //     delay: 250,
-                //     processResults: function(data) {
-                //         return {
-                //             results: $.map(data, function(item) {
-                //                 return {
-                //                     text: item.code + ' ' + item.name_ar,
-                //                     id: item.id
-                //                 }
-                //             })
-                //         };
-                //     },
-                //     cache: true
-                // },
-                // templateSelection: function(data, container) {
-                //     // Add custom attributes to the <option> tag for the selected option
-                //     $(data.element).attr('data-custom-attribute', data.code);
-                //     return data.text.substr(0, data.text.indexOf(' '));
-                // }
             });
-
-            // $(document).on('change', '#offers_list', function() {
-            //     alert($('#offers_list').val());
-            // });
         });
 
 
@@ -446,8 +416,6 @@
         $('.image-upload-wrap-round-stamp').bind('dragleave', function() {
             $('.image-upload-wrap-round-stamp').removeClass('image-dropping');
         });
-
-
 
         function readURLSquareStamp(input) {
             if (input.files && input.files[0]) {

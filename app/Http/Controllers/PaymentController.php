@@ -109,26 +109,6 @@ class PaymentController extends Controller
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    // public function show($id)
-    // {
-    //     //
-    //     try {
-    //         $payment = Payment::find($id);
-    //         return view('payments.show', compact('payment'));
-    //     } catch (Throwable $e) {
-    //         report($e);
-    //         Log::error($e->getMessage());
-
-    //         return false;
-    //     }
-    // }
-
     public function show($id)
     {
         try {
@@ -149,7 +129,6 @@ class PaymentController extends Controller
                 ];
                 $response = $client->post($order_status_url_poste->value, $params);
                 $params = json_decode((string)$response->getBody(), true);
-                // dd($params);
                 return view('payments.payment-receipt-balance-poste', compact(['payment', 'params', 'unit_price']));
             }
 
@@ -253,7 +232,6 @@ class PaymentController extends Controller
 
             return false;
         }
-        // return redirect()->route('payments.index')->with('success','Payment deleted successfully');
     }
 
     public function getPayments()
@@ -263,15 +241,13 @@ class PaymentController extends Controller
         try {
             $data = [];
             $payments = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->payments : Payment::all();
-            // $query = users::where('id', 1)->get();// Let's Map the results from [$query]
             $payments = $payments->map(function ($items) {
                 $data['value'] = $items->id;
                 $data['text'] = $items->name . ' ' . $items->brand;
                 return $data;
             });
 
-            return response()->json(['payments' => $payments]); //->select('id AS value', 'name AS text')]);//->pluck('id' as 'value', 'name' . ' '. 'brand' as 'text')], 404);
-            // return redirect()->route('payments.index')->with('success','Payment deleted successfully');
+            return response()->json(['payments' => $payments]); 
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());
@@ -285,7 +261,6 @@ class PaymentController extends Controller
         //
         try {
             $settings = Setting::all();
-            // $offers_list = $settings->where('name', 'Offers List');
             return view('payments.create-balance-poste', compact('settings'));
         } catch (Throwable $e) {
             report($e);
@@ -368,7 +343,6 @@ class PaymentController extends Controller
                 ];
                 $response = $client->post($order_status_url_poste->value, $params);
                 $params = json_decode((string)$response->getBody(), true);
-                // dd($params);
                 if ($params['orderStatus'] == 2) {
                     $payment->update(['status' => 'ACCEPTED']);
                     Auth::User()->Enterprise->update(['balance' => Auth::User()->Enterprise->balance + ($payment->amount / $unit_price->value)]);

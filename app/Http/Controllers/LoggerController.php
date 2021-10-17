@@ -81,7 +81,6 @@ class LoggerController extends Controller
             $this->updateEnvFile('ACTIVITY_LOGGER_ENABLED', $request->activity_logger_enabled);
         }
         $this->updateEnvFile('DELETE_RECORDS_OLDER_THAN_DAYS', $request->delete_records_older_than_days);
-        
 
         return redirect()->route('logger.settings')
         ->with('success', 'Logger Configuration edited successfully.');
@@ -103,16 +102,6 @@ class LoggerController extends Controller
     {
         //
         try {
-            // ini_set('memory_limit','512M');
-            // $logs = \File::get(storage_path('logs/laravel.log'));
-            // dd($logs);
-            // $i = 99/0;
-
-            // return response()->json([
-            //     'message' => 'Product deleted successfully',
-            //     'url' => url('/storage/logs/laravel.log')
-            // ], 200);
-
             $url = url('storage/logs/laravel.log');
             $content = file_get_contents('storage/logs/users-activities.log');
             $usersActivities = Activity::all();

@@ -30,11 +30,6 @@
                     </div>
                     <div class="sparkline13-graph">
                         <div class="datatable-dashv1-list custom-datatable-overright">
-                            {{-- <div class="toolbar add-product dt-tb">
-                                <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
-                                "PENDING") ? 'not-active' : '' }}" href="{{ route('products.create') }}"
-                                style="{{App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : ''}}">{{ __('Add New Product') }}</a>
-                            </div> --}}
                             
                             <div id="toolbar">
                                 <div class="{{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
@@ -71,13 +66,6 @@
                                     @endcan
                                 </div>
                             </div>
-                            <!-- <div id="toolbar">
-                                <select class="form-control dt-tb">
-                                    <option value="">Export Basic</option>
-                                    <option value="all">Export All</option>
-                                    <option value="selected">Export Selected</option>
-                                </select>
-                            </div> -->
                             <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" 
                             data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" 
                             data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" 
@@ -89,20 +77,14 @@
                                         <th data-field="state" data-checkbox="true"></th>
                                         <th data-field="id">{{ __('ID') }}</th>
                                         <th data-field="name" data-editable="true">{{ __('Name') }}</th>
-                                        {{-- <th data-field="order_number" data-editable="true">{{ __('Order Number') }}</th> --}}
                                         <th data-field="brand" data-editable="true">{{ __('Brand') }}</th>
                                         <th data-field="type" data-editable="true">{{ __('Type') }}</th>
                                         <th data-field="category" data-editable="true">{{ __('Category') }}</th>
                                         <th data-field="hs_code" data-editable="true">{{ __('HS Code') }}</th>
-                                        <!-- <th data-field="net_weight" data-editable="true">{{ __('Net Weight') }}</th>
-                                        <th data-field="real_weight" data-editable="true">{{ __('Real Weight') }}</th> -->
                                         <th data-field="description" data-editable="true">{{ __('Description') }}</th>
-                                        <!-- <th data-field="package_type" data-editable="true">Package Type</th>
-                                        <th data-field="package_count" data-editable="true">Package Count</th> -->
                                         @can('view-enterprise',  App\Models\product::class)
-                                                <th data-field="enterprise" data-editable="true">{{ __('Enterprise') }}
-                                                </th>
-                                            @endcan
+                                         <th data-field="enterprise" data-editable="true">{{ __('Enterprise') }}</th>
+                                        @endcan
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -111,13 +93,10 @@
                                         <td></td>
                                         <td>{{ $product->id }}</td>
                                         <td>{{ $product->name }}</td>
-                                        {{-- <td>{{ $product->order_number }}</td> --}}
                                         <td>{{ $product->brand }}</td>
                                         <td>{{ $product->type }}</td>
                                         <td>{{ $product->category }}</td>
                                         <td>{{ $product->hs_code }}</td>
-                                        <!-- <td>{{ $product->net_weight }}</td>
-                                        <td>{{ $product->real_weight }}</td> -->
                                         <td>{{ $product->description }}</td>
                                         @can('view-enterprise',  App\Models\product::class)
                                         <td>{{ $product->enterprise->name }}</td>
@@ -164,7 +143,6 @@
 <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/data-table/tableExport.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/data-table/data-table-active.js') }}"></script>
-{{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-editable.js') }}"></script> --}}
 <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-editable.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-resizable.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/data-table/colResizable-1.5.source.js') }}"></script>
@@ -204,7 +182,6 @@ var $table = $('#table')
 
 
             $(document).on("click", "#details", function() {
-                // $(this).find(".detail-icon").trigger("click");
                 $tr = $('#1');
                 console.log($tr);
                 $table.bootstrapTable('expandRow', $tr);
@@ -216,8 +193,6 @@ var $table = $('#table')
                 var txt = []
                 $.get('/getimporter/'+row['id'], function (res) {
                     txt.push('<table>')
-                    // $.each(res.importer, function(key, value) {                    
-                            // var str = '<p><b>' + key + ': </b> ' + value + '</p>';
                             var str = '<tr><td><b>{{__("Name")}} : </b> ' + res.importer.name + '</td>';
                             txt.push(str);
                             var str = '<td><b>{{__("Email")}} : </b> ' + res.importer.email + '</td>';
@@ -242,39 +217,11 @@ var $table = $('#table')
                             txt.push(str);
                             var str = '<td><b>{{__("Website")}} : </b> ' + res.importer.website + '</td></tr>';
                             txt.push(str);
-                            // });
-                    $detail.html(txt.join(""));//res.toString().replace(/\n/g, '<br>'));
+                    $detail.html(txt.join(""));
                 });
             });
 
     $(document).ready(function() {
-    //     $('#DangerModalhdbgcl').on('shown.bs.modal', function(e) {
-    //         var link = $(e.relatedTarget),
-    //             url = link.data("url"),
-    //             product_name = link.data("product_name");
-    //             // e.closest('tr').hide();
-    //             // alert(e.closest.closest('tr'));
-    //         $("#Delete").attr("href", url);
-    //         $("#ProductName").text(product_name);
-    //     });
-
-    //     $("#Delete").click(function(e){
-    //         e.preventDefault();
-    //         var url = $("#Delete").attr("href");
-    //         var id = url.substring(url.lastIndexOf('/') + 1);
-    //         $.ajax({
-    //             headers: {
-    //           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         url: url,
-    //         type: 'DELETE',
-    //         success: function(result) {
-    //             $('#DangerModalhdbgcl').modal('toggle');
-    //             // document.getElementById("table").deleteRow(4); 
-    //             $('table#table tr#'+id).remove();
-    //         }
-    //     });
-    // }); 
 
     $(document).on("click", "#edit", function(e) {
                 e.preventDefault();
@@ -299,7 +246,6 @@ var $table = $('#table')
             $("#delete").click(function(e) {
                 e.preventDefault();
                 var url = $("#delete").attr("href");
-                // var id = url.substring(url.lastIndexOf('/') + 1);
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

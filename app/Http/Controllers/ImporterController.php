@@ -76,7 +76,6 @@ class ImporterController extends Controller
                 'fax' => $request->fax ? $request->fax : '',
                 'category_id' => $request->category_id,
                 'state_id' => $request->state_id,
-                // 'enterprise_id' => Auth::User()->Enterprise->id
                 'enterprise_id' => (Auth::User()->role->name == 'user') ? (Auth::User()->Enterprise ? Auth::User()->Enterprise->id : null) 
                                     : $request->input('enterprise_id')
             ]);
@@ -151,7 +150,6 @@ class ImporterController extends Controller
             $importer->name = $request->name;
             $importer->legal_form = $request->legal_form;
             $importer->activity_type_name = $request->category_id == "19" ? $request->activity_type_name : '';
-            // $importer->type = $request->type;
             $importer->address = $request->address;
             $importer->email = $request->email;
             $importer->mobile = $request->mobile;
@@ -185,7 +183,6 @@ class ImporterController extends Controller
         //   
         try {
 
-            // return redirect()->route('importers.index')->with('success','Importer deleted successfully');
             if (str_contains($id, ',')) {
                 foreach (explode(',', $id) as $code) {
                     $importer = Importer::find($id);

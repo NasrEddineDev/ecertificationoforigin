@@ -34,8 +34,6 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware(['guest', 'auth']);
-        // $this->middleware(['verified']);
     }
 
     /**
@@ -46,52 +44,34 @@ class RegisterController extends Controller
     public function index()
     {
         try {
-            // App::setLocale('ar');
-            // session()->put('locale', 'ar');
             $locale = App::currentLocale();
 
-            // if (App::isLocale('ar')) {
-            //     App::setLocale('ar');
-            // }
-            // else if (App::isLocale('en')) {
-            //     App::setLocale('en');
-            // }
-            // else if (App::isLocale('fr')) {
-            //     App::setLocale('fr');
-            // }
-
+            $activities = Activity::all();
+            $step = Steps::ENTERPRISE;
+            return view('register', compact('step', 'activities'));
+            
             if (Auth::check() && Auth::user()->Role->name == "user") {
                 if (!Auth::user()->hasVerifiedEmail()) {
                     return view('register', ['step' => Steps::ACTIVATION]);
                 } else if (!Auth::user()->enterprise) {
-                    // $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
-                    // $cities = City::all()->where('country_code', '==', 'DZ');
                     $activities = Activity::all();
                     $step = Steps::ENTERPRISE;
                     return view('register', compact('step', 'activities'));
                 } else if (!Auth::user()->enterprise->manager_id) {
-                    // $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
-                    // $cities = City::all()->where('country_code', '==', 'DZ');
-                    // $cities = City::all()->where('state_code', '==', $state_code);
                     $step = Steps::MANAGER;
                     return view('register', compact('step'));
                 } else if (
                     !Auth::user()->enterprise->rc || !Auth::user()->enterprise->nis || !Auth::user()->enterprise->nif
                     || !Auth::user()->enterprise->rc
                 ) {
-                    // $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
-                    // $cities = City::all()->where('country_code', '==', 'DZ');
-                    // $cities = City::all()->where('state_code', '==', $state_code);
                     $step = Steps::ATTACHMENTS;
                     return view('register', compact('step'));
                 } else if (Auth::user()->enterprise->status == 'DRAFT') {
                     return view('register', ['step' => Steps::CONFIRMATION]);
                 }
                 return redirect(RouteServiceProvider::HOME);
-                // return view('register1', ['step' => Steps::CONFIRMATION]);
             }
             return view('register', ['step' => (Steps::REGISTRATION)]);
-            // return redirect(RouteServiceProvider::HOME);
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());
@@ -142,7 +122,6 @@ class RegisterController extends Controller
                         $request->user()->sendEmailVerificationNotification();
                     }
                     if ($request->password != Auth::user()->password)
-                        // if ($request->password != 'Test1988*' && !Hash::check($request->password, Auth::user()->password))
                         Auth::user()->update(['password' => Hash::make($request->password)]);
                 }
                 return response()->json([
@@ -240,50 +219,14 @@ class RegisterController extends Controller
                         'website' => 'nullable|url|max:255|',
                     ]);
                 }
-                // $destinationPath = 'enterprises/' . $enterprise->id .'/' . 'documents/';
-                // if (!file_exists('data/'.$destinationPath)) {
-                //     File::makeDirectory('data/'.$destinationPath, $mode = 0777, true, true);
-                // }
-
-                // $file = $request->file('rc');
-                // if ($file) {
-                //     $fileName = $enterprise->id.'_rc.'.$file->clientExtension();
-                //     Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-                //     $enterprise->rc = $fileName;
-                // }
-
-                // $file = $request->file('nis');
-                // if ($file) {
-                //     $fileName = $enterprise->id.'_nis.'.$file->clientExtension();
-                //     Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-                //     $enterprise->nis = $fileName;
-                // }
-                // $file = $request->file('nif');
-                // if ($file) {
-                //     $fileName = $enterprise->id.'_nif.'.$file->clientExtension();
-                //     Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-                //     $enterprise->nif = $fileName;
-                // }
-                // $enterprise->update();
+                
                 return response()->json([
                     'message' => '',
                     'step' => Steps::MANAGER
                 ], 200);
 
-                // $activities = (array)json_decode($request->activities);
-                // foreach($activities as $activity){
-                //     $activity = new Activity([
-                //         'code' => $request->activity_code,
-                //         'name' => $request->activity_name,
-                //         'enterprise_id' => $enterprise->id
-                //     ]);
-                //     $activity->save();
-                // }
-
-
             } else if ($step == Steps::MANAGER) {
                 //validate
-
                 if (!Auth::user()->enterprise->manager_id) {
                     $request->validate([
                         'firstname_ar' => 'required|string|max:255|',
@@ -313,9 +256,7 @@ class RegisterController extends Controller
                         'birthday' => $request->birthday,
                         'gender' => $request->gender
                     ]);
-
                     $manager->save();
-
                     Auth::user()->enterprise->update(['manager_id' => $manager->id]);
                 } else {
                     $request->validate([
@@ -382,7 +323,6 @@ class RegisterController extends Controller
                     'step' => Steps::ATTACHMENTS
                 ], 200);
             } else if ($step == Steps::ATTACHMENTS) {
-
 
                 $request->validate([
                     'rc' => 'required|max:10000|mimes:doc,pdf,docx,jpeg,jpg,png',
@@ -460,7 +400,7 @@ class RegisterController extends Controller
                 }
 
                 return response()->json([
-                    'message' => true,//$request->hasfile('files'),
+                    'message' => true,
                     'step' => Steps::CONFIRMATION
                 ], 200);
             } else if ($step == Steps::CONFIRMATION) {

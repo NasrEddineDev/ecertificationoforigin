@@ -47,7 +47,6 @@
                                 <form method="post" action="{{ route('users.settings.post') }}"
                                     class="dropzone dropzone-custom needsclick add-professors" id="demo1-upload">
                                     @csrf
-                                    {{-- @method('put') --}}
                                     <div class="form-group-inner">
                                         <div class="login-btn-inner">
                                             <div class="row">
@@ -66,8 +65,6 @@
                                                 <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Language') }}</label>
                                                 <div class="col-sm-9">
-                                                    {{-- <select id="activitiesTest" class="activitiesTest select2 form-control"
-                                                    name="activitiesTest[]" multiple="multiple"> --}}
                                                     <select id="language" name="language" class="form-control">
                                                         <option selected disabled> {{__('Select The Default Language')}}</option>
                                                         <option {{ $language ==  'ar' ? 'selected' : ''}} value="ar"> <span
@@ -104,8 +101,6 @@
                                 <form method="post" action="{{ route('users.settings.post') }}"
                                     class="dropzone dropzone-custom needsclick add-professors" id="demo1-upload">
                                     @csrf
-                                    {{-- @method('put') --}}
-
                                     <div class="form-group-inner">
                                         <div class="login-btn-inner">
                                             <div class="row">
@@ -126,8 +121,6 @@
                                                 <label
                                                     class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Theme') }}</label>
                                                 <div class="col-sm-9">
-                                                    {{-- <select id="activitiesTest" class="activitiesTest select2 form-control"
-                                                    name="activitiesTest[]" multiple="multiple"> --}}
                                                     <select id="theme" name="theme" class="form-control">
                                                         <option selected disabled>{{__('Select The Default Theme')}}</option>
                                                         <option {{ $theme ==  'default' ? 'selected' : ''}} value="default">{{__('Default')}}</option>

@@ -7,27 +7,16 @@
     <title>Hi</title>
     <style>
         html {
-            /* margin: 0px */
         }
 
         page {
             size: A4;
-            /* margin-top:-1cm;
-            margin-bottom:-1cm;
-            margin-left:-1cm;
-            margin-right:-1cm; */
-            /* margin: 0px;
-            padding: 0px; */
         }
 
         body {
             font-family: helvetica !important;
             font-size: 10pt;
             position: relative;
-            /* margin: 0px;
-            padding: 0px; */
-            /* margin-top: -1cm;
-            margin-left: -1cm; */
         }
 
         #page1 {
@@ -36,7 +25,6 @@
             left: 0;
             height: 100%;
             width: 100%;
-            /* background-image: url( $page1 }}); */
             background-position: center top;
             background-repeat: no-repeat;
             background-size: 100%;
@@ -46,11 +34,6 @@
 
 
         #postal-address {
-            /* margin: 0cm;
-      margin-left: 1cm;
-      margin-top: 0.00cm;
-      margin-bottom: 1.00cm;
-      font-size: 10pt; */
         }
 
         #date {
@@ -65,7 +48,6 @@
 
         #products td,
         #products th {
-            /* border: 1px solid rgb(29, 95, 59); */
             text-align: center;
         }
 
@@ -79,7 +61,6 @@
             padding-top: 120px;
             padding-left: 90px;
             height: 35px;
-            /* background-image: url('img/logo/caci-logolg.png'); */
         }
 
         table th,

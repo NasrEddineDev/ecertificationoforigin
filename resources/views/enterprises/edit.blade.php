@@ -138,9 +138,6 @@
                                                                 {{ __('Other') }}</option>
                                                         </select>
                                                     </div>
-                                                    {{-- <div class="col-sm-5 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                                <input type="text" value="{{ $enterprise->balance }}" name="balance" id="balance" class="form-control" />
-                                              </div> --}}
                                                 </div>
                                             @else
                                                 <input hidden type="text" value="{{ $enterprise->status }}" name="status"
@@ -165,7 +162,7 @@
                                                             {{ __('Trader') }}</option>
                                                         <option value="PRODUCER"
                                                             {{ $enterprise->exporter_type == 'PRODUCER' ? 'selected' : '' }}>
-                                                            {{ __('Producer') }}</option>
+                                                            {{ __('PRODUCER') }}</option>
                                                         <option value="CRAFTSMAN"
                                                             {{ $enterprise->exporter_type == 'CRAFTSMAN' ? 'selected' : '' }}>
                                                             {{ __('Craftsman') }}</option>
@@ -178,22 +175,6 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            {{-- <div class="form-group row">
-                                                <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Type Of Activity') }}</label>
-                                                <div class="col-sm-9">                              
-                                                    <select name="activity_type" id="activity_type" class="form-control">
-                                                      <option value="02" disabled selected>{{ __('Select The Type Of Activity') }}</option>
-                                                      @if (isset($categories))
-                                                          @foreach ($categories as $category){
-                                                              <option value="{{ $category->id }}">
-                                                                  {{ App()->currentLocale() == 'ar' ? $category->name_ar :
-                                                                  (App()->currentLocale() == 'en' ? $category->name : $category->name_fr) }}</option>
-                                                          @endforeach
-                                                      @endif
-                                                </select>
-                                                </div>
-                                            </div> --}}
                                         </div>
                                         <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                             <div class="form-group row">
@@ -238,16 +219,6 @@
                                                 <div class="col-lg-9 col-md-7 col-sm-12">
                                                     <select id="activities" class="activities select2 form-control"
                                                         name="activities[]" multiple="multiple" required>
-
-                                                        {{-- @foreach (explode(',', $settings->where('name', 'Offers List')->first()->value) as $offer)
-                                                            <option selected value="{{ $offer }}">
-                                                                {{ $offer }}</option>
-                                                        @endforeach --}}
-
-                                                        {{-- @foreach ($enterprise->activities as $activity)
-                                                            <option value="{{ $activity->id }}">
-                                                                {{ $activity->code . ' ' . $activity->name_ar }}</option>
-                                                        @endforeach --}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -361,21 +332,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="row">
-                                        <div class="col-md-6">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group row">
-                                                <label
-                                                    class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Export Activity Code') }}</label>
-                                                <div class="col-sm-9">
-                                                    <input value="{{ $enterprise->export_activity_code }}"
-                                                        name="export_activity_code" id="export_activity_code" type="text"
-                                                        class="form-control" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
 
                                     <p class="card-description"> {{ __('Contact Information') }} </p>
                                     <div class="row">
@@ -511,9 +467,6 @@
                     <object style="width:100%;" id="object" data="">
                         <embed id="embed" src="" />
                     </object>
-                    {{-- <iframe id="iframe" src="" type="application/pdf" width="100%" height="900px;"></iframe> --}}
-                    {{-- src="{{ asset('data/enterprises/' . Auth::User()->Enterprise->id . '/certificates/gzal-draft.pdf') }}" --}}
-
                 </div>
                 <div class="modal-footer danger-md" style="background-color: #65b12d!important;">
                 </div>
@@ -553,7 +506,6 @@
                             begin="-0.36057692307692313" repeatCount="indefinite"></animateTransform>
                     </circle>
                 </g>
-                <!-- [ldio] generated by https://loading.io/ -->
             </svg>
             <span class="sr-only">{{ __('Loading...') }}</span>
         </div>
@@ -585,13 +537,11 @@
             if (lang == 'ar') dir = 'rtl';
             else dir = 'ltr';
             $('#activities').select2({
-                // width: 'resolve',
                 dir: dir,
                 width: $('.content').width(),
                 placeholder: '{{ __('Type Activities Codes') }}',
                 allowClear: true,
                 tokenSeparators: [","],
-                // tags: true,
                 ajax: {
                     url: '/getactivities',
                     dataType: 'json',

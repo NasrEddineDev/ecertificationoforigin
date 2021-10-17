@@ -7,83 +7,17 @@
     <title>Hi</title>
     <style>
         html {
-            /* margin: 0px */
         }
 
         page {
             size: A4;
-            /* margin-top:-1cm;
-            margin-bottom:-1cm;
-            margin-left:-1cm;
-            margin-right:-1cm; */
-            /* margin: 0px;
-            padding: 0px; */
         }
 
         body {
             font-family: helvetica !important;
             font-size: 10pt;
             position: relative;
-            /* margin: 0px;
-            padding: 0px; */
-            /* margin-top: -1cm;
-            margin-left: -1cm; */
         }
-
-
-        /* #stamp {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100px!important;;
-            width: 100px!important;
-            background-image: url('img/logo/caci-logosn.png');
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        } */
-        /* #page1 {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-image: url({{ $page1 }});
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        }
-
-        #page2 {
-            page-break-before: always;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-image: url({{ $page2 }});
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        } */
-
-        /* 
-        #page3 {
-            page-break-before: always;
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 100%;
-            background-image: url({{ $page3 }});
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        } */
 
         #invoice {
             page-break-before: always;
@@ -100,11 +34,6 @@
         }
 
         #postal-address {
-            /* margin: 0cm;
-      margin-left: 1cm;
-      margin-top: 0.00cm;
-      margin-bottom: 1.00cm;
-      font-size: 10pt; */
         }
 
         #date {
@@ -137,7 +66,6 @@
 
         #products td,
         #products th {
-            /* border: 1px solid rgb(29, 95, 59); */
             text-align: center;
         }
 
@@ -210,9 +138,6 @@
 <body>
     <div id="page-body">
         <div id="page1">
-            {{-- <div id="code">
-                <label>{{$code}}</label>
-            </div> --}}
             <div id="tables">
                 <table style="width:100%;padding-top:200px!important;">
                     <tr>
@@ -273,7 +198,6 @@
                                     <th>Pkg Type</th>
                                     <th>Pkg Weight (KG)</th>
                                     <th>Pkg Count</th>
-                                    {{-- <th>Description</th> --}}
                                 </tr>
                                 @foreach ($products as $product)
                                     <tr>
@@ -282,7 +206,6 @@
                                         <td>{{ $product->package_type }}</td>
                                         <td>{{ $product->package_quantity }}</td>
                                         <td>{{ $product->package_count }}</td>
-                                        {{-- <td>{{ $product->description }}</td> --}}
                                     </tr>
                                 @endforeach
                             </table>
@@ -324,7 +247,6 @@
                         <td width="48.5%" style="height: 10px;"></td>
                         <td width="49.5%" style="height: 10px;text-align: center"><strong>
                             {{ 'China' }}</strong></td>
-                            {{-- destination_country --}}
                     </tr>
                     <tr>
                         <td></td>
@@ -350,105 +272,11 @@
         </div>
         <div id="page2">
         </div>
-        {{-- <div id="page3">
-            <div id="tables1">
-                <table style="width:88%;padding-bottom:100px!important;margin-left:auto;margin-right:auto;">
-                    <tr>
-                        <td width="5%"></td>
-                        <td width="90%"
-                            style="padding-left:15px!important;padding-right:15px!important;height: 100px;{{ $rtl ? 'text-align:right;' : '' }}">
-                            {{ $integrity_rate . ' ' .($rtl ? 'منتوج جزائري' : 'Algerian product') }}<br />
-                        </td>
-                        <td width="5%"></td>
-                    </tr>
-                </table>
-            </div>
-            <div id="tables2">
-                <table style="width:88%;margin-top:-200px!important;margin-left:auto;margin-right:auto;">
-                    <tr>
-                        <td width="5%"></td>
-                        <td width="90%"
-                            style="padding-left:15px!important;padding-right:15px!important;height: 70px;{{ $rtl ? 'text-align:right;' : '' }}">
-                            {{ $rtl ? 'رقم الفاتورة' : 'Invoice Number' }}
-                            {{ $invoice_number }}<br />
-                            {{ $rtl ? 'تاريخ الفاتورة' : 'Invoice Date' }}
-                            {{ $invoice_date }}
-                        </td>
-                        <td width="5%"></td>
-                    </tr>
-                </table>
-            </div>
-            <div id="tables3">
-                <table style="width:88%;margin-top:-200px!important;margin-left:auto;margin-right:auto;">
-                    <tr>
-                        <td width="48%"
-                            style="margin-left:5px!important;margin-right:5px!important;height: 30px;{{ $rtl ? 'text-align:right;' : '' }}">
-
-                        </td>
-                        <td width="25%" style="margin-left:5px!important;margin-right:5px!important;text-align:center;">
-
-                            @if ($status == 'PENDING' || $status == 'SIGNED')
-                                <strong>{{ $signature_date }}</strong>
-                            @endif
-                        </td>
-                        <td width="27%"
-                            style="margin-left:5px!important;margin-right:5px!important;{{ $rtl ? 'text-align:right;' : '' }}">
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td width="48%"
-                            style="margin-left:5px!important;margin-right:5px!important;height: 210px;{{ $rtl ? 'text-align:right;' : '' }}">
-
-                        </td>
-                        <td width="48%"
-                            style="margin-left:5px!important;margin-right:5px!important;height: 70px;text-align:center;">
-                            
-                        </td>
-                        <td width="5%"
-                            style="margin-left:5px!important;margin-right:5px!important;height: 70px;{{ $rtl ? 'text-align:right;' : '' }}">
-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div> --}}
         @if ($invoice)
             <div id="invoice">
-                {{-- invoice {{$invoice.'   '.$invoice_path --}}
             </div>
         @endif
     </div>
-    {{-- <div style="position: fixed; left: 1pt; top: 1pt; right: 0px; bottom: 0px; text-align: center;z-index: -1000;">
-        <img src="img/documents/page1.jpg" style="height: 841.89pt;">
-      </div> --}}
-    {{-- <div id="page2" style="position: fixed; left: 1pt; top: 1pt; right: 0px; bottom: 0px; text-align: center;z-index: -1000;page-break-before: always;">
-        <img src="img/documents/page2.jpg">
-      </div> --}}
-    {{-- <div id="page3" style="position: fixed; left: 1pt; top: 1pt; right: 0px; bottom: 0px; text-align: center;z-index: -1000;page-break-before: always;">
-        <img src="img/documents/page3.jpg" style="height: 841.89pt;">
-      </div> --}}
-    {{-- <div id="page1">
-        <img src="url(documents/gzal.jpg)" style="display: inline;">
-        <p class="producer_name">{{ $producer_name }}</p>
-        <p class="producer_address">{{ $producer_address }}</p>
-        <p class="exporter_address">exporter_address</p>
-        <p class="exporter_name">exporter_name</p>
-        <p class="accumulation">{{ $accumulation }}</p>
-        <p class="accumulation_country">{{ $accumulation_country }}</p>
-        <p class="shipment_type">{{ $shipment_type }}</p>
-        <p class="notes">{{ $notes }}</p>
-    </div> --}}
-    {{-- <div id="page2">
-    </div>
-    <div id="page3">
-    </div> --}}
-    {{-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> --}}
 </body>
 
 </html>

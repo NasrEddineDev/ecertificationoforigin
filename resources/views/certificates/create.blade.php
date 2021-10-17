@@ -65,7 +65,6 @@
         }
 
         .not-active {
-            /* pointer-events:none; */
             cursor: default;
             text-decoration: none;
             background-color: gray !important;
@@ -344,7 +343,6 @@
                                                     <div class="main-sparkline13-hd">
                                                         <p class="card-description"> {{ __('Products List') }}
                                                         </p>
-                                                        {{-- <h1>Products List</h1> --}}
                                                     </div>
                                                 </div>
                                                 <div class="sparkline13-graph">
@@ -439,9 +437,6 @@
                             src="{{ asset('data/enterprises/' . Auth::User()->Enterprise->id . '/certificates/gzal-draft.pdf') }}"
                             type="application/pdf" />
                     </object>
-                    {{-- <iframe id="iframe" src="" type="application/pdf" width="100%" height="900px;"></iframe> --}}
-                    {{-- src="{{ asset('data/enterprises/' . Auth::User()->Enterprise->id . '/certificates/gzal-draft.pdf') }}" --}}
-
                 </div>
                 <div class="modal-footer danger-md" style="background-color: #65b12d!important;">
                 </div>
@@ -452,9 +447,7 @@
 
 @Push('js')
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/tableExport.js') }}"></script> --}}
     <script type="text/javascript" src="{{ URL::asset('js/data-table/data-table-active.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-editable.js') }}"></script> --}}
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-editable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-resizable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/colResizable-1.5.source.js') }}"></script>
@@ -465,8 +458,6 @@
     <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}">
         <script type="text/javascript" src="{{ URL::asset('js/datapicker/bootstrap-datepicker.js') }}"></script>
     </script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/pdfobject.min.js') }}"></script> --}}
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-export.js') }}"></script> --}}
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -510,9 +501,6 @@
 
 
             var validator = $(".form-sample").validate({
-                // onfocusout: function(e) {
-                //     this.element(e);
-                // },
                 rules: {
                     invoice: {
                         required: true,
@@ -545,7 +533,6 @@
                     type: 'application/pdf'
                 })
                 var url = URL.createObjectURL(blob);
-                // location.assign(url);
                 var win = window.open(url, '_blank');
                 if (win) {
                     //Browser has allowed it to be opened
@@ -661,7 +648,6 @@
                 // get product measure unit
                 var selectedProductId = $('#product_id').find(":selected").val();
                 var selectedProductMeasureUnit = $('#product_id').find(":selected").data('measure_unit');
-                // alert(selectedProductId + '  ' + selectedProductMeasureUnit);
                 if (selectedProductMeasureUnit == 'KG')
                     $('#package_quantity').attr('placeholder', '{{ __('KG') }}');
                 else if (selectedProductMeasureUnit == 'U')
@@ -674,15 +660,10 @@
                     $('#package_quantity').attr('placeholder', '{{ __('M') }}');
                 else if (selectedProductMeasureUnit == 'M²')
                     $('#package_quantity').attr('placeholder', '{{ __('M²') }}');
-                // $('#package_quantity').attr('placeholder', '{{ config('settings.UNIT.U') }}');
             });
             // add products
-
             $(".add-row").click(function(e) {
                 e.preventDefault();
-                // <a class="add-row dt-tb" style="float:left;right:auto!important;position: unset;" href="#">إضافة منتوج جديد</a>
-                // <a class="add-row dt-tb not-active" style="float:left;right:auto!important;position: unset;" href="javascript: void(0);">إضافة منتوج جديد</a>
-                // <a class="add-row dt-tb" style="float:left;right:auto!important;position: unset;" href="javascript: void(0);">إضافة منتوج جديد</a>
                 counter++;
                 var new_line =
                     '<tr><td></td><td>' + counter +
@@ -750,8 +731,6 @@
                     'id="removeRow" style="background-color: #d80027!important;"> <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>' +
                     '<div class="ripple-container"></div></a></td></tr>';
 
-                // '<td><a class="btn btn-success" href="javascript:void(0)" id="checkRow" float-right><i class="fa fa-check"></i></a></td></tr>';
-
                 $(this).parents('tr').remove();
                 $("table tbody").append(new_product);
 
@@ -770,16 +749,6 @@
                 }
             });
 
-            // masks
-            // $(selector).inputmask("99-9999999");  //static mask
-            // $('#invoice_date').inputmask({"mask": "(999) 999-9999"}); //specifying options
-            // $('#invoice_date').inputmask("9-a{1,3}9{1,3}"); //mask with dynamic syntax
-            // <input data-inputmask="'alias': 'datetime'" />
-            // <input data-inputmask="'mask': '9', 'repeat': 10, 'greedy' : false" />
-            // <input data-inputmask="'mask': '99-9999999'" />
-            // $('#invoice_date').inputmask({"mask": "99/99/9999"}); //specifying options
-            // $('#integrity_rate').inputmask({ alias: "datetime", inputFormat: "dd/mm/yyyy"});
-
             $('#invoice_date').inputmask({
                 alias: "datetime",
                 inputFormat: "dd/mm/yyyy",
@@ -789,17 +758,7 @@
                         parseInt('FEC9', 16)))
             });
 
-            // $('#integrity_rate').inputmask("% ^[1-9][0-9]?$|^100$"); //specifying options
             $('#integrity_rate').inputmask({ regex: "^% [0-9][0-9]?$|^% 100$", placeholder: "" });
-            //             $("#invoice-error").each(function() {
-            //     var item = $(this);
-
-            //     //either this:
-            //      item.next().after(item);
-
-            //     //or this:
-            //     item.insertBefore(item.next());
-            // });
             $(document).on('DOMNodeInserted', function(e) {
                 if (e.target.id == 'invoice-error') {
                     $('#invoice-error').insertAfter($('#invoice-error').next());

@@ -128,12 +128,6 @@
             }
         }
     </style>
-    <!--[if gte mso 9]><style type=”text/css”>
-        body {
-        font-family: arial, sans-serif!important;
-        }
-        </style>
-    <![endif]-->
 </head>
 
 

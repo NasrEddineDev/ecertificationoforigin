@@ -42,8 +42,6 @@ class CertificateController extends Controller
      */
     public function index()
     {
-        //
-        // $this->authorize('create', new Certificate());
         $certificates = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->certificates->sortByDesc('id') : ((Auth::User()->role->name
             == 'dri_user') ? Certificate::all()->where('status', '!=', 'DRAFT')->sortByDesc('id') : Certificate::all()->sortByDesc('id'));
         return view('certificates.index', compact('certificates'));
@@ -56,7 +54,6 @@ class CertificateController extends Controller
      */
     public function create()
     {
-        //
         $importers = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->importers : Importer::all();
         $producers = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->producers : Producer::all();
         $products = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->products : Product::all();
@@ -66,7 +63,6 @@ class CertificateController extends Controller
 
     public function createType($type)
     {
-        //
         $importers = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->importers : Importer::all();
         $producers = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->producers : Producer::all();
         $products = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->products : Product::all();
@@ -82,7 +78,6 @@ class CertificateController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $certificate = new Certificate([
             'code' => $request->certificate_number,
             'original_country' => "Algeria",
@@ -115,19 +110,14 @@ class CertificateController extends Controller
             "certificate_id" => null
         ]);
 
-        // $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;
-        // $certificate->code = str_repeat("0", 7 - strlen($lastId + 1)) . ($lastId + 1);
-
         $file = $request->invoice;
         if ($file  && $file != 'undefined') {
             $destinationPath = 'enterprises/' . Auth::User()->Enterprise->id . '/' . 'invoices/';
             $fileName = 'invoice_' . date('YmdHs') . '.' . $file->getClientOriginalExtension();
-            // $request->file('invoice')->save($destinationPath, $fileName);
             if (!file_exists('data/' . $destinationPath)) {
                 File::makeDirectory('data/' . $destinationPath, $mode = 0777, true, true);
             }
             Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
-            // $certificate->invoice = $fileName;
             $certificate->invoice = $fileName;
         }
         $certificate->save();
@@ -156,7 +146,6 @@ class CertificateController extends Controller
 
     public function createRetrospectiveCopy($id, $reason)
     {
-        //
         $certificate = Certificate::where('code', '=', $id)->first();
         $certificate = $certificate ? $certificate : Certificate::find($id);
         if ($certificate) {
@@ -191,7 +180,6 @@ class CertificateController extends Controller
 
     public function storeRetrospectiveCopy(Request $request, $id)
     {
-        //
         $certificate = Certificate::find($id);
         if ($certificate) {
             $duplicatedCertificate = $certificate->replicate();
@@ -200,8 +188,6 @@ class CertificateController extends Controller
             $duplicatedCertificate->signature_date = date('Y-m-d H:m:s');
             $duplicatedCertificate->notes = __('Retrospective Copy from certificcate No');
             $duplicatedCertificate->copy_type = 'RETROACTIVE';
-            $duplicatedCertificate->certificate_id = $certificate->id;
-
             $duplicatedCertificate->certificate_id = $certificate->id;
             $duplicatedCertificate->accumulation = $request->accumulation;
             $duplicatedCertificate->accumulation_country = ($request->accumulation == 'Yes') ? $request->accumulation_country : '';
@@ -238,7 +224,6 @@ class CertificateController extends Controller
             if ($file && $file->getClientOriginalExtension()) {
                 $destinationPath = 'enterprises/' . Auth::User()->Enterprise->id . '/' . 'invoices/';
                 $fileName = 'invoice_' . date('YmdHs') . '.' . $file->getClientOriginalExtension();
-                // $request->file('invoice')->save($destinationPath, $fileName);
                 if (!file_exists('data/' . $destinationPath)) {
                     File::makeDirectory('data/' . $destinationPath, $mode = 0777, true, true);
                 }
@@ -248,10 +233,7 @@ class CertificateController extends Controller
 
             $duplicatedCertificate->save();
 
-            // foreach ($duplicatedCertificate->products as $product) $product->detach();
             $duplicatedCertificate->products()->detach();
-            // $duplicatedCertificate->products()->detach();
-            // $duplicatedCertificate->products()->update(['certificate_id' => null]);
             $products = (array)json_decode($request->products);
             foreach ($products as $product) {
                 $duplicatedCertificate->products()->attach($product->product_id, [
@@ -349,7 +331,6 @@ class CertificateController extends Controller
             if ($file && $file->getClientOriginalExtension()) {
                 $destinationPath = 'enterprises/' . Auth::User()->Enterprise->id . '/' . 'invoices/';
                 $fileName = 'invoice_' . date('YmdHs') . '.' . $file->getClientOriginalExtension();
-                // $request->file('invoice')->save($destinationPath, $fileName);
                 if (!file_exists('data/' . $destinationPath)) {
                     File::makeDirectory('data/' . $destinationPath, $mode = 0777, true, true);
                 }
@@ -359,11 +340,7 @@ class CertificateController extends Controller
 
             $certificate->save();
 
-            // foreach ($certificate->products as $product) 
             $certificate->products()->detach();
-
-            // $duplicatedCertificate->products()->detach();
-            // $duplicatedCertificate->products()->update(['certificate_id' => null]);
             $products = (array)json_decode($request->products);
             foreach ($products as $product) {
                 $certificate->products()->attach($product->product_id, [
@@ -418,36 +395,17 @@ class CertificateController extends Controller
         return response()->json([
             'message' => 'Certificate not found'
         ], 200);
-        // return redirect()->route('certificates.index')->with('success','Certificate deleted successfully');
     }
 
     public function preview($id)
     {
-        //
         $certificate = Certificate::where('code', '=', $id)->first();
         $certificate = $certificate ? $certificate : Certificate::find($id);
         if ($certificate) {
 
             $certificateName = strtolower($certificate->type);
 
-            // uncomment this when using agce signing
-            // if ($certificate->status == "SINGED") {
-            //     return response()->json([
-            //         'message' => 'Certificate generated',
-            //         'url' => url('data/enterprises/' . $certificate->Enterprise->id
-            //             . '/certificates' . '/' . $certificateName . '/' . $certificate->signed_document),
-            //         'status' => $certificate->status
-            //     ], 200);
-            // }
-
             $data = $this->certificateToPDF($certificate, 2);
-
-            // return response()->json([
-            //     'message' => 'Certificate generated',
-            //     'data' => $data,
-            //     'copy_type' => $certificate->copy_type
-            // ], 200);
-
             $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
                 'title' => 'Another Title',
                 'margin_left' => 0,
@@ -463,14 +421,11 @@ class CertificateController extends Controller
                 File::makeDirectory($path, $mode = 0777, true, true);
             }
 
-            //   $url = 'data/'. ((Auth::User()->role->name == 'user') 
-            //     ? 'enterprises/'.$certificate->Enterprise->id : 'dri/'.Auth::User()->username).'/certificates/gzal-draft.pdf';
             $pdf->save($path . '/' . $certificateName . '-certificate.pdf');
 
             return response()->json([
                 'message' => 'Certificate generated',
                 'url' => url($path . '/' . $certificateName . '-certificate.pdf'),
-                // 'products' => $products,
                 'status' => $certificate->status,
                 'copy_type' => $certificate->copy_type
             ], 200);
@@ -479,31 +434,13 @@ class CertificateController extends Controller
 
     public function previewWhite($id)
     {
-        //
         $certificate = Certificate::where('code', '=', $id)->first();
         $certificate = $certificate ? $certificate : Certificate::find($id);
         if ($certificate) {
 
             $certificateName = strtolower($certificate->type);
 
-            // uncomment this when using agce signing
-            // if ($certificate->status == "SINGED") {
-            //     return response()->json([
-            //         'message' => 'Certificate generated',
-            //         'url' => url('data/enterprises/' . $certificate->Enterprise->id
-            //             . '/certificates' . '/' . $certificateName . '/' . $certificate->signed_document),
-            //         'status' => $certificate->status
-            //     ], 200);
-            // }
-
             $data = $this->certificateToPDF($certificate, 1);
-
-            // return response()->json([
-            //     'message' => 'Certificate generated',
-            //     'data' => $data,
-            //     'copy_type' => $certificate->copy_type
-            // ], 200);
-
             $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
                 'title' => 'Another Title',
                 'margin_left' => 0,
@@ -519,14 +456,11 @@ class CertificateController extends Controller
                 File::makeDirectory($path, $mode = 0777, true, true);
             }
 
-            //   $url = 'data/'. ((Auth::User()->role->name == 'user') 
-            //     ? 'enterprises/'.$certificate->Enterprise->id : 'dri/'.Auth::User()->username).'/certificates/gzal-draft.pdf';
             $pdf->save($path . '/' . $certificateName . '-certificate.pdf');
 
             return response()->json([
                 'message' => 'Certificate generated',
                 'url' => url($path . '/' . $certificateName . '-certificate.pdf'),
-                // 'products' => $products,
                 'status' => $certificate->status,
                 'copy_type' => $certificate->copy_type
             ], 200);
@@ -543,7 +477,6 @@ class CertificateController extends Controller
             $certificateName = strtolower($certificate->type);
 
             $data = $this->certificateToPDF($certificate, 0);
-
             $data['qrcode_url'] = 'data/enterprises/' . $certificate->enterprise->id . '/documents/qrcode.png';
             $url = route('verifiy-certificate', $certificate->code);
             QRCode::url($url)
@@ -578,14 +511,10 @@ class CertificateController extends Controller
                 File::makeDirectory($path, $mode = 0777, true, true);
             }
 
-            //   $url = 'data/'. ((Auth::User()->role->name == 'user') 
-            //     ? 'enterprises/'.$certificate->Enterprise->id : 'dri/'.Auth::User()->username).'/certificates/gzal-draft.pdf';
             $pdf->save($path . '/' . $certificateName . '-certificate.pdf');
-
             return response()->json([
                 'message' => 'Certificate generated',
                 'url' => url($path . '/' . $certificateName . '-certificate.pdf'),
-                // 'products' => $products,
                 'status' => $certificate->status,
                 'copy_type' => $certificate->copy_type
             ], 200);
@@ -599,16 +528,12 @@ class CertificateController extends Controller
         if ($file  && $file != 'undefined') {
             $destinationPath = 'enterprises/' . Auth::User()->Enterprise->id . '/' . 'invoices/';
             $fileName = 'invoice.' . $file->getClientOriginalExtension();
-            // $request->file('invoice')->save($destinationPath, $fileName);
-            // if (!file_exists($destinationPath)) {
-            //     File::makeDirectory($destinationPath, $mode = 0777, true, true);
-            // }
             Storage::disk('public')->put($destinationPath . $fileName, file_get_contents($file));
             $invoice =  'data/' . $destinationPath . $fileName;
         }
 
         $lastId = Certificate::latest()->first() ? Certificate::latest()->first()->id : 0;
-        $template = 2; //Setting::where('name', 'Default Certificate Template')->first()->value;
+        $template = 2;
         $page1 = '';
         $page2 = '';
         $page3 = '';
@@ -625,8 +550,6 @@ class CertificateController extends Controller
         $data = [
             'rtl' => (strtolower($request->type) == 'gzale' || strtolower($request->type) == 'acp-tunisie') ? true : false,
             'code' => $request->certificate_number,
-            //str_repeat("0", 7 - strlen($lastId + 1)) . ($lastId + 1), 
-            //$request->is_retrospective ? $request->code . '-R' : "E-" . date("Y") . "0001",
             'exporter_name' => Auth::User()->Enterprise->name,
             'exporter_address' => Auth::User()->Enterprise->address,
             'producer_name' => $producer ? $producer->name : '',
@@ -645,7 +568,6 @@ class CertificateController extends Controller
             'invoice_path' => !empty($invoice) ? $invoice : "data/documents/invoice-template-blue.png",
             'invoice_date' => $request->invoice_date,
             'invoice_number' => $request->invoice_number,
-            // 'integrity_rate' => $request->integrity_rate,
             'integrity_rate' => $request->integrity_rate ? (str_contains($request->integrity_rate, '%')  ?
                 $request->integrity_rate : $request->integrity_rate . '%') : '',
             'products' => (array)json_decode($request->products),
@@ -659,7 +581,6 @@ class CertificateController extends Controller
             'page2' => $page2,
             'page3' => $page3,
         ];
-        // 'gzale', 'acp-tunisie', 'form-a-en', 'formule-a-fr', 'zlecaf', 'pan-euromed', 'droits-communs'
         $pdf = PDF::loadView('pdfs.' . $request->type, $data, [], [
             'title' => 'Another Title',
             'margin_left' => 0,
@@ -671,12 +592,9 @@ class CertificateController extends Controller
 
         $path = 'data/enterprises/' . Auth::User()->Enterprise->id . '/certificates' . '/' . $request->type . '/';
         if (!file_exists($path)) {
-            // path does not exist
             File::makeDirectory($path, $mode = 0777, true, true);
         }
         $pdf->save($path . '/gzal-draft.pdf');
-        // return $pdf->download('gzal'.date('d/m/Y').'.pdf');
-        // return $pdf->stream('file.pdf');
         return response()->json([
             'message' => 'Certificate generated',
             'url' => url($path . '/gzal-draft.pdf'),
@@ -686,7 +604,6 @@ class CertificateController extends Controller
 
     public function sign($id, $notes)
     {
-        //
         $certificate = Certificate::where('code', '=', $id)->first();
         $certificate = $certificate ? $certificate : Certificate::find($id);
         if ($certificate) {
@@ -694,8 +611,7 @@ class CertificateController extends Controller
             $certificateName = strtolower($certificate->type);
 
             $data = $this->certificateToPDF($certificate, 2);
-
-            $template = 2; //Setting::where('name', 'Default Certificate Template')->first()->value;
+            $template = 2;
 
             if (Auth::User()->role->name == 'user' && $certificate->status == 'DRAFT') {
                 $certificate->status = 'PENDING';
@@ -705,11 +621,6 @@ class CertificateController extends Controller
                 $data['signature_date'] = date('d-m-Y', strtotime($certificate->signature_date));
                 $data['page1'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '1.jpg';
                 $data['page3'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg';
-
-                //notify
-                // $users = User::all()->where('id', 3);
-                // Notification::send($users, new CertificatePending($certificate));
-
 
                 if (!file_exists('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/')) {
                     File::makeDirectory('data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/', $mode = 0777, true, true);
@@ -735,7 +646,6 @@ class CertificateController extends Controller
                     }
                 }
                 $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
-                    // $pdf = PDF::loadView('pdfs.gzale', $data, [], [
                     'title' => 'Another Title',
                     'margin_left' => 0,
                     'margin_right' => 0,
@@ -772,12 +682,9 @@ class CertificateController extends Controller
                 $data['status'] = $certificate->status;
                 $data['notes'] = $notes == 'null' ? '' : $notes;
                 $data['dri_signature_date'] = date('d-m-Y', strtotime($certificate->dri_signature_date));
-                // $data['gzale1'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents/gzal1-dri-signed.png';
-                // $data['gzale3'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents/gzal3.png';
                 $data['page1'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '1-dri-signed.jpg';
                 $data['page3'] = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '3.jpg';
 
-                // $source_image = 'data/documents/'.$certificateName.'/'.$certificateName.'1.jpg';
                 $source_image = 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $template . '/' . $certificateName . '/' . $certificateName . '1.jpg';
                 $round_stamp = config('settings.ROUND_STAMP_AR_FILE_PATH');
                 $square_stamp = 'data/dri/' . Auth::User()->id . '/' . Auth::User()->Profile->square_stamp;
@@ -795,15 +702,6 @@ class CertificateController extends Controller
                 $img->save();
                 $destination_image_path = $data['page1'];
                 imagejpeg(imagecreatefromjpeg($source_image_path), $destination_image_path, 90); // 30 50 90
-                // imagejpeg(imagecreatefrompng($source_image_path), $destination_image_path, 90); // 30 50 90
-
-                // $fh = fopen("data/documents/test.txt","w+");
-                // fwrite($fh, print_r(getimagesize($source_image_path), true)); // write to file (filehandle, "data")
-                // fwrite($fh," ------ "); // write to file (filehandle, "data")
-                // fwrite($fh, print_r(getimagesize($destination_image_path), true)); // write to file (filehandle, "data")
-                // fclose($fh); // close the file
-
-                // $data['gzale1'] = $destination_image_path;
                 $pdf = PDF::loadView('pdfs.' . $certificateName, $data, [], [
                     'title' => 'Another Title',
                     'margin_left' => 0,
@@ -828,7 +726,8 @@ class CertificateController extends Controller
                     // 'app/Http/Requests/Certificates/ouennadi.amine/CACI-6523985471.crt';
                     $ssl_key_file_path = $settings->where('name', 'File Path Of The AGCE SSL Key')->first()->value;
                     // 'app/Http/Requests/Certificates/ouennadi.amine/CACI-6523985471.key';
-                    // Global function sign document, it will use all four functions
+                    
+                    // Global function sign document, it will use all functions(four fcts)
                     // AGCE/rest-api-sdk-laravel-php-digital-signature.SignDocument ()
                     // $status = $this->AGCE_SDK_SignDocument(
                     //     $originator_id,
@@ -881,7 +780,7 @@ class CertificateController extends Controller
                 return response()->json([
                     'message' => 'Certificate signed',
                     'certificate_id' => $certificate->id,
-                    'status' => 'SIGNED', //$certificate->status,
+                    'status' => 'SIGNED',
                     'url' => url($destinationPath . $certificate->signed_document)
                 ], 200);
             }
@@ -894,7 +793,6 @@ class CertificateController extends Controller
 
     public function duplicateGZALE($id, $type, $reason)
     {
-        //
         $certificate = Certificate::where('code', '=', $id)->first();
         $certificate = $certificate ? $certificate : Certificate::find($id);
         if ($certificate) {
@@ -904,12 +802,9 @@ class CertificateController extends Controller
             } else if ($type == "D") {
                 $duplicatedCertificate = $certificate->replicate();
                 $duplicatedCertificate->code = str_repeat("0", 7 - strlen($duplicatedCertificate->id)) . ($duplicatedCertificate->id);
-                // $duplicatedCertificate->code = $certificate->code . '-'.$type;
                 $duplicatedCertificate->status = 'PENDING';
                 $certificate->signature_date = date('Y-m-d H:m:s');
-                // $duplicatedCertificate->notes = $type == 'D' ? __('Duplicate Certificate from certificcate No') : __('Retrospective Copy from certificcate No');
                 $duplicatedCertificate->notes = __('Duplicate Certificate from certificcate No');
-                // $duplicatedCertificate->copy_type = $type == 'D' ? 'DUPLICATE' : 'RETROACTIVE';
                 $duplicatedCertificate->copy_type = 'DUPLICATE';
                 $duplicatedCertificate->certificate_id = $certificate->id;
                 $duplicatedCertificate->save();
@@ -1260,7 +1155,6 @@ class CertificateController extends Controller
             return $data;
         });
         $settings = Setting::all();
-        // $template = Setting::where('name', 'Default Certificate Template')->first()->value;
         $page1 = '';
         $page2 = '';
         $page3 = '';
@@ -1331,11 +1225,7 @@ class CertificateController extends Controller
             ->setMargin(2)
             ->png();
 
-        // QRCode::text('QR Code Generator for Laravel!')->setOutfile('data/enterprises/' . Auth::User()->Enterprise->id . '/qrcode.png')->png();
-
         $img = Image::make($source_image);
-        // now you are able to resize the instance
-        // $img->resize(320, 240);
         // and insert a watermark for example
         if ($type == 'gzale') {
             $img->insert($qrcode_url, 'top-right', 150, 200);
@@ -1353,10 +1243,6 @@ class CertificateController extends Controller
     public function addEnterpriseSignatureAndStampPage1($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $type)
     {
         $img = Image::make($source_image);
-        // now you are able to resize the instance
-        // $img->resize(320, 240);
-        // and insert a watermark for example
-
         if ($type == 'gzale') {
             $img->insert($round_stamp, 'bottom-right', 220, 230);
             $img->insert($square_stamp, 'bottom-right', 250, 170);
@@ -1374,22 +1260,7 @@ class CertificateController extends Controller
             $img->insert($square_stamp, 'bottom-right', 500, 200);
             $img->insert($signature, 'bottom-right', 500, 130);
         }
-        // finally we save the image as a new file
         $img->save($destination_image);
-
-        // $dest = imagecreatefrompng('vinyl.png');
-        // $src = imagecreatefromjpeg('cover2.jpg');
-
-        // imagealphablending($dest, false);
-        // imagesavealpha($dest, true);
-
-        // imagecopymerge($dest, $src, 10, 9, 0, 0, 181, 180, 100); //have to play with these numbers for it to work for you, etc.
-
-        // header('Content-Type: image/png');
-        // imagepng($dest);
-
-        // imagedestroy($dest);
-        // imagedestroy($src);
     }
 
     public function addEnterpriseSignatureAndStampPage3($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $type)
@@ -1410,7 +1281,6 @@ class CertificateController extends Controller
     public function addDriSignatureAndStamp($source_image, $round_stamp, $square_stamp, $signature, $destination_image, $type)
     {
         $img = Image::make($source_image);
-
         if ($type == 'gzale') {
             $img->insert($round_stamp, 'bottom-right', 750, 150);
             $img->insert($square_stamp, 'bottom-right', 750, 150);
@@ -1428,7 +1298,6 @@ class CertificateController extends Controller
             $img->insert($square_stamp, 'bottom-right', 1200, 250);
             $img->insert($signature, 'bottom-right', 1200, 200);
         }
-
         $img->save($destination_image);
     }
 }

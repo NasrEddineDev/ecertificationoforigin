@@ -151,8 +151,6 @@
             var link = $(e.relatedTarget),
                 url = link.data("url"),
                 category_name = link.data("category_name");
-                // e.closest('tr').hide();
-                // alert(e.closest.closest('tr'));
             $("#Delete").attr("href", url);
             $("#categoryName").text(category_name);
         });
@@ -169,7 +167,6 @@
                 type: 'DELETE',
                 success: function(result) {
                     $('#DangerModalhdbgcl').modal('toggle');
-                    // document.getElementById("table").deleteRow(4); 
                     $('table#table tr#'+id).remove();
                 }
             });

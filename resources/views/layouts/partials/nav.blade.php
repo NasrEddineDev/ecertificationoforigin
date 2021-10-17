@@ -35,13 +35,6 @@
                                 </a>
                             </li>
                         @endcan
-                        {{-- <li>
-                            <a title="Landing Page" href="{{ route('requests.index') }}" aria-expanded="false">
-                                <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                        class="fa fa-list" style="font-size:19px;"></i></span>
-                                <span class="mini-click-non">{{ __('Requests') }}</span>
-                            </a>
-                        </li> --}}
                         @can('view-list', App\Models\Product::class)
                             <li
                                 class='{{ preg_replace("/\.[^.]+$/", '', Route::currentRouteName()) == 'products' ? 'active' : '' }}'>
@@ -102,101 +95,6 @@
                                 </a>
                             </li>
                         @endcan
-                        {{-- @if (Auth::user()->Role->name != 'user' && Auth::user()->Role->name != 'dri_user') 
-                        <li>
-                            <a class="has-arrow" href="#" aria-expanded="false">
-                                <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                        class="fa fa-history" style="font-size:19px;"></i></span>
-                                <span class="mini-click-non">{{ __('Logger') }}</span>
-                            </a>
-                            <ul class="submenu-angle" aria-expanded="false">
-                                <li>
-                                    <a title="Landing Page" href="{{ route('logger.settings') }}"
-                                        aria-expanded="false">
-                                        <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                                class="fa fa-cog" style="font-size:19px;"></i></span>
-                                        <span class="mini-click-non">{{ __('Settings') }}</span></a>
-                                </li>
-                                <li>
-                                    <a title="Landing Page" href="{{ route('logger.users-activities') }}"
-                                        aria-expanded="false">
-                                        <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                                class="fa fa-group" style="font-size:19px;"></i></span>
-                                        <span class="mini-click-non">{{ __('Users Activities') }}</span></a>
-                                </li>
-                                <li>
-                                    <a title="Landing Page" href="{{ route('logger.system-log') }}"
-                                        aria-expanded="false">
-                                        <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                                class="fa fa-file-text" style="font-size:19px;"></i></span>
-                                        <span class="mini-click-non">{{ __('System Log') }}</span></a>
-                                </li>
-                            </ul>
-                        </li>
-                            <li>
-                                <a class="has-arrow" href="#" aria-expanded="false">
-                                    <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                            class="fa fa-cogs" style="font-size:19px;"></i></span>
-                                    <span class="mini-click-non">{{ __('Settings') }}</span>
-                                </a>
-                                <ul class="submenu-angle" aria-expanded="false">
-                                    <li>
-                                        <a title="Landing Page" href="{{ route('settings.index') }}"
-                                            aria-expanded="false">
-                                            <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                                    class="fa fa-cog" style="font-size:19px;"></i></span>
-                                            <span class="mini-click-non">{{ __('General Settings') }}</span></a>
-                                    </li>
-                                    <li>
-                                        <a title="Landing Page" href="{{ route('settings.images') }}"
-                                            aria-expanded="false">
-                                            <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                                    class="fa fa-cog" style="font-size:19px;"></i></span>
-                                            <span class="mini-click-non">{{ __('Images') }}</span></a>
-                                    </li>
-                                    <li>
-                                        <a title="Landing Page" href="{{ route('users.index') }}"
-                                            aria-expanded="false">
-                                            <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                                    class="fa fa-user-circle" style="font-size:19px;"></i></span>
-                                            <span class="mini-click-non">{{ __('Users') }}</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a title="Landing Page" href="{{ route('roles.index') }}"
-                                            aria-expanded="false">
-                                            <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                                    class="fa fa-check-square" style="font-size:19px;"></i></span>
-                                            <span class="mini-click-non">{{ __('Roles') }}</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a title="Landing Page" href="{{ route('permissions.index') }}"
-                                            aria-expanded="false">
-                                            <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                                    class="fa fa-lock" style="font-size:19px;"></i></span>
-                                            <span class="mini-click-non">{{ __('Permissions') }}</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a title="Landing Page" href="{{ route('categories.index') }}"
-                                            aria-expanded="false">
-                                            <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                                    class="fa fa-lock" style="font-size:19px;"></i></span>
-                                            <span class="mini-click-non">{{ __('Categories') }}</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a title="Landing Page" href="{{ route('subcategories.index') }}"
-                                            aria-expanded="false">
-                                            <span class="educate-icon icon-wrap sub-icon-mg" aria-hidden="true"><i
-                                                    class="fa fa-lock" style="font-size:19px;"></i></span>
-                                            <span class="mini-click-non">{{ __('Subcategories') }}</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        @endif --}}
                     </ul>
                 </nav>
             </div>

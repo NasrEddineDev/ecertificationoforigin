@@ -252,7 +252,6 @@
 
 
 @Push('js')
-    {{-- <script src="{{ URL::asset('wizard/js/jquery-ui.min.js') }}"></script> --}}
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
     <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>

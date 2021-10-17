@@ -36,28 +36,6 @@
         #invoice+label {
             padding: 0.25rem 1rem;
         }
-
-        /* .modal-dialog {
-              width: 90% !important;
-              height: 90% !important;
-              margin: auto;
-              margin-top: 20px;
-              padding: auto;
-          }
-
-          .modal-edu-general .modal-body {
-              text-align: center;
-              padding: 0;
-              width: 100%;
-              height: 100% !important;
-          }
-
-          .modal-content {
-              height: auto;
-              min-height: 100%;
-              border-radius: 0;
-          } */
-
     </style>
 @endpush
 
@@ -213,13 +191,6 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <!-- <div class="form-group row">
-                                                  <label class="col-sm-3 col-form-label">{{ __('Activity Code') }}</label>
-                                                  <div class="col-sm-9">
-                                                      <input name="activity_code" id="activity_code" type="text"
-                                                          class="form-control" />
-                                                  </div>
-                                              </div> -->
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">

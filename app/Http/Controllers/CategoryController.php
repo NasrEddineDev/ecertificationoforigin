@@ -6,7 +6,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
-{    
+{
     public function __construct()
     {
         $this->middleware(['auth']);
@@ -19,15 +19,15 @@ class CategoryController extends Controller
     public function index()
     {
         try {
-        //
-        $categories = Category::all();
-        return view('categories.index', compact('categories'));
-    } catch (Throwable $e) {
-        report($e);
-        Log::error($e->getMessage());
+            //
+            $categories = Category::all();
+            return view('categories.index', compact('categories'));
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
 
-        return false;
-    }
+            return false;
+        }
     }
 
     /**
@@ -38,12 +38,12 @@ class CategoryController extends Controller
     public function create()
     {
         try {
-        //
-        return view('categories.create');    
-    } catch (Throwable $e) {
+            //
+            return view('categories.create');
+        } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());
-    
+
             return false;
         }
     }
@@ -57,21 +57,21 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         try {
-        //
-        $category = new Category([
-            'number' => Category::all()->sortByDesc('created_at')->first()->number + 1,
-            'name' => $request->name,
-            'name_ar' => $request->name_ar,
-            'name_fr' => $request->name_fr,
-            'description' => $request->description ? $request->description : ''
-        ]);
-        $category->save();
-        return redirect()->route('categories.index')
-            ->with('success', 'Category created successfully.');
+            //
+            $category = new Category([
+                'number' => Category::all()->sortByDesc('created_at')->first()->number + 1,
+                'name' => $request->name,
+                'name_ar' => $request->name_ar,
+                'name_fr' => $request->name_fr,
+                'description' => $request->description ? $request->description : ''
+            ]);
+            $category->save();
+            return redirect()->route('categories.index')
+                ->with('success', 'Category created successfully.');
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());
-    
+
             return false;
         }
     }
@@ -96,15 +96,15 @@ class CategoryController extends Controller
     public function edit($id)
     {
         try {
-        //
-        $category = Category::find($id);
-        return view('categories.edit', compact('category'));
-    } catch (Throwable $e) {
-        report($e);
-        Log::error($e->getMessage());
+            //
+            $category = Category::find($id);
+            return view('categories.edit', compact('category'));
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
 
-        return false;
-    }
+            return false;
+        }
     }
 
     /**
@@ -117,19 +117,18 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         try {
-        //
-        $category = Category::find($id);
+            $category = Category::find($id);
             $category->name = $request->name;
             $category->name_ar = $request->name_ar;
             $category->name_fr = $request->name_fr;
             $category->description = $request->description ? $request->description : '';
-        $category->update();
-        return redirect()->route('categories.index')
-            ->with('success', 'Category created successfully.');
+            $category->update();
+            return redirect()->route('categories.index')
+                ->with('success', 'Category created successfully.');
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());
-    
+
             return false;
         }
     }
@@ -143,23 +142,22 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         try {
-        //
-        $category = Category::find($id);
-        if ($category) {
-            $category->delete();
+            $category = Category::find($id);
+            if ($category) {
+                $category->delete();
+                return response()->json([
+                    'message' => 'Category deleted successfully'
+                ], 200);
+            }
+
             return response()->json([
-                'message' => 'Category deleted successfully'
+                'message' => 'Category not found'
             ], 200);
+        } catch (Throwable $e) {
+            report($e);
+            Log::error($e->getMessage());
+
+            return false;
         }
-
-        return response()->json([
-            'message' => 'Category not found'
-        ], 200);
-    } catch (Throwable $e) {
-        report($e);
-        Log::error($e->getMessage());
-
-        return false;
-    }
     }
 }

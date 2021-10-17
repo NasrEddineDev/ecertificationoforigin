@@ -66,7 +66,6 @@
                         <div class="sparkline13-graph">
                             <object style="width:100%;" id="object" data="{{ $url }}" type="text/plain">
                             </object>
-                            {{-- <div id="log-viewer">{{$content}}</div> --}}
                         </div>
                     </div>
                 </div>
@@ -105,7 +104,6 @@
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/tableExport.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/data-table-active.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-editable.js') }}"></script> --}}
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-editable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-resizable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/colResizable-1.5.source.js') }}"></script>
@@ -119,8 +117,6 @@
                 var link = $(e.relatedTarget),
                     url = link.data("url"),
                     payment_name = link.data("payment_name");
-                // e.closest('tr').hide();
-                // alert(e.closest.closest('tr'));
                 $("#Delete").attr("href", url);
                 $("#PaymentName").text(payment_name);
             });
@@ -137,7 +133,6 @@
                     type: 'DELETE',
                     success: function(result) {
                         $('#DangerModalhdbgcl').modal('toggle');
-                        // document.getElementById("table").deleteRow(4); 
                         $('table#table tr#' + id).remove();
                     }
                 });
@@ -164,16 +159,6 @@
 
             $(".sparkline13-graph object pre")attr('style', 'color:#26bd00 !important');
 
-            // $.ajax("/system-log").done(displayText).fail(showError);
-
-            // function displayText(data){
-            //     $("#reply-from-server").append(data);
-            // }
-
-            // function showError(data){
-            // var mess = "An error occured!";
-            // $("#reply-from-server").text(mess);
-            // }
         });
     </script>
 @endpush

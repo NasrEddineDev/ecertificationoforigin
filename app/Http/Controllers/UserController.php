@@ -31,16 +31,7 @@ class UserController extends Controller
     public function index()
     {
         try {
-            // if (Gate::forUser($user)->allows('update-post', $post)) {
-            // }
-            // if (! Gate::allows('list-user')) {
-            //     abort(403);
-            // }
-            // $user = User::find(17);
-            // $user->password = Hash::make('password');
-            // $user->update();
             $role = Role::all()->where('name', '==', 'user')->first();
-            // $users = User::all()->where('role_id', '!=', $role->id);
             $users = (Auth::User()->role->name == 'dri_user') ? User::all()->where('role_id', '!=', $role->id) : User::all();
             return view('users.index', compact('users'));
         } catch (Throwable $e) {
@@ -65,7 +56,6 @@ class UserController extends Controller
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());
-
             return false;
         }
     }
@@ -79,7 +69,6 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
-
         try {
             $profile = new Profile([
                 'firstname' => $request->firstname,
@@ -279,7 +268,6 @@ class UserController extends Controller
                 
                 App::setlocale($language);
                 session()->put('locale', $language);
-                // return redirect()->back();
             }
 
             return view('users.settings', compact('theme', 'language'));

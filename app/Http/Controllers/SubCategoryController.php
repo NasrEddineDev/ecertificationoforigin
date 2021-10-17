@@ -95,7 +95,6 @@ class SubCategoryController extends Controller
     public function getSubCategories($category_id)
     {
         //        
-
         try {
         $data = [];
         $subCategories = SubCategory::all()->where('category_id', '=', $category_id);
@@ -110,7 +109,6 @@ class SubCategoryController extends Controller
     } catch (Throwable $e) {
         report($e);
         Log::error($e->getMessage());
-
         return false;
     }
     }

@@ -18,7 +18,6 @@ class DashboardController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware(['guest']);
         $this->middleware(['auth', 'verified', 'information.verified']);
     }
 
@@ -30,13 +29,9 @@ class DashboardController extends Controller
     public function index()
     {
         try {
-            // $locale = App::currentLocale();
-            // $locale = Auth::user()->profile ? Auth::user()->profile->language : 'ar';
             $locale = Auth::user()->profile->language;
-
             // User or Enterprise KPI
             if (Auth::user()->Role->name == "user") {
-
                 $data = [
                     'current_balance' => Auth::User()->Enterprise->balance,
                     'current_balance_rate' => number_format((float)(100 * Auth::User()->Enterprise->balance / (Auth::User()->Enterprise->balance +
@@ -63,7 +58,6 @@ class DashboardController extends Controller
                             ->pluck('country_id')->toArray())->distinct()->count(),
                     'total_products_weight' => Auth::User()->Enterprise->certificates->where('status', '!=', 'DRAFT')
                         ->where('status', '!=', 'REJECTED')->sum('net_weight'),
-                    // Piechart
                     'total_gzale' => Auth::User()->Enterprise->certificates->where('type', '==', 'GZALE')
                         ->where('copy_type', '==', 'NONE')->count(),
                     'total_acp_tunisie' => Auth::User()->Enterprise->certificates->where('type', '==', 'ACP-TUNISIE')
@@ -93,7 +87,6 @@ class DashboardController extends Controller
 
                 $data['certificates_morris_area'] = $array;
 
-
                 // User or Enterprise KPI
             } else if (Auth::user()->Role->name == "dri_user") {
                 $data = [
@@ -121,15 +114,12 @@ class DashboardController extends Controller
                     'certificates_morris_area' => '',
                 ];
 
-                // dd(Auth::user()->actions->where('log_name', 'certificate')->pluck('properties')->toArray());
-
                 $firstAction = Auth::user()->actions->where('log_name', 'certificate')->sortBy('created_at')->first();
                 $array = [];
                 $startMonth = isset($firstAction) ? (int)date('m', strtotime($firstAction->created_at)) - 1 : '0';
                 array_push($array, (object)(array('month' => $startMonth, 'GZALE' => '0', 'FORM-A-EN' => '0', 'FORMULE-A-FR' => '0', 'ACP-TUNISIE' => '0')));
 
                 $driUserActions = Auth::user()->actions->where('log_name', 'certificate');
-                //->pluck('properties')->toArray();
 
                 $gzaleCount = 0;
                 $acpTunisieCount = 0;
@@ -189,7 +179,6 @@ class DashboardController extends Controller
                 $data['acp_tunisie_rate'] = ($data['total_certificates'] != 0) ? ($data['total_acp_tunisie'] * 100) / $data['total_certificates'] : 0;
                 $data['form_a_en_rate'] = ($data['total_certificates'] != 0) ? ($data['total_form_a_en'] * 100) / $data['total_certificates'] : 0;
                 $data['formule_a_fr_rate'] = ($data['total_certificates'] != 0) ? ($data['total_formule_a_fr'] * 100) / $data['total_certificates'] : 0;
-                // dd($array);
                 $data['certificates_morris_area'] = $array;
             } else {
                 $certificates = DB::table('certificates')->get();
@@ -217,7 +206,6 @@ class DashboardController extends Controller
                             ->pluck('country_id')->toArray())->distinct()->count(),
                     'total_products_weight' => $certificates->where('status', '!=', 'DRAFT')
                         ->where('status', '!=', 'REJECTED')->sum('net_weight'),
-                    // Piechart
                     'total_gzale' => $certificates->where('type', '==', 'GZALE')->where('copy_type', '==', 'NONE')->count(),
                     'total_acp_tunisie' => $certificates->where('type', '==', 'ACP-TUNISIE')->where('copy_type', '==', 'NONE')->count(),
                     'total_form_a_en' => $certificates->where('type', '==', 'FORM-A-EN')->where('copy_type', '==', 'NONE')->count(),

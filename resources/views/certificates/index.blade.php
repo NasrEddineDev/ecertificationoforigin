@@ -130,11 +130,7 @@
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <div id="toolbar">
                                     <div class="{{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                        {{-- <button id="new" class="btn btn-success" style="background-color: #2C7744;" title="{{ __('Preview') }}" disabled>
-                                            <img style="height:20px" src="{{ URL::asset('') }}img/icons/icons8-add-file-64.png"/>
-                                        </button> --}}
                                         @can('create', App\Models\Certificate::class)
-                                            {{-- @if (Auth::User()->role->name == 'user') --}}
                                             <div class="dropdown">
                                                 <button onclick="myFunction()" type="button" style="background-color: #2C7744;"
                                                     class="dropbtn btn btn-danger dropdown-toggle" data-toggle="dropdown"
@@ -151,9 +147,6 @@
                                                         href="{{ route('certificates.create-type', 'form-a-en') }}">{{ __('English Certificate of Origin') }}</a>
                                                     <a class="{{ Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 'PENDING' ? 'not-active' : '' }}"
                                                         href="{{ route('certificates.create-type', 'formule-a-fr') }}">{{ __('French Certificate of Origin') }}</a>
-                                                    {{-- <a href="#">{{ __('ZLECAF') }}</a>
-                                                    <a href="#">{{ __('PAN-EUROMED') }}</a>
-                                                    <a href="#">{{ __('Certificate of common rights') }}</a> --}}
                                                 </div>
                                             </div>
                                         @endcan
@@ -199,17 +192,6 @@
                                             </button>
                                         @endcan
                                     </div>
-                                    {{-- <button id="remove" class="btn btn-danger" disabled>
-                                        <i class="fa fa-trash"></i>
-                                    </button> --}}
-                                    {{-- @if (Auth::User()->role->name == 'user')
-                                        <div class="col-lg-3 add-product {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}"
-                                            style="line-height:none">
-                                            <a class="{{ Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 'PENDING' ? 'not-active' : '' }}"
-                                                href="{{ route('certificates.create') }}"
-                                                style="padding: 0px 10px;top: auto;right:auto;left:auto;float: inherit;position:inherit;{{ App()->currentLocale() == 'ar' ? '' : '' }}">{{ __('Add New Certificate') }}</a>
-                                        </div>
-                                    @endif --}}
                                     <div class="col-lg-4 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                         <select id="certificatesSelecor" name="certificatesSelecor" class="form-control">
                                             <option value="ALL" selected>ALL</option>
@@ -222,11 +204,6 @@
                                             <option value="DROITS-COMMUNS">CERTIFICAT DE DROITS COMMUNS</option>
                                         </select>
                                     </div>
-                                    {{-- <select class="form-control dt-tb">
-											<option value="">Export Basic</option>
-											<option value="all">Export All</option>
-											<option value="selected">Export Selected</option>
-										</select> --}}
                                 </div>
                                 <table id="table" data-toggle="table" data-pagination="true" data-search="true"
                                     data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
@@ -243,9 +220,7 @@
                                             <th data-field="state" data-checkbox="true"></th>
                                             <th data-field="id">{{ __('Code') }}</th>
                                             <th data-field="importer">{{ __('Importer') }}</th>
-                                            <!-- <th data-field="producer" data-editable="true">{{ __('Producer') }}</th> -->
                                             <th data-field="status">{{ __('Status') }}</th>
-                                            <!-- <th data-field="shipment_type" data-editable="true">{{ __('Shipment By') }}</th> -->
                                             <th data-field="type" data-filter-control="input">{{ __('Type') }}</th>
                                             <th data-field="type_hidden" data-visible="false" data-filter-control="input">
                                                 {{ __('Type') }}</th>
@@ -253,15 +228,10 @@
                                             </th>
                                             <th data-field="dri_signature_date" data-editable="true">
                                                 {{ __('CACI Signed Date') }}</th>
-                                            <!-- <th data-field="signed_document" data-editable="true">{{ __('Document') }}</th> -->
-                                            <!-- <th data-field="accumulation" data-editable="true">{{ __('Accumulation') }}</th> -->
                                             <th data-field="net_weight" data-editable="true">{{ __('Net Weight') }}</th>
                                             <th data-field="real_weight" data-editable="true">{{ __('Real Weight') }}
                                             </th>
                                             <th data-field="invoice" data-editable="true">{{ __('Invoice') }}</th>
-                                            {{-- <th data-field="invoice_date" data-editable="true">Invoice Date</th>
-                                            <th data-field="invoice_number" data data-editable="true">Invoice Number</th> --}}
-                                            {{-- <th data-field="action">{{ __('Action') }}</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -280,77 +250,9 @@
                                                 <td>{{ $certificate->type }}</td>
                                                 <td>{{ $certificate->signature_date }}</td>
                                                 <td>{{ $certificate->dri_signature_date }}</td>
-                                                <!-- <td>{{ $certificate->signed_document }}</td> -->
-                                                <!-- <td>{{ $certificate->accumulation }}</td> -->
                                                 <td>{{ $certificate->net_weight }}</td>
                                                 <td>{{ $certificate->real_weight }}</td>
                                                 <td>{{ $certificate->invoice }}</td>
-                                                {{-- <td>{{ $certificate->invoice_date }}</td>
-                                        <td>{{ $certificate->invoice_number }}</td> --}}
-                                                {{-- <td class="datatable-ct">
-                                                    <div class="input-group"> --}}
-                                                {{-- <a rel="tooltip" class="btn btn-info" id="preview"
-                                                            href="{{ route('certificates.preview', $certificate->id) }}"
-                                                            data-url="{{ route('certificates.sign-gzal', [$certificate->id, 'null']) }}"
-                                                            data-reject-gzal-url="{{ route('certificates.reject-gzal', [$certificate->id, '']) }}"
-                                                            data-original-title="" title="{{ __('Detail') }}">
-                                                            <i class="fa fa-file fa-lg" aria-hidden="true"></i>
-                                                            <div class="ripple-container"></div>
-                                                        </a> --}}
-                                                {{-- <a rel="tooltip" class="btn btn-success"
-                                                            style="margin-left: 3px;margin-right: 3px;"
-                                                            href="{{ route('certificates.show', $certificate->id) }}"
-                                                            data-original-title="" title="{{ __('View') }}">
-                                                            <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
-                                                            <div class="ripple-container"></div>
-                                                        </a> --}}
-                                                {{-- @if ($certificate->status == 'SIGNED' && $certificate->copy_type == 'NONE') --}}
-                                                {{-- <a rel="tooltip" class="btn btn-warning" href="#"
-                                                            data-code="{{ $certificate->code }}" data-toggle="modal"
-                                                            data-target="#DuplicateModalhdbgcl"
-                                                            data-url="{{ route('certificates.duplicate-gzale', [$certificate->id, 'D', '']) }}"
-                                                            data-original-title="" title="{{ __('Duplicate') }}"
-                                                            class="{{ $certificate->status == 'SIGNED' && $certificate->copy_type == 'NONE' ? 'not-active' : '' }}">
-                                                            <i class="fa fa-clone fa-lg" aria-hidden="true"></i>
-                                                            <div class="ripple-container"></div>
-                                                        </a> --}}
-                                                {{-- <a rel="tooltip" class="btn btn-info"
-                                                            data-code="{{ $certificate->code }}" data-toggle="modal"
-                                                            data-target="#RetrospectiveModalhdbgcl"
-                                                            class="{{ $certificate->status == 'SIGNED' && $certificate->copy_type == 'NONE' ? 'not-active' : '' }}"
-                                                            data-url="{{ route('certificates.create-retrospective-copy', [$certificate->id, '']) }}"
-                                                            data-original-title="" title="{{ __('Retrospective') }}">
-                                                            <i class="fa fa-exchange fa-lg" aria-hidden="true"></i>
-                                                            <div class="ripple-container"></div>
-                                                        </a> --}}
-                                                {{-- @endif --}}
-                                                {{-- <a rel="tooltip" class="btn btn-success"
-                                                    href="{{ route('certificates.show', $certificate->id) }}"
-                                                    data-original-title="" title="{{ __('View') }}">
-                                                    <i class="fa fa-list fa-lg" aria-hidden="true"></i>
-                                                    <div class="ripple-container"></div>
-                                                </a> --}}
-                                                {{-- @if (Auth::user()->Role->name == 'user' && $certificate->status != 'SIGNED' && $certificate->status != 'REJECTED') --}}
-                                                {{-- <a rel="tooltip" class="btn btn-primary"
-                                                                style="margin-left: 3px;margin-right: 3px;"
-                                                                href="{{ route('certificates.edit', $certificate->id) }}"
-                                                                data-original-title="" title="{{ __('Edit') }}">
-                                                                <i class="fa fa-pencil-square-o fa-lg"
-                                                                    aria-hidden="true"></i>
-                                                                <div class="ripple-container"></div>
-                                                            </a> --}}
-                                                {{-- <a rel="tooltip" class="btn btn-danger pd-setting-ed" href="#"
-                                                                data-url="{{ route('certificates.destroy', $certificate->id) }}"
-                                                                data-certificate_name="{{ $certificate->name }}"
-                                                                data-original-title="" title="{{ __('Delete') }}"
-                                                                data-toggle="modal" data-target="#DangerModalhdbgcl"
-                                                                style="background-color: #d80027!important;">
-                                                                <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
-                                                                <div class="ripple-container"></div>
-                                                            </a> --}}
-                                                {{-- @endif
-                                                    </div>
-                                                </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -392,9 +294,6 @@
                 <div class="modal-close-area modal-close-df">
                     <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                 </div>
-                {{-- <div class="modal-header header-color-modal bg-color-3">
-                <h4 class="modal-title">Duplicate the certificate</h4>
-            </div> --}}
                 <div class="modal-body">
                     <span class="educate-icon educate-warning modal-check-pro information-icon-pro"></span>
                     <h2>{{ __('Duplication Request') }} !</h2>
@@ -420,9 +319,6 @@
                 <div class="modal-close-area modal-close-df">
                     <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                 </div>
-                {{-- <div class="modal-header header-color-modal bg-color-3">
-                <h4 class="modal-title">Duplicate the certificate</h4>
-            </div> --}}
                 <div class="modal-body">
                     <span class="educate-icon educate-warning modal-check-pro information-icon-pro"></span>
                     <h2>{{ __('Retrospective Copy Request') }} !</h2>
@@ -456,16 +352,6 @@
                     <object style="width:100%;" id="object" data="" type="application/pdf">
                         <embed id="embed" src="" type="application/pdf" />
                     </object>
-                    {{-- <object style="width:100%;" id="object" data="{{ asset('data/enterprises/' . Auth::User()->Enterprise->id . '/certificates/gzal-draft.pdf') }}"
-                type="application/pdf">
-                <embed id="embed"
-                    src="{{ asset('data/enterprises/' . Auth::User()->Enterprise->id . '/certificates/gzal-draft.pdf') }}"
-                    type="application/pdf" />
-                </object> --}}
-                    {{-- <iframe id="iframe" src="#"
-                        type="application/pdf" width="100%" height="600px;"></iframe> --}}
-                    {{-- <iframe id="iframe" src="{{ asset('data/enterprises/'.Auth::User()->Enterprise->id.'/certificates/gzal-draft.pdf')}}"
-                type="application/pdf" width="100%" height="900px;"></iframe> --}}
                 </div>
                 <div class="modal-footer danger-md" style="background-color: #65b12d">
                     @if (Auth::User()->role->name == 'dri_user')
@@ -481,44 +367,6 @@
         </div>
     </div>
 
-    {{-- <div id="loadingDiv" class="spinner-border text-success" role="status"
-        style="width: 100%; height: 100%;position: absolute">
-        <div class="inner" style="width: 200px; height: 200px;text-align:center"><svg xmlns="http://www.w3.org/2000/svg"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                style="margin: auto; display: block; /*! shape-rendering: auto; */" width="200px" height="200px"
-                viewBox="0 0 100 100" preserveAspectRatio="xMidYMid">
-                <g transform="translate(50,50)">
-                    <circle cx="0" cy="0" r="10" fill="none" stroke="#d74946" stroke-width="4"
-                        stroke-dasharray="31.41592653589793 31.41592653589793">
-                        <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1"
-                            dur="0.48076923076923084s" calcMode="spline" keySplines="0.2 0 0.8 1" begin="0"
-                            repeatCount="indefinite"></animateTransform>
-                    </circle>
-                    <circle cx="0" cy="0" r="20" fill="none" stroke="#0069ce" stroke-width="4"
-                        stroke-dasharray="62.83185307179586 62.83185307179586">
-                        <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1"
-                            dur="0.48076923076923084s" calcMode="spline" keySplines="0.2 0 0.8 1"
-                            begin="-0.12019230769230771" repeatCount="indefinite"></animateTransform>
-                    </circle>
-                    <circle cx="0" cy="0" r="30" fill="none" stroke="#f0af31" stroke-width="4"
-                        stroke-dasharray="94.24777960769379 94.24777960769379">
-                        <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1"
-                            dur="0.48076923076923084s" calcMode="spline" keySplines="0.2 0 0.8 1"
-                            begin="-0.24038461538461542" repeatCount="indefinite"></animateTransform>
-                    </circle>
-                    <circle cx="0" cy="0" r="40" fill="none" stroke="#94b224" stroke-width="4"
-                        stroke-dasharray="125.66370614359172 125.66370614359172">
-                        <animateTransform attributeName="transform" type="rotate" values="0 0 0;360 0 0" times="0;1"
-                            dur="0.48076923076923084s" calcMode="spline" keySplines="0.2 0 0.8 1"
-                            begin="-0.36057692307692313" repeatCount="indefinite"></animateTransform>
-                    </circle>
-                </g>
-                <!-- [ldio] generated by https://loading.io/ -->
-            </svg>
-            <span class="sr-only">{{ __('Loading...') }}</span>
-        </div>
-    </div> --}}
-
 @endsection
 
 @Push('js')
@@ -526,7 +374,6 @@
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/tableExport.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/data-table-active.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-editable.js') }}"></script> --}}
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-editable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-resizable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/colResizable-1.5.source.js') }}"></script>
@@ -535,21 +382,7 @@
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-en-US.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-fr-FR.js') }}"></script>
     <script src="{{ URL::asset('select2/js/select2.min.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/a076d05399.js') }}"></script> --}}
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-filter.js') }}"></script>
-    <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-filter-control.min.js') }}"> --}}
     <script type="text/javascript">
-        // var $loading = $('#loadingDiv').hide();
-        // $(document)
-        //     .ajaxStart(function() {
-        //         var curr = $('body').height();
-        //         $('.spinner-border').height(curr);
-        //         $loading.show();
-        //     })
-        //     .ajaxStop(function() {
-        //         $loading.hide();
-        //     });
-
         var $table = $('#table')
         var $new = $('#new')
         var $preview = $('#preview')
@@ -588,11 +421,7 @@
                 $retrospective.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 $details.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
                 $edit.prop('disabled', !($table.bootstrapTable('getSelections').length == 1))
-                // console.log($table.bootstrapTable('getSelections'));
-                // save your data, here just save the current page
                 selections = getIdSelections()
-                // console.log(selections);
-                // push or splice the selections if you want to save all data selections
             })
 
         $(document).ready(function() {
@@ -637,7 +466,6 @@
                 } else {
                     selections = selections.join(",");
                 }
-                // console.log('hi '+selections);
                 var url = "{{ route('certificates.sign', ['id', '']) }}".replace('id', selections);
                 $("#SignGZAL").attr("href", url);
                 $(this).data('bs.modal', null);
@@ -649,7 +477,6 @@
             $("#Delete").click(function(e) {
                 e.preventDefault();
                 var url = $("#Delete").attr("href");
-                // var id = url.substring(url.lastIndexOf('/') + 1);
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -672,7 +499,6 @@
             $("#Duplicate").click(function(e) {
                 e.preventDefault();
                 var url = $("#Duplicate").attr("href") + '/' + $("#DuplicateModalhdbgcl textarea").val();
-                // var id = url.substring(url.lastIndexOf('/') + 1);
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -747,7 +573,7 @@
                                 $("#SignGZAL").hide();
                                 $(".notes").hide();
                             }
-                        } else { //if (role == 'dri_user') {
+                        } else {
                             if (response.status == 'PENDING') {
                                 $("#SignGZAL").show();
                                 $("#RejectGZAL").show();
@@ -808,7 +634,7 @@
                                 $("#SignGZAL").hide();
                                 $(".notes").hide();
                             }
-                        } else { //if (role == 'dri_user') {
+                        } else { 
                             if (response.status == 'PENDING') {
                                 $("#SignGZAL").show();
                                 $("#RejectGZAL").show();
@@ -855,40 +681,6 @@
                         $("#SignGZAL").hide();
                         $("#RejectGZAL").hide();
                         $(".notes").hide();
-
-                        // role = '{{ Auth::User()->role->name }}';
-                        // if (role == 'user') {
-                        //     if (response.status == 'DRAFT') {
-                        //         $("#RejectGZAL").hide();
-                        //         $("#SignGZAL").show();
-                        //     } else if (response.status == 'PENDING') {
-                        //         $("#SignGZAL").hide();
-                        //         $("#RejectGZAL").hide();
-                        //     } else if (response.status == 'SIGNED') {
-                        //         $("#RejectGZAL").hide();
-                        //         $("#SignGZAL").hide();
-                        //         $(".notes").hide();
-                        //     } else if (response.status == 'REJECTED') {
-                        //         $("#RejectGZAL").hide();
-                        //         $("#SignGZAL").hide();
-                        //         $(".notes").hide();
-                        //     }
-                        // } else { //if (role == 'dri_user') {
-                        //     if (response.status == 'PENDING') {
-                        //         $("#SignGZAL").show();
-                        //         $("#RejectGZAL").show();
-                        //     } else if (response.status == 'SIGNED') {
-                        //         $("#RejectGZAL").hide();
-                        //         $("#SignGZAL").hide();
-                        //         $(".notes").hide();
-                        //     } else if (response.status == 'REJECTED') {
-                        //         $("#RejectGZAL").hide();
-                        //         $("#SignGZAL").hide();
-                        //         $(".notes").hide();
-                        //     }
-                        // }
-                        // if (response.copy_type != "NONE") $(".notes").hide();
-                        
                     }
                 });
 
@@ -934,7 +726,7 @@
 
             $("#RejectGZAL").click(function(e) {
                 e.preventDefault();
-                var url = $("#RejectGZAL").attr("href") + '/' + 'reason'; //$("#notes").val();
+                var url = $("#RejectGZAL").attr("href") + '/' + 'reason';
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -942,13 +734,6 @@
                     url: url,
                     type: 'GET',
                     success: function(response) {
-                        // console.log(response.message);
-                        // console.log(response);
-                        // var object = document.getElementById("object");
-                        // object.height = $(document).height() * 8 / 10;
-                        // object.data = response.url;
-                        // var embed = document.getElementById("embed");
-                        // embed.src = response.url;
                         if (response.status == "PENDIG") {
                             $("#" + response.certificate_id + " td:nth-child(4)").html(
                                 '<button class="btn btn-info" style="font-size: 14px;padding:0px;">PENDIG</button>'

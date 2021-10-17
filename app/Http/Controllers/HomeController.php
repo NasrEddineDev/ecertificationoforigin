@@ -27,8 +27,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware(['guest']);
-        // $this->middleware(['verified']);
     }
 
     /**
@@ -41,14 +39,6 @@ class HomeController extends Controller
         try {
             $locale = App::currentLocale();
 
-            // $user = User::where('email', '=', "f.hasni@caci.dz")->first();
-
-            // if ($user && Hash::check("password", $user->password)) {
-            //     if (Auth::login($user)) {
-            //         event(new login($user));
-            //     }
-            // }
-
             if (Auth::check()) {
                 if (Auth::user()->profile && Auth::user()->profile->language){
                     App::setLocale(Auth::user()->profile->language);
@@ -59,14 +49,11 @@ class HomeController extends Controller
                     return view('register', ['step' => Steps::ACTIVATION]);
                 } else if (!Auth::user()->enterprise) {
                     $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
-                    // $cities = City::all()->where('country_code', '==', 'DZ');
                     $activities = Activity::all();
                     $step = Steps::ENTERPRISE;
                     return view('register', compact('step', 'states', 'activities'));
                 } else if (!Auth::user()->enterprise->manager_id) {
                     $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
-                    // $cities = City::all()->where('country_code', '==', 'DZ');
-                    // $cities = City::all()->where('state_code', '==', $state_code);
                     $step = Steps::MANAGER;
                     return view('register', compact('step', 'states', 'cities'));
                 } else if (Auth::user()->enterprise->status == 'DRAFT') {
@@ -123,16 +110,6 @@ class HomeController extends Controller
                         $data['description'] = $items->pivot->description;
                         return $data;
                     });
-
-                    // $page1 = ($certificate->status == "DRAFT") ? 'data/documents/' . $certificateName . '/' . $certificateName . '1.jpg'
-                    //     : (($certificate->status == "PENDING"
-                    //         || $certificate->status == "REJECTED") ? 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/'
-                    //         . $certificateName . '/' . $certificateName . '1.jpg'
-                    //         : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $certificateName . '/'
-                    //         . $certificateName . '1-dri-signed.jpg');
-                    // $page2 = 'data/documents/' . $certificateName . '/' . $certificateName . '2.jpg';
-                    // $page3 = ($certificate->status == "DRAFT") ? 'data/documents/' . $certificateName . '/' . $certificateName . '3.jpg'
-                    //     : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $certificateName . '/' . $certificateName . '3.jpg';
 
                     $settings = Setting::all();
                     $template = Setting::where('name', 'Default Certificate Template')->first()->value;
@@ -203,9 +180,6 @@ class HomeController extends Controller
                     if (!file_exists($path)) {
                         File::makeDirectory($path, $mode = 0777, true, true);
                     }
-
-                    //   $url = 'data/'. ((Auth::User()->role->name == 'user')
-                    //     ? 'enterprises/'.$certificate->Enterprise->id : 'dri/'.Auth::User()->username).'/certificates/gzal-draft.pdf';
                     $pdf->save($path . '/gzal-draft.pdf');
                     $url = url($path . '/gzal-draft.pdf');
                 }
@@ -265,19 +239,7 @@ class HomeController extends Controller
                     $page2 = 'data/settings/certificates_images/'.$template .'/'. $certificateName . '/' . $certificateName . '2.jpg';
                     $page3 = ($certificate->status == "DRAFT") ? 'data/settings/certificates_images/'.$template .'/' . $certificateName . '/' . $certificateName . '3.jpg'
                         : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/'. $template. '/' . $certificateName . '/' . $certificateName . '3.jpg';
-            
                     }
-
-                    // // if ($certificateName == 'gzale' || $certificateName == 'acp-tunisie')
-                    // $page1 = ($certificate->status == "DRAFT") ? 'data/documents/' . $certificateName . '/' . $certificateName . '1.jpg'
-                    //     : (($certificate->status == "PENDING"
-                    //         || $certificate->status == "REJECTED") ? 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/'
-                    //         . $certificateName . '/' . $certificateName . '1.jpg'
-                    //         : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $certificateName . '/'
-                    //         . $certificateName . '1-dri-signed.jpg');
-                    // $page2 = 'data/documents/' . $certificateName . '/' . $certificateName . '2.jpg';
-                    // $page3 = ($certificate->status == "DRAFT") ? 'data/documents/' . $certificateName . '/' . $certificateName . '3.jpg'
-                    //     : 'data/enterprises/' . $certificate->Enterprise->id . '/documents' . '/' . $certificateName . '/' . $certificateName . '3.jpg';
 
                     $data = [
                         'rtl' => ($certificateName == 'gzale' || $certificateName == 'acp-tunisie') ? true : false,
@@ -330,9 +292,6 @@ class HomeController extends Controller
                     if (!file_exists($path)) {
                         File::makeDirectory($path, $mode = 0777, true, true);
                     }
-
-                    //   $url = 'data/'. ((Auth::User()->role->name == 'user')
-                    //     ? 'enterprises/'.$certificate->Enterprise->id : 'dri/'.Auth::User()->username).'/certificates/gzal-draft.pdf';
                     $pdf->save($path . '/gzal-draft.pdf');
                     $url = url($path . '/gzal-draft.pdf');
                 }

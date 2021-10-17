@@ -185,15 +185,6 @@
                                                             {{ __('Select The State') }}
                                                         </option>
                                                     </select>
-
-                                                    {{-- <select name="state_id" id="state_id" class="form-control">
-                                                        <option value="0" disabled selected>{{__('Select The State')}}</option>
-                                                        @foreach ($states as $state)
-                                                            <option value="{{ $state->id }}">
-                                                                {{ $state->iso2 . ' ' . __($state->name) }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select> --}}
                                                 </div>
                                             </div>
                                         </div>
@@ -204,10 +195,6 @@
                                                 <div class="col-sm-9">
 
                                                     <select name="city_id" id="city_id" class="form-control">
-                                                        {{-- @foreach ($cities as $city){
-                                                            <option value="{{ $city->id }}">
-                                                                {{ $city->name }}</option>
-                                                        @endforeach --}}
                                                     </select>
                                                 </div>
                                             </div>
@@ -352,8 +339,6 @@
     <script src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-
-                        // states cities
                         $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -418,27 +403,6 @@
                     }
                 })
             });
-
-            // $('#state_id').on('change', function() {
-            //     var selectedState = $('#state_id').find(":selected").val().split(" ")[0];
-            //     $.ajax({
-            //         headers: {
-            //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //         },
-            //         url: "/getcities/" + selectedState,
-            //         type: "GET",
-            //         success: function(data) {
-            //             $('#city_id').empty();
-            //             $('#city_id').append(
-            //                 '<option value="0" disabled selected>{{__('Select The City')}}</option>'
-            //             );
-            //             $.each(data.cities, function(index, city) {
-            //                 $('#city_id').append('<option value="' + city.value +
-            //                     '">' + city.text + '</option>');
-            //             })
-            //         }
-            //     })
-            // });
 
             $.validator.addMethod("emailcheck", function(value, element, regexp) {
                 /* Check if the value is truthy (avoid null.constructor) & if it's not a RegEx. (Edited: regex --> regexp)*/
@@ -622,8 +586,6 @@
             $('.image-upload-wrap-round-stamp').removeClass('image-dropping');
         });
 
-
-
         function readURLSquareStamp(input) {
             if (input.files && input.files[0]) {
 
@@ -656,7 +618,6 @@
         $('.image-upload-wrap-square-stamp').bind('dragleave', function() {
             $('.image-upload-wrap-square-stamp').removeClass('image-dropping');
         });
-
 
         function readURLSignature(input) {
             if (input.files && input.files[0]) {

@@ -281,8 +281,6 @@
 
         });
 
-
-
         function readURLRoundStamp(input) {
             if (input.files && input.files[0]) {
 
@@ -316,8 +314,6 @@
             $('.image-upload-wrap-round-stamp').removeClass('image-dropping');
         });
 
-
-
         function readURLSquareStamp(input) {
             if (input.files && input.files[0]) {
 
@@ -350,7 +346,6 @@
         $('.image-upload-wrap-square-stamp').bind('dragleave', function() {
             $('.image-upload-wrap-square-stamp').removeClass('image-dropping');
         });
-
 
         function readURLSignature(input) {
             if (input.files && input.files[0]) {

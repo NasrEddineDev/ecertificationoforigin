@@ -33,51 +33,38 @@
                             <div class="datatable-dashv1-list custom-datatable-overright">
                                 <div id="toolbar">
                                     <div class="{{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                        @can('create',  App\Models\Producer::class)
-                                        <button id="new" style="background-color: #2C7744;"
-                                            class="dropbtn btn btn-success dropdown-toggle {{ Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 'PENDING' ? 'not-active' : '' }}"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            title="{{ __('Add New Producer') }}">
-                                            <i class="fa fa-user-plus"></i>
-                                        </button>
+                                        @can('create', App\Models\Producer::class)
+                                            <button id="new" style="background-color: #2C7744;"
+                                                class="dropbtn btn btn-success dropdown-toggle {{ Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 'PENDING' ? 'not-active' : '' }}"
+                                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                                                title="{{ __('Add New Producer') }}">
+                                                <i class="fa fa-user-plus"></i>
+                                            </button>
                                         @endcan
-                                        @can('update',  App\Models\Producer::class)
-                                        <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
-                                            disabled>
-                                            <i class="fa fa-pencil-square-o"></i>
-                                        </button>
+                                        @can('update', App\Models\Producer::class)
+                                            <button id="edit" rel="tooltip" class="btn btn-primary" title="{{ __('Edit') }}"
+                                                disabled>
+                                                <i class="fa fa-pencil-square-o"></i>
+                                            </button>
                                         @endcan
-                                        @can('delete',  App\Models\Producer::class)
-                                        <button id="remove" class="btn btn-danger" title="{{ __('Delete') }}"
-                                            data-toggle="modal" data-target="#DangerModalhdbgcl"
-                                            style="background-color: #d80027!important;" disabled>
-                                            <i class="fa fa-trash"></i>
-                                        </button>
+                                        @can('delete', App\Models\Producer::class)
+                                            <button id="remove" class="btn btn-danger" title="{{ __('Delete') }}"
+                                                data-toggle="modal" data-target="#DangerModalhdbgcl"
+                                                style="background-color: #d80027!important;" disabled>
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         @endcan
                                     </div>
                                     <div class="col-lg-4 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                        @can('filter-country',  App\Models\Producer::class)
-                                        <select id="certificatesSelecor" name="certificatesSelecor" class="form-control">
-                                            <option value="ALL" selected>ALL</option>
-                                            <option value="UEA">UEA</option>
-                                            <option value="EGYPT">EGYPT</option>
-                                        </select>
+                                        @can('filter-country', App\Models\Producer::class)
+                                            <select id="certificatesSelecor" name="certificatesSelecor" class="form-control">
+                                                <option value="ALL" selected>ALL</option>
+                                                <option value="UEA">UEA</option>
+                                                <option value="EGYPT">EGYPT</option>
+                                            </select>
                                         @endcan
                                     </div>
                                 </div>
-                                {{-- <div class="toolbar add-product dt-tb">
-                                <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
-                                "PENDING") ? 'not-active' : '' }}" href="{{ route('producers.create') }}" 
-                                style="{{App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : ''}}">
-                                {{ __('Add New Producer')}}</a>
-                            </div> --}}
-                                {{-- <div id="toolbar">
-                                <select class="form-control dt-tb">
-                                    <option value="">Export Basic</option>
-                                    <option value="all">Export All</option>
-                                    <option value="selected">Export Selected</option>
-                                </select>
-                            </div> --}}
                                 <table id="table" data-toggle="table" data-pagination="true" data-search="true"
                                     data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
                                     data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
@@ -92,20 +79,14 @@
                                             <th data-field="state" data-checkbox="true"></th>
                                             <th data-field="id">{{ __('ID') }}</th>
                                             <th data-field="name" data-editable="true">{{ __('Name') }}</th>
-                                            <!-- <th data-field="legal_form" data-editable="true">{{ __('Legal Form') }}</th> -->
                                             <th data-field="activity_type" data-editable="true">{{ __('Activity Type') }}
                                             </th>
                                             <th data-field="address" data-editable="true">{{ __('Address') }}</th>
                                             <th data-field="mobile" data-editable="true">{{ __('Mobile') }}</th>
                                             <th data-field="email" data-editable="true">{{ __('Email') }}</th>
-                                            <!-- <th data-field="website" data-editable="true">{{ __('Website') }}</th>
-                                            <th data-field="tel" data-editable="true">{{ __('Tel') }}</th>
-                                            <th data-field="fax" data-editable="true">{{ __('Fax') }}</th> -->
-                                        @can('view-enterprise',  App\Models\Product::class)
-                                                <th data-field="enterprise" data-editable="true">{{ __('Enterprise') }}
-                                                </th>
+                                            @can('view-enterprise', App\Models\Product::class)
+                                                <th data-field="enterprise" data-editable="true">{{ __('Enterprise') }}</th>
                                             @endcan
-                                            {{-- <th data-field="action">{{ __('Action')}}</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -115,18 +96,13 @@
                                                     <td></td>
                                                     <td>{{ $producer->id }}</td>
                                                     <td>{{ $producer->name }}</td>
-                                                    <!-- <td>{{ $producer->legal_form }}</td> -->
                                                     <td>{{ $producer->category->name_ar }}</td>
-                                                    {{-- <td>category a</td> --}}
                                                     <td>{{ $producer->address }}</td>
                                                     <td>{{ $producer->mobile }}</td>
                                                     <td>{{ $producer->email }}</td>
-                                                    <!-- <td>{{ $producer->website }}</td>
-                                                    <td>{{ $producer->tel }}</td>
-                                                    <td>{{ $producer->fax }}</td> -->
-                                                @can('view-enterprise',  App\Models\Product::class)
+                                                    @can('view-enterprise', App\Models\Product::class)
                                                         <td>{{ $producer->enterprise_id }}</td>
-                                                        @endcan
+                                                    @endcan
                                                 </tr>
                                             @endforeach
                                         @endif
@@ -170,7 +146,6 @@
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/tableExport.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/data-table-active.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-editable.js') }}"></script> --}}
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-editable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-resizable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/colResizable-1.5.source.js') }}"></script>
@@ -179,36 +154,6 @@
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-en-US.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-fr-FR.js') }}"></script>
     <script type="text/javascript">
-        // $(document).ready(function() {
-        //     $('#DangerModalhdbgcl').on('shown.bs.modal', function(e) {
-        //         var link = $(e.relatedTarget),
-        //             url = link.data("url"),
-        //             producer_name = link.data("producer_name");
-        //             // e.closest('tr').hide();
-        //             // alert(e.closest.closest('tr'));
-        //         $("#Delete").attr("href", url);
-        //         $("#ProducerName").text(producer_name);
-        //     });
-
-        //     $("#Delete").click(function(e){
-        //         e.preventDefault();
-        //         var url = $("#Delete").attr("href");
-        //         var id = url.substring(url.lastIndexOf('/') + 1);
-        //         $.ajax({
-        //             headers: {
-        //           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        //         },
-        //         url: url,
-        //         type: 'DELETE',
-        //         success: function(result) {
-        //             $('#DangerModalhdbgcl').modal('toggle');
-        //             // document.getElementById("table").deleteRow(4); 
-        //             $('table#table tr#'+id).remove();
-        //         }
-        //     });
-        // }); 
-
-        // });
         var $table = $('#table')
         var $new = $('#new')
         var $preview = $('#preview')
@@ -239,7 +184,6 @@
 
 
         $(document).on("click", "#details", function() {
-            // $(this).find(".detail-icon").trigger("click");
             $tr = $('#1');
             console.log($tr);
             $table.bootstrapTable('expandRow', $tr);
@@ -251,8 +195,6 @@
             var txt = []
             $.get('/getproducer/' + row['id'], function(res) {
                 txt.push('<table>')
-                // $.each(res.producer, function(key, value) {                    
-                // var str = '<p><b>' + key + ': </b> ' + value + '</p>';
                 var str = '<tr><td><b>{{ __('Name') }} : </b> ' + res.producer.name + '</td>';
                 txt.push(str);
                 var str = '<td><b>{{ __('Email') }} : </b> ' + res.producer.email + '</td>';
@@ -261,7 +203,8 @@
                 txt.push(str);
                 var str = '<td><b>{{ __('Tel') }} : </b> ' + res.producer.tel + '</td></tr>';
                 txt.push(str);
-                var str = '<tr><td><b>{{ __('Legal Form') }} : </b> ' + res.producer.legal_form + '</td>';
+                var str = '<tr><td><b>{{ __('Legal Form') }} : </b> ' + res.producer.legal_form +
+                '</td>';
                 txt.push(str);
                 var str = '<td><b>{{ __('Mobile') }} : </b> ' + res.producer.mobile + '</td>';
                 txt.push(str);
@@ -269,7 +212,8 @@
                 txt.push(str);
                 var str = '<td><b>{{ __('Fax') }} : </b> ' + res.producer.fax + '</td></tr>';
                 txt.push(str);
-                var str = '<tr><td><b>{{ __('Activity Type') }} : </b> ' + res.category.name_ar + '</td>';
+                var str = '<tr><td><b>{{ __('Activity Type') }} : </b> ' + res.category.name_ar +
+                '</td>';
                 txt.push(str);
                 var str = '<td></td>';
                 txt.push(str);
@@ -277,43 +221,11 @@
                 txt.push(str);
                 var str = '<td><b>{{ __('Website') }} : </b> ' + res.producer.website + '</td></tr>';
                 txt.push(str);
-                // });
-                $detail.html(txt.join("")); //res.toString().replace(/\n/g, '<br>'));
+                $detail.html(txt.join("")); 
             });
         });
 
         function detailFormatter(index, row) {
-            // $.ajax({
-            //     headers: {
-            //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            //     },
-            //     url: '/getproducer/'+row['id'],
-            //     type: 'GET',
-            //     success: function(result) {
-            //         console.log('row : '+row['id']);
-            //         console.log('result : '+result.producer.id);
-            //         // txt.push('<p><b>' + result.producer.id + ': </b> ' + result.producer.name + '</p>')
-            //         // txt.push('<p><b>address: </b> ' + result.producer.address + '</p>')
-            //         // txt.push('<p><b>address: </b> ' + result.producer.address + '</p>')
-            //         // txt.push('<p><b>address: </b> ' + result.producer.address + '</p>')
-            //         $.each(result.producer, function(key,value) {                    
-            //             var str = '<p><b>' + key + ': </b> ' + value + '</p>';
-            //             txt.push(str);
-            //             });
-            //             return false;
-            //     }
-            // });
-            // var txt = []
-            //         console.log(txt.join(", "));
-            // console.log(txt);
-            // console.log(txt.join(''));
-
-            //                 $.each(row, function (key, value) {
-            //                 html.push('<p><b>' + key + ': </b> ' + value + '</p>')
-            //                 })
-            // console.log(html);
-            // console.log(html.join(''));
-            // return txt.join('')
         }
 
         $(document).ready(function() {
@@ -341,7 +253,6 @@
             $("#delete").click(function(e) {
                 e.preventDefault();
                 var url = $("#delete").attr("href");
-                // var id = url.substring(url.lastIndexOf('/') + 1);
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

@@ -106,43 +106,6 @@ class SettingController extends Controller
                 $order_status_url_poste = $settings->where('name', 'Order Status Url Poste')->first();
                 $order_status_url_poste->update(['value' => $request->order_status_url_poste]);
 
-                // // To Create offers
-                // $offers_list = $settings->where('name', 'Offers List')->first();
-                // $new_offers_list = $request->offers_list;
-                // sort($new_offers_list, SORT_NUMERIC);
-                // $offers_list->update(['value' => implode(",", $new_offers_list)]);
-                // $destinationPath = 'data/settings/offers/';
-                // $img = imagecreatetruecolor(100, 40);
-                // $lightsky = imagecolorallocate($img, 135, 206, 250);
-                // $blue = imagecolorallocate($img, 25, 25, 112);
-                // foreach ($new_offers_list as $offer) {
-                //     imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                //     imagestring($img, 5, 8, 12, $offer . ' Points', $blue);
-                //     imagesetthickness($img, 14);
-                //     imagepng($img, $destinationPath . $offer . '.png');
-
-                //     imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                //     imagestring($img, 5, 48, 12, utf8_encode('نقطة') . $offer, $blue);
-                //     imagesetthickness($img, 14);
-                //     imagepng($img, $destinationPath . $offer . '_ar.png');
-                // }
-
-                // imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                // imagestring($img, 5, 12, 12, 'Others', $blue);
-                // imagesetthickness($img, 14);
-                // imagepng($img, $destinationPath . 'others_en.png');
-
-                // imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                // imagestring($img, 5, 12, 12, 'Autres', $blue);
-                // imagesetthickness($img, 14);
-                // imagepng($img, $destinationPath . 'others_fr.png');
-
-                // imagefilledrectangle($img, 0, 0, 99, 39, $lightsky);
-                // imagestring($img, 5, 48, 12, utf8_encode('نقطة'), $blue);
-                // imagesetthickness($img, 14);
-                // imagepng($img, $destinationPath . 'others_ar.png');
-                // imagedestroy($img);
-
             } else if ($section == 'stamps') {
 
                 $roundStampAr = $request->file('round_stamp_ar');
@@ -151,7 +114,6 @@ class SettingController extends Controller
                     $image_resize = Image::make($roundStampAr->getRealPath());
                     $image_resize->resize(300, 300);
                     $image_resize->save($round_stamp_ar_file_path);
-                    // $image_resize->save(config('settings.ROUND_STAMP_AR_FILE_PATH'));
                 }
 
                 $roundStampEn = $request->file('round_stamp_en');
@@ -185,10 +147,6 @@ class SettingController extends Controller
                     Storage::disk('public')->put($agce_ssl_key_file_path, file_get_contents($file));
                 }
             }
-
-
-
-
 
             return redirect()->route('settings.index')
                 ->with('success', 'Account edited successfully.');

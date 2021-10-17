@@ -154,30 +154,10 @@
             type: 'DELETE',
             success: function(result) {
                 $('#DangerModalhdbgcl').modal('toggle');
-                // document.getElementById("table").deleteRow(4); 
                 $('table#table tr#'+id).remove();
             }
         });
     }); 
-
-    //     $("#Delete").click(function(e){
-    //         e.preventDefault();
-    //         var url = $("#Delete").attr("href");
-    //         var id = url.substring(url.lastIndexOf('/') + 1);
-    //         $.ajax({
-    //             headers: {
-    //           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    //         },
-    //         url: url,
-    //         type: 'DELETE',
-    //         success: function(result) {
-    //             $('#DangerModalhdbgcl').modal('toggle');
-    //             // document.getElementById("table").deleteRow(4); 
-    //             $('table#table tr#'+id).remove();
-    //         }
-    //     });
-    // }); 
-
     });
 </script>
 @endpush

@@ -66,13 +66,10 @@ class ProductController extends Controller
         try {
             $product = new Product([
                 'name' => $request->input('name'),
-                // 'order_number' => '',
                 'brand' => $request->input('brand') ? $request->input('brand') : '',
                 'type' => $request->input('type'),
                 'sub_category_id' => $request->input('sub_category_id') ? $request->input('sub_category_id') : '',
                 'hs_code' => $request->input('hs_code'),
-                // 'net_weight' => '',
-                // 'real_weight' => '',
                 'description' => $request->input('description') ? $request->input('description') : '',
                 'package_type' => '',
                 'package_count' => '',
@@ -130,7 +127,6 @@ class ProductController extends Controller
                 $sub_categories = SubCategory::all()->where('category_id', '=', $product->subCategory->category_id);
                 return view('products.edit', compact('product', 'categories', 'sub_categories', 'enterprises'));
             }
-
             return redirect()->route('products.index')
                 ->with('error', 'Product can\'t eddited.');
         } catch (Throwable $e) {
@@ -155,7 +151,6 @@ class ProductController extends Controller
             $product = Product::find($id);
             $product->name = $request->input('name');
             $product->description = $request->input('description');
-            // $product->type = $request->input('type');
             $product->brand = $request->input('brand');
             $product->hs_code = $request->input('hs_code');
             $product->measure_unit = $request->input('measure_unit');
@@ -164,7 +159,6 @@ class ProductController extends Controller
                 $product->enterprise_id = $request->input('enterprise_id');
             }
             $product->save();
-
             return redirect()->route('products.index')
                 ->with('success', 'Product updated successfully');
         } catch (Throwable $e) {
@@ -192,7 +186,6 @@ class ProductController extends Controller
                     'message' => 'Product deleted successfully'
                 ], 200);
             }
-
             return response()->json([
                 'message' => 'Product not found'
             ], 404);
@@ -202,7 +195,6 @@ class ProductController extends Controller
 
             return false;
         }
-        // return redirect()->route('products.index')->with('success','Product deleted successfully');
     }
 
 
@@ -213,15 +205,8 @@ class ProductController extends Controller
 
             $data = [];
             $products = (Auth::User()->role->name == 'user') ? Auth::User()->Enterprise->products : Product::all();
-            // $query = users::where('id', 1)->get();// Let's Map the results from [$query]
-            // $products = $products->map(function($items){
-            // $data['value'] = $items->id;
-            // $data['text'] = $items->name.' '.$items->brand;
-            // return $data;
-            // });
 
             return response()->json(['products' => $products]); //->select('id AS value', 'name AS text')]);//->pluck('id' as 'value', 'name' . ' '. 'brand' as 'text')], 404);
-            // return redirect()->route('products.index')->with('success','Product deleted successfully');
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());

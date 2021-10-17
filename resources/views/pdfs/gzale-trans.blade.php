@@ -7,43 +7,17 @@
     <title>Hi</title>
     <style>
         html {
-            /* margin: 0px */
         }
 
         page {
             size: A4;
-            /* margin-top:-1cm;
-            margin-bottom:-1cm;
-            margin-left:-1cm;
-            margin-right:-1cm; */
-            /* margin: 0px;
-            padding: 0px; */
         }
 
         body {
             font-family: helvetica !important;
             font-size: 10pt;
             position: relative;
-            /* margin: 0px;
-            padding: 0px; */
-            /* margin-top: -1cm;
-            margin-left: -1cm; */
         }
-
-
-        /* #stamp {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100px!important;;
-            width: 100px!important;
-            background-image: url('img/logo/caci-logosn.png');
-            background-position: center top;
-            background-repeat: no-repeat;
-            background-size: 100%;
-            z-index: -1;
-        } */
-
 
         #invoice {
             page-break-before: always;
@@ -60,11 +34,6 @@
         }
 
         #postal-address {
-            /* margin: 0cm;
-      margin-left: 1cm;
-      margin-top: 0.00cm;
-      margin-bottom: 1.00cm;
-      font-size: 10pt; */
         }
 
         #date {
@@ -97,7 +66,6 @@
 
         #products td,
         #products th {
-            /* border: 1px solid rgb(29, 95, 59); */
             text-align: center;
         }
 
@@ -150,12 +118,9 @@
 
         .file-image-round-stamp {
             position: absolute;
-            /* left: 30px;  */
-            /* border: 1px green solid; */
             height: 184px;
             width: 184px;
             padding-top: -25px;
-            /* padding-right: -100px; */
         }
 
         .file-image-signature {
@@ -341,9 +306,6 @@
                                 <tr>
                                     <th>{{ __('Number') }}</th>
                                     <th>{{ __('Product Name') }}</th>
-                                    {{-- <td colspan="3">
-                                            {{ __('Packages') }}
-                                        </td> --}}
                                     <th>{{ __('Package Type') }}</th>
                                     <th>{{ __('Package Weight (KG)') }}</th>
                                     <th>{{ __('Package Count') }}</th>
@@ -501,40 +463,9 @@
         </div>
         @if ($invoice)
             <div id="invoice">
-                {{-- invoice {{$invoice.'   '.$invoice_path --}}
             </div>
         @endif
     </div>
-    {{-- <div style="position: fixed; left: 1pt; top: 1pt; right: 0px; bottom: 0px; text-align: center;z-index: -1000;">
-        <img src="img/documents/page1.jpg" style="height: 841.89pt;">
-      </div> --}}
-    {{-- <div id="page2" style="position: fixed; left: 1pt; top: 1pt; right: 0px; bottom: 0px; text-align: center;z-index: -1000;page-break-before: always;">
-        <img src="img/documents/page2.jpg">
-      </div> --}}
-    {{-- <div id="page3" style="position: fixed; left: 1pt; top: 1pt; right: 0px; bottom: 0px; text-align: center;z-index: -1000;page-break-before: always;">
-        <img src="img/documents/page3.jpg" style="height: 841.89pt;">
-      </div> --}}
-    {{-- <div id="page1">
-        <img src="url(documents/gzal.jpg)" style="display: inline;">
-        <p class="producer_name">{{ $producer_name }}</p>
-        <p class="producer_address">{{ $producer_address }}</p>
-        <p class="exporter_address">exporter_address</p>
-        <p class="exporter_name">exporter_name</p>
-        <p class="accumulation">{{ $accumulation }}</p>
-        <p class="accumulation_country">{{ $accumulation_country }}</p>
-        <p class="shipment_type">{{ $shipment_type }}</p>
-        <p class="notes">{{ $notes }}</p>
-    </div> --}}
-    {{-- <div id="page2">
-    </div>
-    <div id="page3">
-    </div> --}}
-    {{-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> --}}
 </body>
 
 </html>

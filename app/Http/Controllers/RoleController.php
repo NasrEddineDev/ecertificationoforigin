@@ -95,7 +95,6 @@ class RoleController extends Controller
             $role = Role::find($id);
             $permissions_groups = Permission::all()->groupBy('group');
             $permissions_ids = $role->permissions->pluck('id');
-            // dd($permissions_ids);
             return view('roles.edit', compact('role', 'permissions_groups', 'permissions_ids'));
         } catch (Throwable $e) {
             report($e);
@@ -117,7 +116,6 @@ class RoleController extends Controller
         try {
             $role = Role::find($id);
             $role->name = $request->name;
-
             $role->permissions()->detach();
             $permissions_ids = (array)json_decode($request->permissions_ids);
             $role->givePermissionsToByIds($permissions_ids);
@@ -126,8 +124,6 @@ class RoleController extends Controller
             return response()->json([
                 'message' => 'Role updated successfully name=' . $request->name
             ], 200);
-            // return redirect()->route('roles.index')
-            //                 ->with('success','Role updated successfully');
         } catch (Throwable $e) {
             report($e);
 
@@ -152,13 +148,11 @@ class RoleController extends Controller
                     'message' => 'Role deleted successfully'
                 ], 200);
             }
-
             return response()->json([
                 'message' => 'Role not found'
             ], 200);
         } catch (Throwable $e) {
             report($e);
-
             return false;
         }
     }

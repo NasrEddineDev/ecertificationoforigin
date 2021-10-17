@@ -130,7 +130,6 @@ class ProducerController extends Controller
         } catch (Throwable $e) {
             report($e);
             Log::error($e->getMessage());
-
             return false;
         }
     }
@@ -146,7 +145,6 @@ class ProducerController extends Controller
     {
         //
         try {
-    
             $producer = Producer::find($id);
             $producer->name = $request->name;
             $producer->legal_form = $request->legal_form;
@@ -161,7 +159,6 @@ class ProducerController extends Controller
             $producer->category_id = $request->category_id;
             $producer->state_id = $request->state_id;
             $producer->save();
-
             return redirect()->route('producers.index')
                 ->with('success', 'Producer updated successfully');
         } catch (Throwable $e) {
@@ -189,7 +186,6 @@ class ProducerController extends Controller
                     'message' => 'Producer deleted successfully'
                 ], 200);
             }
-
             return response()->json([
                 'message' => 'Producer not found'
             ], 404);
@@ -199,6 +195,5 @@ class ProducerController extends Controller
 
             return false;
         }
-        // return redirect()->route('producers.index')->with('success','Producer deleted successfully');
     }
 }

@@ -46,11 +46,9 @@
     <link rel="stylesheet" href="slicebox/css/slicebox.css">
     <link rel="stylesheet" href="slicebox/css/custom.css">
 
-    {{-- <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" /> --}}
     <link href="https://vjs.zencdn.net/7.10.2/video-js.min.css" rel="stylesheet">
 
     <link rel='stylesheet' href='unitegallery/css/unite-gallery.css' type='text/css' />
-    {{-- <link rel='stylesheet' href='unitegallery/themes/default/ug-theme-default.css' type='text/css' /> --}}
     <link  href='unitegallery/themes/video/skin-right-no-thumb.css' rel='stylesheet' type='text/css' />
     <link  href='unitegallery/themes/video/skin-right-thumb.css' rel='stylesheet' type='text/css' />
     <link  href='unitegallery/themes/video/skin-right-title-only.css' rel='stylesheet' type='text/css' />
@@ -512,9 +510,6 @@
                                             class="wow fadeInUp btn btn-success col-lg-12"
                                             style="margin-bottom:10px;">{{ __('Create New Account') }}</a>
                                     </form>
-                                    <!-- <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#">New around here? Sign up</a>
-                                        <a class="dropdown-item" href="#">Forgot password?</a> -->
                                 </div>
                             </div>
 
@@ -591,9 +586,6 @@
                                                     class="wow fadeInUp btn btn-success col-lg-12"
                                                     style="margin-bottom:10px;">{{ __('Create New Account') }}</a>
                                             </form>
-                                            <!-- <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">New around here? Sign up</a>
-                                            <a class="dropdown-item" href="#">Forgot password?</a> -->
                                         </div>
                                     </li>
                                     <li class="nav-item lang">
@@ -604,8 +596,6 @@
                                                 alt="" />
                                             <span
                                                 class="view-text">{{ $locale == 'en' ? __('English') : ($locale == 'ar' ? __('Arabic') : __('French')) }}</span>
-                                            {{-- <span class="profile-text font-weight-medium d-none d-md-block"></span> --}}
-                                            {{-- <i class="fa fa-angle-down edu-icon edu-down-arrow"></i> --}}
                                         </a>
                                         <ul role="menu"
                                             class="dropdown-header-top author-log dropdown-menu animated zoomIn"
@@ -759,9 +749,6 @@
                     <div class="section_title text-center">
                         <h4 class="title">{{ __('User Guide') }}</h4>
                         <h4 class="title">{{ __('Videos') }}</h4>
-                        {{-- <p>Please, purchase full version of the template to get all sections, features and permission to
-                            remove footer credits.</p></br> --}}
-
                     </div> <!-- section title --> 
 
                     <div id="gallery" style="display:none;">
@@ -818,25 +805,6 @@
                     </div> 
 
                 </div>
-
-                {{-- <video
-                        id="my-player"
-                        class="video-js"
-                        controls
-                        preload="auto"
-                        poster="//vjs.zencdn.net/v/oceans.png"
-                        data-setup='{}'>
-                        <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4"></source>
-                        <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm"></source>
-                        <source src="//vjs.zencdn.net/v/oceans.ogv" type="video/ogg"></source>
-                        <p class="vjs-no-js">
-                            To view this video please enable JavaScript, and consider upgrading to a
-                            web browser that
-                            <a href="https://videojs.com/html5-video-support/" target="_blank">
-                            supports HTML5 video
-                            </a>
-                        </p>
-                    </video> --}}
 
             </div> <!-- row -->
         </div> <!-- container -->
@@ -919,7 +887,6 @@
                 <form class="form-inline" id="searching" method="POST"
                     action="{{ route('verifiy-certificate-home') }}">
                     @csrf
-                    {{-- <form class="form-inline" id="searching" action="{{ route('verifiy-certificate') }}"> --}}
                     <input class="form-control mr-sm-2" type="search"
                         placeholder="{{ __('Please type your code of certificate') }}" aria-label="Search"
                         id="certificate_id" name="certificate_id">
@@ -1333,16 +1300,12 @@
                         <iframe
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2637.263625509341!2d3.065151089873451!3d36.7841072692536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x6750a9b4bd187b36!2sChambre%20du%20Commerce!5e1!3m2!1sar!2sdz!4v1614761581263!5m2!1sar!2sdz"
                             width="800" height="600" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                        {{-- <iframe id="gmap_canvas"
-                            src="https://maps.google.com/maps?q=Mission%20District%2C%20San%20Francisco%2C%20CA%2C%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe> --}}
                     </div> <!-- row -->
                 </div>
             </div> <!-- row -->
             <!-- <div class="row justify-content-center"> -->
             <div class="contact-info pt-30">
                 <div class="row">
-                    {{-- <div class="row"  style="{{ App()->currentLocale() == 'ar' ? 'flex-direction: row-reverse;text-align:right' : '' }}"> --}}
                     <div class="col-lg-6 col-md-6">
                         <div class="single-contact-info contact-color-1 mt-30 d-flex">
                             <div class="contact-info-icon">
@@ -1397,14 +1360,12 @@
                                         style="{{ App()->currentLocale() == 'ar' ? 'text-align:right;left: 20px;' : 'margin-right:15px;' }}">{{ __('Send') }}</button>
                                 </div>
                                 <div class="subscribe_form form-group col-lg-12">
-                                    <!-- <label style="color:white">Password</label> -->
                                     <textarea id="message" name="message" rows="7" class="col-lg-12"
                                         placeholder="{{ __('Type Your Message...') }}"
                                         style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}"
                                         required></textarea>
                                 </div>
                                 <div class="subscribe_form form-group col-lg-12">
-                                    <!-- <label style="color:white">Email Address</label> -->
                                     <input class="form-control" placeholder="{{ __('Your Email Address...') }}"
                                         required id="anonymous_email" name="anonymous_email"
                                         style="{{ App()->currentLocale() == 'ar' ? 'text-align:right' : '' }}">
@@ -1455,8 +1416,6 @@
                     <div class="footer_copyright text-center mt-55">
                         <p>{{ __('Copyright © 2021. All rights reserved. Algerian Chamber of Commerce and Industry') }}
                         </p> <a href="https://caci.dz">CACI</a>
-                        {{-- <p>Copyright &copy; 2023. Designed and Developed by <a href="https://uideck.com"
-                                rel="nofollow">UIdeck</a></p> --}}
                     </div> <!-- footer copyright -->
                 </div>
             </div> <!-- row -->
@@ -1476,23 +1435,7 @@
 
     <!--====== PART START ======-->
 
-    <!--
-    <section class="___class_+?250___">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-">
-
-                </div>
-            </div>
-        </div>
-    </section>
--->
-
     <!--====== PART ENDS ======-->
-
-
-
-
 
     <!--====== Jquery js ======-->
 
@@ -1525,15 +1468,12 @@
     <script src="assetsDoc/js/docs.js"></script>
 
     <!--====== Main js ======-->
-    {{-- <script src="assetsDoc/js/all.js"></script> --}}
     <script src="assets/js/main.js"></script>
 
-    {{-- <script src="https://vjs.zencdn.net/7.14.3/video.min.js"></script> --}}
     <script src="https://vjs.zencdn.net/7.10.2/video.min.js"></script>
 
     <script type='text/javascript' src='unitegallery/js/unitegallery.min.js'></script>
 	<script type='text/javascript' src='unitegallery/themes/video/ug-theme-video.js'></script>
-    {{-- <script type='text/javascript' src='unitegallery/themes/default/ug-theme-default.js'></script> --}}
 
     <script
         src="https://www.google.com/recaptcha/api.js?onload=recaptchaCallback&render=explicit&hl={{ App()->currentLocale() }}"
@@ -1657,15 +1597,11 @@
             // {{-- Desktop login form --}}
             $('#loginForm2').submit(function(e) {
                 e.preventDefault();
-                // $("#loginForm1 #g-recaptcha").addClass("disabled-element");
-
 
                 var rcres = grecaptcha.getResponse();
                 if (rcres.length) {
                     grecaptcha.reset();
-                    // alert("Form Submitted!", "success");
                 } else {
-                    // alert("Please verify reCAPTCHA", "error");
                 }
 
                 var account_validator2 = $("#loginForm2").validate({
@@ -1729,11 +1665,8 @@
                 });
             });
 
-
-            // {{-- leave message form --}}
             $('#leaveMessageForm').submit(function(e) {
                 e.preventDefault();
-                // $("#loginForm1 #g-recaptcha").addClass("disabled-element");
 
                 var leave_message_validator = $("#leaveMessageForm").validate({
                     rules: {
@@ -1818,7 +1751,6 @@
 
                     },
                     initEvents = function() {
-
                         // add navigation events
                         $navArrows.children(':first').on('click', function() {
 

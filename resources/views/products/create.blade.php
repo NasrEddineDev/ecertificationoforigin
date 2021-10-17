@@ -70,12 +70,6 @@
                                                     </select>
                                                 </div>
                                             </div>
-                                            {{-- <div class="form-group row">
-                      <label class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Product Type') }}</label>
-                      <div class="col-sm-9">
-                        <input type="text" name="type" id="type" class="form-control" />
-                      </div>
-                    </div> --}}
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group row">
@@ -185,17 +179,6 @@
     <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-
-            //       $('.activity_type_name').hide();
-            // $('#activity_type').on('change', function() {
-            //     if (this.value == 'OTHER') {
-            //         $('.activity_type_name').show();
-            //     } else {
-            //         $('.activity_type_name').hide();
-            //     }
-            // });
-
-
             $('#category_id').on('change', function() {
                 var selectedCategory = $('#category_id').find(":selected").val();
                 $.ajax({
@@ -245,7 +228,7 @@
                 },
             });
 
-            $('#hs_code').inputmask("99.9999.9999"); //specifying options
+            $('#hs_code').inputmask("99.9999.9999");
         });
     </script>
 @endpush

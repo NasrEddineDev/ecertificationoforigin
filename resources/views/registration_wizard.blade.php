@@ -8,10 +8,6 @@
     <!-- Select2 -->
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('select2/css/select2.min.css') }}">
 
-    {{-- <!-- Bootstrap Select -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" /> --}}
-
     <!--====== Favicon Icon ======-->
     {{-- <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png"> --}}
     <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('') }}img/logo/caci-logo.ico" />
@@ -33,7 +29,6 @@
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('CustomFileInputs/css/normalize.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('CustomFileInputs/css/component.css') }}" />
     <link rel="stylesheet" type="text/css" href="{{ URL::asset('css/datapicker/datepicker3.css') }}" />
-    {{-- <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.1/css/datepicker.css" rel="stylesheet" /> --}}
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
@@ -122,7 +117,6 @@
             }
 
             .wizard-v3-content {
-                /* font-family: 'Amiri'!important, serif!important; */
                 font-family: "Amiri", "serif", "Times New Roman" !important;
             }
 
@@ -156,11 +150,7 @@
             table td {
                 text-align: right;
             }
-
-            /* .dropdown-toggle{
-                height: 40px;
-                width: 400px !important;
-            } */
+            
             .select2 {
                 z-index: 99999;
             }
@@ -207,7 +197,6 @@
                                 <div style="right:5px;top:5px; margin:10px;position:absolute">
                                     <button id="logout" type="submit" title="{{ __('Logout') }}"
                                         class="btn btn-default">
-                                        {{-- <span class="view-text">{{ __('Log In') }}</span> --}}
                                         <span class="view-icon"><img width="30px;" src="{{ URL::asset('') }}assets/images/login-50-white.png" alt="" /></span>
                                     </button>
                                 </div>
@@ -319,15 +308,6 @@
                                         </div>
                                     </form>
                                 </div>
-                                {{-- <div class="form-holder form-holder-2" style="width: 40%;">
-                                    <form method="POST" action="{{ route('logout') }}" id="loginForm">
-                                        @csrf
-                                        <div style="margin:10px;">
-                                            <button id="logout" type="submit"
-                                                class="btn btn-default btn-block">{{ __('Logout') }}</button>
-                                        </div>
-                                    </form>
-                                </div> --}}
                             </div>
                         </div>
                     </section>
@@ -420,40 +400,6 @@
                                         @endif
                                     </div>
                                 </div>
-                                {{-- <div class="form-row">
-
-                                    <div class="form-holder activity_type_name">
-                                        <label class="form-row-inner">
-                                            <input type="text" class="form-control" id="activity_type_name"
-                                                name="activity_type_name" value="" required>
-                                            <span class="label">{{ __('Type Of Activity') }}</span>
-                                            <span class="border"></span>
-                                        </label>
-                                    </div>
-                                </div> --}}
-                                {{-- <div class="form-row">
-                                    <div class="form-holder">
-                                        <div class="box">
-                                            <input type="file" name="rc" id="rc" class="inputfile inputfile-2"
-                                                data-multiple-caption="{count} files selected" multiple />
-                                            <label for="rc"><svg xmlns="http://www.w3.org/2000/svg" width="20"
-                                                    height="17" viewBox="0 0 20 17">
-                                                    <path
-                                                        d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z" />
-                                                </svg>
-                                                <span>Choose the RC file&hellip;</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="form-holder">
-                                        <label class="form-row-inner">
-                                            <input type="text" class="form-control" id="rc_number" name="rc_number"
-                                                value="" required>
-                                            <span class="label">RC Number</span>
-                                            <span class="border"></span>
-                                        </label>
-                                    </div>
-                                </div> --}}
 
                                 <div class="form-row">
                                     <div class="form-holder">
@@ -568,13 +514,6 @@
                                             style="margin-top: 0;"
                                             {{ App::currentLocale() == 'ar' ? 'dir=rtl' : '' }}>
                                             <option value="0" disabled selected>{{ __('Select The State') }}</option>
-                                            {{-- @if (isset($states))
-                                                @foreach ($states as $state)
-                                                    <option value="{{ $state->iso2 }}">
-                                                        {{ $state->iso2 . ' ' . __($state->name) }}
-                                                    </option>
-                                                @endforeach
-                                            @endif --}}
                                         </select>
                                     </div>
                                     @if (App()->currentLocale() != 'ar')
@@ -815,7 +754,6 @@
                                                 <div class="image-title-wrap">
                                                     <button type="button" onclick="removeUploadSquareStamp()"
                                                         class="remove-image">
-                                                        {{-- Remove <span class="image-title-square-stamp">{{__('Uploaded Image')}}</span> --}}
                                                         {{ __('Remove Uploaded Image') }}</span>
                                                     </button>
                                                 </div>
@@ -982,7 +920,6 @@
                             begin="-0.36057692307692313" repeatCount="indefinite"></animateTransform>
                     </circle>
                 </g>
-                <!-- [ldio] generated by https://loading.io/ -->
             </svg>
             <span class="sr-only">{{ __('Loading...') }}</span>
         </div>
@@ -996,17 +933,10 @@
     <script src="{{ URL::asset('select2/js/select2.min.js') }}"></script>
 
     <script src="{{ URL::asset('wizard/js/jquery.steps.js') }}"></script>
-    {{-- <script src="{{ URL::asset('wizard/js/jquery.validate.unobtrusive.min.js') }}"></script> --}}
-    {{-- <script src="{{ URL::asset('js/data-table/bootstrap-table.js') }}" type="text/javascript"></script> --}}
     <script src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/datapicker/bootstrap-datepicker.js') }}"></script>
     <!-- Select2 -->
 
-
-    <!-- Bootstrap Select -->
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script> --}}
-    {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script> --}}
     <script type="text/javascript">
         var $loading = $('#loadingDiv').hide();
         $(document)
@@ -1134,11 +1064,6 @@
             });
             $.validator.addMethod("checkifexist", function(value) {
                 return false
-                // /^[A-Za-z0-9\d=!\-@._*]*$/.test(value) // consists of only these
-                // &&
-                // /[a-z]/.test(value) // has a lowercase letter
-                // &&
-                // /\d/.test(value) // has a digit
             });
 
             var account_validator = $(".account_form").validate({
@@ -1213,9 +1138,6 @@
                     export_activity_code: {
                         required: false
                     },
-                    // rc: {
-                    //     required: true
-                    // },
                     rc_number: {
                         required: true
                     },
@@ -1261,9 +1183,6 @@
                     exporter_type: {
                         required: "Exporter Type is required",
                     },
-                    // rc: {
-                    //     required: "RC Document is required",
-                    // },
                     rc_number: {
                         required: "RC Number is required",
                     },
@@ -1336,14 +1255,6 @@
                 },
             });
 
-            // function showErrors(errorMessage, errormap, errorlist) {
-            //     var val = this;
-            //     errormap.forEach(function(error, index) {
-            //         val.settings.highlight.call(val, error.element, val.settings.errorClass, val.settings.validClass);
-            //         $(error.element).siblings("span.field-validation-valid, span.field-validation-error").html($("<span></span>").html(error.message)).addClass("field-validation-error").removeClass("field-validation-valid").show();
-            //     });
-            // }
-
             wizard = $("#form-total").steps({
                 headerTag: "h2",
                 startIndex: $.isNumeric(parseInt(step)) ? parseInt(step) : 0,
@@ -1365,7 +1276,6 @@
                     // Registration step
                     if (currentIndex == 0) {
                         console.log('Registration step');
-                        // account_validator = $(".account_form").valid();
                         if (!$(".account_form").valid()) {
                             move = false;
                         }
@@ -1386,33 +1296,11 @@
                                 password_confirmation: $('#password_confirmation').val()
                             },
                             success: function(data) {
-                                // console.log(data.message);
-                                // account_validator.showErrors({
-                                //     "email": "test error"
-                                // });
                                 move = true;
                                 return true;
                             },
                             error: function(data) {
                                 move = false;
-                                // var errors = {
-                                //     "email": "Please enter an ID to check"
-                                // };
-                                // account_validator.showErrors(errors);
-
-                                // var response = JSON.parse(data.responseText);
-                                // var errorString = '<ul>';
-                                // $.each(response.errors, function (key, value) {
-                                //   // validator.showErrors({key: value[0]});
-                                //   console.log(val[0]);
-                                // });
-
-                                // $("#form-total").steps("previous");
-                                //   validator.showErrors({
-                                //   "email": 'email exist'
-                                // });
-                                // console.log('error');
-                                // console.log(data.responseJSON.errors);
                                 errors = data.responseJSON.errors;
                                 account_validator.showErrors(errors);
                                 return true;
@@ -1434,9 +1322,8 @@
                                 if (data.step == 1) {
                                     steps_api = steps.data('plugin_Steps');
                                     steps_api.prev();
-                                    // wizard.get(1).click();
                                     $("#form-total").steps("setStep",
-                                        1); //based on 0 (set the index)
+                                        1);
                                     $("#form-total").steps("previous");
                                     return false;
                                 } else {
@@ -1451,8 +1338,6 @@
                         });
                     } else if (currentIndex == 2) {
                         console.log('Enterprise step ');
-                        // enterprise_validator = $(".enterprise_form").valid();
-                        // if (enterprise_validator.errorList.length > 0) {
                         if (!$(".enterprise_form").valid()) {
                             move = false;
                         }
@@ -1461,7 +1346,7 @@
                             nif = document.getElementById("nif").files[0],
                             formdata = false;
                         formdata = new FormData();
-                        formdata.append("rc", rc); //, input.files[0].name);
+                        formdata.append("rc", rc);
                         formdata.append("rc_number", $('#rc_number').val());
                         formdata.append("nis", nis);
                         formdata.append("nis_number", $('#nis_number').val());
@@ -1470,11 +1355,7 @@
                         formdata.append("step", "2");
                         formdata.append("name", $('#name').val());
                         formdata.append("legal_form", $('#legal_form').find(":selected").val());
-                        // formdata.append("activity_type", $('#activity_type').find(":selected").val());
-                        // formdata.append("activity_type_name", $('#activity_type_name').val());
-                        formdata.append("exporter_type", $('#exporter_type').find(":selected")
-                            .val());
-                        // formdata.append("export_activity_code", $('#export_activity_code').val());
+                        formdata.append("exporter_type", $('#exporter_type').find(":selected").val());
                         formdata.append("activities", $('#activities').val());
                         formdata.append("address_enterprise", $('#address_enterprise').val());
                         formdata.append("email_enterprise", $('#email_enterprise').val());
@@ -1595,25 +1476,8 @@
                         console.log('Confirmation step');
                     }
                     if (!move && Object.keys(errors).length !== 0) {
-                        // alert('i"m here 01');
-                        //     $.each(errors, function(key, value) {
-                        //                 // console.log('key: ' + key);
-                        //                 // console.log('value: ' + value);
-                        //                 // $('#' + key + '-error').text(value);
-
-
-                        //     $("#"+key).after(
-                        //         '<label id="'+key+'-error" class="error" for="'+key+'">' + value + '</label>'
-                        //         )
-                        //     // var errors = {
-                        //     //     "email": "Please enter an ID to check"
-                        //     // };
-                        // });
-                        // account_validator.showErrors(errors);
-
                         console.log(errors);
                     }
-                    // alert('i"m here 02');
                     return move;
                 },
                 onFinished: function(event, currentIndex) {
@@ -1629,9 +1493,7 @@
                             confirmed: 'true'
                         },
                         success: function(data) {
-                            // console.log(data.message);
                             if (data.step == 4) {
-                                // $("#form-total").steps("previous");
                                 return false;
                             } else {
                                 console.log(data.url);
@@ -1644,7 +1506,6 @@
                             if (data.errors) {}
                         }
                     });
-                    // $("#form-total").submit();
                 }
             });
 
@@ -1671,7 +1532,6 @@
             ];
 
             $('#activities').select2({
-                // width: 'resolve',
                 dir: dir,
                 width: $('.content').width(),
                 placeholder: '{{ __('Type Activities Codes') }}',
@@ -1681,7 +1541,6 @@
                     dataType: 'json',
                     delay: 250,
                     processResults: function(data) {
-                        // console.log(data);
                         return {
                             results: $.map(data, function(item) {
                                 return {
@@ -1694,7 +1553,6 @@
                     cache: true
                 },
                 templateSelection: function(data, container) {
-                    // Add custom attributes to the <option> tag for the selected option
                     $(data.element).attr('data-custom-attribute', data.code);
                     return data.text.substr(0, data.text.indexOf(' '));
                 },

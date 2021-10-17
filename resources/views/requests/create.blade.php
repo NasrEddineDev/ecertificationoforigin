@@ -154,16 +154,6 @@ input.error {
 <script type="text/javascript">
     $(document).ready(function() {
 
-//       $('.activity_type_name').hide();
-// $('#activity_type').on('change', function() {
-//     if (this.value == 'OTHER') {
-//         $('.activity_type_name').show();
-//     } else {
-//         $('.activity_type_name').hide();
-//     }
-// });
-
-
 $('#category_id').on('change', function() {
                 var selectedCategory = $('#category_id').find(":selected").val();
                 $.ajax({

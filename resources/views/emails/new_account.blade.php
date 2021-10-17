@@ -169,7 +169,6 @@
                                     <td align="center" height="70" style="height:70px;">
                                         <a href="" style="display: block; border-style: none !important; border: 0 !important;">
                                             <img style="width:90px;margin-left:23px;" src="https://raw.githubusercontent.com/NasrEddineDev/Master-Thesis-ImplementationOf3DSecureArchitecture/master/images/logo/logo-issuer2.png">
-                                            {{-- <img width="100" border="0" style="display: block; width: 100px;" src="https://mdbootstrap.com/img/logo/mdb-email.png" alt="" /></a> --}}
                                     </td>
                                 </tr>
                             </table>
@@ -189,20 +188,15 @@
     <!-- big image section -->
 
     <table border="0" width="100%" cellpadding="0" cellspacing="0" bgcolor="ffffff" class="bg_color">
-
         <tr>
             <td align="center">
                 <table border="0" align="center" width="590" cellpadding="0" cellspacing="0" class="container590">
-
                     <tr>
                         <td align="center" style="color: #343434; font-size: 24px; font-family: Quicksand, Calibri, sans-serif; font-weight:700;letter-spacing: 3px; line-height: 35px;"
                             class="main-header">
                             <!-- section text ======-->
-
                             <div style="line-height: 35px">
-
                                 Welcome to the future of <span style="color: #5caad2;">online banking</span>
-
                             </div>
                         </td>
                     </tr>

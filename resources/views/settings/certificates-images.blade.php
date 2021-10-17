@@ -47,8 +47,6 @@
                                     <label
                                         class="col-sm-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Template') }}</label>
                                     <div class="col-sm-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
-                                        {{-- <select id="activitiesTest" class="activitiesTest select2 form-control"
-                                    name="activitiesTest[]" multiple="multiple"> --}}
                                         <select id="template" name="template" class="form-control">
                                             <option selected disabled>{{ __('Select The Default Template') }}</option>
                                             <option {{ $certificate_template == '0' ? 'selected' : '' }} value="0">
@@ -62,8 +60,6 @@
                                     <div class="col-sm-3 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                         <button type="submit" id="save" name="save"
                                             class="btn btn-primary login-submit-cs">{{ __('Save') }}</button>
-                                        {{-- <button type="submit"
-                                            class="btn btn-danger login-submit-cs">{{ __('Delete') }}</button> --}}
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +167,6 @@
     <script src="bootstrap-fileinput/js/locales/LANG.js"></script>
     <script type="text/javascript"
         src="{{ URL::asset('bootstrap-fileinput/js/locales/' . App()->currentLocale() . '.js') }}"></script>
-    {{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" type="text/javascript"></script> --}}
     <script type="text/javascript">
         $(document).ready(function() {
 
@@ -198,7 +193,6 @@
             $("#delete").click(function(e) {
                 e.preventDefault();
                 var url = $("#delete").attr("href");
-                // var id = url.substring(url.lastIndexOf('/') + 1);
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -226,9 +220,6 @@
                     url: url,
                     type: 'GET',
                     success: function(result) {
-                        // $('#DangerModalhdbgcl').modal('toggle');
-                        // // document.getElementById("table").deleteRow(4); 
-                        // $('table#table tr#' + id).remove();
                     }
                 });
             });

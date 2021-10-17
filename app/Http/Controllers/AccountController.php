@@ -76,12 +76,6 @@ class AccountController extends Controller
             //
             $categories = Category::all();
             $user = Auth::User();
-            // $states = State::all()->where('country_code', '==', 'DZ')->sortBy('iso2');
-            // $states = State::where('country_code', '=', 'DZ')->orderBy('iso2')->get();
-            // $cities = '';
-            // if (! Auth::user()->profile->city_id)
-            // $cities = AlgeriaCity::all()->where('wilaya_code', '==', $user->profile->city->wilaya_code);
-            // else $cities = City::all()->where('country_code', '==', 'DZ');
             return view('account', compact('user', 'categories'));
         } catch (Throwable $e) {
             report($e);

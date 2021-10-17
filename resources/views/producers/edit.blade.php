@@ -234,9 +234,6 @@
 
 @endsection
 
-
-
-
 @Push('js')
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/lang/messages_' . App()->currentLocale() . '.js') }}"></script>
@@ -253,7 +250,6 @@
                     $('.activity_type_name').hide();
                 }
             });
-
 
             $('#country_id').on('change', function() {
                 var selectedState = $('#country_id').find(":selected").val();

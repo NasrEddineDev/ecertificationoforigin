@@ -11,13 +11,16 @@
             text-decoration: none;
             background-color: gray !important;
         }
-      tr td:last-child{
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 50%; /* Extend the cell as much as possible */
-  max-width: 0; /* Avoid resizing beyond table width */
-}
+
+        tr td:last-child {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            width: 50%;
+            /* Extend the cell as much as possible */
+            max-width: 0;
+            /* Avoid resizing beyond table width */
+        }
 
     </style>
 @endpush
@@ -64,16 +67,18 @@
                                             <tr id="{{ $userActivity->id }}">
                                                 <td>{{ $userActivity->id }}</td>
                                                 <td>{{ $userActivity->created_at }}</td>
-                                                <td>{{ str_replace("App\Models\\","",$userActivity->subject_type) }}</td>
+                                                <td>{{ str_replace('App\Models\\', '', $userActivity->subject_type) }}</td>
                                                 <td>{{ $userActivity->causer_id }}</td>
-                                                <td><a class="btn btn-success" style="font-size: 14px;padding-top:0px;padding-bottom:0px;"
-                                                    href="{{ route('users.show', $userActivity->causer_id ?? '') }}">
-                                                    {{ __($userActivity->causer->username ?? '') }}</a></td>
+                                                <td><a class="btn btn-success"
+                                                        style="font-size: 14px;padding-top:0px;padding-bottom:0px;"
+                                                        href="{{ route('users.show', $userActivity->causer_id ?? '') }}">
+                                                        {{ __($userActivity->causer->username ?? '') }}</a></td>
                                                 <td>{{ __($userActivity->description) }}</td>
-                                                <td><a class="btn btn-info" style="font-size: 14px;padding-top:0px;padding-bottom:0px;"
-                                                    href="{{ route('certificates.show', $userActivity->subject_id) }}">
-                                                    {{ __($userActivity->subject_id) }}</a></td>
-                                                    <td>{{ $userActivity->properties }}</td>
+                                                <td><a class="btn btn-info"
+                                                        style="font-size: 14px;padding-top:0px;padding-bottom:0px;"
+                                                        href="{{ route('certificates.show', $userActivity->subject_id) }}">
+                                                        {{ __($userActivity->subject_id) }}</a></td>
+                                                <td>{{ $userActivity->properties }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -117,7 +122,6 @@
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/tableExport.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/data-table-active.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-editable.js') }}"></script> --}}
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-editable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-resizable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/colResizable-1.5.source.js') }}"></script>
@@ -131,8 +135,6 @@
                 var link = $(e.relatedTarget),
                     url = link.data("url"),
                     payment_name = link.data("payment_name");
-                // e.closest('tr').hide();
-                // alert(e.closest.closest('tr'));
                 $("#Delete").attr("href", url);
                 $("#PaymentName").text(payment_name);
             });
@@ -149,21 +151,19 @@
                     type: 'DELETE',
                     success: function(result) {
                         $('#DangerModalhdbgcl').modal('toggle');
-                        // document.getElementById("table").deleteRow(4); 
                         $('table#table tr#' + id).remove();
                     }
                 });
             });
 
-            $('tr td:last-child').bind('mouseenter', function(){
-    var $this = $(this);
+            $('tr td:last-child').bind('mouseenter', function() {
+                var $this = $(this);
 
-    if(this.offsetWidth < this.scrollWidth && !$this.attr('title')){
-        $this.attr('title', $this.text());
-    }
-});
+                if (this.offsetWidth < this.scrollWidth && !$this.attr('title')) {
+                    $this.attr('title', $this.text());
+                }
+            });
 
         });
-
     </script>
 @endpush

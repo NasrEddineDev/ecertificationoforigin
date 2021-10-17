@@ -69,10 +69,8 @@ class EnterpriseController extends Controller
             //
             $enterprise = new Enterprise([
                 'name' => $request->name,
-                // 'activity_type' => $request->activity_type,
                 'legal_form' => $request->legal_form,
                 'exporter_type' => $request->exporter_type,
-                // 'export_activity_code' => $request->export_activity_code,
                 'address' => $request->address,
                 'email' => $request->email,
                 'mobile' => $request->mobile,
@@ -90,13 +88,7 @@ class EnterpriseController extends Controller
             ]);
 
             Auth::user()->enterprise()->save($enterprise);
-
-            // if ($file = $request->rc){
-            //     $destinationPath ='data/enterprises/'. $enterprise->id .'/documents\/';
-            //     $fileName = $enterprise->id.'_rc.'.$file->clientExtension();
-            //     $request->file('rc')->storeAs($destinationPath, $fileName);
-            //     $enterprise->rc = $fileName;
-            // }
+            
             $file = $request->file('rc');
             if ($file) {
                 $destinationPath = 'enterprises/' . $enterprise->id . '/' . 'documents/';
@@ -185,10 +177,8 @@ class EnterpriseController extends Controller
             //
             $enterprise = Enterprise::find($id);
             $enterprise->name = $request->name;
-            // $enterprise->activity_type = $request->activity_type;
             $enterprise->legal_form = $request->legal_form;
             $enterprise->exporter_type = $request->exporter_type;
-            // $enterprise->export_activity_code = $request->export_activity_code;
             $enterprise->address = $request->address;
             $enterprise->email = $request->email;
             $enterprise->mobile = $request->mobile;
@@ -197,7 +187,6 @@ class EnterpriseController extends Controller
             $enterprise->fax = $request->fax;
             $enterprise->city_id = ($request->city_id) ? $request->city_id : $enterprise->city_id;
             if (Auth::User()->role->name != 'user') {
-                // $enterprise->balance = $request->balance;
                 if ($request->status == "PENDING")
                             event(new EnterprisePendingEvent($enterprise));
                 else if ($request->status == "ACTIVATED")
@@ -211,7 +200,6 @@ class EnterpriseController extends Controller
             }
 
             $enterprise->activities()->detach();
-            // dd($request->activities);
             foreach ($request->activities as $activity_id) {
                 $enterprise->activities()->attach($activity_id, [
                     'enterprise_id' => $enterprise->id,

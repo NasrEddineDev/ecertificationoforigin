@@ -31,13 +31,6 @@
                         </div>
                         <div class="sparkline13-graph">
                             <div class="datatable-dashv1-list custom-datatable-overright">
-
-                                {{-- <div class="toolbar add-product dt-tb">
-                                <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
-                                "PENDING") ? 'not-active' : '' }}" href="{{ route('importers.create') }}" 
-                                style="{{App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : ''}}">
-                                {{ __('Add New Importer')}}</a>
-                            </div> --}}
                                 <div id="toolbar">
                                     <div class="{{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                                         @can('create',  App\Models\Importer::class)
@@ -73,12 +66,6 @@
                                     </div>
                                     @endcan
                                 </div>
-                                {{-- <div class="toolbar add-product dt-tb">
-                                <a class="{{ (Auth::User()->role->name == 'user' && Auth::User()->enterprise->status == 
-                                "PENDING") ? 'not-active' : '' }}" href="{{ route('importers.create') }}" 
-                                style="{{App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : ''}}">
-                                {{ __('Add New Importer')}}</a>
-                            </div> --}}
                                 <table id="table" data-toggle="table" data-pagination="true" data-search="true"
                                     data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
                                     data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
@@ -93,21 +80,14 @@
                                             <th data-field="state" data-checkbox="true"></th>
                                             <th data-field="id">{{ __('ID') }}</th>
                                             <th data-field="name" data-editable="true">{{ __('Name') }}</th>
-                                            <!-- <th data-field="legal_form" data-editable="true">{{ __('Legal Form') }}</th> -->
-                                            <th data-field="activity_type" data-editable="true">{{ __('Activity Type') }}
-                                            </th>
-                                            <!-- <th data-field="type" data-editable="true">{{ __('Type') }}</th> -->
+                                            <th data-field="activity_type" data-editable="true">{{ __('Activity Type') }}</th>
                                             <th data-field="address" data-editable="true">{{ __('Address') }}</th>
                                             <th data-field="mobile" data-editable="true">{{ __('Mobile') }}</th>
                                             <th data-field="email" data-editable="true">{{ __('Email') }}</th>
-                                            <!-- <th data-field="website" data-editable="true">{{ __('Website') }}</th>
-                                            <th data-field="tel" data-editable="true">{{ __('Tel') }}</th>
-                                            <th data-field="fax" data-editable="true">{{ __('Fax') }}</th> -->
                                             @if (Auth::user()->can('view-enterprise-user'))
                                                 <th data-field="enterprise" data-editable="true">{{ __('Enterprise') }}
                                                 </th>
                                             @endif
-                                            {{-- <th data-field="action">{{ __('Action')}}</th> --}}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -116,37 +96,14 @@
                                                 <td></td>
                                                 <td>{{ $importer->id }}</td>
                                                 <td>{{ $importer->name }}</td>
-                                                <!-- <td>{{ $importer->legal_form }}</td> -->
                                                 <td>{{ App()->currentLocale() == 'ar' ? $importer->category->name_ar : (App()->currentLocale() == 'fr' ? 
                                                 $importer->category->name_fr : $importer->category->name) }}</td>
-                                                <!-- <td>{{ $importer->type }}</td> -->
                                                 <td>{{ $importer->address }}</td>
                                                 <td>{{ $importer->mobile }}</td>
                                                 <td>{{ $importer->email }}</td>
-                                                <!-- <td>{{ $importer->website }}</td>
-                                            <td>{{ $importer->tel }}</td>
-                                            <td>{{ $importer->fax }}</td> -->
                                                 @if (Auth::user()->can('view-enterprise-user'))
                                                     <td>{{ $importer->enterprise_id }}</td>
                                                 @endif
-                                                {{-- <td class="datatable-ct">
-                                            <a rel="tooltip" class="btn btn-success" href="{{ route('importers.show',$importer->id) }}" 
-                                                data-original-title="" title="{{ __('Detail') }}">
-                                                <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
-                                                <div class="ripple-container"></div>
-                                            </a>
-                                            <a rel="tooltip" class="btn btn-primary" href="{{ route('importers.edit',$importer->id) }}" 
-                                                data-original-title="" title="{{ __('Edit') }}">
-                                                <i class="fa fa-pencil-square-o fa-lg" aria-hidden="true"></i>
-                                                <div class="ripple-container"></div>
-                                            </a>
-                                            <a rel="tooltip" class="btn btn-danger pd-setting-ed" href="#" data-url="{{ route('importers.destroy',$importer->id) }}" 
-                                            data-importer_name="{{ $importer->name }}" data-original-title="" title="{{ __('Delete') }}" data-toggle="modal" 
-                                            data-target="#DangerModalhdbgcl" style="background-color: #d80027!important;">
-                                                <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
-                                                <div class="ripple-container"></div>
-                                            </a>
-                                        </td> --}}
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -189,7 +146,6 @@
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/tableExport.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/data-table-active.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-editable.js') }}"></script> --}}
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-editable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-resizable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/colResizable-1.5.source.js') }}"></script>
@@ -228,7 +184,6 @@
 
 
             $(document).on("click", "#details", function() {
-                // $(this).find(".detail-icon").trigger("click");
                 $tr = $('#1');
                 console.log($tr);
                 $table.bootstrapTable('expandRow', $tr);
@@ -240,8 +195,6 @@
                 var txt = []
                 $.get('/getimporter/'+row['id'], function (res) {
                     txt.push('<table>')
-                    // $.each(res.importer, function(key, value) {                    
-                            // var str = '<p><b>' + key + ': </b> ' + value + '</p>';
                             var str = '<tr><td><b>{{__("Name")}} : </b> ' + res.importer.name + '</td>';
                             txt.push(str);
                             var str = '<td><b>{{__("Email")}} : </b> ' + res.importer.email + '</td>';
@@ -266,43 +219,11 @@
                             txt.push(str);
                             var str = '<td><b>{{__("Website")}} : </b> ' + res.importer.website + '</td></tr>';
                             txt.push(str);
-                            // });
-                    $detail.html(txt.join(""));//res.toString().replace(/\n/g, '<br>'));
+                    $detail.html(txt.join(""));
                 });
             });
 
             function detailFormatter(index, row) {
-                // $.ajax({
-                //     headers: {
-                //         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                //     },
-                //     url: '/getimporter/'+row['id'],
-                //     type: 'GET',
-                //     success: function(result) {
-                //         console.log('row : '+row['id']);
-                //         console.log('result : '+result.importer.id);
-                //         // txt.push('<p><b>' + result.importer.id + ': </b> ' + result.importer.name + '</p>')
-                //         // txt.push('<p><b>address: </b> ' + result.importer.address + '</p>')
-                //         // txt.push('<p><b>address: </b> ' + result.importer.address + '</p>')
-                //         // txt.push('<p><b>address: </b> ' + result.importer.address + '</p>')
-                //         $.each(result.importer, function(key,value) {                    
-                //             var str = '<p><b>' + key + ': </b> ' + value + '</p>';
-                //             txt.push(str);
-                //             });
-                //             return false;
-                //     }
-                // });
-                // var txt = []
-                //         console.log(txt.join(", "));
-// console.log(txt);
-// console.log(txt.join(''));
-
-//                 $.each(row, function (key, value) {
-//                 html.push('<p><b>' + key + ': </b> ' + value + '</p>')
-//                 })
-// console.log(html);
-// console.log(html.join(''));
-                // return txt.join('')
             }
         $(document).ready(function() {
 
@@ -330,7 +251,6 @@
             $("#delete").click(function(e) {
                 e.preventDefault();
                 var url = $("#delete").attr("href");
-                // var id = url.substring(url.lastIndexOf('/') + 1);
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

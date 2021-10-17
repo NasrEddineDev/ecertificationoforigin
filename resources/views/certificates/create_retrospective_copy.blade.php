@@ -321,7 +321,6 @@
                                                     <div class="main-sparkline13-hd">
                                                         <p class="card-description"> {{ __('Products List') }}
                                                         </p>
-                                                        {{-- <h1>Products List</h1> --}}
                                                     </div>
                                                 </div>
                                                 <div class="sparkline13-graph">
@@ -397,23 +396,12 @@
                                                         </button>
                                                         <button id="save" type="submit"
                                                             class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
-                                                        {{-- <button type="submit" class="btn btn-info">
-                                                            <a href="{{ route('certificates.preview') }}"
-                                                                style="color: inherit;">{{ __('Preview') }}</a>
-                                                        </button> --}}
                                                         <a rel="tooltip" id="previous" class="btn btn-success pd-setting-ed"
                                                             href="#"
                                                             data-url="{{ route('certificates.generate-gzal', 1) }}"
                                                             data-certificate_name="" data-original-title="" title="Delete"
                                                             data-toggle="modal" data-target="">
-                                                            {{-- <i class="fa fa-tras-oh fa-lg" aria-hidden="true"></i>
-                                                                <div class="ripple-container"></div> --}}
                                                             {{ __('Preview') }}</a>
-                                                        {{-- <button type="submit" class="btn btn-success">
-                                                            <a id="download"
-                                                                href="{{ route('certificates.generate-gzal') }}"
-                                                                style="color: inherit;">{{ __('Download') }}</a>
-                                                        </button> --}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -445,8 +433,6 @@
                             src="{{ asset('data/enterprises/' . Auth::User()->Enterprise->id . '/certificates/gzal-draft.pdf') }}"
                             type="application/pdf" />
                     </object>
-                    {{-- <iframe id="iframe" src="" type="application/pdf" width="100%" height="900px;"></iframe> --}}
-                    {{-- src="{{ asset('data/enterprises/' . Auth::User()->Enterprise->id . '/certificates/gzal-draft.pdf') }}" --}}
 
                 </div>
             </div>
@@ -456,17 +442,13 @@
 
 @Push('js')
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/tableExport.js') }}"></script> --}}
     <script type="text/javascript" src="{{ URL::asset('js/data-table/data-table-active.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-editable.js') }}"></script> --}}
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-editable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-resizable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/colResizable-1.5.source.js') }}"></script>
     <script src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/datapicker/bootstrap-datepicker.js') }}"></script>
     <script src="{{ URL::asset('js/jquery.validate.min.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/pdfobject.min.js') }}"></script> --}}
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-export.js') }}"></script> --}}
     <script type="text/javascript">
         $(document).ready(function() {
             $.fn.datepicker.dates['ar'] = {
@@ -578,7 +560,6 @@
                     type: 'application/pdf'
                 })
                 var url = URL.createObjectURL(blob);
-                // location.assign(url);
                 var win = window.open(url, '_blank');
                 if (win) {
                     //Browser has allowed it to be opened
@@ -692,7 +673,6 @@
                 // get product measure unit
                 var selectedProductId = $('#product_id').find(":selected").val();
                 var selectedProductMeasureUnit = $('#product_id').find(":selected").data('measure_unit');
-                // alert(selectedProductId + '  ' + selectedProductMeasureUnit);
                 if (selectedProductMeasureUnit == 'KG') 
                     $('#package_quantity').attr('placeholder', '{{__('KG')}}');
                 else if (selectedProductMeasureUnit == 'U') 
@@ -705,7 +685,6 @@
                     $('#package_quantity').attr('placeholder', '{{__('M')}}');
                 else if (selectedProductMeasureUnit == 'M²') 
                 $('#package_quantity').attr('placeholder', '{{__('M²')}}');
-                    // $('#package_quantity').attr('placeholder', '{{config("settings.UNIT.U")}}');
             });
             // add products
 
@@ -775,14 +754,11 @@
                     'id="removeRow" style="background-color: #d80027!important;"> <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>' +
                     '<div class="ripple-container"></div></a></td></tr>';
 
-                // '<td><a class="btn btn-success" href="javascript:void(0)" id="checkRow" float-right><i class="fa fa-check"></i></a></td></tr>';
-
                 $(this).parents('tr').remove();
                 $("table tbody").append(new_product);
 
             });
             $('table tbody').on('click', '#removeRow', function() {
-                // console.log($(this).parents('tr').find("td:eq(1)").text());
                 products = products.filter(function(obj) {
                     console.log($(this).parents('tr').find("td:eq(3)").text());
                     return obj.product_name != $(this).parents('tr').find("td:eq(1)").text();

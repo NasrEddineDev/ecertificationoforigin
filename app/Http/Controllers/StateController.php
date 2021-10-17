@@ -88,7 +88,6 @@ class StateController extends Controller
     public function getStates($country_id)
     {
         //        
-
         try {
         $data = [];
         $states = State::where('country_id', '=', $country_id)->orderBy('iso2')->get();
@@ -97,14 +96,12 @@ class StateController extends Controller
             $data['text'] = $items->iso2 . ' ' . __($items->name);
             return $data;
         });
-
         $country = Country::find($country_id);
 
         return response()->json(['states' => $states, 'country' => $country]);
     } catch (Throwable $e) {
         report($e);
         Log::error($e->getMessage());
-
         return false;
     }
     }

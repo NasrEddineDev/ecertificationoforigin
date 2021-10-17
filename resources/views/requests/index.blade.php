@@ -35,13 +35,6 @@
                                 "PENDING") ? 'not-active' : '' }}" href="{{ route('products.create') }}"
                                 style="{{App()->currentLocale() == 'ar' ? 'right:auto;left: 35px;' : ''}}">{{ __('Add New Product') }}</a>
                             </div>
-                            <!-- <div id="toolbar">
-                                <select class="form-control dt-tb">
-                                    <option value="">Export Basic</option>
-                                    <option value="all">Export All</option>
-                                    <option value="selected">Export Selected</option>
-                                </select>
-                            </div> -->
                             <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" 
                             data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" 
                             data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" 
@@ -135,7 +128,6 @@
 <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/data-table/tableExport.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/data-table/data-table-active.js') }}"></script>
-{{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-editable.js') }}"></script> --}}
 <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-editable.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-resizable.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/data-table/colResizable-1.5.source.js') }}"></script>
@@ -149,8 +141,6 @@
             var link = $(e.relatedTarget),
                 url = link.data("url"),
                 request_name = link.data("request_name");
-                // e.closest('tr').hide();
-                // alert(e.closest.closest('tr'));
             $("#Delete").attr("href", url);
             $("#RequestName").text(request_name);
         });
@@ -166,8 +156,7 @@
             url: url,
             type: 'DELETE',
             success: function(result) {
-                $('#DangerModalhdbgcl').modal('toggle');
-                // document.getElementById("table").deleteRow(4); 
+                $('#DangerModalhdbgcl').modal('toggle'); 
                 $('table#table tr#'+id).remove();
             }
         });

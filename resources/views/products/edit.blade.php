@@ -115,8 +115,7 @@
                 <div class="row">
                   <div class="col-md-6 {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">
                       <div class="form-group row">
-                          <label
-                              class="required col-md-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Enterprise') }}</label>
+                          <label class="required col-md-3 col-form-label {{ App()->currentLocale() == 'ar' ? 'pull-right' : '' }}">{{ __('Enterprise') }}</label>
                           <div class="col-md-9">
                               <select name="enterprise_id" id="enterprise_id" class="form-control"
                                   required>
@@ -173,16 +172,6 @@
     <script src="{{ URL::asset('js/input-mask/jquery.inputmask.min.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
-
-            //       $('.activity_type_name').hide();
-            // $('#activity_type').on('change', function() {
-            //     if (this.value == 'OTHER') {
-            //         $('.activity_type_name').show();
-            //     } else {
-            //         $('.activity_type_name').hide();
-            //     }
-            // });
-
 
             $('#category_id').on('change', function() {
                 var selectedCategory = $('#category_id').find(":selected").val();

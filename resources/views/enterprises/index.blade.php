@@ -53,9 +53,7 @@
                                                 <th data-field="status" data-editable="true">{{__('Status') }}</th>
                                                 <th data-field="balance" data-editable="true">{{__('Balance') }}</th>
                                                 <th data-field="activity_type" data-editable="true">{{__('Activity Type') }}</th>
-                                                {{-- <th data-field="address" data-editable="true">Address</th> --}}
                                                 <th data-field="mobile" data-editable="true">{{__('Mobile') }}</th>
-                                                {{-- <th data-field="email" data-editable="true">Email</th> --}}
                                                 <th data-field="manager" data-editable="true">{{__('Manager') }}</th>
                                                 <th data-field="action">{{__('Actions') }}</th>
                                             </tr>
@@ -77,20 +75,10 @@
                                                 </td>
                                                 <td>{{ $enterprise->balance }}</td>
                                                 <td>{{ $enterprise->activity_type }}</td>
-                                                {{-- <td>{{ $enterprise->address }}</td> --}}
                                                 <td>{{ $enterprise->mobile }}</td>
-                                                {{-- <td>{{ $enterprise->email }}</td> --}}
                                                 <td>{{ isset($enterprise->Manager) ? $enterprise->Manager->firstname.' '.$enterprise->Manager->lastname : '' }}</td>
-                                                {{-- <td>{{ $certificate->invoice_date }}</td>
-                                                <td>{{ $certificate->invoice_number }}</td> --}}
                                                 <td class="datatable-ct" style="display:block!important;">
                                                     <div class="input-group">
-                                                    {{-- <a rel="tooltip" class="btn btn-success"
-                                                        href="{{ route('enterprises.show', $enterprise->id) }}"
-                                                        data-original-title="" title="View">
-                                                        <i class="fa fa-eye fa-lg" aria-hidden="true"></i>
-                                                        <div class="ripple-container"></div>
-                                                    </a>--}}
                                                     @can('view',  App\Models\Enterprise::class)
                                                     <a rel="tooltip" class="btn btn-success"
                                                         href="{{ route('enterprises.show', $enterprise->id) }}"
@@ -139,7 +127,6 @@
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/tableExport.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/data-table-active.js') }}"></script>
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-editable.js') }}"></script> --}}
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-editable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/bootstrap-table-resizable.js') }}"></script>
     <script type="text/javascript" src="{{ URL::asset('js/data-table/colResizable-1.5.source.js') }}"></script>

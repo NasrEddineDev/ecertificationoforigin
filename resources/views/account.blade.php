@@ -49,27 +49,6 @@
             margin: auto !important
         }
 
-        /* .modal-dialog {
-                                      width: 90% !important;
-                                      height: 90% !important;
-                                      margin: auto;
-                                      margin-top: 20px;
-                                      padding: auto;
-                                  }
-
-                                  .modal-edu-general .modal-body {
-                                      text-align: center;
-                                      padding: 0;
-                                      width: 100%;
-                                      height: 100% !important;
-                                  }
-
-                                  .modal-content {
-                                      height: auto;
-                                      min-height: 100%;
-                                      border-radius: 0;
-                                  } */
-
         #changeProfilePicture {
             display: flex;
             justify-content: center;
@@ -83,8 +62,6 @@
             width: 128px;
             height: 128px;
             border: 8px solid rgba(54, 31, 72, 1);
-            /* position: absolute; */
-            /* top: 72px; */
         }
 
         #changeProfilePicture:hover {
@@ -110,20 +87,12 @@
                 color: rgba(250, 250, 250, 1);
                 transition: all .3s ease;
             }
-
-            /* span {
-                                    display: inline-flex;
-                                    padding: .2em;
-                                } */
         }
 
         .file-upload {
-            /* display: none !important; */
         }
 
         .profilePicture {
-            /* height: 100vh;
-                          background-color: rgba(54,31,72,1); */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -169,7 +138,6 @@
 
     </style>
 @endpush
-
 
 @section('content')
 
@@ -261,7 +229,6 @@
                                                                 </div>
                                                             </div>
 
-
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -308,8 +275,6 @@
                                                                 <div class="col-sm-8">
 
                                                                     <select class="form-control" name="gender" id="gender">
-                                                                        {{-- <option value="" disabled>
-                                                                        {{ __('Select The Gender') }}</option> --}}
                                                                         <option value="Male"
                                                                             {{ $user->Profile->gender == 'MALE' ? 'selected' : '' }}>
                                                                             {{ __('Male') }}</option>
@@ -353,16 +318,9 @@
                                                                         class="form-control">
                                                                         <option value="0" disabled>
                                                                             {{ __('Select The State') }}</option>
-                                                                        {{-- @foreach ($states as $state){
-                                                                            <option value="{{ $state->iso2 }}"
-                                                                                {{ $user->Profile->City->wilaya_code == $state->iso2 ? 'selected' : '' }}>
-                                                                                {{ $state->iso2 . ' ' . __($state->name) }}
-                                                                            </option>
-                                                                        @endforeach --}}
                                                                     </select>
                                                                 </div>
                                                             </div>
-
 
                                                             <div class="form-group row">
                                                                 <label
@@ -382,7 +340,6 @@
                                                                     </select>
                                                                 </div>
                                                             </div>
-
 
                                                         </div>
                                                     </div>
@@ -417,7 +374,6 @@
                                                         </div>
 
                                                         <div class="form-group row profilePicture">
-                                                            {{-- onclick="$('.file-upload-input-profile-picture').trigger( 'click' )"> --}}
                                                             <a href="#" aria-label="Change Profile Picture">
                                                                 <div class="profile-pic"
                                                                     style="background-image: url({{ Auth::user()->Profile->picture ? (Auth::user()->Role->name == 'user' ? 'data/enterprises/' . Auth::user()->Enterprise->id . '/' . 'documents/' : 'data/dri/' . Auth::User()->id . '/') . Auth::user()->Profile->picture : URL::asset('') . 'data/documents/pro4.jpg' }})">
@@ -546,7 +502,6 @@
                                                                         </div>
                                                                     </div>
                                                                 </div>
-
 
                                                                 <div class="form-group row">
                                                                     <label
@@ -1066,149 +1021,6 @@
             </div>
         </div>
     </div>
-    <!-- <div class="basic-form-area mg-b-15">
-                                    <div class="container-fluid">
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                                <div class="sparkline12-list">
-                                                    <div class="card">
-                                                        <div class="card-body">
-                                                            <h4 class="card-title">{{ __('Edit your account') }}</h4>
-                                                            <br />
-                                                            <p class="card-description"> {{ __('Login Information') }} </p>
-                                                            <form class="form-sample" method="post" action="{{ route('account.update', 'test') }}" >
-                                                              @csrf
-                                                              @method('put')
-                                                              
-                                                              <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group row">
-                                                                            <label class="col-sm-3 col-form-label">{{ __('Username') }}</label>
-                                                                            <div class="col-sm-9">
-                                                                                <input type="text" value="{{ $user->username }}" name="username" id="username" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group row">
-                                                                            <label class="col-sm-3 col-form-label">{{ __('Email Address') }}</label>
-                                                                            <div class="col-sm-9">
-                                                                                <input type="text" value="{{ $user->email }}" name="email" id="email" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <p class="card-description"> {{ __('Change The Password') }} </p>
-                                                              <div class="row">
-                                                                    <div class="col-md-4">
-                                                                        <div class="form-group row">
-                                                                            <div class="col-sm-12">
-                                                                                <input type="password" placeholder="{{ __('Old Password') }}" name="old_password" id="old_password" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <div class="form-group row">
-                                                                            <div class="col-sm-12">
-                                                                                <input type="password" placeholder="{{ __('New Password') }}" value="" name="new_password" id="new_password" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-4">
-                                                                        <div class="form-group row">
-                                                                            <div class="col-sm-12">
-                                                                                <input type="password" placeholder="{{ __('Confirm New Password') }}" value="" name="new_password_confirmation" id="new_password_confirmation" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <p class="card-description"> {{ __('General Information') }} </p>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group row">
-                                                                            <label class="col-sm-3 col-form-label">{{ __('First Name') }}</label>
-                                                                            <div class="col-sm-9">
-                                                                                <input type="text" value="{{ $user->firstname }}" name="firstname" id="firstname" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group row">
-                                                                            <label class="col-sm-3 col-form-label">{{ __('Last Name') }}</label>
-                                                                            <div class="col-sm-9">
-                                                                                <input type="text" value="{{ $user->lastname }}" name="lastname" id="lastname" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group row">
-                                                                            <label class="col-sm-3 col-form-label">{{ __('Gender') }}</label>
-                                                                            <div class="col-sm-9">
-                                                                            <input type="radio" name="gender" id="gender" value="male" class="radio-1"> Male
-                                                                            <input type="radio" name="gender" id="gender" value="female"> Female
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group row">
-                                                                            <label class="col-sm-3 col-form-label">{{ __('Birthday') }}</label>
-                                                                            <div class="col-sm-9">
-                                                                                <input type="date" value="{{ $user->birthday }}" name="birthday" id="birthday" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="row">
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group row">
-                                                                            <label class="col-sm-3 col-form-label">{{ __('Address') }}</label>
-                                                                            <div class="col-sm-9">
-                                                                                <input type="text" value="{{ $user->address }}" name="address" id="address" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-6">
-                                                                        <div class="form-group row">
-                                                                            <label class="col-sm-3 col-form-label">{{ __('Mobile') }}</label>
-                                                                            <div class="col-sm-9">
-                                                                                <input type="text" value="{{ $user->mobile }}" name="mobile" id="mobile" class="form-control" />
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                             
-
-                                                                <div class="form-group-inner">
-                                                                    <div class="login-btn-inner">
-                                                                        <div class="row">
-                                                                            <div class="col-lg-3"></div>
-                                                                            <div class="col-lg-9">
-                                                                                <div class="login-horizental cancel-wp pull-left form-bc-ele">
-                                                                                    <button type="submit" class="btn btn-white">
-                                                                                        <a href="{{ route('products.index') }}"
-                                                                                            style="color: inherit;">{{ __('Cancel') }}</a>
-                                                                                    </button>
-                                                                                    <button type="submit"
-                                                                                        class="btn btn-primary login-submit-cs">{{ __('Save Change') }}</button>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
     <input type="text" value="{{ !empty(Auth::User()->profile->signature) }}" id="signatureIsExist" hidden>
     <input type="text" value="{{ !empty(Auth::User()->profile->square_stamp) }}" id="squareStampIsExist" hidden>
     <input type="text" value="{{ !empty(Auth::User()->profile->round_stamp) }}" id="roundStampIsExist" hidden>
@@ -1216,7 +1028,6 @@
 @endsection
 
 @Push('js')
-    {{-- <script type="text/javascript" src="{{ URL::asset('js/dropzone/dropzone.js') }}"></script> --}}
     <script src="{{ URL::asset('CustomFileInputs/js/custom-file-input.js') }}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
@@ -1255,8 +1066,6 @@
                             '" ' + (city.value ==
                                 '{{ $user->profile->city->wilaya_code }}' ?
                                 'selected' : '') + '>' + city.text + '</option>');
-                        // $('#basic #state_code').append('<option value="' + city.value +
-                        //     '">' + city.text + '</option>');
                     })
 
                     $('#enterprise #state_code').empty();
@@ -1279,8 +1088,6 @@
                             '" ' + (city.value ==
                                 '{{ $user->enterprise->manager->city->wilaya_code ?? ''}}' ?
                                 'selected' : '') + '>' + city.text + '</option>');
-                        // $('#manager #state_code').append('<option value="' + city.value +
-                        //     '">' + city.text + '</option>');
                     })
                 }
             });
@@ -1303,8 +1110,6 @@
                             '" ' + (city.value ==
                                 '{{ $user->profile->city->id }}' ?
                                 'selected' : '') + '>' + city.text + '</option>');
-                        // $('#basic #state_code').append('<option value="' + city.value +
-                        //     '">' + city.text + '</option>');
                     })
                 }
             });
@@ -1410,7 +1215,6 @@
                     var reader = new FileReader();
 
                     reader.onload = function(e) {
-                        // $('.profile-pic').attr('src', e.target.result);
                         $('.profile-pic').attr('style', 'background-image: url(' + e.target.result + ')');
                     }
 
@@ -1441,13 +1245,7 @@
                 var readerSignature = new FileReader();
 
                 readerSignature.onload = function(e) {
-                    // $('.image-upload-wrap-profile-picture').hide();
-
-                    // $('.file-upload-image-profile-picture').attr('src', e.target.result);
-                    // $('.file-upload-content-profile-picture').show();
-                    // $('.profile-pic').attr('src', e.target.result);
                     $('.profile-pic').css("background-image", "url(" + e.target.result + ")");
-                    // $('.image-title-profile-picture').html(input.files[0].name);
                 };
 
                 readerSignature.readAsDataURL(input.files[0]);
@@ -1463,8 +1261,7 @@
             $('.image-upload-wrap-profile-picture').show();
         }
 
-
-        roundStampIsExist = $('#roundStampIsExist').val(); //"{{ empty(Auth::User()->profile()->square_stamp) }}"
+        roundStampIsExist = $('#roundStampIsExist').val();
         if (roundStampIsExist) {
             $('.file-upload-content-round-stamp').show();
             $('.image-upload-wrap-round-stamp').hide();
@@ -1503,8 +1300,7 @@
             $('.image-upload-wrap-round-stamp').removeClass('image-dropping');
         });
 
-        signatureIsExist = $('#signatureIsExist').val(); //"{{ !empty(Auth::User()->profile()->signature) }}";
-        // console.log(signatureIsExist);
+        signatureIsExist = $('#signatureIsExist').val();
         if (signatureIsExist) {
             $('.file-upload-content-signature').show();
             $('.image-upload-wrap-signature').hide();
@@ -1544,7 +1340,7 @@
         });
 
 
-        squareStampIsExist = $('#squareStampIsExist').val(); //"{{ empty(Auth::User()->profile()->square_stamp) }}"
+        squareStampIsExist = $('#squareStampIsExist').val();
         if (squareStampIsExist) {
             $('.file-upload-content-square-stamp').show();
             $('.image-upload-wrap-square-stamp').hide();
